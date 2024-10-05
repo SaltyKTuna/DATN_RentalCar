@@ -19,7 +19,7 @@ import RentalCar.com.entity.Car;
 import RentalCar.com.entity.Motorbike;
 
 @RestController
-@RequestMapping("/motobikeManage")
+@RequestMapping("/motobikeManagement")
 public class MotobikeController {
 	@Autowired
 	MotobikeRepo motobikeRepo;

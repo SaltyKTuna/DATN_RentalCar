@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -68,6 +70,7 @@ public class Motorbike {
     private String facilities;
 
     @OneToMany(mappedBy = "motorbike", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ServicePricing> servicePricingList;
     // Getters and Setters
 }
