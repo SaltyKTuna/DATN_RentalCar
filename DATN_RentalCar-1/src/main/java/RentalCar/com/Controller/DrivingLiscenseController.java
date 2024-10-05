@@ -10,6 +10,7 @@ import RentalCar.com.dao.DrivingLiscenseRepo;
 import RentalCar.com.entity.DrivingLicense;
 
 @RestController
+@RequestMapping("/DrivingLiscenseManagement")
 public class DrivingLiscenseController {
 	
 	@Autowired
@@ -17,13 +18,13 @@ public class DrivingLiscenseController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAllDrivingLiscense")
+		@GetMapping(value = "/findAll")
 		public List<DrivingLicense> getAll() {
 			return drivingLiscenseRepo.findAll();
 		}
 		
 		//tìm theo id xe
-		@GetMapping(value = "/findByDrivingLiscenseID/{id}")
+		@GetMapping(value = "/findByID/{id}")
 		public ResponseEntity<Optional<DrivingLicense>> getByID(@PathVariable("id") Long id) {
 			if (!drivingLiscenseRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -33,13 +34,13 @@ public class DrivingLiscenseController {
 		}
 		
 		//lưu
-		@PostMapping(value = "/saveDrivingLiscense")
+		@PostMapping(value = "/save")
 		public String save(@RequestBody DrivingLicense drivingLicense) {
 			drivingLiscenseRepo.save(drivingLicense);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/upDateByDrivingLiscenseID/{id}")
+		@PutMapping(value = "/updateByID/{id}")
 		public String upDate(@PathVariable("id") Long id, @RequestBody DrivingLicense drivingLicenseDetail) {
 		    // Tìm xe cần cập nhật
 			DrivingLicense drivingLiscenseUpdate = drivingLiscenseRepo.findById(id).orElseThrow(() -> new RuntimeException("DrivingLiscense not found"));
@@ -57,7 +58,7 @@ public class DrivingLiscenseController {
 		    return "updated successfully";
 		}	
 		
-		@DeleteMapping(value = "/deleteDrivingLiscense/{id}")
+		@DeleteMapping(value = "/delete/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			drivingLiscenseRepo.deleteById(id);
 			

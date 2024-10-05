@@ -10,6 +10,7 @@ import RentalCar.com.dao.RentalRepo;
 import RentalCar.com.entity.Rental;
 
 @RestController
+@RequestMapping("/RentalManagement")
 public class RentalController {
 	
 	@Autowired
@@ -17,13 +18,13 @@ public class RentalController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAllRental")
+		@GetMapping(value = "/findAll")
 		public List<Rental> getAll() {
 			return rentalRepo.findAll();
 		}
 		
 		//tìm theo id xe
-		@GetMapping(value = "/findByRentalID/{id}")
+		@GetMapping(value = "/findByID/{id}")
 		public ResponseEntity<Optional<Rental>> getByID(@PathVariable("id") Long id) {
 			if (!rentalRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -33,13 +34,13 @@ public class RentalController {
 		}
 		
 		//lưu
-		@PostMapping(value = "/saveRental")
+		@PostMapping(value = "/save")
 		public String save(@RequestBody Rental drivingLicense) {
 			rentalRepo.save(drivingLicense);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/upDateByRentalID/{id}")
+		@PutMapping(value = "/updateByID/{id}")
 		public String update(@PathVariable("id") Long id, @RequestBody Rental rentalDetail) {
 		    // Tìm xe cần cập nhật
 			Rental RentalUpdate = rentalRepo.findById(id).orElseThrow(() -> new RuntimeException("Rental not found"));
@@ -70,14 +71,13 @@ public class RentalController {
 			    RentalUpdate.setRenStatus(rentalDetail.getRenStatus());
 			}
 
-    
 		    // Lưu đối tượng xe đã cập nhật
 			rentalRepo.save(RentalUpdate);
 		    
 		    return "updated successfully";
 		}	
 		
-		@DeleteMapping(value = "/deleteRental/{id}")
+		@DeleteMapping(value = "/delete/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			rentalRepo.deleteById(id);
 			

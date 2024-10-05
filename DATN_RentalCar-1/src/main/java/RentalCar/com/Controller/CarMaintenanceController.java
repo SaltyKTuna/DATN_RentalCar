@@ -10,6 +10,7 @@ import RentalCar.com.dao.CarMainternanceRepo;
 import RentalCar.com.entity.CarMaintenance;
 
 @RestController
+@RequestMapping("/CarMaintenanceManagement")
 public class CarMaintenanceController {
 	
 	@Autowired
@@ -17,13 +18,13 @@ public class CarMaintenanceController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAllCarMaintenance")
+		@GetMapping(value = "/findAll")
 		public List<CarMaintenance> getAllCars() {
 			return CarMaintenanceRepo.findAll();
 		}
 		
 		//tìm theo id AdditionalFee
-		@GetMapping(value = "/findByCarMaintenanceID/{id}")
+		@GetMapping(value = "/findByID/{id}")
 		public ResponseEntity<Optional<CarMaintenance>> getByID(@PathVariable("id") Long id) {
 			if (!CarMaintenanceRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -33,13 +34,13 @@ public class CarMaintenanceController {
 		}
 		
 		//lưu AdditionalFee
-		@PostMapping(value = "/saveCarMaintenance")
+		@PostMapping(value = "/save")
 		public String save(@RequestBody CarMaintenance carMaintenance) {
 			CarMaintenanceRepo.save(carMaintenance);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/upDateByCarMaintenanceID/{id}")
+		@PutMapping(value = "/updateByID/{id}")
 		public String upDateCar(@PathVariable("id") Long id, @RequestBody CarMaintenance carMaintenance) {
 		    // Tìm Account cần cập nhật
 			CarMaintenance carMaintenanceUpDate = CarMaintenanceRepo.findById(id).orElseThrow(() -> new RuntimeException("Account not found"));
@@ -57,7 +58,7 @@ public class CarMaintenanceController {
 		    return "updated...";
 		}
 		
-		@DeleteMapping(value = "/deleteCarMaintenanceID/{id}")
+		@DeleteMapping(value = "/deleteID/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			CarMaintenanceRepo.deleteById(id);
 			
