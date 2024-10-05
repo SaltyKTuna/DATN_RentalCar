@@ -1,0 +1,68 @@
+package RentalCar.com.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.Optional;
+
+import RentalCar.com.dao.DriverRepo;
+import RentalCar.com.entity.Driver;
+
+@RestController
+@RequestMapping("/DriverManagement")
+public class DriverController {
+	
+	@Autowired
+	private DriverRepo driverRepo;
+		
+		
+		//tìm tất cả
+		@GetMapping(value = "/findAll")
+		public List<Driver> getAll() {
+			return driverRepo.findAll();
+		}
+		
+		//tìm theo id xe
+		@GetMapping(value = "/findByID/{id}")
+		public ResponseEntity<Optional<Driver>> getByID(@PathVariable("id") Long id) {
+			if (!driverRepo.existsById(id)) {
+				return ResponseEntity.notFound().build();
+			} else {
+				return ResponseEntity.ok(driverRepo.findById(id));
+			}
+		}
+		
+		//lưu
+		@PostMapping(value = "/save")
+		public String save(@RequestBody Driver driver) {
+			driverRepo.save(driver);
+			return "saved...";
+		}
+		
+		@PutMapping(value = "/updateByID/{id}")
+		public String update(@PathVariable("id") Long id, @RequestBody Driver DriverDetail) {
+		    // Tìm xe cần cập nhật
+			Driver driverUpdate = driverRepo.findById(id).orElseThrow(() -> new RuntimeException("driver not found"));
+		    
+		    // Cập nhật thông tin xe từ đối tượng carDetails
+			driverUpdate.setFullName(DriverDetail.getFullName());
+			driverUpdate.setPhoneNumber(DriverDetail.getFullName());
+			driverUpdate.setExperienceYears(DriverDetail.getExperienceYears());
+			driverUpdate.setLicenseNumber(DriverDetail.getLicenseNumber());
+			driverUpdate.setImageUrl(DriverDetail.getImageUrl());
+			driverUpdate.setStatus(DriverDetail.getStatus());
+			
+			// Lưu đối tượng xe đã cập nhật
+			driverRepo.save(driverUpdate);
+		    
+		    return "updated successfully";
+		}	
+		
+		@DeleteMapping(value = "/delete/{id}")
+	    public String deleteById(@PathVariable("id") Long id) {
+			driverRepo.deleteById(id);
+			
+			return "deleted...";
+	    }
+}
