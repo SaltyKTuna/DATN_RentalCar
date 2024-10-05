@@ -2,6 +2,8 @@ package RentalCar.com.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -35,6 +37,7 @@ public class Account {
 
     @ManyToOne
     @JoinColumn(name = "RoleID", nullable = false)
+    //@JsonBackReference
     private Role role;
 
     @Column(length = 255)

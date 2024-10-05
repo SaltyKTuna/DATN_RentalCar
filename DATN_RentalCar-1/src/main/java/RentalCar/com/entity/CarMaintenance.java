@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,11 +19,13 @@ public class CarMaintenance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long maintenanceId;
-
+    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "carId")
     private Car car;
-
+    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "motorbikeId")
     private Motorbike motorbike;

@@ -3,6 +3,8 @@ package RentalCar.com.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -73,9 +75,10 @@ public class Car {
     @Column(nullable = false, length = 255)
     private String facilities;
 
-// // Relationships
-//    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
-//    private List<ServicePricing> servicePricingList;
+ // Relationships
+    @JsonIgnore
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    private List<ServicePricing> servicePricingList;
 //    // Getters and Setters
 }
 

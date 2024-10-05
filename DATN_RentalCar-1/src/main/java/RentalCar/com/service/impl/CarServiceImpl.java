@@ -186,31 +186,5 @@ public class CarServiceImpl implements CarService {
 		carRepo.deleteAll();
 	}
 
-	@Override
-	public List<Car> getAllCars() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Car> getCarById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Car addCar(Car car) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Car updateCar(Long id, Car carDetails) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 }
 

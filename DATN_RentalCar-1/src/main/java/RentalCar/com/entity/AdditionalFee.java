@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @AllArgsConstructor
@@ -19,10 +21,6 @@ public class AdditionalFee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long feeID;
 
-    @ManyToOne
-    @JoinColumn(name = "rentalVehicleID", nullable = false)
-    private RentalVehicle rentalVehicle;
-
     @Column(nullable = false, length = 50)
     private String feeType;
 
@@ -31,7 +29,11 @@ public class AdditionalFee {
 
     @Column(length = 255)
     private String description;
+    
+    @ManyToOne
+    @JoinColumn(name = "rentalVehicleID", nullable = false)
+    @JsonIgnore // Tránh vòng lặp khi serialize đối tượng
+    //@JsonBackReference
+    private RentalVehicle rentalVehicle;
 
-    // Getters and Setters
 }
-

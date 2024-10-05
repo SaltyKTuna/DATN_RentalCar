@@ -14,13 +14,15 @@ public class CarController {
 	
 	@Autowired
 	private CarRepo carRepo;
-
+		
+		
+		//tìm tất cả
 		@GetMapping(value = "/findAllCar")
 		public List<Car> getAllCars() {
 			return carRepo.findAll();
 		}
 		
-		
+		//tìm theo id xe
 		@GetMapping(value = "/findByCarID/{id}")
 		public ResponseEntity<Optional<Car>> getByID(@PathVariable("id") Long id) {
 			if (!carRepo.existsById(id)) {
@@ -30,6 +32,7 @@ public class CarController {
 			}
 		}
 		
+		//lưu
 		@PostMapping(value = "/saveCar")
 		public String save(@RequestBody Car car) {
 			carRepo.save(car);
@@ -65,7 +68,12 @@ public class CarController {
 		    carRepo.save(carUpDate);
 		    
 		    return "Car updated successfully";
-		}
-
+		}	
 		
+		@DeleteMapping(value = "/deleteCar/{id}")
+	    public String deleteById(@PathVariable("id") Long id) {
+			carRepo.deleteById(id);
+			
+			return "deleted...";
+	    }
 }

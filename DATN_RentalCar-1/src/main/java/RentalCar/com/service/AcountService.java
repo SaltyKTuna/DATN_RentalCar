@@ -1,5 +1,5 @@
 package RentalCar.com.service;
 
-public interface CarService {
+public interface AcountService {
 
 }
