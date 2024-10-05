@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,7 @@ public class DrivingLicense {
 
     @ManyToOne
     @JoinColumn(name = "AccountID", nullable = false)
+    @JsonIgnore
     private Account account;
 
     @Column(nullable = false, length = 50)

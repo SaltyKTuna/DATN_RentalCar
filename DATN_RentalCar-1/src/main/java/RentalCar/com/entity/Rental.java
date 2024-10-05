@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +23,7 @@ public class Rental {
 
     @ManyToOne
     @JoinColumn(name = "accountId", nullable = false)
+    //@JsonIgnore
     private Account account;
 
     @Column(nullable = false)
@@ -39,6 +42,7 @@ public class Rental {
 
     @ManyToOne
     @JoinColumn(name = "discountId")
+    //@JsonIgnore
     private Discount discount;
 
     @Column(nullable = false)
