@@ -23,7 +23,7 @@ public class DriverController {
 			return driverRepo.findAll();
 		}
 		
-		//tìm theo id xe
+		//tìm theo id
 		@GetMapping(value = "/findByID/{id}")
 		public ResponseEntity<Optional<Driver>> getByID(@PathVariable("id") Long id) {
 			if (!driverRepo.existsById(id)) {
@@ -42,10 +42,10 @@ public class DriverController {
 		
 		@PutMapping(value = "/updateByID/{id}")
 		public String update(@PathVariable("id") Long id, @RequestBody Driver DriverDetail) {
-		    // Tìm xe cần cập nhật
+		    // Tìm đối tượng cần cập nhật
 			Driver driverUpdate = driverRepo.findById(id).orElseThrow(() -> new RuntimeException("driver not found"));
 		    
-		    // Cập nhật thông tin xe từ đối tượng carDetails
+		    // Cập nhật thông tin xe từ đối tượng 
 			driverUpdate.setFullName(DriverDetail.getFullName());
 			driverUpdate.setPhoneNumber(DriverDetail.getFullName());
 			driverUpdate.setExperienceYears(DriverDetail.getExperienceYears());
@@ -53,7 +53,7 @@ public class DriverController {
 			driverUpdate.setImageUrl(DriverDetail.getImageUrl());
 			driverUpdate.setStatus(DriverDetail.getStatus());
 			
-			// Lưu đối tượng xe đã cập nhật
+			// Lưu đối tượng 
 			driverRepo.save(driverUpdate);
 		    
 		    return "updated successfully";

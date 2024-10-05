@@ -3,6 +3,8 @@ package RentalCar.com.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +22,7 @@ public class Payment {
 
     @ManyToOne
     @JoinColumn(name = "rentalID", nullable = false)
+    @JsonIgnore
     private Rental rental;
 
     @Column(nullable = false)
