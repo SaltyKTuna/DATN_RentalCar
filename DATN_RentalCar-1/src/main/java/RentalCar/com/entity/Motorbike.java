@@ -38,6 +38,9 @@ public class Motorbike {
 
     @Column(nullable = false, length = 20)
     private String licensePlate;
+    
+    @Column(nullable = true, length = 50)
+    private String gearBox;
 
     @Column(length = 50)
     private String color;

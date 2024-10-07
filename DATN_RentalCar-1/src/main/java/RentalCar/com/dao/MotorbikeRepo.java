@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import RentalCar.com.entity.Motorbike;
 
 @Repository
-public interface MotobikeRepo extends JpaRepository<Motorbike, Long>{
+public interface MotorbikeRepo extends JpaRepository<Motorbike, Long>{
 
 }

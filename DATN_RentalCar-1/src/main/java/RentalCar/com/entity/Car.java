@@ -35,6 +35,10 @@ public class Car {
 
     @Column(nullable = false)
     private Integer year;
+    
+    
+    @Column(nullable = true, length = 50)
+    private String gearBox;
 
     @Column(nullable = false, length = 20)
     private String licensePlate;

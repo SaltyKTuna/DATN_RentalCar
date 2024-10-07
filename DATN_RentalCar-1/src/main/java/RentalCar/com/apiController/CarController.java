@@ -1,4 +1,4 @@
-package RentalCar.com.Controller;
+package RentalCar.com.apiController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +51,7 @@ public class CarController {
 		    carUpDate.setCondition(carDetails.getCondition());
 		    carUpDate.setVehicleLocation(carDetails.getVehicleLocation());
 		    carUpDate.setYear(carDetails.getYear());
+		    carUpDate.setGearBox(carDetails.getGearBox());
 		    carUpDate.setLicensePlate(carDetails.getLicensePlate());
 		    carUpDate.setColor(carDetails.getColor());
 		    carUpDate.setMileage(carDetails.getMileage());
