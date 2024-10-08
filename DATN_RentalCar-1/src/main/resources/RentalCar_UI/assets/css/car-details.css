@@ -121,8 +121,8 @@ img {
 }
 /*Đặc Điểm*/
 .info-car-desc {
-    padding: 20px 0;
-    margin-top: 20px;
+    padding: 10px 0;
+    margin-top: 10px;
 }
 
 .info-car-desc h6 {
@@ -807,6 +807,100 @@ h4 {
     border-radius: 5px;
     width: 200px;
 }
+/*surcharge*/
+
+.surcharge {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    width: 100%;
+}
+
+.surcharge .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #28a745;
+    /* margin-bottom: 0px; */
+}
+
+.surcharge-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.surcharge-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.surcharge-item .wrap-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.surcharge-item .wrap-svg svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: #666666;
+}
+
+.surcharge-item .content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.surcharge-item .content-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3px;
+    flex-wrap: nowrap; /* Không cho phép xuống dòng */
+}
+
+.surcharge-item .content-item .title {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    flex: 1; /* Chiếm phần không gian còn lại để căn chỉnh với chi phí */
+}
+
+.surcharge-item .content-item .cost {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-left: 10px;
+    text-align: right;
+    flex-shrink: 0; /* Đảm bảo chi phí không bị thu nhỏ */
+}
+
+.surcharge-item .content-item p {
+    color: #666;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.surcharge-item .content-item span {
+    font-weight: bold;
+    color: #000;
+}
+
+.surcharge-item .content-item .cost span {
+    font-weight: bold;
+    color: #000;
+}
+
+
 
 
 
@@ -914,7 +1008,7 @@ h4 {
     padding: 20px;
     box-sizing: border-box;
     border-radius: 16px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .insurance.success.cardetail {
