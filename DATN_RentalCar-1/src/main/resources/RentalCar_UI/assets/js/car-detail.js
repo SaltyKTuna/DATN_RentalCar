@@ -1,5 +1,4 @@
 
-
 document.addEventListener("DOMContentLoaded", function () {
     // Lấy phần tử modal
     const modal = document.getElementById("imageModal");
@@ -69,3 +68,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
+// Xử lí modal giờ nhận trả xe
+var modal = document.getElementById("uniqueModal");
+var closeButton = document.querySelector(".unique-modal-close");
+// Đảm bảo modal ẩn khi tải trang
+document.addEventListener("DOMContentLoaded", function () {
+    modal.style.display = "none"; // Modal sẽ bị ẩn khi trang tải lần đầu
+});
+// Khi người dùng click vào "Nhận xe", mở modal
+document.querySelector('.form-item:nth-child(1) .wrap-date-time').addEventListener('click', function () {
+    modal.style.display = "flex"; // Hiển thị modal khi click vào "Nhận xe"
+});
+// Khi người dùng click vào "Trả xe", mở modal
+document.querySelector('.form-item:nth-child(3) .wrap-date-time').addEventListener('click', function () {
+    modal.style.display = "flex"; // Hiển thị modal khi click vào "Trả xe"
+});
+// Khi người dùng click vào nút "X", đóng modal
+closeButton.onclick = function () {
+    modal.style.display = "none"; // Ẩn modal khi bấm nút X
+}
+// Khi người dùng click ra ngoài modal, đóng modal
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none"; // Ẩn modal khi click ra ngoài modal
+    }
+}
+// Khi nhấn "Lưu", cập nhật thông tin ngày và giờ
+document.getElementById('saveDateTime').addEventListener('click', function () {
+    var selectedDate = document.getElementById('modalDate').value;
+    var selectedTime = document.getElementById('modalTime').value;
+    // Cập nhật vào phần "Nhận xe" (hoặc "Trả xe" tùy thuộc vào sự kiện)
+    document.querySelector('.form-item:nth-child(1) .wrap-date .value').innerText = selectedDate;
+    document.querySelector('.form-item:nth-child(1) .wrap-time .value').innerText = selectedTime;
+    // Đóng modal sau khi lưu
+    modal.style.display = "none";
+});
