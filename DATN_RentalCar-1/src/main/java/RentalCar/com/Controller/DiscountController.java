@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import RentalCar.com.dao.DiscountRepo;
 import RentalCar.com.entity.Discount;
-import RentalCar.com.entity.Feedback;
 
 @RestController
 @RequestMapping("/discountManage")

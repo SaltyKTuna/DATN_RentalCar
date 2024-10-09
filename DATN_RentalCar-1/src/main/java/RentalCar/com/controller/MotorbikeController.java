@@ -1,4 +1,4 @@
-package RentalCar.com.controller;
+package RentalCar.com.Controller;
 
 import java.util.List;
 
@@ -30,6 +30,15 @@ public class MotorbikeController {
         // Đưa danh sách xe máy vào model để Thymeleaf render
         model.addAttribute("motorbikes", motorbikes);
         return "motorbikes-thymeleaf"; 
+    }
+    
+    @GetMapping(value = "/motorbikes-thymeleaf-1")
+    public String motorbikesPage1(Model model) {
+        // Lấy danh sách xe máy từ cơ sở dữ liệu
+        List<Motorbike> motorbikes = motorbikeRepo.findAll();
+        // Đưa danh sách xe máy vào model để Thymeleaf render
+        model.addAttribute("motorbikes", motorbikes);
+        return "index2"; 
     }
 }
 
