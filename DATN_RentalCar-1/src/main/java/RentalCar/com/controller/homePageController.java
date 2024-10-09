@@ -12,7 +12,7 @@ import RentalCar.com.entity.Motorbike;
 
 
 @Controller
-public class MotorbikeController {
+public class homePageController {
 	
 	@Autowired
     private MotorbikeRepo motorbikeRepo;
@@ -32,7 +32,7 @@ public class MotorbikeController {
         return "motorbikes-thymeleaf"; 
     }
     
-    @GetMapping(value = "/motorbikes-thymeleaf-1")
+    @GetMapping(value = "/")
     public String motorbikesPage1(Model model) {
         // Lấy danh sách xe máy từ cơ sở dữ liệu
         List<Motorbike> motorbikes = motorbikeRepo.findAll();
