@@ -15,6 +15,7 @@
     width: 150px;
   }
   
+  
   .header-layout {
     display: flex;
     justify-content: space-between;
@@ -1166,6 +1167,7 @@
     cursor: pointer;
   }
   
+  
   .menu-mobile {
     display: none;
   }
@@ -1228,6 +1230,8 @@
     justify-content: center;
     height: 100vh;
   }
+  
+  
   
   .menu-mobile1.move-left {
     transform: translateX(-100%);
