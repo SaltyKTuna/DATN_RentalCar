@@ -5,18 +5,16 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
-
 import RentalCar.com.dao.AdditionalFeeRepo;
+import RentalCar.com.service.AdditionalFeeService;
 import RentalCar.com.entity.AdditionalFee;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 @Service
-public class AdditionalfeeServiceImpl implements AdditionalFeeRepo {
+public class AdditionalfeeServiceImpl implements AdditionalFeeService {
 
     @Autowired
     private AdditionalFeeRepo additionalFeeRepo;
@@ -148,103 +146,5 @@ public class AdditionalfeeServiceImpl implements AdditionalFeeRepo {
 		additionalFeeRepo.deleteAll();
 	}
 
-	@Override
-	public void flush() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public <S extends AdditionalFee> S saveAndFlush(S entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AdditionalFee> List<S> saveAllAndFlush(Iterable<S> entities) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteAllInBatch(Iterable<AdditionalFee> entities) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteAllByIdInBatch(Iterable<Long> ids) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteAllInBatch() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public AdditionalFee getReferenceById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AdditionalFee> List<S> findAll(Example<S> example) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AdditionalFee> List<S> findAll(Example<S> example, Sort sort) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AdditionalFee> List<S> saveAll(Iterable<S> entities) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public long count() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void deleteAllById(Iterable<? extends Long> ids) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteAll(Iterable<? extends AdditionalFee> entities) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public <S extends AdditionalFee> Page<S> findAll(Example<S> example, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AdditionalFee> long count(Example<S> example) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <S extends AdditionalFee, R> R findBy(Example<S> example,
-			Function<FetchableFluentQuery<S>, R> queryFunction) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
-    
 }
 

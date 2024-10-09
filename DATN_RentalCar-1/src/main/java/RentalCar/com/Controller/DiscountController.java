@@ -1,4 +1,4 @@
-package RentalCar.com.Controller;
+package RentalCar.com.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import RentalCar.com.dao.DiscountRepo;
 import RentalCar.com.entity.Discount;
-import RentalCar.com.entity.Feedback;
 
 @RestController
 @RequestMapping("/discountManage")
