@@ -1,4 +1,4 @@
-package RentalCar.com.Controller;
+package RentalCar.com.apiController;
 
 import java.util.List;
 import java.util.Optional;

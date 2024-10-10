@@ -37,7 +37,7 @@ public class Car {
     private Integer year;
     
     
-    @Column(nullable = true, length = 50)
+    @Column(nullable = true, columnDefinition = "nvarchar(50)")
     private String gearBox;
 
     @Column(nullable = false, length = 20)
@@ -49,7 +49,7 @@ public class Car {
     @Column(nullable = false)
     private Integer mileage;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, columnDefinition = "nvarchar(50)")
     private String status;
 
     @Column(nullable = false, precision = 10, scale = 2)
