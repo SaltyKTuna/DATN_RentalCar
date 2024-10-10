@@ -6,39 +6,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import RentalCar.com.dao.CarRepo;
 import RentalCar.com.dao.MotorbikeRepo;
+import RentalCar.com.entity.Car;
 import RentalCar.com.entity.Motorbike;
 
 
 @Controller
+@RequestMapping(value = {"Rental-Car" , "/" , "/home"})
 public class homePageController {
 	
 	@Autowired
     private MotorbikeRepo motorbikeRepo;
+	@Autowired
+    private CarRepo carRepo;
 
-    @GetMapping(value = "/motorbikes-react")
-    public String motorbikesPage() {
-        // Trả về trang chứa React component
-        return "motorbikes-react";
+    // Phương thức để lấy danh sách xe và hiển thị trong Thymeleaf template
+    @GetMapping()
+    public String viewAll(Model model) {
+    	
+        List<Car> cars = carRepo.findAll();
+        List<Motorbike> motorbikes = motorbikeRepo.findAll();
+        
+        model.addAttribute("cars", cars);      
+        model.addAttribute("motorbikes", motorbikes);
+        
+        return "index2";
     }
     
-    @GetMapping(value = "/motorbikes-thymeleaf")
-    public String motorbikesPage(Model model) {
-        // Lấy danh sách xe máy từ cơ sở dữ liệu
+    @GetMapping("/pick-vehicle")
+    public String viewAllVehicle(Model model) {
+    	
+        List<Car> cars = carRepo.findAll();
         List<Motorbike> motorbikes = motorbikeRepo.findAll();
-        // Đưa danh sách xe máy vào model để Thymeleaf render
+        
+        model.addAttribute("cars", cars);      
         model.addAttribute("motorbikes", motorbikes);
-        return "motorbikes-thymeleaf"; 
-    }
-    
-    @GetMapping(value = "/")
-    public String motorbikesPage1(Model model) {
-        // Lấy danh sách xe máy từ cơ sở dữ liệu
-        List<Motorbike> motorbikes = motorbikeRepo.findAll();
-        // Đưa danh sách xe máy vào model để Thymeleaf render
-        model.addAttribute("motorbikes", motorbikes);
-        return "index2"; 
+        
+        return "pick-vehicle2";
     }
 }
 

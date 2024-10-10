@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="./assets/css/base.css" />
+    <!-- <link rel="stylesheet" href="./assets/css/utils.css" /> -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/responsive.css" />
+    <link rel="stylesheet" href="./assets/css/car-details.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Search-option-->
+    <title>Chi Tiết Ô Tô</title>
+</head>
+
+<body>
+    <!-- header -->
+    <header>
+        <div class="container">
+            <div class="header-layout">
+                <a href="index.html" id="logo">
+                    <img src="./assets/images/Logo.png" alt="" />
+                </a>
+                <ul class="menu-list">
+                    <li><a href="about.html">Về Chúng Tôi</a></li>
+                    <li><a href="#!">Hổ Trợ</a></li>
+                    <li><a href="#!">Khuyến Mãi</a></li>
+                    <div class="menu-line"></div>
+                    <li><a href="rigister.html" class="register-link">Đăng ký</a></li>
+                    <li><a href="Login.html" class="border">Đăng nhập</a></li>
+                </ul>
+                <div class="menu-mobile">
+                    <div class="wrap-svg tab-menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 6H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                            <path d="M5 18H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                            </path>
+                            <path d="M5 12H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--Car Details-->
+    <div class="cover-car">
+        <div class="m-container">
+            <div covers="[object Object],[object Object],[object Object],[object Object]" class="cover-car-container">
+                <div class="main-img">
+                    <div class="cover-car-item"><img loading="lazy"
+                            src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/N_RalqcAaKEe12XDf5FfqA.jpg">
+                    </div>
+                </div>
+                <div class="sub-img">
+                    <div class="cover-car-item"><img loading="lazy"
+                            src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/05/28/14/oxKE3ZN09CO9ZqwcOqXjvg.jpg">
+                    </div>
+                    <div class="cover-car-item"><img loading="lazy"
+                            src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/YUs0_CMjj8F0Hq2e57DCzA.jpg">
+                    </div>
+                    <div class="cover-car-item"><img loading="lazy"
+                            src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/N_RalqcAaKEe12XDf5FfqA.jpg">
+                    </div>
+                </div>
+                <div class="see-more-img">
+                    <div class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M18.7104 21.2499H8.48044C7.08044 21.2499 5.94043 20.1099 5.94043 18.7099V8.47995C5.94043 7.07995 7.08044 5.93994 8.48044 5.93994H18.7104C20.1104 5.93994 21.2504 7.07995 21.2504 8.47995V18.7099C21.2504 20.1099 20.1104 21.2499 18.7104 21.2499Z"
+                                stroke="#242420" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
+                            <path
+                                d="M3.48999 17.32C3.02999 16.86 2.75 16.22 2.75 15.52V5.29001C2.75 3.89001 3.89001 2.75 5.29001 2.75H15.52C16.31 2.75 17.02 3.10999 17.49 3.67999"
+                                stroke="#242420" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
+                            <path
+                                d="M5.94043 18.1001L8.87042 15.1701C9.37042 14.6701 10.1804 14.6701 10.6704 15.1701L11.4204 15.9201C11.9204 16.4201 12.7304 16.4201 13.2204 15.9201L16.5204 12.6201C17.0204 12.1201 17.8304 12.1201 18.3204 12.6201L21.2504 15.5501"
+                                stroke="#242420" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
+                            <path
+                                d="M10.4095 8.41992C9.63955 8.41992 9.01953 9.03991 9.01953 9.80991C9.01953 10.5799 9.63955 11.1999 10.4095 11.1999C11.1795 11.1999 11.7995 10.5799 11.7995 9.80991C11.7995 9.03991 11.1695 8.41992 10.4095 8.41992Z"
+                                fill="#242420"></path>
+                        </svg></div>
+                    <p>Xem tất cả ảnh</p>
+                </div>
+            </div>
+        </div>
+        <!-- Popup Modal -->
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <div class="modal-content">
+                <div class="arrow left-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
+                        stroke="white">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </div>
+                <!-- Ảnh lớn hiển thị ngay lập tức -->
+                <div class="modal-main-image">
+                    <img id="zoomedImage"
+                        src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/N_RalqcAaKEe12XDf5FfqA.jpg"
+                        alt="Zoomed Image">
+                </div>
+                <div class="arrow right-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
+                        stroke="white">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+                <!-- Các ảnh nhỏ bên dưới -->
+                <div class="modal-thumbnails">
+                    <img class="thumbnail"
+                        src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/N_RalqcAaKEe12XDf5FfqA.jpg"
+                        alt="Thumbnail 1">
+                    <img class="thumbnail"
+                        src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/05/28/14/oxKE3ZN09CO9ZqwcOqXjvg.jpg"
+                        alt="Thumbnail 2">
+                    <img class="thumbnail"
+                        src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/YUs0_CMjj8F0Hq2e57DCzA.jpg"
+                        alt="Thumbnail 3">
+                    <img class="thumbnail"
+                        src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/05/28/14/oxKE3ZN09CO9ZqwcOqXjvg.jpg"
+                        alt="Thumbnail 4">
+                </div>
+            </div>
+        </div>
+
+
+
+        <div covers="[object Object],[object Object],[object Object],[object Object]">
+            <div
+                class="swiper swiper-cover-car swiper-initialized swiper-horizontal swiper-pointer-events cover-car-swiper swiper-backface-hidden">
+                <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+                    <div class="swiper-slide swiper-slide-active" style="width: 400px;">
+                        <div class="fix-img"><img loading="lazy"
+                                src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/N_RalqcAaKEe12XDf5FfqA.jpg">
+                        </div>
+                    </div>
+                    <div class="swiper-slide swiper-slide-next" style="width: 400px;">
+                        <div class="fix-img"><img loading="lazy"
+                                src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/05/28/14/oxKE3ZN09CO9ZqwcOqXjvg.jpg">
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="width: 400px;">
+                        <div class="fix-img"><img loading="lazy"
+                                src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/YUs0_CMjj8F0Hq2e57DCzA.jpg">
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="width: 400px;">
+                        <div class="fix-img"><img loading="lazy"
+                                src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/N_RalqcAaKEe12XDf5FfqA.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination pagi-cover swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-bullets-dynamic"
+                    style="width: 80px;"><span
+                        class="swiper-pagination-bullet swiper-pagination-bullet-active swiper-pagination-bullet-active-main"
+                        style="left: 24px;"></span><span
+                        class="swiper-pagination-bullet swiper-pagination-bullet-active-next"
+                        style="left: 24px;"></span><span
+                        class="swiper-pagination-bullet swiper-pagination-bullet-active-next-next"
+                        style="left: 24px;"></span><span class="swiper-pagination-bullet" style="left: 24px;"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Details Product-->
+    <div class="car-details">
+        <div class="container">
+            <div class="details-wrapper">
+                <div class="car-info">
+                    <!-- Tittle-->
+                    <div class="car-header d-flex-center-btw">
+                        <h3>TOYOTA VELOZ CROSS 2022</h3>
+                        <div class="car-actions">
+                            <div class="action-icons">
+                                <div class="icon-wrapper share-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M6.99015 14.02C8.1389 14.02 9.07015 13.1156 9.07015 12C9.07015 10.8844 8.1389 9.97998 6.99015 9.97998C5.8414 9.97998 4.91016 10.8844 4.91016 12C4.91016 13.1156 5.8414 14.02 6.99015 14.02Z"
+                                            stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path
+                                            d="M17.0698 6.99995C18.1854 6.99995 19.0898 6.09557 19.0898 4.97995C19.0898 3.86433 18.1854 2.95996 17.0698 2.95996C15.9542 2.95996 15.0498 3.86433 15.0498 4.97995C15.0498 6.09557 15.9542 6.99995 17.0698 6.99995Z"
+                                            stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path
+                                            d="M17.0698 21.04C18.1854 21.04 19.0898 20.1356 19.0898 19.02C19.0898 17.9044 18.1854 17 17.0698 17C15.9542 17 15.0498 17.9044 15.0498 19.02C15.0498 20.1356 15.9542 21.04 17.0698 21.04Z"
+                                            stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path d="M9.23047 10.44L14.8305 6.54004" stroke="black" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M14.8305 17.4601L9.23047 13.5601" stroke="black" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                                <div class="icon-wrapper fav-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M21.25 8.7196C21.25 9.8796 20.81 11.0496 19.92 11.9396L18.44 13.4196L12.07 19.7896C12.04 19.8196 12.03 19.8296 12 19.8496C11.97 19.8296 11.96 19.8196 11.93 19.7896L4.08 11.9396C3.19 11.0496 2.75 9.8896 2.75 8.7196C2.75 7.54961 3.19 6.37961 4.08 5.48961C5.86 3.71961 8.74 3.71961 10.52 5.48961L11.99 6.9696L13.47 5.48961C15.25 3.71961 18.12 3.71961 19.9 5.48961C20.81 6.37961 21.25 7.53961 21.25 8.7196Z"
+                                            stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="car-summary d-flex-center">
+                        <!-- Icon Star -->
+                        <div class="icon-wrapper star-icon">
+                            <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14.6667 7.23331C14.7333 6.89998 14.4667 6.49998 14.1333 6.49998L10.3333 5.96665L8.59999 2.49998C8.53333 2.36665 8.46666 2.29998 8.33333 2.23331C7.99999 2.03331 7.59999 2.16665 7.39999 2.49998L5.73333 5.96665L1.93333 6.49998C1.73333 6.49998 1.59999 6.56665 1.53333 6.69998C1.26666 6.96665 1.26666 7.36665 1.53333 7.63331L4.26666 10.3L3.59999 14.1C3.59999 14.2333 3.59999 14.3666 3.66666 14.5C3.86666 14.8333 4.26666 14.9666 4.59999 14.7666L7.99999 12.9666L11.4 14.7666C11.4667 14.8333 11.6 14.8333 11.7333 14.8333C11.8 14.8333 11.8 14.8333 11.8667 14.8333C12.2 14.7666 12.4667 14.4333 12.4 14.0333L11.7333 10.2333L14.4667 7.56665C14.6 7.49998 14.6667 7.36665 14.6667 7.23331Z"
+                                    fill="#FFC634"></path>
+                            </svg>
+                        </div>
+                        <span class="info">5.0</span>
+                        <span class="separator">•</span>
+                        <!-- Icon Trip Count -->
+                        <div class="icon-wrapper trip-count-icon">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10.0625 1.21875C10.0625 1.06369 10.1887 0.9375 10.3438 0.9375H11.9688C12.1238 0.9375 12.25 1.06369 12.25 1.21875V2.89422H13.1875V1.21875C13.1875 0.546719 12.6408 0 11.9688 0H10.3438C9.67172 0 9.125 0.546719 9.125 1.21875V2.89422H10.0625V1.21875Z"
+                                    fill="#5FCF86"></path>
+                                <path
+                                    d="M5.69806 15.0623C5.49325 14.7441 5.375 14.3673 5.375 13.9686V6.94092H1.09375C0.490656 6.94092 0 7.43157 0 8.03467V13.9686C0 14.5186 0.408156 14.9749 0.9375 15.051V15.5309C0.9375 15.7898 1.14737 15.9997 1.40625 15.9997C1.66513 15.9997 1.875 15.7898 1.875 15.5309V15.0623H5.69806V15.0623ZM1.875 8.65967C1.875 8.40079 2.08487 8.19092 2.34375 8.19092C2.60263 8.19092 2.8125 8.40079 2.8125 8.65967V13.3436C2.8125 13.6024 2.60263 13.8123 2.34375 13.8123C2.08487 13.8123 1.875 13.6024 1.875 13.3436V8.65967Z"
+                                    fill="#5FCF86"></path>
+                                <path
+                                    d="M4.375 5.26562C4.375 5.11056 4.50119 4.98438 4.65625 4.98438H5.375V4.92547C5.375 4.61094 5.44687 4.31291 5.57506 4.04688H4.65625C3.98422 4.04688 3.4375 4.59359 3.4375 5.26562V6.00359H4.375V5.26562Z"
+                                    fill="#5FCF86"></path>
+                                <path d="M14.9062 3.83154H7.40625C6.80316 3.83154 6.3125 4.3222 6.3125 4.92529V13.9686C6.3125 14.5186 6.72066 14.9749 7.25 15.051V15.5309C7.25 15.7898 7.45987 15.9997 7.71875 15.9997C7.97763 15.9997 8.1875 15.7898 8.1875 15.5309V15.0623H14.125V15.5309C14.125 15.7898 14.3349 15.9997 14.5938 15.9997C14.8526 15.9997 15.0625 15.7898 15.0625 15.5309V15.051C15.5918 14.9749 16 14.5186 16 13.9686V4.92529C16 4.32217 15.5093 3.83154 14.9062 3.83154ZM9.125 13.3436C9.125 13.6024 8.91513 13.8123 8.65625 13.8123C8.39737 13.8123 8.1875 13.6024 8.1875 13.3436V5.55029C8.1875 5.29142 8.39737 5.08154 8.65625 5.08154C8.91513 5.08154 9.125 5.29142 9.125 5.55029V13.3436ZM13.6562 13.8123C13.3974 13.8123 13.1875 13.6024 13.1875 13.3436V5.55029C13.1875 5.29142 13.3974 5.08154 13.6562 5.08154C13.9151 5.08154 14.125 5.29142 14.125
+                                14.125V13.3436C14.125 13.6024 13.9151 13.8123 13.6562 13.8123Z" fill="#5FCF86"></path>
+                            </svg>
+                        </div>
+                        <span class="info">29 chuyến</span>
+                        <span class="separator">•</span>
+                        <span class="info">Quận Bình Thạnh, TP. Hồ Chí Minh</span>
+                    </div>
+                    <div class="car-tags">
+                        <span class="tag-item automatic">Số tự động</span>
+                        <span class="tag-item doorstep">Giao xe tận nơi</span>
+                        <span class="tag-item fast-rent">Đặt xe nhanh</span>
+                        <span class="tag-item no-mortgage">Miễn thế chấp</span>
+                        <span class="tag-item hourly-rent">Thuê giờ</span>
+                    </div>
+                    <br><br>
+                    <hr>
+                    <!--Đặc Điểm-->
+                    <div class="info-car-desc" id="outsfeatures">
+                        <h6>Đặc điểm</h6><br>
+                        <div class="outstanding-features">
+                            <div class="outstanding-features__item">
+                                <div class="wrap-svg"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M25.9163 7.99992C25.9163 9.05846 25.0582 9.91659 23.9997 9.91659C22.9411 9.91659 22.083 9.05846 22.083 7.99992C22.083 6.94137 22.9411 6.08325 23.9997 6.08325C25.0582 6.08325 25.9163 6.94137 25.9163 7.99992Z"
+                                            stroke="#5FCF86" stroke-width="1.5"></path>
+                                        <circle cx="23.9997" cy="23.9999" r="1.91667" stroke="#5FCF86"
+                                            stroke-width="1.5"></circle>
+                                        <path
+                                            d="M17.9163 7.99992C17.9163 9.05846 17.0582 9.91659 15.9997 9.91659C14.9411 9.91659 14.083 9.05846 14.083 7.99992C14.083 6.94137 14.9411 6.08325 15.9997 6.08325C17.0582 6.08325 17.9163 6.94137 17.9163 7.99992Z"
+                                            stroke="#5FCF86" stroke-width="1.5"></path>
+                                        <path
+                                            d="M17.9163 23.9999C17.9163 25.0585 17.0582 25.9166 15.9997 25.9166C14.9411 25.9166 14.083 25.0585 14.083 23.9999C14.083 22.9414 14.9411 22.0833 15.9997 22.0833C17.0582 22.0833 17.9163 22.9414 17.9163 23.9999Z"
+                                            stroke="#5FCF86" stroke-width="1.5"></path>
+                                        <circle cx="7.99967" cy="7.99992" r="1.91667" stroke="#5FCF86"
+                                            stroke-width="1.5"></circle>
+                                        <path
+                                            d="M10.1025 26.6666V21.3333H7.99837C7.59559 21.3333 7.25184 21.4053 6.96712 21.5494C6.68066 21.6918 6.46278 21.894 6.31348 22.1562C6.16244 22.4166 6.08691 22.723 6.08691 23.0754C6.08691 23.4296 6.1633 23.7343 6.31608 23.9895C6.46886 24.243 6.69021 24.4374 6.98014 24.5728C7.26834 24.7083 7.6173 24.776 8.02702 24.776H9.43587V23.8697H8.20931C7.99403 23.8697 7.81521 23.8402 7.67285 23.7812C7.53049 23.7221 7.42459 23.6336 7.35514 23.5155C7.28396 23.3975 7.24837 23.2508 7.24837 23.0754C7.24837 22.8984 7.28396 22.7491 7.35514 22.6275C7.42459 22.506 7.53136 22.414 7.67546 22.3515C7.81782 22.2872 7.9975 22.2551 8.21452 22.2551H8.97493V26.6666H10.1025ZM7.22233 24.2395L5.89681 26.6666H7.1416L8.43848 24.2395H7.22233Z"
+                                            fill="#5FCF86"></path>
+                                        <path
+                                            d="M24 10.6665V15.9998M24 21.3332V15.9998M16 10.6665V21.3332M8 10.6665V15.4998C8 15.776 8.22386 15.9998 8.5 15.9998H24"
+                                            stroke="#5FCF86" stroke-width="1.5" stroke-linecap="round"></path>
+                                    </svg></div>
+                                <div class="title">
+                                    <p class="sub">Truyền động</p>
+                                    <p class="main">Số tự động</p>
+                                </div>
+                            </div>
+                            <div class="outstanding-features__item">
+                                <div class="wrap-svg"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M10.914 23.3289C10.9148 23.3284 10.9156 23.3279 10.9163 23.3274C10.9155 23.3279 10.9148 23.3284 10.914 23.3289ZM10.914 23.3289C10.914 23.3289 10.914 23.3289 10.914 23.3289L11.3128 23.9114M10.914 23.3289L11.3128 23.9114M11.3128 23.9114L10.9807 23.2882L20.6697 23.9458C20.6682 23.9484 20.6656 23.9496 20.6631 23.9479C20.655 23.9424 20.6343 23.9284 20.6014 23.9074C20.6014 23.9073 20.6014 23.9073 20.6013 23.9073C20.5141 23.8516 20.3413 23.7468 20.0921 23.6208C20.0919 23.6207 20.0918 23.6206 20.0917 23.6206C19.3397 23.2404 17.8926 22.6674 16.0003 22.6674C14.1715 22.6674 12.7584 23.2026 11.9869 23.5817L11.9929 23.5929M11.3128 23.9114L11.331 23.9456C11.3324 23.9483 11.3352 23.9495 11.3377 23.9478C11.3444 23.9432 11.3592 23.9332 11.3821 23.9184L11.9929 23.5929L11.9929 23.5929M11.9929 23.5929C11.9909 23.5892 11.9889 23.5855 11.9868 23.5818C11.6767 23.7342 11.4702 23.8614 11.3821 23.9184L11.9929 23.5929ZM10.6691 24.2983L10.6691 24.2983C10.7406 24.4324 10.8728 24.5792 11.0793 24.6538C11.3072 24.7361 11.5609 24.7039 11.7614 24.5667L11.7614 24.5667C11.7978 24.5418 13.4597 23.4174 16.0003 23.4174C18.5426 23.4174 20.205 24.5432 20.2393 24.5667L20.2393 24.5667C20.4389 24.7034 20.6938 24.7372 20.9245 24.6528C21.1293 24.5779 21.2557 24.4338 21.3233 24.3136L22.4886 22.2427L24.3242 23.0447L21.6934 28.584H9.99882L7.65051 23.0635L9.57427 22.2435L10.6691 24.2983ZM24.4348 22.8117L24.4345 22.8124L24.4348 22.8117Z"
+                                            stroke="#5FCF86" stroke-width="1.5"></path>
+                                        <path
+                                            d="M12.75 4.66675C12.75 3.97639 13.3096 3.41675 14 3.41675H18C18.6904 3.41675 19.25 3.97639 19.25 4.66675V7.00008C19.25 7.13815 19.1381 7.25008 19 7.25008H13C12.8619 7.25008 12.75 7.13815 12.75 7.00008V4.66675Z"
+                                            stroke="#5FCF86" stroke-width="1.5"></path>
+                                        <path
+                                            d="M9.33398 22.6668L9.90564 11.2336C9.95887 10.1692 10.8374 9.3335 11.9031 9.3335H20.0982C21.1639 9.3335 22.0424 10.1692 22.0957 11.2336L22.6673 22.6668"
+                                            stroke="#5FCF86" stroke-width="1.5"></path>
+                                        <path d="M14.667 7.35815V9.8901" stroke="#5FCF86" stroke-width="1.5"></path>
+                                        <path d="M17.334 7.35815V9.8901" stroke="#5FCF86" stroke-width="1.5"></path>
+                                    </svg></div>
+                                <div class="title">
+                                    <p class="sub">Số ghế</p>
+                                    <p class="main">7 chỗ</p>
+                                </div>
+                            </div>
+                            <div class="outstanding-features__item">
+                                <div class="wrap-svg"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M24.3337 27.2499H7.66699C7.52892 27.2499 7.41699 27.138 7.41699 26.9999V12.4599C7.41699 12.3869 7.44888 12.3175 7.5043 12.27L14.652 6.14344L14.1639 5.574L14.652 6.14344C14.6973 6.1046 14.755 6.08325 14.8147 6.08325H24.3337C24.4717 6.08325 24.5837 6.19518 24.5837 6.33325V26.9999C24.5837 27.138 24.4717 27.2499 24.3337 27.2499Z"
+                                            stroke="#5FCF86" stroke-width="1.5" stroke-linecap="round"></path>
+                                        <path d="M12.0001 5.33325L7.42285 9.46712" stroke="#5FCF86" stroke-width="1.5"
+                                            stroke-linecap="round"></path>
+                                        <path
+                                            d="M17.888 19.5212L16.7708 15.93C16.5378 15.1812 15.4785 15.1798 15.2436 15.928L14.1172 19.5164C13.7178 20.7889 14.6682 22.0833 16.0019 22.0833C17.3335 22.0833 18.2836 20.7927 17.888 19.5212Z"
+                                            stroke="#5FCF86" stroke-width="1.5" stroke-linecap="round"></path>
+                                        <path
+                                            d="M23.2503 3.66675V5.66675C23.2503 5.80482 23.1384 5.91675 23.0003 5.91675H14.667C14.5827 5.91675 14.5365 5.8916 14.5072 5.86702C14.4721 5.83755 14.44 5.78953 14.4245 5.72738C14.4089 5.66524 14.4147 5.60775 14.4318 5.56523C14.4461 5.52975 14.4749 5.48584 14.5493 5.44616L18.2993 3.44616C18.3356 3.42685 18.376 3.41675 18.417 3.41675H23.0003C23.1384 3.41675 23.2503 3.52868 23.2503 3.66675Z"
+                                            stroke="#5FCF86" stroke-width="1.5" stroke-linecap="round"></path>
+                                    </svg></div>
+                                <div class="title">
+                                    <p class="sub">Nhiên liệu</p>
+                                    <p class="main">Xăng</p>
+                                </div>
+                            </div>
+                            <div class="outstanding-features__item">
+                                <div class="wrap-svg"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.41667 24V23.25H6.66667H4.75V18.0833H6.66667H7.41667V17.3333V15.4167H9.33333H9.64399L9.86366 15.197L12.3107 12.75H24.5833V23.25H22.6667H22.356L22.1363 23.4697L19.6893 25.9167H7.41667V24Z"
+                                            stroke="#5FCF86" stroke-width="1.5" stroke-linecap="round"></path>
+                                        <path d="M24 21.3333H28" stroke="#5FCF86" stroke-width="1.5"></path>
+                                        <path d="M24 18.6665H28" stroke="#5FCF86" stroke-width="1.5"></path>
+                                        <path
+                                            d="M15.417 7.33325C15.417 6.6429 15.9766 6.08325 16.667 6.08325H20.667C21.3573 6.08325 21.917 6.6429 21.917 7.33325V8.58325H15.417V7.33325Z"
+                                            stroke="#5FCF86" stroke-width="1.5"></path>
+                                        <path d="M17.333 9.33325V11.9999M19.9997 9.33325V11.9999" stroke="#5FCF86"
+                                            stroke-width="1.5"></path>
+                                        <path d="M4.66699 26.01L4.66699 15.3308" stroke="#5FCF86" stroke-width="1.5"
+                                            stroke-linecap="round"></path>
+                                        <path d="M27.3291 23.3384L27.3291 16.6704" stroke="#5FCF86" stroke-width="1.5"
+                                            stroke-linecap="round"></path>
+                                    </svg></div>
+                                <div class="title">
+                                    <p class="sub">Tiêu hao</p>
+                                    <p class="main">8L/100km</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <div class="info-car-desc" id="outsfeatures">
+                        <h6>Mô Tả</h6><br>
+                        <div class="outstanding-features">
+                            <h3>TOYOTA VELOZ CROSS 2022</h3>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <div class="info-car-desc" id="outsfeatures">
+                        <h6>Các tiện nghi khác</h6><br>
+                        <div class="features-car">
+                            <ul>
+                                <li><img loading="lazy" src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/etc-v2.png"
+                                        alt="RENTALCAR - Thuê xe tự lái"> ETC</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <div class="info-car-desc" id="outsfeatures">
+                        <h6>Giấy tờ thuê xe</h6><br>
+                        <div class="required-papers">
+                            <div class="required-papers__item width-100">
+                                <div class="type__item">
+                                    <div class="wrap-svg"><svg width="17" height="16" viewBox="0 0 17 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M8.49967 1.33325C4.82634 1.33325 1.83301 4.32659 1.83301 7.99992C1.83301 11.6733 4.82634 14.6666 8.49967 14.6666C12.173 14.6666 15.1663 11.6733 15.1663 7.99992C15.1663 4.32659 12.173 1.33325 8.49967 1.33325ZM8.49967 6.05325C8.22634 6.05325 7.99967 5.83325 7.99967 5.55325C7.99967 5.27992 8.22634 5.05325 8.49967 5.05325C8.77967 5.05325 8.99967 5.27992 8.99967 5.55325C8.99967 5.83325 8.77967 6.05325 8.49967 6.05325ZM8.99967 10.3866C8.99967 10.6666 8.77301 10.8866 8.49967 10.8866C8.22634 10.8866 7.99967 10.6666 7.99967 10.3866V7.27992C7.99967 6.99992 8.22634 6.77992 8.49967 6.77992C8.77301 6.77992 8.99967 6.99992 8.99967 7.27992V10.3866Z"
+                                                fill="#666666"></path>
+                                        </svg></div>
+                                    <p class="font-12">Chọn 1 trong 2 hình thức</p>
+                                </div>
+                                <div class="type-content"><img loading="lazy"
+                                        src="https://n1-cstg.mioto.vn/v4/p/m/icons/papers/gplx_cccd.png">
+                                    <div class="type-name">
+                                        <p>GPLX (đối chiếu) &amp; CCCD (đối chiếu VNeID)</p>
+                                    </div>
+                                </div>
+                                <div class="type-content"><img loading="lazy"
+                                        src="https://n1-cstg.mioto.vn/v4/p/m/icons/papers/gplx_passport.png">
+                                    <div class="type-name">
+                                        <p>GPLX (đối chiếu) &amp; Passport (giữ lại)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-car-desc" id="outsfeatures">
+                        <h6>Tài sản thuế chấp</h6><br>
+                        <div class="required-papers">
+                            <p>Không yêu cầu khách thuê thế chấp Tiền mặt hoặc Xe máy</p>
+                        </div>
+                    </div>
+                    <div class="info-car-desc" id="outsfeatures">
+                        <h6>Điều Khoản</h6><br>
+                        <div class="Dieukhoang">
+                            <p>Quy định khác:</p><br>
+                            <ul>
+                                <li>Sử dụng xe đúng mục đích.</li>
+                                <li>Không sử dụng xe thuê vào mục đích phi pháp, trái pháp luật.</li>
+                                <li>Không sử dụng xe thuê để cầm cố, thế chấp.</li>
+                                <li>Không hút thuốc, nhả kẹo cao su, xả rác trong xe.</li>
+                                <li>Không chở hàng quốc cấm dễ cháy nổ.</li>
+                                <li>Không chở hoa quả, thực phẩm nặng mùi trong xe.</li>
+                                <li>Khi trả xe, nếu xe bẩn hoặc có mùi trong xe, khách hàng vui lòng vệ sinh xe sạch sẽ
+                                    hoặc gửi phụ thu phí vệ sinh xe.</li>
+                            </ul>
+                            <p>Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệt vời!</p>
+                        </div>
+                    </div>
+                    <div class="info-car-desc" id="outsfeatures">
+                        <h6>Chính sách huỷ chuyến</h6><br>
+                        <div class="cancel-policy">
+                            <div class="column title">
+                                <div class="column__item case">Thời điểm hủy chuyến</div>
+                                <div class="column__item">Khách thuê hủy chuyến</div>
+                                <div class="column__item">Chủ xe hủy chuyến</div>
+                            </div>
+                            <div class="column">
+                                <div class="column__item case">Trong vòng 1h sau giữ chỗ</div>
+                                <div class="column__item">
+                                    <div class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z"
+                                                fill="#12B76A"></path>
+                                        </svg></div>Hoàn tiền giữ chỗ 100%
+                                </div>
+                                <div class="column__item">
+                                    <div class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z"
+                                                fill="#12B76A"></path>
+                                        </svg></div>Không tốn phí<span>(Đánh giá hệ thống 3*)</span>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="column__item case">Trước chuyến đi &gt;7 ngày</div>
+                                <div class="column__item">
+                                    <div class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z"
+                                                fill="#12B76A"></path>
+                                        </svg></div>Hoàn tiền giữ chỗ 70%
+                                </div>
+                                <div class="column__item">
+                                    <div class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z"
+                                                fill="#12B76A"></path>
+                                        </svg></div>Đền tiền 30%<span>(Đánh giá hệ thống 3*)</span>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="column__item case"> Trước khi nhận xe</div>
+                                <div class="column__item">
+                                    <div class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM14.67 13.39C14.97 13.69 14.96 14.16 14.67 14.45C14.52 14.59 14.33 14.67 14.14 14.67C13.95 14.67 13.75 14.59 13.61 14.44L12.25 13.07L10.9 14.44C10.75 14.59 10.56 14.67 10.36 14.67C10.17 14.67 9.98 14.59 9.84 14.45C9.54 14.16 9.53999 13.69 9.82999 13.39L11.2 12L9.82999 10.61C9.53999 10.31 9.54 9.84 9.84 9.55C10.13 9.26 10.61 9.26 10.9 9.56L12.25 10.93L13.61 9.56C13.9 9.26 14.37 9.26 14.67 9.55C14.96 9.84 14.97 10.31 14.67 10.61L13.3 12L14.67 13.39Z"
+                                                fill="#F04438"></path>
+                                        </svg></div>Không hoàn tiền
+                                </div>
+                                <div class="column__item">
+                                    <div class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM14.67 13.39C14.97 13.69 14.96 14.16 14.67 14.45C14.52 14.59 14.33 14.67 14.14 14.67C13.95 14.67 13.75 14.59 13.61 14.44L12.25 13.07L10.9 14.44C10.75 14.59 10.56 14.67 10.36 14.67C10.17 14.67 9.98 14.59 9.84 14.45C9.54 14.16 9.53999 13.69 9.82999 13.39L11.2 12L9.82999 10.61C9.53999 10.31 9.54 9.84 9.84 9.55C10.13 9.26 10.61 9.26 10.9 9.56L12.25 10.93L13.61 9.56C13.9 9.26 14.37 9.26 14.67 9.55C14.96 9.84 14.97 10.31 14.67 10.61L13.3 12L14.67 13.39Z"
+                                                fill="#F04438"></path>
+                                        </svg></div>Đền tiền 100%<span>(Đánh giá hệ thống 2*)</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="desc-note">
+                            <p>* Khách thuê không nhận xe sẽ không được hoàn tiền giữ chỗ</p>
+                            <p>* Chủ xe không giao xe sẽ hoàn và đền 100% tiền giữ chỗ cho bạn</p>
+                            <p class="df-align-center">* Tiền giữ chỗ và tiền bồi thường do chủ xe hủy chuyến (nếu
+                                có) sẽ được RENTALCAR hoàn trả đến bạn bằng chuyển khoản ngân hàng trong vòng 1-3 ngày
+                                làm&nbsp;việc.<span class="tooltip tooltip--m "><br>
+                                    </svg></span><span class="tooltip-text"><b>Thủ tục hoàn tiền &amp; đền
+                                        cọc</b>RENTALCAR sẽ hoàn lại tiền cọc (&amp; tiền đền cọc do chủ xe hủy
+                                    chuyến (nếu có) theo chính sách hủy chuyến) qua tài khoản ngân hàng của
+                                    khách thuê trong vòng 1-3 ngày làm việc kể từ thời điểm hủy chuyến.<i>*Nhân
+                                        viên RENTALCAR sẽ liên hệ khách thuê (qua số điện thoại đã đăng ký trên
+                                        RENTALCAR) để xin thông tin tài khoản ngân hàng, hoặc Khách thuê có thể chủ
+                                        động gửi thông tin cho RENTALCAR qua email Contact@RENTALCAR.vn hoặc nhắn tin
+                                        tại RENTALCAR Fanpage</i></span></span></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="info-car-desc" id="outsfeatures">
+                        <h6>Xem vị trí bản đồ</h6><br>
+                        <div class="car-address">
+                            <div class="address">
+                                <div class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M11.9998 2.56885C7.8898 2.56885 4.5498 5.90884 4.5498 10.0188C4.5498 14.9088 10.7298 21.8288 10.9898 22.1189C11.2498 22.4089 11.6198 22.5688 11.9998 22.5688C12.3798 22.5688 12.7498 22.4089 13.0098 22.1189C13.6698 21.3889 19.4498 14.7988 19.4498 10.0188C19.4498 5.90884 16.1098 2.56885 11.9998 2.56885ZM11.9998 20.9988C11.1898 20.0588 6.0498 14.0188 6.0498 10.0188C6.0498 6.73884 8.7198 4.06885 11.9998 4.06885C15.2798 4.06885 17.9498 6.73884 17.9498 10.0188C17.9498 13.3988 14.1198 18.5988 11.9998 20.9988Z"
+                                            fill="black"></path>
+                                        <path
+                                            d="M11.9998 2.56885C7.8898 2.56885 4.5498 5.90884 4.5498 10.0188C4.5498 14.9088 10.7298 21.8288 10.9898 22.1189C11.2498 22.4089 11.6198 22.5688 11.9998 22.5688C12.3798 22.5688 12.7498 22.4089 13.0098 22.1189C13.6698 21.3889 19.4498 14.7988 19.4498 10.0188C19.4498 5.90884 16.1098 2.56885 11.9998 2.56885ZM8.87981 10.0188C8.87981 8.29884 10.2798 6.89885 11.9998 6.89885C13.7198 6.89885 15.1198 8.29884 15.1198 10.0188C15.1198 11.7388 13.7198 13.1389 11.9998 13.1389C10.2798 13.1389 8.87981 11.7388 8.87981 10.0188Z"
+                                            fill="black"></path>
+                                    </svg></div>
+                                <p>Quận Bình Thạnh, TP. Hồ Chí Minh</p>
+                            </div>
+                            <div class="maps-detail pointer">
+                                <div class="wrap-svg"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M5.41653 7.3916H3.99987C3.04987 7.3916 2.2832 8.15827 2.2832 9.10827V15.0999C2.2832 16.0499 3.04987 16.8166 3.99987 16.8166H15.9915C16.9415 16.8166 17.7082 16.0499 17.7082 15.0999V9.10827"
+                                            stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path d="M13.4253 7.3916H8.55859" stroke="black" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path
+                                            d="M13.4248 13.3833H15.9915C16.9415 13.3833 17.7081 14.15 17.7081 15.1C17.7081 16.05 16.9415 16.8166 15.9915 16.8166H13.4248"
+                                            stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path
+                                            d="M13.4248 4.81665H15.9915C16.9415 4.81665 17.7081 5.58332 17.7081 6.53332"
+                                            stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path d="M17.708 15.1V6.53333" stroke="black" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M13.4248 4.81665V13.3833" stroke="black" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path
+                                            d="M2.29199 11.6749H5.71699C6.19199 11.6749 6.57532 11.9999 6.57532 12.4083C6.57532 12.8166 6.95866 13.1416 7.43366 13.1416H8.29199C8.76699 13.1416 9.15032 13.4666 9.15032 13.8749V14.6083V16.8083"
+                                            stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path
+                                            d="M7.00006 3.19165C5.81673 3.19165 4.8584 4.14998 4.8584 5.33332C4.8584 6.79998 6.77506 8.94998 6.85839 9.04165C6.93339 9.12498 7.06674 9.12498 7.14174 9.04165C7.22507 8.94998 9.14173 6.79998 9.14173 5.33332C9.14173 4.14998 8.18339 3.19165 7.00006 3.19165Z"
+                                            stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path
+                                            d="M7.00046 6.14996C7.41007 6.14996 7.74212 5.8179 7.74212 5.40829C7.74212 4.99868 7.41007 4.66663 7.00046 4.66663C6.59084 4.66663 6.25879 4.99868 6.25879 5.40829C6.25879 5.8179 6.59084 6.14996 7.00046 6.14996Z"
+                                            fill="black"></path>
+                                    </svg></div>
+                                <p class="font-14 fontWeight-7">Xem&nbsp;bản&nbsp;đồ</p>
+                                <div class="wrap-svg"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 20 20" fill="none">
+                                        <path
+                                            d="M12.9499 9.40832L8.23328 4.69999C8.15581 4.62188 8.06364 4.55989 7.96209 4.51758C7.86054 4.47527 7.75162 4.45349 7.64161 4.45349C7.5316 4.45349 7.42268 4.47527 7.32113 4.51758C7.21958 4.55989 7.12741 4.62188 7.04994 4.69999C6.89474 4.85613 6.80762 5.06734 6.80762 5.28749C6.80762 5.50764 6.89474 5.71885 7.04994 5.87499L11.1749 10.0417L7.04994 14.1667C6.89474 14.3228 6.80762 14.534 6.80762 14.7542C6.80762 14.9743 6.89474 15.1855 7.04994 15.3417C7.12712 15.4204 7.21916 15.483 7.32072 15.526C7.42229 15.5689 7.53135 15.5912 7.64161 15.5917C7.75187 15.5912 7.86094 15.5689 7.9625 15.526C8.06406 15.483 8.1561 15.4204 8.23328 15.3417L12.9499 10.6333C13.0345 10.5553 13.102 10.4606 13.1482 10.3552C13.1944 10.2497 13.2182 10.1359 13.2182 10.0208C13.2182 9.90574 13.1944 9.7919 13.1482 9.68648C13.102 9.58107 13.0345 9.48636 12.9499 9.40832Z"
+                                            fill="black"></path>
+                                    </svg></div>
+                            </div>
+                        </div>
+                        <p class="note-address">Địa chỉ cụ thể sẽ được hiển thị sau khi đặt cọc</p>
+                    </div>
+                    <hr>
+                    <div class="info-car-desc" id="outsfeatures">
+                        <div class="reviews">
+                            <div class="rate-review">
+                                <div class="wrap-svg"><svg class="star-rating" width="16" height="17"
+                                        viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M14.6667 7.23331C14.7333 6.89998 14.4667 6.49998 14.1333 6.49998L10.3333 5.96665L8.59999 2.49998C8.53333 2.36665 8.46666 2.29998 8.33333 2.23331C7.99999 2.03331 7.59999 2.16665 7.39999 2.49998L5.73333 5.96665L1.93333 6.49998C1.73333 6.49998 1.59999 6.56665 1.53333 6.69998C1.26666 6.96665 1.26666 7.36665 1.53333 7.63331L4.26666 10.3L3.59999 14.1C3.59999 14.2333 3.59999 14.3666 3.66666 14.5C3.86666 14.8333 4.26666 14.9666 4.59999 14.7666L7.99999 12.9666L11.4 14.7666C11.4667 14.8333 11.6 14.8333 11.7333 14.8333C11.8 14.8333 11.8 14.8333 11.8667 14.8333C12.2 14.7666 12.4667 14.4333 12.4 14.0333L11.7333 10.2333L14.4667 7.56665C14.6 7.49998 14.6667 7.36665 14.6667 7.23331Z"
+                                            fill="#FFC634"></path>
+                                    </svg></div>
+                                <p class="rate">4.6</p>
+                            </div><span class="dot">•</span>
+                            <p class="total-review">63 đánh giá</p>
+                        </div>
+                        <div class="list-reviews">
+                            <div class="item-review">
+                                <div class="avatar">
+                                    <img src="https://n1-cstg.mioto.vn/m/avatars/avatar-3.png"
+                                        alt="Mioto - Thuê xe tự lái">
+                                </div>
+                                <div class="info">
+                                    <h6>Thắng Nguyễn</h6>
+                                    <div class="rate">
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p class="time">25/09/2024</p>
+                                    <p class="review-comment">Xe ngon, máy mượt, sạch sẽ. Anh chủ nhiệt tình, thoải mái.
+                                        Nên thuê.</p>
+                                </div>
+                            </div>
+                            <div class="item-review">
+                                <div class="avatar">
+                                    <img src="https://n1-cstg.mioto.vn/m/avatars/avatar-2.png"
+                                        alt="Mioto - Thuê xe tự lái">
+                                </div>
+                                <div class="info">
+                                    <h6>Huy Lê</h6>
+                                    <div class="rate">
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p class="time">14/09/2024</p>
+                                    <p class="review-comment">Xe ngon, máy mượt, sạch sẽ. Anh chủ nhiệt tình, thoải mái.
+                                        Nên thuê.</p>
+                                </div>
+                            </div>
+                            <div class="item-review">
+                                <div class="avatar">
+                                    <img src="https://n1-cstg.mioto.vn/m/avatars/avatar-1.png"
+                                        alt="Mioto - Thuê xe tự lái">
+                                </div>
+                                <div class="info">
+                                    <h6>Thịnh Trần</h6>
+                                    <div class="rate">
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="star-container">
+                                            <svg viewBox="0 0 51 48" class="widget-svg"
+                                                style="width: 17px; height: 17px;">
+                                                <path class="star"
+                                                    d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                                    style="fill: rgb(255, 198, 52);"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p class="time">17/08/2024</p>
+                                    <p class="review-comment">Xe tốt, giá hợp lý. Sẽ quay lại thuê lần nữa.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-detail">
+                    <div class="insurance success cardetail">
+                        <div class="insurance-header">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L3 5V11C3 16.55 7.58 21.74 12 23C16.42 21.74 21 16.55 21 11V5L12 2Z"
+                                    fill="#5FCF86" />
+                                <path d="M12 2L3 5V11C3 16.55 7.58 21.74 12 23C16.42 21.74 21 16.55 21 11V5L12 2Z"
+                                    stroke="#4CAF50" stroke-width="2" />
+                                <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <p class="insurance-title">Bảo hiểm thuê xe</p>
+                        </div>
+                        <div class="content">
+                            <p class="note">Chuyến đi có mua bảo hiểm. Khách thuê bồi thường tối đa 2.000.000 VNĐ trong
+                                trường hợp có sự cố ngoài ý muốn.</p>
+                            <p class="desc"><a class="info"><strong>Xem chi tiết</strong></a></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="rent-box" id="cardetail" style="position: relative;">
+                        <div class="price">
+                            <div class="price-discount">
+                                <p class="origin"><span>985K</span></p><span class="tag-item discount">-14%</span>
+                            </div>
+                            <h4><span class="">865K</span><span class="inner-h"> /ngày</span></h4>
+                        </div>
+
+                        <div class="date-time-form ">
+                            <div class="form-item"><label>Nhận xe </label>
+                                <div class="wrap-date-time">
+                                    <div class="wrap-date"><span class="value">08/10/2024</span></div>
+                                    <div class="wrap-time"><span class="value">21:00</span></div>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="form-item"><label>Trả xe</label>
+                                <div class="wrap-date-time">
+                                    <div class="wrap-date"><span class="value">09/10/2024</span></div>
+                                    <div class="wrap-time"><span class="value">20:00</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dc-week-month rent-hour">
+                            <div class="wrap-svg"><svg width="44" height="44" viewBox="0 0 44 44" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M22.5788 38.9584C30.9017 38.9584 37.6488 32.2113 37.6488 23.8884C37.6488 15.5654 30.9017 8.81836 22.5788 8.81836C14.2559 8.81836 7.50879 15.5654 7.50879 23.8884C7.50879 32.2113 14.2559 38.9584 22.5788 38.9584Z"
+                                        stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    </path>
+                                    <path d="M22.5791 5.04102V8.81768" stroke="black" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M9.25 10.5586L11.2666 12.5753" stroke="black" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M35.9072 10.5586L33.8906 12.5753" stroke="black" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path
+                                        d="M22.5788 25.7767C23.6217 25.7767 24.4671 24.9312 24.4671 23.8883C24.4671 22.8454 23.6217 22 22.5788 22C21.5359 22 20.6904 22.8454 20.6904 23.8883C20.6904 24.9312 21.5359 25.7767 22.5788 25.7767Z"
+                                        stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    </path>
+                                    <path d="M22.5791 23.8874L27.2908 19.1758" stroke="black" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M20.6904 5.04102H24.4671" stroke="black" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg></div>
+                            <p>Chủ xe hỗ trợ thuê xe theo giờ.<span class="text-primary pointer fontWeight-6">
+                                    Tìm&nbsp;hiểu&nbsp;thêm</span></p>
+                        </div>
+                        <div class="dropdown-form pointer "><label class="pointer">Địa điểm giao nhận xe</label>
+                            <div class="wrap-form has-arrow"><span class="value">Quận Bình Thạnh, TP. Hồ Chí Minh</span>
+                            </div>
+                        </div>
+                        <div class="line-page"></div>
+                        <div class="price-container">
+                            <div class="price-item">
+                                <p class="df-align-center"><span>Đơn giá thuê</span><span class="tooltip"><span
+                                            class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                                                    stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                                <path
+                                                    d="M9.08984 9.00008C9.32495 8.33175 9.789 7.76819 10.3998 7.40921C11.0106 7.05024 11.7287 6.91902 12.427 7.03879C13.1253 7.15857 13.7587 7.52161 14.2149 8.06361C14.6712 8.60561 14.9209 9.2916 14.9198 10.0001C14.9198 12.0001 11.9198 13.0001 11.9198 13.0001"
+                                                    stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                                <path d="M12 17H12.01" stroke="black" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg></span></span></p>
+                                <p class="cost"><span>984 984đ/ ngày</span></p>
+                            </div>
+                            <div class="price-item">
+                                <p class="df-align-center">Bảo hiểm thuê xe<span class="tooltip"><span
+                                            class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                                                    stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                                <path
+                                                    d="M9.08984 9.00008C9.32495 8.33175 9.789 7.76819 10.3998 7.40921C11.0106 7.05024 11.7287 6.91902 12.427 7.03879C13.1253 7.15857 13.7587 7.52161 14.2149 8.06361C14.6712 8.60561 14.9209 9.2916 14.9198 10.0001C14.9198 12.0001 11.9198 13.0001 11.9198 13.0001"
+                                                    stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                                <path d="M12 17H12.01" stroke="black" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg></span></span></p>
+                                <p class="cost"><span>88 374đ/ ngày</span></p>
+                            </div>
+                            <div class="line-page"></div>
+                            <div class="price-item">
+                                <p>Tổng cộng</p>
+                                <p class="cost"><span>1 073 358đ </span>x 1 ngày</p>
+                            </div>
+                            <div class="line-page"></div>
+                            <div class="promotion-radio">
+                                <div class="promotion-radio__item">
+                                    <div class="custom-radio"><input type="radio" id="default" name="promo" value="0"
+                                            checked=""><label for="default">
+                                            <div class="promo-text">
+                                                <div class="promo-text-main">
+                                                    <div class="wrap-svg"><svg width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M21.3 10.8394C21.69 10.8394 22 10.5294 22 10.1394V9.20938C22 5.10938 20.75 3.85938 16.65 3.85938H7.35C3.25 3.85937 2 5.10938 2 9.20938V9.67938C2 10.0694 2.31 10.3794 2.7 10.3794C3.6 10.3794 4.33 11.1094 4.33 12.0094C4.33 12.9094 3.6 13.6294 2.7 13.6294C2.31 13.6294 2 13.9394 2 14.3294V14.7994C2 18.8994 3.25 20.1494 7.35 20.1494H16.65C20.75 20.1494 22 18.8994 22 14.7994C22 14.4094 21.69 14.0994 21.3 14.0994C20.4 14.0994 19.67 13.3694 19.67 12.4694C19.67 11.5694 20.4 10.8394 21.3 10.8394ZM9 8.87938C9.55 8.87938 10 9.32938 10 9.87938C10 10.4294 9.56 10.8794 9 10.8794C8.45 10.8794 8 10.4294 8 9.87938C8 9.32938 8.44 8.87938 9 8.87938ZM15 15.8794C14.44 15.8794 13.99 15.4294 13.99 14.8794C13.99 14.3294 14.44 13.8794 14.99 13.8794C15.54 13.8794 15.99 14.3294 15.99 14.8794C15.99 15.4294 15.56 15.8794 15 15.8794ZM15.9 9.47937L9.17 16.2094C9.02 16.3594 8.83 16.4294 8.64 16.4294C8.45 16.4294 8.26 16.3594 8.11 16.2094C7.82 15.9194 7.82 15.4394 8.11 15.1494L14.84 8.41938C15.13 8.12938 15.61 8.12938 15.9 8.41938C16.19 8.70938 16.19 9.18937 15.9 9.47937Z"
+                                                                fill="#F26A2B"></path>
+                                                        </svg></div>
+                                                    <p>Chương trình giảm giá</p>
+                                                </div>
+                                                <p class="promo-text-sub">Giảm 120K trên đơn giá</p>
+                                            </div>
+                                            <p class="promo-price">-<span>120 000đ</span></p>
+                                        </label></div>
+                                </div>
+                                <div class="promotion-radio__item">
+                                    <div class="custom-radio"><input type="radio" id="code" name="promo"
+                                            value="1"><label for="code">
+                                            <div class="promo-text">
+                                                <div class="promo-text-main">
+                                                    <div class="wrap-svg"><svg width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M21.3 10.8394C21.69 10.8394 22 10.5294 22 10.1394V9.20938C22 5.10938 20.75 3.85938 16.65 3.85938H7.35C3.25 3.85937 2 5.10938 2 9.20938V9.67938C2 10.0694 2.31 10.3794 2.7 10.3794C3.6 10.3794 4.33 11.1094 4.33 12.0094C4.33 12.9094 3.6 13.6294 2.7 13.6294C2.31 13.6294 2 13.9394 2 14.3294V14.7994C2 18.8994 3.25 20.1494 7.35 20.1494H16.65C20.75 20.1494 22 18.8994 22 14.7994C22 14.4094 21.69 14.0994 21.3 14.0994C20.4 14.0994 19.67 13.3694 19.67 12.4694C19.67 11.5694 20.4 10.8394 21.3 10.8394ZM9 8.87938C9.55 8.87938 10 9.32938 10 9.87938C10 10.4294 9.56 10.8794 9 10.8794C8.45 10.8794 8 10.4294 8 9.87938C8 9.32938 8.44 8.87938 9 8.87938ZM15 15.8794C14.44 15.8794 13.99 15.4294 13.99 14.8794C13.99 14.3294 14.44 13.8794 14.99 13.8794C15.54 13.8794 15.99 14.3294 15.99 14.8794C15.99 15.4294 15.56 15.8794 15 15.8794ZM15.9 9.47937L9.17 16.2094C9.02 16.3594 8.83 16.4294 8.64 16.4294C8.45 16.4294 8.26 16.3594 8.11 16.2094C7.82 15.9194 7.82 15.4394 8.11 15.1494L14.84 8.41938C15.13 8.12938 15.61 8.12938 15.9 8.41938C16.19 8.70938 16.19 9.18937 15.9 9.47937Z"
+                                                                fill="#5FCF86"></path>
+                                                        </svg></div>
+                                                    <p>Mã khuyến mãi</p>
+                                                </div>
+                                            </div>
+                                            <div class="promo-price">
+                                                <div class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M14.8299 11.2897L10.5899 7.0497C10.497 6.95598 10.3864 6.88158 10.2645 6.83081C10.1427 6.78004 10.012 6.75391 9.87994 6.75391C9.74793 6.75391 9.61723 6.78004 9.49537 6.83081C9.37351 6.88158 9.26291 6.95598 9.16994 7.0497C8.98369 7.23707 8.87915 7.49052 8.87915 7.7547C8.87915 8.01889 8.98369 8.27234 9.16994 8.4597L12.7099 11.9997L9.16994 15.5397C8.98369 15.7271 8.87915 15.9805 8.87915 16.2447C8.87915 16.5089 8.98369 16.7623 9.16994 16.9497C9.26338 17.0424 9.3742 17.1157 9.49604 17.1655C9.61787 17.2152 9.74834 17.2405 9.87994 17.2397C10.0115 17.2405 10.142 17.2152 10.2638 17.1655C10.3857 17.1157 10.4965 17.0424 10.5899 16.9497L14.8299 12.7097C14.9237 12.6167 14.9981 12.5061 15.0488 12.3843C15.0996 12.2624 15.1257 12.1317 15.1257 11.9997C15.1257 11.8677 15.0996 11.737 15.0488 11.6151C14.9981 11.4933 14.9237 11.3827 14.8299 11.2897Z"
+                                                            fill="#263D2A"></path>
+                                                    </svg></div>
+                                            </div>
+                                        </label></div>
+                                </div>
+                            </div>
+                            <div class="line-page"></div>
+                            <div class="price-item total">
+                                <p>Thành tiền</p>
+                                <p class="cost"><span>953 358đ</span></p>
+                            </div>
+                        </div><a class="btn btn-primary btn--m width-100">
+                            <div class="wrap-svg"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12.9733 7.70015L8.46667 14.2668C8.29334 14.5268 8.01335 14.6668 7.71335 14.6668C7.62002 14.6668 7.52667 14.6535 7.43334 14.6268C7.05334 14.5068 6.79335 14.1668 6.79335 13.7735V10.0135C6.79335 9.86015 6.64667 9.72682 6.46667 9.72682L3.78001 9.6935C3.44001 9.6935 3.12668 9.50016 2.97335 9.20682C2.82668 8.92016 2.84668 8.5735 3.03335 8.30017L7.53335 1.7335C7.76001 1.40016 8.18001 1.25349 8.56668 1.37349C8.94668 1.49349 9.20668 1.83349 9.20668 2.22682V5.98683C9.20668 6.14017 9.35335 6.2735 9.53335 6.2735L12.22 6.30682C12.56 6.30682 12.8733 6.49349 13.0267 6.79349C13.1733 7.08016 13.1533 7.42682 12.9733 7.70015Z"
+                                        fill="#FFC634"></path>
+                                </svg></div>CHỌN THUÊ
+                        </a>
+                    </div>
+                    <!-- modal -->
+                    <div id="uniqueModal" class="unique-modal">
+                        <div class="unique-modal-content">
+                            <span class="unique-modal-close">&times;</span>
+                            <h2>Chọn ngày và giờ nhận xe</h2>
+                            <label for="modalDate">Chọn ngày:</label>
+                            <input type="date" id="modalDate" name="modalDate" class="unique-modal-input"><br><br>
+                            <label for="modalTime">Chọn giờ:</label>
+                            <input type="time" id="modalTime" name="modalTime" class="unique-modal-input"><br><br>
+                            <button id="saveDateTime" class="btn-unique-save">Lưu</button>
+                        </div>
+                    </div>
+                    <div class="surcharge">
+                        <p class="title text-primary">Phụ phí có thể phát sinh</p>
+                        <div class="surcharge-container">
+                            <div class="surcharge-item">
+                                <div class="wrap-svg"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 7.33398V10.4407" stroke="#666666" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path
+                                            d="M8 6.05469C8.27614 6.05469 8.5 5.83083 8.5 5.55469C8.5 5.27855 8.27614 5.05469 8 5.05469C7.72386 5.05469 7.5 5.27855 7.5 5.55469C7.5 5.83083 7.72386 6.05469 8 6.05469Z"
+                                            fill="#666666"></path>
+                                        <path
+                                            d="M7.99967 14.1673C11.4054 14.1673 14.1663 11.4064 14.1663 8.00065C14.1663 4.5949 11.4054 1.83398 7.99967 1.83398C4.59392 1.83398 1.83301 4.5949 1.83301 8.00065C1.83301 11.4064 4.59392 14.1673 7.99967 14.1673Z"
+                                            stroke="#666666" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg></div>
+                                <div class="content">
+                                    <div class="content-item">
+                                        <p class="title">Phí vượt giới hạn</p>
+                                        <p class="cost"><span>4 000đ/km</span></p>
+                                    </div>
+                                    <div class="content-item">
+                                        <p>Phụ phí phát sinh nếu lộ trình di chuyển vượt quá <span>300km</span> khi thuê
+                                            xe<span> 1 ngày</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="surcharge-item">
+                                <div class="wrap-svg"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 7.33398V10.4407" stroke="#666666" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path
+                                            d="M8 6.05469C8.27614 6.05469 8.5 5.83083 8.5 5.55469C8.5 5.27855 8.27614 5.05469 8 5.05469C7.72386 5.05469 7.5 5.27855 7.5 5.55469C7.5 5.83083 7.72386 6.05469 8 6.05469Z"
+                                            fill="#666666"></path>
+                                        <path
+                                            d="M7.99967 14.1673C11.4054 14.1673 14.1663 11.4064 14.1663 8.00065C14.1663 4.5949 11.4054 1.83398 7.99967 1.83398C4.59392 1.83398 1.83301 4.5949 1.83301 8.00065C1.83301 11.4064 4.59392 14.1673 7.99967 14.1673Z"
+                                            stroke="#666666" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg></div>
+                                <div class="content">
+                                    <div class="content-item">
+                                        <p class="title">Phí quá giờ</p>
+                                        <p class="cost"><span>50 000đ/h</span></p>
+                                    </div>
+                                    <div class="content-item">
+                                        <p>Phụ phí phát sinh nếu hoàn trả xe trễ giờ. Trường hợp trễ quá<span> 7
+                                                giờ</span>, phụ phí thêm <span>1 ngày </span>thuê</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="surcharge-item">
+                                <div class="wrap-svg"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 7.33398V10.4407" stroke="#666666" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path
+                                            d="M8 6.05469C8.27614 6.05469 8.5 5.83083 8.5 5.55469C8.5 5.27855 8.27614 5.05469 8 5.05469C7.72386 5.05469 7.5 5.27855 7.5 5.55469C7.5 5.83083 7.72386 6.05469 8 6.05469Z"
+                                            fill="#666666"></path>
+                                        <path
+                                            d="M7.99967 14.1673C11.4054 14.1673 14.1663 11.4064 14.1663 8.00065C14.1663 4.5949 11.4054 1.83398 7.99967 1.83398C4.59392 1.83398 1.83301 4.5949 1.83301 8.00065C1.83301 11.4064 4.59392 14.1673 7.99967 14.1673Z"
+                                            stroke="#666666" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg></div>
+                                <div class="content">
+                                    <div class="content-item">
+                                        <p class="title">Phí vệ sinh</p>
+                                        <p class="cost"><span>120 000đ</span></p>
+                                    </div>
+                                    <div class="content-item">
+                                        <p>Phụ phí phát sinh khi xe hoàn trả không đảm bảo vệ sinh (nhiều vết bẩn, bùn
+                                            cát, sình lầy...)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="surcharge-item">
+                                <div class="wrap-svg"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 7.33398V10.4407" stroke="#666666" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path
+                                            d="M8 6.05469C8.27614 6.05469 8.5 5.83083 8.5 5.55469C8.5 5.27855 8.27614 5.05469 8 5.05469C7.72386 5.05469 7.5 5.27855 7.5 5.55469C7.5 5.83083 7.72386 6.05469 8 6.05469Z"
+                                            fill="#666666"></path>
+                                        <path
+                                            d="M7.99967 14.1673C11.4054 14.1673 14.1663 11.4064 14.1663 8.00065C14.1663 4.5949 11.4054 1.83398 7.99967 1.83398C4.59392 1.83398 1.83301 4.5949 1.83301 8.00065C1.83301 11.4064 4.59392 14.1673 7.99967 14.1673Z"
+                                            stroke="#666666" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg></div>
+                                <div class="content">
+                                    <div class="content-item">
+                                        <p class="title">Phí khử mùi</p>
+                                        <p class="cost"><span>300 000đ</span></p>
+                                    </div>
+                                    <div class="content-item">
+                                        <p>Phụ phí phát sinh khi xe hoàn trả bị ám mùi khó chịu (mùi thuốc lá, thực phẩm
+                                            nặng mùi...)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-row one">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="./assets/images/logoFooter.png" alt="" />
+                    </div>
+                    <div class="row">
+                        <span>1900 0000</span>
+                        <p>Tổng đài hỗ trợ: 7AM - 10PM</p>
+                    </div>
+                    <div class="row">
+                        <span>contactrentalcar@gmail.com</span>
+                        <p>Gửi mail cho RENTALCAR</p>
+                    </div>
+                    <div class="footer-contact">
+                        <!--Facebook-->
+                        <a class="wrap-svg" target="_blank" href="#"><svg width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M11.94 21.2501V14.1601H9.5V11.4301H11.94V9.43012C11.94 8.31012 12.22 7.47012 12.86 6.83012C13.5 6.19012 14.34 5.87012 15.42 5.87012C16.22 5.87012 16.94 5.91012 17.5 5.99012V8.39012H16.06C15.54 8.39012 15.18 8.51012 14.98 8.75012C14.82 8.99012 14.74 9.31012 14.74 9.71012V11.4301H17.51L17.15 14.1601H14.75V21.2501"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M17.14 21.25H6.86C4.59 21.25 2.75 19.41 2.75 17.14V6.86C2.75 4.59 4.59 2.75 6.86 2.75H17.14C19.41 2.75 21.25 4.59 21.25 6.86V17.14C21.25 19.41 19.41 21.25 17.14 21.25Z"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <!--TikTok-->
+                            </svg></a><a class="wrap-svg" target="_blank" href="#"><svg width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.75999 12.69C8.27999 12.69 7.04999 13.92 7.04999 15.4C7.04999 16.88 8.27999 18.11 9.75999 18.11C11.24 18.11 12.47 16.88 12.47 15.4V2.75H15.65C15.65 2.79 15.65 2.79 15.65 2.82C15.65 3.07 15.65 3.33 15.72 3.58C15.94 4.77 16.66 5.82 17.67 6.47C18.36 6.94 19.19 7.19 20.05 7.19C20.05 7.19 20.05 7.19 20.09 7.19V10.33H20.05C18.39 10.33 16.87 9.82 15.64 8.92V15.39C15.64 18.64 13 21.24 9.74999 21.24C6.49999 21.24 3.89999 18.64 3.89999 15.39C3.89999 12.14 6.49999 9.5 9.74999 9.5V12.69H9.75999Z"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <!--Zalo-->
+                            </svg></a><a class="wrap-svg" target="_blank" href="#"><svg width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <mask id="path-1-outside-1_6394_301594" maskUnits="userSpaceOnUse" x="0.919998"
+                                    y="0.919922" width="22" height="22" fill="black">
+                                    <rect fill="white" x="0.919998" y="0.919922" width="22" height="22"></rect>
+                                    <path
+                                        d="M4.32 1.91992C3.00023 1.91992 1.92 3.00015 1.92 4.31992V19.6799C1.92 20.9997 3.00023 22.0799 4.32 22.0799H19.68C20.999822.0799 22.08 20.9997 22.08 19.6799V4.31992C22.08 3.00015 20.9998 1.91992 19.68 1.91992H4.32ZM4.32 2.87992H7.47656C5.81666 4.60701 4.8 6.87526 4.8 9.35992C4.8 11.9334 5.88871 14.2792 7.65562 16.0265C7.5914 15.9653 7.67454 16.0717 7.68281 16.2599C7.69134 16.4542 7.66209 16.7212 7.58344 16.9855C7.42613 17.5143 7.09711 18.0017 6.56812 18.178C6.46765 18.2115 6.38107 18.2773 6.32187 18.3651C6.26266 18.4529 6.23416 18.5578 6.24079 18.6635C6.24742 18.7692 6.28882 18.8698 6.35854 18.9495C6.42826 19.0292 6.52238 19.0836 6.62625 19.1043C7.95091 19.3692 8.8879 18.9704 9.57844 18.6534C10.269 18.3363 10.6421 18.123 11.34 18.4049L11.3456 18.4068C12.6523 18.9176 14.091 19.1999 15.6 19.1999C17.6147 19.1999 19.503 18.6965 21.12 17.819V19.6799C21.12 20.4808 20.4809 21.1199 19.68 21.1199H4.32C3.51913 21.1199 2.88 20.4808 2.88 19.6799V4.31992C2.88 3.51905 3.51913 2.87992 4.32 2.87992ZM8.87812 2.87992H19.68C20.4809 2.87992 21.12 3.51905 21.12 4.31992V16.7062C19.5489 17.67 17.6518 18.2399 15.6 18.2399C14.2129 18.2399 12.8945 17.9804 11.7 17.5143C10.6857 17.1046 9.85955 17.4677 9.17812 17.7805C8.80908 17.95 8.44498 18.0908 8.03344 18.1687C8.23704 17.8784 8.4112 17.5683 8.50312 17.2593C8.61173 16.8942 8.65588 16.5367 8.64187 16.2177C8.62791 15.8998 8.60013 15.6087 8.33156 15.3449L8.33062 15.344C6.72812 13.7593 5.76 11.6633 5.76 9.35992C5.76 6.80508 6.95336 4.50598 8.87812 2.87992ZM15.8325 7.19336C15.7054 7.19535 15.5842 7.2477 15.4956 7.33892C15.407 7.43014 15.3583 7.55278 15.36 7.67992V11.9999C15.3591 12.0635 15.3708 12.1267 15.3946 12.1857C15.4183 12.2447 15.4535 12.2984 15.4982 12.3437C15.5428 12.389 15.596 12.425 15.6547 12.4496C15.7134 12.4741 15.7764 12.4868 15.84 12.4868C15.9036 12.4868 15.9666 12.4741 16.0253 12.4496C16.084 12.425 16.1372 12.389 16.1818 12.3437C16.2265 12.2984 16.2617 12.2447 16.2854 12.1857C16.3091 12.1267 16.3209 12.0635 16.32 11.9999V7.67992C16.3209 7.6157 16.3089 7.55196 16.2847 7.49247C16.2605 7.43298 16.2246 7.37895 16.1791 7.33358C16.1337 7.28821 16.0796 7.25242 16.02 7.22833C15.9605 7.20425 15.8967 7.19236 15.8325 7.19336ZM8.64 7.67992C8.57639 7.67902 8.51324 7.69077 8.45422 7.71449C8.39519 7.73821 8.34147 7.77342 8.29617 7.81808C8.25088 7.86275 8.21491 7.91597 8.19036 7.97465C8.1658 8.03333 8.15316 8.09631 8.15316 8.15992C8.15316 8.22353 8.1658 8.28651 8.19036 8.3452C8.21491 8.40388 8.25088 8.4571 8.29617 8.50176C8.34147 8.54642 8.39519 8.58163 8.45422 8.60535C8.51324 8.62907 8.57639 8.64082 8.64 8.63992H10.1747L8.23312 11.7459C8.18782 11.8185 8.16277 11.9019 8.16057 11.9875C8.15837 12.0731 8.17909 12.1577 8.22059 12.2326C8.2621 12.3075 8.32287 12.3699 8.39661 12.4134C8.47036 12.4569 8.55439 12.4798 8.64 12.4799H11.04C11.1036 12.4808 11.1668 12.4691 11.2258 12.4454C11.2848 12.4216 11.3385 12.3864 11.3838 12.3418C11.4291 12.2971 11.4651 12.2439 11.4896 12.1852C11.5142 12.1265 11.5268 12.0635 11.5268 11.9999C11.5268 11.9363 11.5142 11.8733 11.4896 11.8146C11.4651 11.756 11.4291 11.7027 11.3838 11.6581C11.3385 11.6134 11.2848 11.5782 11.2258 11.5545C11.1668 11.5308 11.1036 11.519 11.04 11.5199H9.50531L11.4469 8.41398C11.4922 8.34134 11.5172 8.25791 11.5194 8.17232C11.5216 8.08674 11.5009 8.00213 11.4594 7.92725C11.4179 7.85237 11.3571 7.78995 11.2834 7.74647C11.2096 7.70298 11.1256 7.68 11.04 7.67992H8.64ZM14.3925 9.11336C14.3138 9.11475 14.2366 9.13549 14.1677 9.17374C14.0989 9.212 14.0406 9.2666 13.9978 9.33273C13.759 9.20158 13.4897 9.11992 13.2 9.11992C12.2778 9.11992 11.52 9.87777 11.52 10.7999C11.52 11.7221 12.2778 12.4799 13.2 12.4799C13.4894 12.4799 13.7582 12.398 13.9969 12.2671C14.0534 12.3546 14.1369 12.4213 14.2347 12.4572C14.3325 12.493 14.4393 12.4961 14.539 12.4659C14.6387 12.4358 14.7259 12.374 14.7874 12.2899C14.8489 12.2059 14.8814 12.1041 14.88 11.9999V10.7999V9.59992C14.8809 9.5357 14.8689 9.47196 14.8447 9.41247C14.8205 9.35298 14.7846 9.29895 14.7391 9.25358C14.6937 9.20821 14.6396 9.17242 14.58 9.14833C14.5205 9.12425 14.4567 9.11236 14.3925 9.11336ZM18.48 9.11992C17.5578 9.11992 16.8 9.87777 16.8 10.7999C16.8 11.7221 17.5578 12.4799 18.48 12.4799C19.4022 12.4799 20.16 11.7221 20.16 10.7999C20.16 9.87777 19.4022 9.11992 18.48 9.11992ZM13.2 10.0799C13.6033 10.0799 13.92 10.3966 13.92 10.7999C13.92 11.2033 13.6033 11.5199 13.2 11.5199C12.7967 11.5199 12.48 11.2033 12.48 10.7999C12.48 10.3966 12.7967 10.0799 13.2 10.0799ZM18.48 10.0799C18.8833 10.0799 19.2 10.3966 19.2 10.7999C19.2 11.2033 18.8833 11.5199 18.48 11.5199C18.0767 11.5199 17.76 11.2033 17.76 10.7999C17.76 10.3966 18.0767 10.0799 18.48 10.0799Z">
+                                    </path>
+                                </mask>
+                                <path
+                                    d="M4.32 1.91992C3.00023 1.91992 1.92 3.00015 1.92 4.31992V19.6799C1.92 20.9997 3.00023 22.0799 4.32 22.0799H19.68C20.9998 22.0799 22.08 20.9997 22.08 19.6799V4.31992C22.08 3.00015 20.9998 1.91992 19.68 1.91992H4.32ZM4.32 2.87992H7.47656C5.81666 4.60701 4.8 6.87526 4.8 9.35992C4.8 11.9334 5.88871 14.2792 7.65562 16.0265C7.5914 15.9653 7.67454 16.0717 7.68281 16.2599C7.69134 16.4542 7.66209 16.7212 7.58344 16.9855C7.42613 17.5143 7.09711 18.0017 6.56812 18.178C6.46765 18.2115 6.38107 18.2773 6.32187 18.3651C6.26266 18.4529 6.23416 18.5578 6.24079 18.6635C6.24742 18.7692 6.28882 18.8698 6.35854 18.9495C6.42826 19.0292 6.52238 19.0836 6.62625 19.1043C7.95091 19.3692 8.8879 18.9704 9.57844 18.6534C10.269 18.3363 10.6421 18.123 11.34 18.4049L11.3456 18.4068C12.6523 18.9176 14.091 19.1999 15.6 19.1999C17.6147 19.1999 19.503 18.6965 21.12 17.819V19.6799C21.12 20.4808 20.4809 21.1199 19.68 21.1199H4.32C3.51913 21.1199 2.88 20.4808 2.88 19.6799V4.31992C2.88 3.51905 3.51913 2.87992 4.32 2.87992ZM8.87812 2.87992H19.68C20.4809 2.87992 21.12 3.51905 21.12 4.31992V16.7062C19.5489 17.67 17.6518 18.2399 15.6 18.2399C14.2129 18.2399 12.8945 17.9804 11.7 17.5143C10.6857 17.1046 9.85955 17.4677 9.17812 17.7805C8.80908 17.95 8.44498 18.0908 8.03344 18.1687C8.23704 17.8784 8.4112 17.5683 8.50312 17.2593C8.61173 16.8942 8.65588 16.5367 8.64187 16.2177C8.62791 15.8998 8.60013 15.6087 8.33156 15.3449L8.33062 15.344C6.72812 13.7593 5.76 11.6633 5.76 9.35992C5.76 6.80508 6.95336 4.50598 8.87812 2.87992ZM15.8325 7.19336C15.7054 7.19535 15.5842 7.2477 15.4956 7.33892C15.407 7.43014 15.3583 7.55278 15.36 7.67992V11.9999C15.3591 12.0635 15.3708 12.1267 15.3946 12.1857C15.4183 12.2447 15.4535 12.2984 15.4982 12.3437C15.5428 12.389 15.596 12.425 15.6547 12.4496C15.7134 12.4741 15.7764 12.4868 15.84 12.4868C15.9036 12.4868 15.9666 12.4741 16.0253 12.4496C16.084 12.425 16.1372 12.389 16.1818 12.3437C16.2265 12.2984 16.2617 12.2447 16.2854 12.1857C16.3091 12.1267 16.3209 12.0635 16.32 11.9999V7.67992C16.3209 7.6157 16.3089 7.55196 16.2847 7.49247C16.2605 7.43298 16.2246 7.37895 16.1791 7.33358C16.1337 7.28821 16.0796 7.25242 16.02 7.22833C15.9605 7.20425 15.8967 7.19236 15.8325 7.19336ZM8.64 7.67992C8.57639 7.67902 8.51324 7.69077 8.45422 7.71449C8.39519 7.73821 8.34147 7.77342 8.29617 7.81808C8.25088 7.86275 8.21491 7.91597 8.19036 7.97465C8.1658 8.03333 8.15316 8.09631 8.15316 8.15992C8.15316 8.22353 8.1658 8.28651 8.19036 8.3452C8.21491 8.40388 8.25088 8.4571 8.29617 8.50176C8.34147 8.54642 8.39519 8.58163 8.45422 8.60535C8.51324 8.62907 8.57639 8.64082 8.64 8.63992H10.1747L8.23312 11.7459C8.18782 11.8185 8.16277 11.9019 8.16057 11.9875C8.15837 12.0731 8.17909 12.1577 8.22059 12.2326C8.2621 12.3075 8.32287 12.3699 8.39661 12.4134C8.47036 12.4569 8.55439 12.4798 8.64 12.4799H11.04C11.1036 12.4808 11.1668 12.4691 11.2258 12.4454C11.2848 12.4216 11.3385 12.3864 11.3838 12.3418C11.4291 12.2971 11.4651 12.2439 11.4896 12.1852C11.5142 12.1265 11.5268 12.0635 11.5268 11.9999C11.5268 11.9363 11.5142 11.8733 11.4896 11.8146C11.4651 11.756 11.4291 11.7027 11.3838 11.6581C11.3385 11.6134 11.2848 11.5782 11.2258 11.5545C11.1668 11.5308 11.1036 11.519 11.04 11.5199H9.50531L11.4469 8.41398C11.4922 8.34134 11.5172 8.25791 11.5194 8.17232C11.5216 8.08674 11.5009 8.00213 11.4594 7.92725C11.4179 7.85237 11.3571 7.78995 11.2834 7.74647C11.2096 7.70298 11.1256 7.68 11.04 7.67992H8.64ZM14.3925 9.11336C14.3138 9.11475 14.2366 9.13549 14.1677 9.17374C14.0989 9.212 14.0406 9.2666 13.9978 9.33273C13.759 9.20158 13.4897 9.11992 13.2 9.11992C12.2778 9.11992 11.52 9.87777 11.52 10.7999C11.52 11.7221 12.2778 12.4799 13.2 12.4799C13.4894 12.4799 13.7582 12.398 13.9969 12.2671C14.0534 12.3546 14.1369 12.4213 14.2347 12.4572C14.3325 12.493 14.4393 12.4961 14.539 12.4659C14.6387 12.4358 14.7259 12.374 14.7874 12.2899C14.8489 12.2059 14.8814 12.1041 14.88 11.9999V10.7999V9.59992C14.8809 9.5357 14.8689 9.47196 14.8447 9.41247C14.8205 9.35298 14.7846 9.29895 14.7391 9.25358C14.6937 9.20821 14.6396 9.17242 14.58 9.14833C14.5205 9.12425 14.4567 9.11236 14.3925 9.11336ZM18.48 9.11992C17.5578 9.11992 16.8 9.87777 16.8 10.7999C16.8 11.7221 17.5578 12.4799 18.48 12.4799C19.4022 12.4799 20.16 11.7221 20.16 10.7999C20.16 9.87777 19.4022 9.11992 18.48 9.11992ZM13.2 10.0799C13.6033 10.0799 13.92 10.3966 13.92 10.7999C13.92 11.2033 13.6033 11.5199 13.2 11.5199C12.7967 11.5199 12.48 11.2033 12.48 10.7999C12.48 10.3966 12.7967 10.0799 13.2 10.0799ZM18.48 10.0799C18.8833 10.0799 19.2 10.3966 19.2 10.7999C19.2 11.2033 18.8833 11.5199 18.48 11.5199C18.0767 11.5199 17.76 11.2033 17.76 10.7999C17.76 10.3966 18.0767 10.0799 18.48 10.0799Z"
+                                    fill="black"></path>
+                                <path
+                                    d="M4.32 1.91992C3.00023 1.91992 1.92 3.00015 1.92 4.31992V19.6799C1.92 20.9997 3.00023 22.0799 4.32 22.0799H19.68C20.9998 22.0799 22.08 20.9997 22.08 19.6799V4.31992C22.08 3.00015 20.9998 1.91992 19.68 1.91992H4.32ZM4.32 2.87992H7.47656C5.81666 4.60701 4.8 6.87526 4.8 9.35992C4.8 11.9334 5.88871 14.2792 7.65562 16.0265C7.5914 15.9653 7.67454 16.0717 7.68281 16.2599C7.69134 16.4542 7.66209 16.7212 7.58344 16.9855C7.42613 17.5143 7.09711 18.0017 6.56812 18.178C6.46765 18.2115 6.38107 18.2773 6.32187 18.3651C6.26266 18.4529 6.23416 18.5578 6.24079 18.6635C6.24742 18.7692 6.28882 18.8698 6.35854 18.9495C6.42826 19.0292 6.52238 19.0836 6.62625 19.1043C7.95091 19.3692 8.8879 18.9704 9.57844 18.6534C10.269 18.3363 10.6421 18.123 11.34 18.4049L11.3456 18.4068C12.6523 18.9176 14.091 19.1999 15.6 19.1999C17.6147 19.1999 19.503 18.6965 21.12 17.819V19.6799C21.12 20.4808 20.4809 21.1199 19.68 21.1199H4.32C3.51913 21.1199 2.88 20.4808 2.88 19.6799V4.31992C2.88 3.51905 3.51913 2.87992 4.32 2.87992ZM8.87812 2.87992H19.68C20.4809 2.87992 21.12 3.51905 21.12 4.31992V16.7062C19.5489 17.67 17.6518 18.2399 15.6 18.2399C14.2129 18.2399 12.8945 17.9804 11.7 17.5143C10.6857 17.1046 9.85955 17.4677 9.17812 17.7805C8.80908 17.95 8.44498 18.0908 8.03344 18.1687C8.23704 17.8784 8.4112 17.5683 8.50312 17.2593C8.61173 16.8942 8.65588 16.5367 8.64187 16.2177C8.62791 15.8998 8.60013 15.6087 8.33156 15.3449L8.33062 15.344C6.72812 13.7593 5.76 11.6633 5.76 9.35992C5.76 6.80508 6.95336 4.50598 8.87812 2.87992ZM15.8325 7.19336C15.7054 7.19535 15.5842 7.2477 15.4956 7.33892C15.407 7.43014 15.3583 7.55278 15.36 7.67992V11.9999C15.3591 12.0635 15.3708 12.1267 15.3946 12.1857C15.4183 12.2447 15.4535 12.2984 15.4982 12.3437C15.5428 12.389 15.596 12.425 15.6547 12.4496C15.7134 12.4741 15.7764 12.4868 15.84 12.4868C15.9036 12.4868 15.9666 12.4741 16.0253 12.4496C16.084 12.425 16.1372 12.389 16.1818 12.3437C16.2265 12.2984 16.2617 12.2447 16.2854 12.1857C16.3091 12.1267 16.3209 12.0635 16.32 11.9999V7.67992C16.3209 7.6157 16.3089 7.55196 16.2847 7.49247C16.2605 7.43298 16.2246 7.37895 16.1791 7.33358C16.1337 7.28821 16.0796 7.25242 16.02 7.22833C15.9605 7.20425 15.8967 7.19236 15.8325 7.19336ZM8.64 7.67992C8.57639 7.67902 8.51324 7.69077 8.45422 7.71449C8.39519 7.73821 8.34147 7.77342 8.29617 7.81808C8.25088 7.86275 8.21491 7.91597 8.19036 7.97465C8.1658 8.03333 8.15316 8.09631 8.15316 8.15992C8.15316 8.22353 8.1658 8.28651 8.19036 8.3452C8.21491 8.40388 8.25088 8.4571 8.29617 8.50176C8.34147 8.54642 8.39519 8.58163 8.45422 8.60535C8.51324 8.62907 8.57639 8.64082 8.64 8.63992H10.1747L8.23312 11.7459C8.18782 11.8185 8.16277 11.9019 8.16057 11.9875C8.15837 12.0731 8.17909 12.1577 8.22059 12.2326C8.2621 12.3075 8.32287 12.3699 8.39661 12.4134C8.47036 12.4569 8.55439 12.4798 8.64 12.4799H11.04C11.1036 12.4808 11.1668 12.4691 11.2258 12.4454C11.2848 12.4216 11.3385 12.3864 11.3838 12.3418C11.4291 12.2971 11.4651 12.2439 11.4896 12.1852C11.5142 12.1265 11.5268 12.0635 11.5268 11.9999C11.5268 11.9363 11.5142 11.8733 11.4896 11.8146C11.4651 11.756 11.4291 11.7027 11.3838 11.6581C11.3385 11.6134 11.2848 11.5782 11.2258 11.5545C11.1668 11.5308 11.1036 11.519 11.04 11.5199H9.50531L11.4469 8.41398C11.4922 8.34134 11.5172 8.25791 11.5194 8.17232C11.5216 8.08674 11.5009 8.00213 11.4594 7.92725C11.4179 7.85237 11.3571 7.78995 11.2834 7.74647C11.2096 7.70298 11.1256 7.68 11.04 7.67992H8.64ZM14.3925 9.11336C14.3138 9.11475 14.2366 9.13549 14.1677 9.17374C14.0989 9.212 14.0406 9.2666 13.9978 9.33273C13.759 9.20158 13.4897 9.11992 13.2 9.11992C12.2778 9.11992 11.52 9.87777 11.52 10.7999C11.52 11.7221 12.2778 12.4799 13.2 12.4799C13.4894 12.4799 13.7582 12.398 13.9969 12.2671C14.0534 12.3546 14.1369 12.4213 14.2347 12.4572C14.3325 12.493 14.4393 12.4961 14.539 12.4659C14.6387 12.4358 14.7259 12.374 14.7874 12.2899C14.8489 12.2059 14.8814 12.1041 14.88 11.9999V10.7999V9.59992C14.8809 9.5357 14.8689 9.47196 14.8447 9.41247C14.8205 9.35298 14.7846 9.29895 14.7391 9.25358C14.6937 9.20821 14.6396 9.17242 14.58 9.14833C14.5205 9.12425 14.4567 9.11236 14.3925 9.11336ZM18.48 9.11992C17.5578 9.11992 16.8 9.87777 16.8 10.7999C16.8 11.7221 17.5578 12.4799 18.48 12.4799C19.4022 12.4799 20.16 11.7221 20.16 10.7999C20.16 9.87777 19.4022 9.11992 18.48 9.11992ZM13.2 10.0799C13.6033 10.0799 13.92 10.3966 13.92 10.7999C13.92 11.2033 13.6033 11.5199 13.2 11.5199C12.7967 11.5199 12.48 11.2033 12.48 10.7999C12.48 10.3966 12.7967 10.0799 13.2 10.0799ZM18.48 10.0799C18.8833 10.0799 19.2 10.3966 19.2 10.7999C19.2 11.2033 18.8833 11.5199 18.48 11.5199C18.0767 11.5199 17.76 11.2033 17.76 10.7999C17.76 10.3966 18.0767 10.0799 18.48 10.0799Z"
+                                    stroke="black" stroke-width="0.2" mask="url(#path-1-outside-1_6394_301594)"></path>
+                            </svg>
+                            ></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Chính sách</h3>
+                    <ul>
+                        <li><a href="#!">Chính sách và quy định</a></li>
+                        <li><a href="#!">Quy chế hoạt động</a></li>
+                        <li><a href="#!">Bảo mật thông tin</a></li>
+                        <li><a href="#!">Giải quyết tranh chấp</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Tìm hiểu thêm</h3>
+                    <ul>
+                        <li><a href="#!">Hướng dẫn chung</a></li>
+                        <li><a href="#!">Hướng dẫn đặt xe</a></li>
+                        <li><a href="#!">Hướng dẫn thanh toán</a></li>
+                        <li><a href="#!">Hỏi và trả lời</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <ul class="none">
+                        <li><a href="#!">Về RENTALCAR</a></li>
+                        <li><a href="#!">RENTALCAR Blog</a></li>
+                        <li><a href="#!">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Đối Tác</h3>
+                    <ul>
+                        <li><a href="#!">Đăng ký chủ xe RENTALCAR</a></li>
+                        <li><a href="#!">Đăng ký cho thuê xe dài hạn RENTALCAR</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        flatpickr(".wrap-date-time .wrap-date", {
+            enableTime: true,
+            dateFormat: "d/m/Y H:i",
+            defaultDate: "08/10/2024 21:00",
+            minDate: "today",
+            locale: "vn", // Ngôn ngữ tiếng Việt
+        });
+
+        flatpickr(".wrap-date-time .wrap-time", {
+            enableTime: true,
+            dateFormat: "d/m/Y H:i",
+            defaultDate: "09/10/2024 20:00",
+            minDate: "today",
+            locale: "vn",
+        });
+    </script>
+
+    <!--Car-details-->
+    <script src="./assets/js/car-detail.js"></script>
+    <!-- Ion-Icon -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
