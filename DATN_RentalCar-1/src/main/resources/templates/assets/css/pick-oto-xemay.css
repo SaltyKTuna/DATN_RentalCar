@@ -94,7 +94,7 @@ form {
   }
   
   .updated-custom-col {
-    width: 50%; Cả hai cột chiếm 50% chiều rộng
+    width: 50%; 
     padding: 20px; /* Padding cho cột */
   }
   
@@ -194,7 +194,7 @@ form {
     z-index: 10;
     max-height: 150px;
     overflow-y: auto;
-    display: none; /* Ban đầu ẩn */
+    /* display: none; */
   }
   
   .dropdown-item {
@@ -218,6 +218,7 @@ form {
 
   /* Prod*/
   .prod {
+    display: none;  /* Ẩn tất cả sản phẩm mặc định */
     border: 1px solid #ccc; /* Thêm viền cho mỗi sản phẩm */
     border-radius: 8px; /* Bo tròn các góc */
     padding: 5px; /* Thêm khoảng cách bên trong cho sản phẩm */
@@ -225,6 +226,16 @@ form {
     background-color: #ffffff; /* Nền trắng cho sản phẩm */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng bóng đổ để phân tách sản phẩm rõ ràng */
   }
+
+.btn.active {
+    background-color: #007acc;
+    color: white;
+}
+
+.prod.car, .prod.motorbike {
+    display: block; /* Hiển thị các sản phẩm khi được JavaScript điều khiển */
+}
+
   
   /* Chia cột cho right-column */
 .right-column .three-column {
