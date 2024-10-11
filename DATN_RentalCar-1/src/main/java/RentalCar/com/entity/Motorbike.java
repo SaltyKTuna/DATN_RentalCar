@@ -71,6 +71,8 @@ public class Motorbike {
 
     @Column(nullable = false, length = 255)
     private String facilities;
+    
+    private Integer rentals;
 
     @OneToMany(mappedBy = "motorbike", cascade = CascadeType.ALL)
     @JsonIgnore

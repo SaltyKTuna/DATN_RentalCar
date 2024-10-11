@@ -65,6 +65,7 @@ public class CarController {
 		    carUpDate.setFuelConsumption(carDetails.getFuelConsumption());
 		    carUpDate.setDetailCar(carDetails.getDetailCar());
 		    carUpDate.setFacilities(carDetails.getFacilities());
+		    carUpDate.setRentals(carDetails.getRentals());
 		    
 		    // Lưu đối tượng xe đã cập nhật
 		    carRepo.save(carUpDate);

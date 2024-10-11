@@ -73,6 +73,7 @@ public class MotorbikeApiController {
                     motorbike.setStatus(motorbikeDetails.getStatus());
                     motorbike.setVehicleLocation(motorbikeDetails.getVehicleLocation());
                     motorbike.setYear(motorbikeDetails.getYear());
+                    motorbike.setRentals(motorbikeDetails.getRentals());
 
                     Motorbike updatedMotorbike = motorbikeRepo.save(motorbike);
                     return ResponseEntity.ok(updatedMotorbike);

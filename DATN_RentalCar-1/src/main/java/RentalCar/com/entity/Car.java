@@ -78,11 +78,13 @@ public class Car {
 
     @Column(nullable = false, length = 255)
     private String facilities;
+    
+    private Integer rentals;
 
  // Relationships
     @JsonIgnore
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<ServicePricing> servicePricingList;
 //    // Getters and Setters
-}
+}	
 
