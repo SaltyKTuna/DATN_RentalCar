@@ -7,5 +7,5 @@ import RentalCar.com.entity.Account;
 
 @Repository
 public interface AccountRepo extends JpaRepository<Account, Long>{
-	
+	Account findByEmail(String email);
 }

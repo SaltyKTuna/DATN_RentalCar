@@ -126,5 +126,9 @@ public class AcountServiceImpl implements AcountService {
 	public void deleteAll() {
 		accountRepo.deleteAll();
 	}
+
+	public Account findByEmail(String email) {
+		return accountRepo.findByEmail(email);
+	}
 }
 
