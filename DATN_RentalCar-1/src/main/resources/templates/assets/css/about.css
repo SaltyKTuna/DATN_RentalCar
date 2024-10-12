@@ -1,0 +1,219 @@
+.aboutus-head {
+    margin: 10px auto; /* Canh giữa container theo chiều ngang */
+    padding: 40px 20px; 
+    /* background-color: #f8f9fa;  */
+    border-radius: 8px;
+    max-width: 1300px; /* Giới hạn chiều rộng tối đa của container */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .aboutus-head.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .m-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start;
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa của container */
+    margin: 0 auto; /* Canh giữa container */
+    padding: 0 20px; /* Thêm khoảng cách hai bên */
+  }
+  .left-column {
+    width: 30%;
+    padding-right: 20px; 
+  }
+  .right-column {
+    width: 70%; 
+    line-height: 1.6;
+  }
+  
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 40px;
+  }
+  
+  p {
+    color: #555;
+    font-size: 1em;
+    margin-bottom: 1em;
+  }
+  
+  .two-columns {
+    display: flex;
+    gap: 20px; /* Khoảng cách giữa hai cột */
+  }
+  
+  /* Responsive CSS */
+  @media (max-width: 768px) {
+    .m-container {
+      flex-direction: column;
+    }
+  
+    .left-column,
+    .right-column {
+      width: 100%;
+      padding-right: 0;
+    }
+  
+    h1 {
+      text-align: center;
+    }
+  
+    p {
+      text-align: justify;
+    }
+  }
+  
+  /*img*/
+  .m-container img {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  .m-container img.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  
+  /*intro container*/
+  .intro-container {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto; /* Để căn giữa container */
+    border-radius: 8px;
+    gap: 20px; /* Khoảng cách giữa các cột */
+  }
+  
+  .intro-container__info {
+    width: 60%; /* Chiếm 60% chiều rộng container */
+    line-height: 1.6; /* Tăng độ cao dòng để dễ đọc */
+  }
+  
+  .intro-container__info h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+  }
+  
+  .intro-container__info p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 1.5em; /* Khoảng cách dưới giữa các đoạn văn */
+  }
+  
+  .intro-container__img {
+    width: 35%;
+    transform: translateX(100px); /* Di chuyển sang phải 100px khi ẩn */
+    opacity: 0; /* Đặt độ mờ ban đầu là 0 để ẩn */
+    transition: transform 1s ease, opacity 1s ease; /* Thời gian và hiệu ứng chuyển động */
+  }
+  
+  .intro-container__img.visible {
+    transform: translateX(0); /* Chuyển đến vị trí ban đầu */
+    opacity: 1; /* Hiển thị hoàn toàn */
+  }
+  
+  .intro-container__img img {
+    width: 100%; /* Để ảnh chiếm toàn bộ chiều rộng container ảnh */
+  }
+  
+  
+  /* adv-section */
+  .adv-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .text-align-center {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .list-adv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  
+  .adv-item {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 1s ease, opacity 1s ease;
+    opacity: 0;
+    transform: translateY(50px);
+    width: 30%;
+    min-width: 200px; /* Chiều rộng tối thiểu cho mỗi phần tử */
+    display: flex; /* Sử dụng flexbox */
+    flex-direction: column; /* Sắp xếp theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    text-align: center; /* Căn giữa văn bản */
+  }
+  .adv-item h5{
+  color: #3498db;
+  }
+  
+  .adv-item:hover h5{
+    color: #FF5733;
+  }
+  
+  .adv-item:hover .wrap-svg svg{
+    transition: stroke 0.3s ease;
+  
+  }
+  
+  .adv-item:hover .wrap-svg svg path {
+    stroke: #FF5733; /* Màu stroke khi hover */
+  }
+  
+  .adv-item.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .wrap-svg {
+    margin-bottom: 15px;
+  }
+  
+  h5 {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #5FCF86;
+  }
+  
+  p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 768px) {
+    .list-adv {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .adv-item {
+      width: 80%;
+      margin-bottom: 20px;
+    }
+  }
+  

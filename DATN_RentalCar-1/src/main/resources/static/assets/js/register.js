@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const backArrow = document.getElementById('back-arrow');
     backArrow.addEventListener('click', () => {
-        window.location.href = '/';
+        window.location.href = 'index.html';
     });
   });
   
