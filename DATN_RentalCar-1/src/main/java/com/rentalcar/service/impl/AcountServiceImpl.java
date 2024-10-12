@@ -130,5 +130,11 @@ public class AcountServiceImpl implements AcountService {
 	public Account findByEmail(String email) {
 		return accountRepo.findByEmail(email);
 	}
+
+	@Override
+	public Account findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

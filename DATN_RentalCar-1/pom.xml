@@ -85,6 +85,27 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>4.0.1</version> <!-- hoặc phiên bản phù hợp với môi trường của bạn -->
+		    <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<version>1.2</version>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		
+		<!-- Jakarta Servlet API -->
+	    <dependency>
+	        <groupId>jakarta.servlet</groupId>
+	        <artifactId>jakarta.servlet-api</artifactId>
+	        <version>5.0.0</version>
+	        <scope>provided</scope>
+	    </dependency>
 
 	</dependencies>
 

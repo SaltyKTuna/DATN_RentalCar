@@ -6,4 +6,6 @@ public interface AcountService {
 
 	Account findByEmail(String email);
 
+	Account findByUsername(String username);
+
 }
