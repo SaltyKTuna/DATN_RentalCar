@@ -12,6 +12,6 @@ public class WebConfiger implements WebMvcConfigurer{
 	    @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
 	        registry.addInterceptor(authInterceptor)
-	                .addPathPatterns("/**").excludePathPatterns("/login"); // Áp dụng cho tất cả các yêu cầu
+	                .addPathPatterns("/**").excludePathPatterns("/login"); // Áp dụng cho tất cả các yêu cầu ngoại trừ /login
 	    }
 }
