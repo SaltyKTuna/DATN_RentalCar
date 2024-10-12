@@ -8,6 +8,9 @@ public interface SessionService {
 	void set(String name, Object value);
 
 	void remove(String name);
+<<<<<<< HEAD
 	
 	public boolean validateToken(String token);
+=======
+>>>>>>> sơn
 }
