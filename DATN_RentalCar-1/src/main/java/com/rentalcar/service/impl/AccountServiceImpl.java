@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.rentalcar.dao.AccountRepo;
 import com.rentalcar.entity.Account;
-import com.rentalcar.service.AcountService;
+import com.rentalcar.service.AccountService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AcountServiceImpl implements AcountService {
+public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepo accountRepo;

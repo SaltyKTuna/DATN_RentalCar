@@ -1,6 +1,7 @@
 package com.rentalcar.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -35,10 +36,13 @@ public class Account {
     @Column(nullable = false, length = 255)
     private String passwordHash;
 
-    @ManyToOne
-    @JoinColumn(name = "RoleID", nullable = false)
-    //@JsonBackReference
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER) // Thay đổi từ ManyToOne sang ManyToMany
+    @JoinTable(
+        name = "account_roles", // Tên bảng trung gian
+        joinColumns = @JoinColumn(name = "account_id"), // Khóa ngoại của bảng Accounts
+        inverseJoinColumns = @JoinColumn(name = "role_id") // Khóa ngoại của bảng Roles
+    )
+    private List<Role> roles; // Danh sách các vai trò
 
     @Column(length = 255)
     private String address;

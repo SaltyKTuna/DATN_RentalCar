@@ -1,5 +1,6 @@
 package com.rentalcar.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.rentalcar.entity.Account;
+import com.rentalcar.entity.Role;
 import com.rentalcar.dao.CarRepo;
 import com.rentalcar.dao.MotorbikeRepo;
 import com.rentalcar.entity.Car;
 import com.rentalcar.entity.Motorbike;
+import com.rentalcar.service.SessionService;
 
 
 @Controller
@@ -22,6 +26,8 @@ public class homePageController {
     private MotorbikeRepo motorbikeRepo;
 	@Autowired
     private CarRepo carRepo;
+	@Autowired
+    private SessionService session;
 
     // Phương thức để lấy danh sách xe và hiển thị trong Thymeleaf template
     @GetMapping()
@@ -47,5 +53,16 @@ public class homePageController {
         
         return "pick-vehicle2";
     }
+    
+    @RequestMapping("/logout")
+	public String logoutSuccess(Model model) {
+		session.remove("user");
+		session.remove("userAdmin");
+		session.remove("security-uri");
+		session.remove("uri");
+		model.addAttribute("message", "Đăng xuất thành công");
+		return "login";
+	}
+
 }
 
