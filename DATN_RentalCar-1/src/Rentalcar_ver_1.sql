@@ -204,6 +204,8 @@ CREATE TABLE Damages (
 	FOREIGN KEY (RentalVehicleID) REFERENCES RentalVehicles	(RentalVehicleID)
 );
 
+-- Insert Data Test
+
 INSERT INTO roles (role_name, description) VALUES 
     ('admin', 'Quản trị hệ thống'),
     ('customer', 'Khách hàng sử dụng dịch vụ'),
