@@ -12,12 +12,8 @@ import com.rentalcar.service.SessionService;
 import com.rentalcar.entity.Role;
 import com.rentalcar.entity.Account;
 import com.rentalcar.service.AcountService;
-<<<<<<< HEAD
 import com.rentalcar.service.RoleService;
 
-=======
-import com.rentalcar.service.SessionService;
->>>>>>> sơn
 
 @Controller
 @RequestMapping(value = "/login")
@@ -26,13 +22,9 @@ public class LoginController {
     @Autowired
     private AcountService acountService;
     @Autowired
-<<<<<<< HEAD
     private RoleService roleService;
     @Autowired
     SessionService session;
-=======
-    private SessionService session;
->>>>>>> sơn
 
     // Phương thức GET để hiển thị trang đăng nhập
     @GetMapping
@@ -46,11 +38,6 @@ public class LoginController {
         Account account = acountService.findByEmail(email);
 
         if (account != null && account.getPasswordHash().equals(password)) {
-        	session.set("user", account);
-        	
-        	Account loggedAcc = session.get("user");
-    		System.out.println("User from session: " +loggedAcc.getUsername());
-
             return "redirect:/home";  // Chuyển hướng đến trang home sau khi đăng nhập thành công
         } else {
             model.addAttribute("error", "Invalid email or password");
