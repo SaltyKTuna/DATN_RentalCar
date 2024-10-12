@@ -1,6 +1,8 @@
 package com.rentalcar.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ public class RegisterController {
     
     @Autowired
     private RoleRepo roleRepo;
+    
+    List<Role> roles = new ArrayList<>();
 
     @GetMapping
     public String registerPage(Model model) {
@@ -39,7 +43,8 @@ public class RegisterController {
     	Role role = roleRepo.findById(roleID)
     	    .orElseThrow(() -> new RuntimeException("Role not found")); // Kiểm tra nếu Role không tồn tại
 
-    	account.setRole(role);
+    	account.setRoles(roles);
+    	System.out.println("role: "+role);
     	
         // Lưu thông tin tài khoản mới
         accRepo.save(account);
