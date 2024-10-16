@@ -21,4 +21,8 @@ public class Role {
 
     @Column(length = 255)
     private String description;
+
+    @ManyToMany(mappedBy = "roles")  // Đây là ánh xạ ngược lại từ bảng Account
+    @JsonIgnore
+    private List<Account> accounts;
 }

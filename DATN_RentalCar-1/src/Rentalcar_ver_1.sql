@@ -211,10 +211,10 @@ INSERT INTO roles (role_name, description) VALUES
     ('customer', 'Khách hàng sử dụng dịch vụ'),
     ('driver', 'Tài xế lái xe');
 
-INSERT INTO accounts (full_name, email, phone_number, username, password_hash, roleid, address, date_of_birth) VALUES 
-    ('Nguyen Van A', 'nguyenvana@example.com', '0909123456', 'nguyenvana', 'hashedpassword1', 2, '123 Street, Hanoi', '1990-05-15'),
-    ('Tran Thi B', 'tranb@example.com', '0909123457', 'tranb', 'hashedpassword2', 2, '456 Avenue, Ho Chi Minh', '1985-08-10'),
-    ('Le Quoc C', 'lequocc@example.com', '0909123458', 'lequocc', 'hashedpassword3', 3, '789 Road, Da Nang', '1992-11-22');
+INSERT INTO accounts (full_name, email, phone_number, username, password_hash, address, date_of_birth) VALUES 
+    ('Nguyen Van A', 'nguyenvana@example.com', '0909123456', 'nguyenvana', 'hashedpassword1', '123 Street, Hanoi', '1990-05-15'),
+    ('Tran Thi B', 'tranb@example.com', '0909123457', 'tranb', 'hashedpassword2', '456 Avenue, Ho Chi Minh', '1985-08-10'),
+    ('Le Quoc C', 'lequocc@example.com', '0909123458', 'lequocc', 'hashedpassword3', '789 Road, Da Nang', '1992-11-22');
 
 INSERT INTO driving_licenses (accountid, license_number, date_of_birth, image_url, license_status) VALUES 
     (1, '123456789', '1990-05-15', 'image1.jpg', 'Đã xác thực'),
