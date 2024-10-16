@@ -1,15 +1,15 @@
 package com.rentalcar.entity;
 
+import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -17,7 +17,6 @@ import java.util.Set;
 @Data
 @Table(name = "Accounts")
 public class Account {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
@@ -37,26 +36,18 @@ public class Account {
     @Column(nullable = false, length = 255)
     private String passwordHash;
 
-//    @ManyToMany(fetch = FetchType.EAGER) // Many-to-Many relationship with Role
-//    @JoinTable(
-//        name = "account_roles", // Intermediate table name
-//        joinColumns = @JoinColumn(name = "account_id"), // Foreign key of Account
-//        inverseJoinColumns = @JoinColumn(name = "role_id") // Foreign key of Role
-//    )
-//    private List<Role> roles; // List of roles associated with this account
-    
-//    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    
-    @ManyToMany(fetch = FetchType.EAGER )
+    @ManyToMany(fetch = FetchType.EAGER) // Thay đổi từ ManyToOne sang ManyToMany
     @JoinTable(
-        name = "account_roles",
-        joinColumns = @JoinColumn(name = "account_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id")
+        name = "account_roles", // Tên bảng trung gian
+        joinColumns = @JoinColumn(name = "account_id"), // Khóa ngoại của bảng Accounts
+        inverseJoinColumns = @JoinColumn(name = "role_id") // Khóa ngoại của bảng Roles
     )
-    private List<Role> roles = new ArrayList();
+    private List<Role> roles; // Danh sách các vai trò
 
     @Column(length = 255)
     private String address;
 
     private Date dateOfBirth;
+
+    // Getters and Setters
 }
