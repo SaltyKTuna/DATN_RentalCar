@@ -25,8 +25,6 @@ public class RegisterController {
     @Autowired
     private RoleRepo roleRepo;
     
-    List<Role> roles = new ArrayList<>();
-
     @GetMapping
     public String registerPage(Model model) {
         model.addAttribute("account", new Account()); // Tạo một đối tượng Account rỗng
@@ -35,21 +33,24 @@ public class RegisterController {
     
     @PostMapping
     public String register(Model model, Account account) {
-    	account.setDateOfBirth(new Date());
-    	account.setPhoneNumber("");
-    	
-    	// Lấy Role từ cơ sở dữ liệu
-    	Long roleID = 2L; // ID của Role bạn muốn gán
-    	Role role = roleRepo.findById(roleID)
-    	    .orElseThrow(() -> new RuntimeException("Role not found")); // Kiểm tra nếu Role không tồn tại
+        account.setDateOfBirth(new Date());
+        account.setPhoneNumber("");
+        
+        // Lấy Role từ cơ sở dữ liệu
+        Long roleID = 2L; // ID của Role bạn muốn gán
+        Role role = roleRepo.findById(roleID)
+            .orElseThrow(() -> new RuntimeException("Role not found")); // Kiểm tra nếu Role không tồn tại
 
-    	account.setRoles(roles);
-    	System.out.println("role: "+role);
-    	
+        // Thêm Role vào danh sách roles của account
+        List<Role> roles = new ArrayList<>();
+        roles.add(role);
+        account.setRoles(roles); // Thiết lập vai trò cho tài khoản
+
         // Lưu thông tin tài khoản mới
         accRepo.save(account);
 
         // Chuyển hướng đến trang đăng nhập hoặc trang khác sau khi đăng ký thành công
         return "redirect:/login"; // Hoặc trang mà bạn muốn người dùng đến sau khi đăng ký
     }
+
 }
