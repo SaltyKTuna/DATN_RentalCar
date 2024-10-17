@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <title>Mentor - Bootstrap 4 Admin Dashboard Template</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Admin template that can be used to build dashboards for CRM, CMS, etc." />
+    <meta name="author" content="Potenza Global Solutions" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- app favicon -->
+    <link rel="shortcut icon" href="assets/img/favicon.ico">
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <!-- plugin stylesheets -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors.css" />
+    <!-- app style -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+</head>
+
+<body>
+    <!-- begin app -->
+    <div class="app">
+        <!-- begin app-wrap -->
+        <div class="app-wrap">
+            <!-- begin pre-loader -->
+            <div class="loader">
+                <div class="h-100 d-flex justify-content-center">
+                    <div class="align-self-center">
+                        <img src="assets/img/loader/loader.svg" alt="loader">
+                    </div>
+                </div>
+            </div>
+            <!-- end pre-loader -->
+            <!-- begin app-header -->
+            <header class="app-header top-bar">
+                <!-- begin navbar -->
+                <nav class="navbar navbar-expand-md">
+
+                    <!-- begin navbar-header -->
+                    <div class="navbar-header d-flex align-items-center">
+                        <a href="javascript:void:(0)" class="mobile-toggle"><i class="ti ti-align-right"></i></a>
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/img/logo.png" class="img-fluid logo-desktop" alt="logo" />
+                            <img src="assets/img/logo-icon.png" class="img-fluid logo-mobile" alt="logo" />
+                        </a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="ti ti-align-left"></i>
+                    </button>
+                    <!-- end navbar-header -->
+                    <!-- begin navigation -->
+
+                    <!-- end navigation -->
+                </nav>
+                <!-- end navbar -->
+            </header>
+            <!-- end app-header -->
+            <!-- begin app-container -->
+            <div class="app-container">
+                <!-- begin app-nabar -->
+                <aside class="app-navbar">
+                    <!-- begin sidebar-nav -->
+                    <div class="sidebar-nav scrollbar scroll_light">
+                        <ul class="metismenu " id="sidebarNav">
+                            <li class="nav-static-title">Cá Nhân</li>
+                            <li class="active">
+                                <a class="has-arrow" href="index.html" aria-expanded="false">
+                                    <i class="nav-icon ti ti-rocket"></i>
+                                    <span class="nav-title"> Bảng Điều Khiển </span>
+                                    <span class="nav-label label label-danger">9</span>
+                                </a>
+                            </li>
+                            <li><a href="app-chat.html" aria-expanded="false"><i
+                                        class="nav-icon ti ti-comment"></i><span class="nav-title">Tin Nhắn</span></a>
+                            </li>
+                            <li><a href="mail-inbox.html" aria-expanded="false"><i
+                                        class="nav-icon ti ti-email"></i><span class="nav-title"> Gmail</span></a> </li>
+                            <li class="nav-static-title">Danh Sách</li>
+                            <li> <a href="page-account-settings.html">Danh Sách Account & Auth</a> </li>
+                            <li> <a href="page-account-settings.html">Danh Sách Nhân Sự</a> </li>
+                            <li> <a href="page-account-settings.html"> Danh Sách Tài Xế</a> </li>
+                            <li> <a href="page-clients.html">Danh Sách Khách Hàng</a> </li>
+                            <li class="nav-static-title">Thông Tin Xe</li>
+                            <li> <a href="#">Danh Sách Xe Ô Tô</a> </li>    
+                            <li> <a href="#">Danh Sách Xe Máy</a> </li>             
+                            <!--Tài Khoản-->
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i
+                                        class="nav-icon ti ti-key"></i><span class="nav-title">Auth</span></a>
+                                <ul aria-expanded="false">
+                                    <li> <a href="auth-login.html">Login</a> </li>
+                                    <li> <a href="auth-register.html">Register</a> </li>
+                                </ul>
+                            </li>
+                            <li> <a href="page-contacts.html">Liên Hệ</a> </li>
+                        </ul>
+                    </div>
+                    <!-- end sidebar-nav -->
+                </aside>
+                <!-- end app-navbar -->
+                <!-- begin app-main -->
+                <div class="app-main" id="main">
+                    <!-- begin container-fluid -->
+                    <div class="container-fluid">
+                        <!-- begin row -->
+                        <div class="row">
+                            <div class="col-md-12 m-b-30">
+                                <!-- begin page title -->
+                                <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                                    <div class="page-title mb-2 mb-sm-0">
+                                        <h1>Cài Đặt Tài Khoản</h1>
+                                    </div>
+                                    <div class="ml-auto d-flex align-items-center">
+                                        <nav>
+                                            <ol class="breadcrumb p-0 m-b-0">
+                                                <li class="breadcrumb-item">
+                                                    <a href="index.html"><i class="ti ti-home"></i></a>
+                                                </li>
+                                                <li class="breadcrumb-item">
+                                                    Pages
+                                                </li>
+                                                <li class="breadcrumb-item active text-primary" aria-current="page">Cài Đặt Tài Khoản</li>
+                                            </ol>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <!-- end page title -->
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <!--mail-Compose-contant-start-->
+                        <div class="row account-contant">
+                            <div class="col-12">
+                                <div class="card card-statistics">
+                                    <div class="card-body p-0">
+                                        <div class="row no-gutters">
+                                            <div class="col-xl-3 pb-xl-0 pb-5 border-right">
+                                                <div class="page-account-profil pt-5">
+                                                    <div class="profile-img text-center rounded-circle">
+                                                        <div class="pt-5">
+                                                            <div class="bg-img m-auto" style="width: 250px; height: 250px; border-radius: 50%; overflow: hidden;">
+                                                                <img id="avatar" src="assets/img/avtar/AvtDefault.png" class="img-fluid" alt="users-avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                                                            </div>
+                                                            <div class="profile pt-4">
+                                                                <h4 class="mb-1">Alice Williams</h4>
+                                                                <p>Enthusiast</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="py-3 profile-counter">
+                                                    </div>
+                                                    <div class="profile-btn text-center">
+                                                        <!-- Ẩn input file và chỉ hiển thị nút chọn ảnh -->
+                                                        <input type="file" id="avatarInput" class="form-control-file d-none" accept="image/*">
+                                                        <div><button id="uploadBtn" class="btn btn-light text-primary mb-2">Upload New Avatar</button></div>
+                                                        <div><button id="deleteBtn" class="btn btn-danger">Delete Avatar</button></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Bảng-->
+                                            <div class="col-xl-5 col-md-6 col-12 border-t border-right">
+                                                <div class="page-account-form">
+                                                    <div class="form-titel border-bottom p-3">
+                                                        <h5 class="mb-0 py-2">Chỉnh Sửa Thông Tin Cá Nhân Tài Khoản</h5>
+                                                    </div>
+                                                    <div class="p-4">
+                                                        <form>
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="name1">Họ Và Tên</label>
+                                                                    <input type="text" class="form-control" id="name1" value="Nguyễn Văn A"  >
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="email1">Email</label>
+                                                                    <input type="email" class="form-control" id="email1" value="@">
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="phone1">Số Điện Thoại</label>
+                                                                    <input type="text" class="form-control" id="phone1" value="038 XXX XXXX" >
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="title1">Tên Đăng Nhập</label>
+                                                                    <input type="text" class="form-control" id="title1" value="huukhanh.."  >
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="email1">Mật Khẩu</label>
+                                                                    <input type="password" class="form-control" id="email1" value="Admin">
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add1">Địa Chỉ</label>
+                                                                <input type="text" class="form-control" id="add1" value="777 Trần Cao Vân, Thanh Khê Đông, Đà Nẵng">
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="col-12">
+                                                                    <label class="mb-1">Birthday</label>
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <select id="inputState" class="form-control">
+                                                                        <option>Date</option>
+                                                                        <option>01</option>
+                                                                        <option>02</option>
+                                                                        <option>03</option>
+                                                                        <option>04</option>
+                                                                        <option>05</option>
+                                                                        <option>06</option>
+                                                                        <option>07</option>
+                                                                        <option>08</option>
+                                                                        <option>09</option>
+                                                                        <option>10</option>
+                                                                        <option selected="">11</option>
+                                                                        <option>12</option>
+                                                                        <option>13</option>
+                                                                        <option>14</option>
+                                                                        <option>15</option>
+                                                                        <option>16</option>
+                                                                        <option>17</option>
+                                                                        <option>18</option>
+                                                                        <option>19</option>
+                                                                        <option>20</option>
+                                                                        <option>21</option>
+                                                                        <option>22</option>
+                                                                        <option>23</option>
+                                                                        <option>24</option>
+                                                                        <option>25</option>
+                                                                        <option>26</option>
+                                                                        <option>27</option>
+                                                                        <option>28</option>
+                                                                        <option>29</option>
+                                                                        <option>30</option>
+                                                                        <option>31</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <select id="inputState1" class="form-control">
+                                                                        <option>Month</option>
+                                                                        <option>January</option>
+                                                                        <option>February</option>
+                                                                        <option>March</option>
+                                                                        <option>April</option>
+                                                                        <option selected="">May</option>
+                                                                        <option>June</option>
+                                                                        <option>July</option>
+                                                                        <option>August</option>
+                                                                        <option>September</option>
+                                                                        <option>October</option>
+                                                                        <option>November</option>
+                                                                        <option>December</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group col-md-4">
+                                                                    <select id="inputState2" class="form-control">
+                                                                        <option>Year</option>
+                                                                        <option>1984</option>
+                                                                        <option>1985</option>
+                                                                        <option>1986</option>
+                                                                        <option>1987</option>
+                                                                        <option>1988</option>
+                                                                        <option>1989</option>
+                                                                        <option>1990</option>
+                                                                        <option>1991</option>
+                                                                        <option>1992</option>
+                                                                        <option>1993</option>
+                                                                        <option>1994</option>
+                                                                        <option>1995</option>
+                                                                        <option>1996</option>
+                                                                        <option>1997</option>
+                                                                        <option>1998</option>
+                                                                        <option>1999</option>
+                                                                        <option>2000</option>
+                                                                        <option>2001</option>
+                                                                        <option>2002</option>
+                                                                        <option>2003</option>
+                                                                        <option>2004</option>
+                                                                        <option>2005</option>
+                                                                        <option>2006</option>
+                                                                        <option>2007</option>
+                                                                        <option>2008</option>
+                                                                        <option>2009</option>
+                                                                        <option>2010</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <label for="role">Vai Trò</label>
+                                                                <select id="role" class="form-control">
+                                                                    <option value="admin">Quản Lý</option>
+                                                                    <option value="Employees">Nhân Viên</option>
+                                                                </select>
+                                                            </div>    
+                                                            <div class="form-group col-md-12">
+                                                                <label for="role">Trạng Thái: </label>
+                                                                <input type="checkbox" id="statusCheckbox">
+                                                                <span id="statusLabel">on Visible</span> 
+                                                            </div>                                                                                                                 
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                                                    <label class="form-check-label" for="gridCheck">
+                                                                        Gữi thông báo về Gmail
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Thêm Mới</button>
+                                                            <button type="submit" class="btn btn-primary">Cập Nhập</button>
+                                                            <button type="submit" class="btn btn-primary">Lưu</button>
+                                                            
+                                                        
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Table-->
+                                            <div class="col-xl-4 col-md-6 border-t col-12">
+                                                <div class="page-account-form">
+                                                    <div class="form-titel border-bottom p-3">
+                                                        <h5 class="mb-0 py-2">Danh Sách Nhân Viên</h5>
+                                                    </div>
+                                                    <div class="p-4">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">ID</th>
+                                                                    <th scope="col">Tên Nhân Viên</th>
+                                                                    <th scope="col">Vai Trò</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="employee-row" data-name="Nguyễn Văn A" data-email="abc@gmail.com" data-phone="038 XXX XXXX" data-address="777 Trần Cao Vân, Thanh Khê Đông, Đà Nẵng" data-role="Quản Lý">
+                                                                    <th scope="row">1</th>
+                                                                    <td>Nguyễn Văn A</td>
+                                                                    <td>Quản Lý</td>
+
+                                                                </tr>
+                                                                <tr class="employee-row" data-name="Trần Thị B" data-email="bbb@gmail.com" data-phone="039 XXX XXXX" data-address="999 Lê Duẩn, Hải Châu, Đà Nẵng" data-role="Nhân Viên">
+                                                                    <th scope="row">2</th>
+                                                                    <td>Trần Thị B</td>
+                                                                    <td>Nhân Viên</td>
+                                                                </tr>
+                                                                <tr class="employee-row" data-name="Phạm Văn C" data-email="ccc@gmail.com" data-phone="037 XXX XXXX" data-address="888 Nguyễn Văn Linh, Thanh Khê, Đà Nẵng" data-role="Nhân Viên">
+                                                                    <th scope="row">3</th>
+                                                                    <td>Phạm Văn C</td>
+                                                                    <td>Nhân Viên</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--mail-Compose-contant-end-->
+                    </div>
+                    <!-- end container-fluid -->
+                </div>
+                <!-- end app-main -->
+            </div>
+            <!-- end app-container -->
+            <!-- begin footer -->
+            <footer class="footer">
+                <div class="row">
+                    <div class="col-12 col-sm-6 text-center text-sm-left">
+                        <p>&copy; Copyright 2019. All rights reserved.</p>
+                    </div>
+                    <div class="col  col-sm-6 ml-sm-auto text-center text-sm-right">
+                        <p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
+                    </div>
+                </div>
+            </footer>
+            <!-- end footer -->
+        </div>
+        <!-- end app-wrap -->
+    </div>
+    <!-- end app -->
+     <!--Fill Photo-->
+    <script src="assets/js/page-account-settings.js"></script>
+    <!-- plugins -->
+    <script src="assets/js/vendors.js"></script>
+
+    <!-- custom app -->
+    <script src="assets/js/app.js"></script>
+</body>
+
+
+</html>
