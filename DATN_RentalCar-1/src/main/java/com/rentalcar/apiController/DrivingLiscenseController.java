@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/DrivingLiscenseManagement")
+@RequestMapping("/api/driving-liscense")
 public class DrivingLiscenseController {
 	
 	@Autowired
@@ -19,13 +19,13 @@ public class DrivingLiscenseController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAll")
+		@GetMapping
 		public List<DrivingLicense> getAll() {
 			return drivingLiscenseRepo.findAll();
 		}
 		
 		//tìm theo id xe
-		@GetMapping(value = "/findByID/{id}")
+		@GetMapping(value = "/{id}")
 		public ResponseEntity<Optional<DrivingLicense>> getByID(@PathVariable("id") Long id) {
 			if (!drivingLiscenseRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -35,13 +35,13 @@ public class DrivingLiscenseController {
 		}
 		
 		//lưu
-		@PostMapping(value = "/save")
+		@PostMapping
 		public String save(@RequestBody DrivingLicense drivingLicense) {
 			drivingLiscenseRepo.save(drivingLicense);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/updateByID/{id}")
+		@PutMapping(value = "/{id}")
 		public String upDate(@PathVariable("id") Long id, @RequestBody DrivingLicense drivingLicenseDetail) {
 		    // Tìm xe cần cập nhật
 			DrivingLicense drivingLiscenseUpdate = drivingLiscenseRepo.findById(id).orElseThrow(() -> new RuntimeException("DrivingLiscense not found"));
@@ -59,7 +59,7 @@ public class DrivingLiscenseController {
 		    return "updated successfully";
 		}	
 		
-		@DeleteMapping(value = "/delete/{id}")
+		@DeleteMapping(value = "/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			drivingLiscenseRepo.deleteById(id);
 			

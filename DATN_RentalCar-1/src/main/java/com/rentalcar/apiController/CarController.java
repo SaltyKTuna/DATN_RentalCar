@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/carManagement")
+@RequestMapping("/api/car")
 public class CarController {
 	
 	@Autowired
@@ -19,13 +19,13 @@ public class CarController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAll")
+		@GetMapping
 		public List<Car> getAllCars() {
 			return carRepo.findAll();
 		}
 		
 		//tìm theo id xe
-		@GetMapping(value = "/findByID/{id}")
+		@GetMapping(value = "/{id}")
 		public ResponseEntity<Optional<Car>> getByID(@PathVariable("id") Long id) {
 			if (!carRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -35,13 +35,13 @@ public class CarController {
 		}
 		
 		//lưu
-		@PostMapping(value = "/save")
+		@PostMapping
 		public String save(@RequestBody Car car) {
 			carRepo.save(car);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/upDateByID/{id}")
+		@PutMapping(value = "/{id}")
 		public String upDateCar(@PathVariable("id") Long id, @RequestBody Car carDetails) {
 		    // Tìm xe cần cập nhật
 		    Car carUpDate = carRepo.findById(id).orElseThrow(() -> new RuntimeException("Car not found"));
@@ -74,7 +74,7 @@ public class CarController {
 		    return "Car updated successfully";
 		}	
 		
-		@DeleteMapping(value = "/delete/{id}")
+		@DeleteMapping(value = "/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			carRepo.deleteById(id);
 			

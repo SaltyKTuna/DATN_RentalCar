@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/PaymentManagement")
+@RequestMapping("/api/payment")
 public class PaymentController {
 	
 	@Autowired
@@ -19,13 +19,13 @@ public class PaymentController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAll")
+		@GetMapping
 		public List<Payment> getAll() {
 			return paymentRepo.findAll();
 		}
 		
 		//tìm theo id
-		@GetMapping(value = "/findByID/{id}")
+		@GetMapping(value = "/{id}")
 		public ResponseEntity<Optional<Payment>> getByID(@PathVariable("id") Long id) {
 			if (!paymentRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -35,13 +35,13 @@ public class PaymentController {
 		}
 		
 		//lưu
-		@PostMapping(value = "/save")
+		@PostMapping
 		public String save(@RequestBody Payment payment) {
 			paymentRepo.save(payment);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/updateByID/{id}")
+		@PutMapping(value = "/{id}")
 		public String update(@PathVariable("id") Long id, @RequestBody Payment paymentDetail) {
 		    // Tìm đối tượng cần cập nhật
 			Payment paymentUpdate = paymentRepo.findById(id).orElseThrow(() -> new RuntimeException("Payment not found"));
@@ -57,7 +57,7 @@ public class PaymentController {
 		    return "updated successfully";
 		}	
 		
-		@DeleteMapping(value = "/delete/{id}")
+		@DeleteMapping(value = "/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			paymentRepo.deleteById(id);
 			

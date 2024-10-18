@@ -19,13 +19,13 @@ public class DriverController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAll")
+		@GetMapping
 		public List<Driver> getAll() {
 			return driverRepo.findAll();
 		}
 		
 		//tìm theo id
-		@GetMapping(value = "/findByID/{id}")
+		@GetMapping(value = "/{id}")
 		public ResponseEntity<Optional<Driver>> getByID(@PathVariable("id") Long id) {
 			if (!driverRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -35,13 +35,13 @@ public class DriverController {
 		}
 		
 		//lưu
-		@PostMapping(value = "/save")
+		@PostMapping
 		public String save(@RequestBody Driver driver) {
 			driverRepo.save(driver);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/updateByID/{id}")
+		@PutMapping(value = "/{id}")
 		public String update(@PathVariable("id") Long id, @RequestBody Driver DriverDetail) {
 		    // Tìm đối tượng cần cập nhật
 			Driver driverUpdate = driverRepo.findById(id).orElseThrow(() -> new RuntimeException("driver not found"));
@@ -60,7 +60,7 @@ public class DriverController {
 		    return "updated successfully";
 		}	
 		
-		@DeleteMapping(value = "/delete/{id}")
+		@DeleteMapping(value = "/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			driverRepo.deleteById(id);
 			

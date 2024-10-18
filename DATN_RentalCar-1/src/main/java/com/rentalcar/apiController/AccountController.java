@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/accountManagement")
+@RequestMapping("/api/account")
 public class AccountController {
 	
 	@Autowired
@@ -37,13 +37,13 @@ public class AccountController {
 		}
 		
 		//lưu Account
-		@PostMapping(value = "/save")
+		@PostMapping
 		public String save(@RequestBody Account account) {		
 			accountRepo.save(account);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/upDateByID/{id}")
+		@PutMapping(value = "/{id}")
 		public String update(@PathVariable("id") Long id, @RequestBody Account carDetails) {
 		    // Tìm Account cần cập nhật
 			Account accountUpDate = accountRepo.findById(id).orElseThrow(() -> new RuntimeException("Account not found"));
@@ -109,7 +109,7 @@ public class AccountController {
 		
 
 		
-		@DeleteMapping(value = "/delete/{id}")
+		@DeleteMapping(value = "/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			accountRepo.deleteById(id);
 			

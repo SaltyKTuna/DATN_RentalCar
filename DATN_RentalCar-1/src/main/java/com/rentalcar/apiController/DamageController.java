@@ -19,19 +19,19 @@ import com.rentalcar.entity.Damage;
 import com.rentalcar.entity.Motorbike;
 
 @RestController
-@RequestMapping("/damageManage")
+@RequestMapping("/api/damage")
 public class DamageController {
 	@Autowired
 	DamageRepo damageRepo;
 
 	// tìm tất cả
-	@GetMapping(value = "/findAll")
+	@GetMapping
 	public List<Damage> getAllDamage() {
 		return damageRepo.findAll();
 	}
 
 	// tìm theo id
-	@GetMapping(value = "/findByID/{id}")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<Optional<Damage>> getByID(@PathVariable("id") Long id) {
 		if (!damageRepo.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -41,13 +41,13 @@ public class DamageController {
 	}
 
 	// lưu
-	@PostMapping(value = "/save")
+	@PostMapping
 	public String save(@RequestBody Damage dmg) {
 		damageRepo.save(dmg);
 		return "Saved!!!";
 	}
 
-	@PutMapping(value = "/update/{id}")
+	@PutMapping(value = "/{id}")
 	public String update(@PathVariable("id") Long id, @RequestBody Damage dmgDetail) {
 		// Tìm tổn hại cần cập nhật
 		Damage dmgUpdate = damageRepo.findById(id).orElseThrow(() -> new RuntimeException("Damage is not found"));
@@ -64,7 +64,7 @@ public class DamageController {
 		return "Updated!!!";
 	}
 
-	@DeleteMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/{id}")
 	public String deleteById(@PathVariable("id") Long id) {
 		damageRepo.deleteById(id);
 

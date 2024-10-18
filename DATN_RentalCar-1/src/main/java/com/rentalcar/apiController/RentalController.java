@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/RentalManagement")
+@RequestMapping("/api/rental")
 public class RentalController {
 	
 	@Autowired
@@ -19,7 +19,7 @@ public class RentalController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAll")
+		@GetMapping
 		public List<Rental> getAll() {
 			return rentalRepo.findAll();
 		}
@@ -35,13 +35,13 @@ public class RentalController {
 		}
 		
 		//lưu
-		@PostMapping(value = "/save")
+		@PostMapping
 		public String save(@RequestBody Rental drivingLicense) {
 			rentalRepo.save(drivingLicense);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/updateByID/{id}")
+		@PutMapping(value = "/{id}")
 		public String update(@PathVariable("id") Long id, @RequestBody Rental rentalDetail) {
 		    // Tìm xe cần cập nhật
 			Rental RentalUpdate = rentalRepo.findById(id).orElseThrow(() -> new RuntimeException("Rental not found"));
@@ -78,7 +78,7 @@ public class RentalController {
 		    return "updated successfully";
 		}	
 		
-		@DeleteMapping(value = "/delete/{id}")
+		@DeleteMapping(value = "/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			rentalRepo.deleteById(id);
 			

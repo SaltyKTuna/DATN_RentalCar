@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/ServicePricingManagement")
+@RequestMapping("/api/service")
 public class ServicePricingController {
 	
 	@Autowired
@@ -19,13 +19,13 @@ public class ServicePricingController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAll")
+		@GetMapping
 		public List<ServicePricing> getAll() {
 			return servicePricingRepo.findAll();
 		}
 		
 		//tìm theo id xe
-		@GetMapping(value = "/findByID/{id}")
+		@GetMapping(value = "/{id}")
 		public ResponseEntity<Optional<ServicePricing>> getByID(@PathVariable("id") Long id) {
 			if (!servicePricingRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -35,13 +35,13 @@ public class ServicePricingController {
 		}
 		
 		//lưu
-		@PostMapping(value = "/save")
+		@PostMapping
 		public String save(@RequestBody ServicePricing drivingLicense) {
 			servicePricingRepo.save(drivingLicense);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/updateByID/{id}")
+		@PutMapping(value = "/{id}")
 		public String update(@PathVariable("id") Long id, @RequestBody ServicePricing ServicePricingDetail) {
 		    // Tìm xe cần cập nhật
 			ServicePricing servicePricingUpdate = servicePricingRepo.findById(id).orElseThrow(() -> new RuntimeException("Rental not found"));
@@ -60,7 +60,7 @@ public class ServicePricingController {
 		    return "updated successfully";
 		}	
 		
-		@DeleteMapping(value = "/delete/{id}")
+		@DeleteMapping(value = "/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			servicePricingRepo.deleteById(id);
 			

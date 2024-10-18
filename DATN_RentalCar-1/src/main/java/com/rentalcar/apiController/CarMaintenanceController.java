@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/CarMaintenanceManagement")
+@RequestMapping("/api/car-maintenance")
 public class CarMaintenanceController {
 	
 	@Autowired
@@ -19,13 +19,13 @@ public class CarMaintenanceController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAll")
+		@GetMapping
 		public List<CarMaintenance> getAllCars() {
 			return CarMaintenanceRepo.findAll();
 		}
 		
 		//tìm theo id AdditionalFee
-		@GetMapping(value = "/findByID/{id}")
+		@GetMapping(value = "/{id}")
 		public ResponseEntity<Optional<CarMaintenance>> getByID(@PathVariable("id") Long id) {
 			if (!CarMaintenanceRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -35,13 +35,13 @@ public class CarMaintenanceController {
 		}
 		
 		//lưu AdditionalFee
-		@PostMapping(value = "/save")
+		@PostMapping
 		public String save(@RequestBody CarMaintenance carMaintenance) {
 			CarMaintenanceRepo.save(carMaintenance);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/updateByID/{id}")
+		@PutMapping(value = "/{id}")
 		public String upDateCar(@PathVariable("id") Long id, @RequestBody CarMaintenance carMaintenance) {
 		    // Tìm Account cần cập nhật
 			CarMaintenance carMaintenanceUpDate = CarMaintenanceRepo.findById(id).orElseThrow(() -> new RuntimeException("Account not found"));
@@ -59,7 +59,7 @@ public class CarMaintenanceController {
 		    return "updated...";
 		}
 		
-		@DeleteMapping(value = "/deleteID/{id}")
+		@DeleteMapping(value = "/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			CarMaintenanceRepo.deleteById(id);
 			

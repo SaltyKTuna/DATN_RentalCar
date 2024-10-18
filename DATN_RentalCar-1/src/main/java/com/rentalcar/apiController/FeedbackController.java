@@ -18,18 +18,18 @@ import com.rentalcar.dao.FeedbackRepo;
 import com.rentalcar.entity.Feedback;
 
 @RestController
-@RequestMapping("/feedbackManage")
+@RequestMapping("/api/feedback")
 public class FeedbackController {
 	@Autowired FeedbackRepo fbRepo;
 	
 	// tìm tất cả
-		@GetMapping(value = "/findAll")
+		@GetMapping
 		public List<Feedback> getAllFeedback() {
 			return fbRepo.findAll();
 		}
 
 		// tìm theo id
-		@GetMapping(value = "/findByID/{id}")
+		@GetMapping(value = "/{id}")
 		public ResponseEntity<Optional<Feedback>> getByID(@PathVariable("id") Long id) {
 			if (!fbRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -39,13 +39,13 @@ public class FeedbackController {
 		}
 
 		// lưu
-		@PostMapping(value = "/save")
+		@PostMapping
 		public String save(@RequestBody Feedback fb) {
 			fbRepo.save(fb);
 			return "Saved!!!";
 		}
 
-		@PutMapping(value = "/update/{id}")
+		@PutMapping(value = "/{id}")
 		public String update(@PathVariable("id") Long id, @RequestBody Feedback fbDetail) {
 			// Tìm đối tượng cần cập nhật
 			Feedback fbUpdate = fbRepo.findById(id)
@@ -62,7 +62,7 @@ public class FeedbackController {
 			return "Updated!!!";
 		}
 
-		@DeleteMapping(value = "/delete/{id}")
+		@DeleteMapping(value = "/{id}")
 		public String deleteById(@PathVariable("id") Long id) {
 			fbRepo.deleteById(id);
 

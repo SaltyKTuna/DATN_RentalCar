@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/RoleManagement")
+@RequestMapping("/api/role")
 public class RoleController {
 	
 	@Autowired
@@ -19,13 +19,13 @@ public class RoleController {
 		
 		
 		//tìm tất cả
-		@GetMapping(value = "/findAll")
+		@GetMapping
 		public List<Role> getAll() {
 			return roleRepo.findAll();
 		}
 		
 		//tìm theo id xe
-		@GetMapping(value = "/findByID/{id}")
+		@GetMapping(value = "/{id}")
 		public ResponseEntity<Optional<Role>> getByID(@PathVariable("id") Long id) {
 			if (!roleRepo.existsById(id)) {
 				return ResponseEntity.notFound().build();
@@ -35,13 +35,13 @@ public class RoleController {
 		}
 		
 		//lưu
-		@PostMapping(value = "/save")
+		@PostMapping
 		public String save(@RequestBody Role role) {
 			roleRepo.save(role);
 			return "saved...";
 		}
 		
-		@PutMapping(value = "/updateByID/{id}")
+		@PutMapping(value = "/{id}")
 		public String update(@PathVariable("id") Long id, @RequestBody Role rolelDetail) {
 		    // Tìm xe cần cập nhật
 			Role roleUpdate = roleRepo.findById(id).orElseThrow(() -> new RuntimeException("role not found"));
@@ -56,7 +56,7 @@ public class RoleController {
 		    return "updated successfully";
 		}	
 		
-		@DeleteMapping(value = "/delete/{id}")
+		@DeleteMapping(value = "/{id}")
 	    public String deleteById(@PathVariable("id") Long id) {
 			roleRepo.deleteById(id);
 			

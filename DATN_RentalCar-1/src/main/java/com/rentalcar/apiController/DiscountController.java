@@ -18,19 +18,19 @@ import com.rentalcar.dao.DiscountRepo;
 import com.rentalcar.entity.Discount;
 
 @RestController
-@RequestMapping("/discountManage")
+@RequestMapping("/api/discount")
 public class DiscountController {
 	@Autowired
 	DiscountRepo discRepo;
 
 	// tìm tất cả
-	@GetMapping(value = "/findAll")
+	@GetMapping
 	public List<Discount> getAllDiscount() {
 		return discRepo.findAll();
 	}
 
 	// tìm theo id
-	@GetMapping(value = "/findByID/{id}")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<Optional<Discount>> getByID(@PathVariable("id") Long id) {
 		if (!discRepo.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -46,7 +46,7 @@ public class DiscountController {
 		return "Saved!!!";
 	}
 
-	@PutMapping(value = "/update/{id}")
+	@PutMapping(value = "/{id}")
 	public String update(@PathVariable("id") Long id, @RequestBody Discount discountDetail) {
 		// Tìm đối tượng cần cập nhật
 		Discount discountUpdate = discRepo.findById(id).orElseThrow(() -> new RuntimeException("Discount not found"));
@@ -65,7 +65,7 @@ public class DiscountController {
 		return "Updated!!!";
 	}
 
-	@DeleteMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/{id}")
 	public String deleteById(@PathVariable("id") Long id) {
 		discRepo.deleteById(id);
 
