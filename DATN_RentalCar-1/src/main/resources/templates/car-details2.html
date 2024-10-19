@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./assets/css/car-details.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- Search-option-->
+    
     <title>Chi Tiết Ô Tô</title>
 </head>
 
@@ -53,20 +54,13 @@
         <div class="m-container">
             <div covers="[object Object],[object Object],[object Object],[object Object]" class="cover-car-container">
                 <div class="main-img">
-                    <div class="cover-car-item"><img loading="lazy"
-                            src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/N_RalqcAaKEe12XDf5FfqA.jpg">
+		            <div class="cover-car-item"><img th:src="@{'/assets/images/car/' + ${car.imageUrl}}" alt="Ảnh Xe Chính" loading="lazy" />
                     </div>
-                </div>
+		         </div>
                 <div class="sub-img">
-                    <div class="cover-car-item"><img loading="lazy"
-                            src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/05/28/14/oxKE3ZN09CO9ZqwcOqXjvg.jpg">
-                    </div>
-                    <div class="cover-car-item"><img loading="lazy"
-                            src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/YUs0_CMjj8F0Hq2e57DCzA.jpg">
-                    </div>
-                    <div class="cover-car-item"><img loading="lazy"
-                            src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_veloz_cross_2022/p/g/2024/02/26/08/N_RalqcAaKEe12XDf5FfqA.jpg">
-                    </div>
+                    <div th:each="image : ${car.imageUrl}" class="cover-car-item">
+                    <img th:src="@{'/assets/images/car/' + ${image}}" alt="Ảnh Xe Phụ" loading="lazy" />
+                </div>
                 </div>
                 <div class="see-more-img">
                     <div class="wrap-svg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -177,7 +171,8 @@
                 <div class="car-info">
                     <!-- Tittle-->
                     <div class="car-header d-flex-center-btw">
-                        <h3>TOYOTA VELOZ CROSS 2022</h3>
+                        <h3 th:text="${car.make + ' ' + car.model + ' ' + car.year}" class="product-title"></h3>
+
                         <div class="car-actions">
                             <div class="action-icons">
                                 <div class="icon-wrapper share-icon">
@@ -247,7 +242,7 @@
                         <span class="info">Quận Bình Thạnh, TP. Hồ Chí Minh</span>
                     </div>
                     <div class="car-tags">
-                        <span class="tag-item automatic">Số tự động</span>
+                        <span  class="tag-item automatic">Số tự động</span>
                         <span class="tag-item doorstep">Giao xe tận nơi</span>
                         <span class="tag-item fast-rent">Đặt xe nhanh</span>
                         <span class="tag-item no-mortgage">Miễn thế chấp</span>
@@ -284,7 +279,7 @@
                                     </svg></div>
                                 <div class="title">
                                     <p class="sub">Truyền động</p>
-                                    <p class="main">Số tự động</p>
+                                    <p th:text="${car.gearBox}" class="main"></p>
                                 </div>
                             </div>
                             <div class="outstanding-features__item">
@@ -304,7 +299,7 @@
                                     </svg></div>
                                 <div class="title">
                                     <p class="sub">Số ghế</p>
-                                    <p class="main">7 chỗ</p>
+                                    <p th:text="${car.seats}" class="main"></p>
                                 </div>
                             </div>
                             <div class="outstanding-features__item">
@@ -324,7 +319,7 @@
                                     </svg></div>
                                 <div class="title">
                                     <p class="sub">Nhiên liệu</p>
-                                    <p class="main">Xăng</p>
+                                    <p th:text="${car.fuelType}" class="main"></p>
                                 </div>
                             </div>
                             <div class="outstanding-features__item">
@@ -347,7 +342,12 @@
                                     </svg></div>
                                 <div class="title">
                                     <p class="sub">Tiêu hao</p>
-                                    <p class="main">8L/100km</p>
+                                    <p th:text="${car.fuelConsumption}" class="main col" style="display: inline-block;">
+									<!-- Fuel consumption value -->
+									</p>
+									<div style="display: inline-block;">
+									    L/KM
+									</div>
                                 </div>
                             </div>
                         </div>
@@ -357,7 +357,7 @@
                     <div class="info-car-desc" id="outsfeatures">
                         <h6>Mô Tả</h6><br>
                         <div class="outstanding-features">
-                            <h3>TOYOTA VELOZ CROSS 2022</h3>
+                            <h3 th:text="${car.make + ' ' + car.model + ' ' + car.year}" class="product-title"></h3> <!-- ở đây -->
                         </div>
                     </div>
                     <br>
@@ -769,11 +769,23 @@
                     <br>
                     <div class="rent-box" id="cardetail" style="position: relative;">
                         <div class="price">
-                            <div class="price-discount">
-                                <p class="origin"><span>985K</span></p><span class="tag-item discount">-14%</span>
-                            </div>
-                            <h4><span class="">865K</span><span class="inner-h"> /ngày</span></h4>
-                        </div>
+						    <div class="price-discount">
+						        <!-- Giá gốc (dailyRate * 1.1) -->
+						        <p class="origin">
+						            <span th:text="${car.dailyRate * 1.1}">985K</span>
+						        </p>
+						        <!-- Thẻ giảm giá -->
+						        <span class="tag-item discount">-14%</span>
+						    </div>
+						    
+						    <!-- Tính giá sau khi giảm -->
+						    <h4>
+						        <!-- Giá đã giảm = giá gốc - (giá gốc * 14%) -->
+						        <span th:text="${(car.dailyRate * 1.1) * (1 - 0.14)}">865K</span>
+						        <span class="inner-h"> /ngày</span>
+						    </h4>
+						</div>
+
 
                         <div class="date-time-form ">
                             <div class="form-item"><label>Nhận xe </label>
@@ -1150,6 +1162,12 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="./assets/js/swiper.js"></script>
+    <script src="./assets/js/Search-option.js"></script>
+    
 </body>
 
 </html>

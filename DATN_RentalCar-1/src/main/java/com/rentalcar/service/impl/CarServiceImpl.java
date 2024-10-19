@@ -124,11 +124,7 @@ public class CarServiceImpl implements CarService {
 		return carRepo.findAll(example, pageable);
 	}
 
-	/**
-	 * @param id
-	 * @return
-	 * @see org.springframework.data.repository.CrudRepository#findById(java.lang.Object)
-	 */
+	@Override
 	public Optional<Car> findById(Long id) {
 		return carRepo.findById(id);
 	}
