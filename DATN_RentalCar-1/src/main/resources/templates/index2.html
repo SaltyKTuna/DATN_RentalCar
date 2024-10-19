@@ -18,6 +18,24 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.css">
 <title>TRANG CHỦ RENTALCAR</title>
+<style >
+	.product-item {
+	position: relative;
+	transition: transform 0.3s ease;
+	}
+	
+	.product-item:hover {
+		transform: scale(1.05); /* Slight zoom effect */
+		box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Adding shadow on hover */
+	}
+	
+	.product-link {
+		text-decoration: none;
+		color: inherit;
+		display: block; /* Make the whole div clickable */
+	}
+	
+</style>
 </head>
 
 <body>
@@ -25,11 +43,11 @@
 	<header>
 		<div class="container">
 			<div class="header-layout">
-				<a href="index.html" id="logo"> <img
+				<a href="/" id="logo"> <img
 					src="./assets/images/Logo.png" alt="" />
 				</a>
 				<ul class="menu-list">
-					<li><a href="about.html">Về Chúng Tôi</a></li>
+					<li><a href="/about">Về Chúng Tôi</a></li>
 					<li><a href="#!">Hổ Trợ</a></li>
 					<li><a href="#!">Khuyến Mãi</a></li>
 					<div class="menu-line"></div>
@@ -40,11 +58,11 @@
 					<li th:if="${user == null || user == ''}"><a href="/login" class="border">Đăng
 							nhập</a></li>
 					<!-- Hiện tên người dùng nếu đã đăng nhập -->
-					<li th:if="${user != null}"><span
-						th:text="'Chào, ' + ${user.username}">Chào, User</span> <!-- Sử dụng đúng thuộc tính -->
+					<li th:if="${user != null}">
+						<a href="/logout" >Đăng Xuất</a>
+						<a href="/" th:text="'Chào ' + ${user.username}">Chào User</a>
 					</li>
 				</ul>
-
 
 				<div class="menu-mobile">
 					<div class="wrap-svg tab-menu">
@@ -1209,64 +1227,67 @@
 					</div>
 
 					<!-- Loop qua danh sách xe ô tô -- loop:thuật ngữ vòng lập -->
-					<div th:each="car : ${cars}" class="product-item">
-						<div class="product-img">
-							<img th:src="'./assets/images/car/' + ${car.imageUrl}" alt="" />
-							<div class="product-rents">
-								<span class="product-rent">Miễn thế chấp <svg width="16"
-										height="16" viewBox="0 0 16 16" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-	                  <!-- SVG content for the icon -->
-	                  <path
-											d="M2.06654 3.41201L3.30916 4.68289C3.50222 4.88033 3.81878 4.88389 4.01622 4.69084C4.21367 4.49778 4.21723 4.18122 4.02417 3.98378L2.73171 2.66192C4.08658 1.32458 5.9467 0.5 7.99999 0.5C12.1421 0.5 15.5 3.8579 15.5 8.00004C15.5 10.0709 14.6612 11.9454 13.3035 13.3031L11.9871 11.9806C11.7923 11.7849 11.4757 11.7842 11.28 11.979C11.0843 12.1738 11.0836 12.4904 11.2784 12.6861L12.5495 13.9631C11.2875 14.9276 9.71111 15.5001 7.99999 15.5001C3.85785 15.5001 0.5 12.1422 0.5 8.00004C0.5 6.27151 1.08422 4.68039 2.06654 3.41201Z"
-											stroke="#5FCF86" stroke-linecap="round"
-											stroke-linejoin="round"></path>
-	                  <path
-											d="M10.3364 5.92398H10.1909C10.0678 5.21142 9.48584 4.66675 8.78821 4.66675H5.12098C4.65092 4.66675 4.26666 5.07712 4.26666 5.57703C4.26666 5.6106 4.27412 5.64045 4.27785 5.67402C4.27412 5.68895 4.26666 5.70387 4.26666 5.72252V9.93815C4.26666 10.7067 4.89341 11.3334 5.65819 11.3334H10.3364C11.1012 11.3334 11.728 10.7067 11.728 9.93815V7.31551C11.728 6.547 11.1012 5.92398 10.3364 5.92398ZM10.1275 9.09876C9.87009 9.09876 9.65745 8.88984 9.65745 8.6287C9.65745 8.36755 9.87009 8.1549 10.1275 8.1549C10.3887 8.1549 10.6013 8.36755 10.6013 8.6287C10.6013 8.88984 10.3887 9.09876 10.1275 9.09876ZM5.12098 5.22635H8.78821C9.17992 5.22635 9.50822 5.52107 9.61641 5.92398H5.12098C4.95683 5.92398 4.82626 5.76729 4.82626 5.57703C4.82626 5.38303 4.95683 5.22635 5.12098 5.22635Z"
-											fill="#5FCF86"></path>
-	                </svg>
-								</span>
+					<div th:each="car, iterStat : ${cars}" th:if="${iterStat.index < 8}" class="product-item">
+						<a th:href="@{'/car/detail/' + ${car.carId}}" class="product-link">
+							<div class="product-img">
+								<img th:src="'./assets/images/car/' + ${car.imageUrl}" alt="" />
+								<div class="product-rents">
+									<span class="product-rent">Miễn thế chấp <svg width="16"
+											height="16" viewBox="0 0 16 16" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+		                  <!-- SVG content for the icon -->
+		                  <path
+												d="M2.06654 3.41201L3.30916 4.68289C3.50222 4.88033 3.81878 4.88389 4.01622 4.69084C4.21367 4.49778 4.21723 4.18122 4.02417 3.98378L2.73171 2.66192C4.08658 1.32458 5.9467 0.5 7.99999 0.5C12.1421 0.5 15.5 3.8579 15.5 8.00004C15.5 10.0709 14.6612 11.9454 13.3035 13.3031L11.9871 11.9806C11.7923 11.7849 11.4757 11.7842 11.28 11.979C11.0843 12.1738 11.0836 12.4904 11.2784 12.6861L12.5495 13.9631C11.2875 14.9276 9.71111 15.5001 7.99999 15.5001C3.85785 15.5001 0.5 12.1422 0.5 8.00004C0.5 6.27151 1.08422 4.68039 2.06654 3.41201Z"
+												stroke="#5FCF86" stroke-linecap="round"
+												stroke-linejoin="round"></path>
+		                  <path
+												d="M10.3364 5.92398H10.1909C10.0678 5.21142 9.48584 4.66675 8.78821 4.66675H5.12098C4.65092 4.66675 4.26666 5.07712 4.26666 5.57703C4.26666 5.6106 4.27412 5.64045 4.27785 5.67402C4.27412 5.68895 4.26666 5.70387 4.26666 5.72252V9.93815C4.26666 10.7067 4.89341 11.3334 5.65819 11.3334H10.3364C11.1012 11.3334 11.728 10.7067 11.728 9.93815V7.31551C11.728 6.547 11.1012 5.92398 10.3364 5.92398ZM10.1275 9.09876C9.87009 9.09876 9.65745 8.88984 9.65745 8.6287C9.65745 8.36755 9.87009 8.1549 10.1275 8.1549C10.3887 8.1549 10.6013 8.36755 10.6013 8.6287C10.6013 8.88984 10.3887 9.09876 10.1275 9.09876ZM5.12098 5.22635H8.78821C9.17992 5.22635 9.50822 5.52107 9.61641 5.92398H5.12098C4.95683 5.92398 4.82626 5.76729 4.82626 5.57703C4.82626 5.38303 4.95683 5.22635 5.12098 5.22635Z"
+												fill="#5FCF86"></path>
+		                </svg>
+									</span>
+								</div>
 							</div>
-						</div>
-
-						<!-- Thẻ sản phẩm -->
-						<div class="product-tags">
-							<div th:text="${car.gearBox}" class="product-tag"></div>
-							<!-- loại hộp số -->
-							<div class="product-tag">Giao xe tận nơi</div>
-						</div>
-
-						<!-- Tên xe -->
-						<div th:text="${car.make + ' ' + car.model + ' ' + car.year}"
-							class="product-title"></div>
-
-						<!-- Địa điểm -->
-						<div class="product-location">
-							<div class="wrap-svg">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17"
-									viewBox="0 0 16 17" fill="none">
-	                <!-- SVG content for location icon -->
-	              </svg>
+	
+							<!-- Thẻ sản phẩm -->
+							<div class="product-tags">
+								<div th:text="${car.gearBox}" class="product-tag"></div>
+								<!-- loại hộp số -->
+								<div class="product-tag">Giao xe tận nơi</div>
 							</div>
-							Huyện Đức Trọng, Lâm Đồng
-						</div>
-
-						<!-- Phân cách -->
-						<div class="product-line"></div>
-
-						<!-- Giá thuê và chi tiết -->
-						<div class="product-bottom">
-							<div class="product-ship">Chưa có chuyển</div>
-							<div class="product-price">
-								<div th:text="${car.dailyRate * 1.1}" class="old-price"></div>
-								<!-- giá cũ -->
-								<div th:text="${car.dailyRate}" class="new-price"></div>
-								<!-- giá mới -->
-								<span>/</span>
-								<p>ngày</p>
+	
+							<!-- Tên xe -->
+							<div th:text="${car.make + ' ' + car.model + ' ' + car.year}"
+								class="product-title"></div>
+	
+							<!-- Địa điểm -->
+							<div class="product-location">
+								<div class="wrap-svg">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17"
+										viewBox="0 0 16 17" fill="none">
+		                <!-- SVG content for location icon -->
+		              </svg>
+								</div>
+								Huyện Đức Trọng, Lâm Đồng
 							</div>
-						</div>
+	
+							<!-- Phân cách -->
+							<div class="product-line"></div>
+	
+							<!-- Giá thuê và chi tiết -->
+							<div class="product-bottom">
+								<div class="product-ship">Chưa có chuyển</div>
+								<div class="product-price">
+									<div th:text="${car.dailyRate * 1.1}" class="old-price"></div>
+									<!-- giá cũ -->
+									<div th:text="${car.dailyRate}" class="new-price"></div>
+									<!-- giá mới -->
+									<span>/</span>
+									<p>ngày</p>
+								</div>
+							</div>
+						</a>
 					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -1333,53 +1354,50 @@
 						</div>
 					</div>
 
-					<div th:each="motorbike : ${motorbikes}" class="product-item">
+					<div th:each="motorbike, iterStat : ${motorbikes}" th:if="${iterStat.index < 8}" class="product-item">
+						<a th:href="@{'/motorbikes/detail/' + ${motorbike.motorbikeId}}" class="product-link">
 
-						<div class="product-img">
-							<img th:src="'./assets/images/motobike/' + ${motorbike.imageUrl}"
-								alt="" />
-
-							<div class="product-discount">Giảm 9%</div>
-							<div class="product-rents">
-								<span class="product-rent">Miễn thế chấp <svg width="16"
-										height="16" viewBox="0 0 16 16" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-	                  <!-- SVG content -->
-	                </svg> >
-								</span>
+							<div class="product-img">
+								<img th:src="'./assets/images/motobike/' + ${motorbike.imageUrl}" alt="" />
+					
+								<div class="product-discount">Giảm 9%</div>
+								<div class="product-rents">
+									<span class="product-rent">Miễn thế chấp
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<!-- SVG content -->
+										</svg>
+									</span>
+								</div>
 							</div>
-						</div>
-						<div class="product-tags">
-							<div th:text="${motorbike.gearBox}" class="product-tag"></div>
-							<!-- loại hộp số -->
-							<div class="product-tag">Giao xe tận nơi</div>
-						</div>
-						<div
-							th:text="${motorbike.make + ' ' + motorbike.model + ' ' + motorbike.year}"
-							class="product-title"></div>
-						<!-- tên xe -->
-						<div class="product-location">
-							<div class="wrap-svg">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17"
-									viewBox="0 0 16 17" fill="none">
-	                <!-- SVG content -->
-	              </svg>
+							<div class="product-tags">
+								<div th:text="${motorbike.gearBox}" class="product-tag"></div>
+								<div class="product-tag">Giao xe tận nơi</div>
 							</div>
-							Huyện Đức Trọng, Lâm Đồng
-						</div>
-						<div class="product-line"></div>
-						<div class="product-bottom">
-							<div class="product-ship">Chưa có chuyển</div>
-							<div class="product-price">
-								<div th:text="${motorbike.dailyRate * 1.1}" class="old-price"></div>
-								<!-- giá cũ -->
-								<div th:text="${motorbike.dailyRate}" class="new-price"></div>
-								<!-- giá mới -->
-								<span>/</span>
-								<p>ngày</p>
+							<div th:text="${motorbike.make + ' ' + motorbike.model + ' ' + motorbike.year}"
+								class="product-title"></div>
+							<div class="product-location">
+								<div class="wrap-svg">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17"
+										viewBox="0 0 16 17" fill="none">
+										<!-- SVG content -->
+									</svg>
+								</div>
+								Huyện Đức Trọng, Lâm Đồng
 							</div>
-						</div>
+							<div class="product-line"></div>
+							<div class="product-bottom">
+								<div class="product-ship">Chưa có chuyển</div>
+								<div class="product-price">
+									<div th:text="${motorbike.dailyRate * 1.1}" class="old-price"></div>
+									<div th:text="${motorbike.dailyRate}" class="new-price"></div>
+									<span>/</span>
+									<p>ngày</p>
+								</div>
+							</div>
+						</a>
 					</div>
+
 				</div>
 			</div>
 		</div>

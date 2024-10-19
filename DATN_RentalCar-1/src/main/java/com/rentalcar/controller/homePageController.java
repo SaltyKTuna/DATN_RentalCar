@@ -42,6 +42,11 @@ public class homePageController {
         return "index2";
     }
     
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    } 	
+    
     @GetMapping("/pick-vehicle")
     public String viewAllVehicle(Model model) {
     	
