@@ -75,7 +75,7 @@ public class homePageController {
 		return "login";
 	}
 
-    @GetMapping("/car/{id}")
+    @GetMapping("/car/detail/{id}")
     public String getCarById(@PathVariable Long id, Model model) {
         Optional<Car> car = carService.findById(id);
 
@@ -87,6 +87,11 @@ public class homePageController {
         }
 
         return "car-details2"; // trả về trang hiển thị chi tiết xe
+    }
+    
+    @GetMapping("/car")
+    public String getCar( Model model) {
+        return "car-details"; // trả về trang hiển thị chi tiết xe
     }
 }
 
