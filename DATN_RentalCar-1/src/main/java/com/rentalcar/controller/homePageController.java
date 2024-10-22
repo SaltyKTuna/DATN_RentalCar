@@ -80,13 +80,14 @@ public class homePageController {
         Optional<Car> car = carService.findById(id);
 
         if (car.isPresent()) {
-            model.addAttribute("car", car.get());  // truyền đối tượng car vào model
+            model.addAttribute("car", car.get());  // Truyền đối tượng car vào model
         } else {
-            // Nếu không tìm thấy xe theo ID, bạn có thể xử lý một thông báo lỗi
-            model.addAttribute("error", "Car not found");
+            // Xử lý lỗi khi không tìm thấy xe
+            model.addAttribute("error", "Không tìm thấy xe với ID này");
+            return "error-page";  // Trả về trang lỗi
         }
 
-        return "car-details2"; // trả về trang hiển thị chi tiết xe
+        return "car-details2";  // Trả về trang chi tiết xe
     }
     
     @GetMapping("/car")
