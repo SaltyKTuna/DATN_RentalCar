@@ -90,9 +90,9 @@ public class homePageController {
         return "car-details2";  // Trả về trang chi tiết xe
     }
     
-    @GetMapping("/car")
+    @GetMapping("/testReact")
     public String getCar( Model model) {
-        return "car-details"; // trả về trang hiển thị chi tiết xe
+        return "testReact"; // trả về trang hiển thị chi tiết xe
     }
 }
 

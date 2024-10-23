@@ -37,6 +37,7 @@ public class Account {
     private String passwordHash;
 
     @ManyToMany(fetch = FetchType.EAGER) // Thay đổi từ ManyToOne sang ManyToMany
+    @JsonBackReference
     @JoinTable(
         name = "account_roles", // Tên bảng trung gian
         joinColumns = @JoinColumn(name = "account_id"), // Khóa ngoại của bảng Accounts

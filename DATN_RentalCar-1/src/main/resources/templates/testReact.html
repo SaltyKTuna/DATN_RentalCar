@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Management</title>
+    <!-- Import React -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function AccountManagement() {
+            const [accounts, setAccounts] = React.useState([]);
+            const [roles, setRoles] = React.useState([]);
+            const [formData, setFormData] = React.useState({
+                fullName: '',
+                email: '',
+                phoneNumber: '',
+                username: '',
+                passwordHash: '',
+                address: '',
+                dateOfBirth: '',
+                roles: []
+            });
+            const [isEditing, setIsEditing] = React.useState(false);
+            const [editId, setEditId] = React.useState(null);
+            const [showForm, setShowForm] = React.useState(false);
+
+            React.useEffect(function() {
+                fetchAccounts();
+                fetchRoles();
+            }, []);
+
+            function fetchAccounts() {
+                fetch('/api/account')
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        setAccounts(data);
+                    })
+                    .catch(function(error) {
+                        console.error('Error fetching accounts:', error);
+                    });
+            }
+
+            function fetchRoles() {
+                fetch('/api/account/roles')
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        setRoles(data);
+                    })
+                    .catch(function(error) {
+                        console.error('Error fetching roles:', error);
+                    });
+            }
+
+            function handleInputChange(e) {
+                const name = e.target.name;
+                const value = e.target.value;
+                const type = e.target.type;
+
+                if (type === 'select-multiple') {
+                    const selectedOptions = Array.from(e.target.selectedOptions).map(function(option) {
+                        return {
+                            roleId: parseInt(option.value),
+                            roleName: option.text
+                        };
+                    });
+                    setFormData(function(prev) {
+                        const newData = Object.assign({}, prev);
+                        newData[name] = selectedOptions;
+                        return newData;
+                    });
+                } else {
+                    setFormData(function(prev) {
+                        const newData = Object.assign({}, prev);
+                        newData[name] = value;
+                        return newData;
+                    });
+                }
+            }
+
+            function handleSubmit(e) {
+                e.preventDefault();
+                const url = isEditing ? '/api/account/' + editId : '/api/account';
+                const method = isEditing ? 'PUT' : 'POST';
+
+                fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(function(response) {
+                    if (response.ok) {
+                        fetchAccounts();
+                        resetForm();
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error saving account:', error);
+                });
+            }
+
+            function handleEdit(account) {
+                const dateOfBirth = account.dateOfBirth ? account.dateOfBirth.split('T')[0] : '';
+                setFormData({
+                    fullName: account.fullName,
+                    email: account.email,
+                    phoneNumber: account.phoneNumber,
+                    username: account.username,
+                    passwordHash: account.passwordHash,
+                    address: account.address,
+                    dateOfBirth: dateOfBirth,
+                    roles: account.roles || []
+                });
+                setEditId(account.accountId);
+                setIsEditing(true);
+                setShowForm(true);
+            }
+
+            function handleDelete(id) {
+                if (window.confirm('Are you sure you want to delete this account?')) {
+                    fetch('/api/account/' + id, {
+                        method: 'DELETE'
+                    })
+                    .then(function(response) {
+                        if (response.ok) {
+                            fetchAccounts();
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error('Error deleting account:', error);
+                    });
+                }
+            }
+
+            function resetForm() {
+                setFormData({
+                    fullName: '',
+                    email: '',
+                    phoneNumber: '',
+                    username: '',
+                    passwordHash: '',
+                    address: '',
+                    dateOfBirth: '',
+                    roles: []
+                });
+                setIsEditing(false);
+                setEditId(null);
+                setShowForm(false);
+            }
+
+            function toggleForm() {
+                setShowForm(!showForm);
+            }
+
+            return (
+                <div className="p-4">
+                    <div className="flex justify-between items-center mb-4">
+                        <h1 className="text-2xl font-bold">Account Management</h1>
+                        <button
+                            onClick={toggleForm}
+                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                        >
+                            {showForm ? 'Close Form' : 'Add New Account'}
+                        </button>
+                    </div>
+
+                    {showForm && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                            <div className="bg-white p-6 rounded-lg w-full max-w-lg relative">
+                                <button
+                                    onClick={resetForm}
+                                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+                                >
+                                    ×
+                                </button>
+                                <h2 className="text-xl font-semibold mb-4">
+                                    {isEditing ? 'Edit Account' : 'Create New Account'}
+                                </h2>
+                                <form onSubmit={handleSubmit} className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Full Name</label>
+                                        <input
+                                            type="text"
+                                            name="fullName"
+                                            value={formData.fullName}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Email</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+                                        <input
+                                            type="tel"
+                                            name="phoneNumber"
+                                            value={formData.phoneNumber}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Username</label>
+                                        <input
+                                            type="text"
+                                            name="username"
+                                            value={formData.username}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Password</label>
+                                        <input
+                                            type="password"
+                                            name="passwordHash"
+                                            value={formData.passwordHash}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border"
+                                            required={!isEditing}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Address</label>
+                                        <input
+                                            type="text"
+                                            name="address"
+                                            value={formData.address}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
+                                        <input
+                                            type="date"
+                                            name="dateOfBirth"
+                                            value={formData.dateOfBirth}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Roles</label>
+                                        <select
+                                            multiple
+                                            name="roles"
+                                            value={formData.roles.map(function(role) { return role.roleId; })}
+                                            onChange={handleInputChange}
+                                            className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border"
+                                            size="3"
+                                        >
+                                            {roles.map(function(role) {
+                                                return (
+                                                    <option key={role.roleId} value={role.roleId}>
+                                                        {role.roleName}
+                                                    </option>
+                                                );
+                                            })}
+                                        </select>
+                                        <p className="text-sm text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple roles</p>
+                                    </div>
+                                    <div className="flex justify-end space-x-2">
+                                        <button
+                                            type="button"
+                                            onClick={resetForm}
+                                            className="px-4 py-2 border rounded text-gray-600 hover:bg-gray-100"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                        >
+                                            {isEditing ? 'Update' : 'Save'}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="mt-6 overflow-x-auto">
+                        <table className="min-w-full bg-white border rounded-lg">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Roles</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
+                                {accounts.map(function(account) {
+                                    return (
+                                        <tr key={account.accountId}>
+                                            <td className="px-6 py-4 whitespace-nowrap">{account.fullName}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{account.email}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{account.phoneNumber}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{account.username}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{account.address}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {account.roles && account.roles.map(function(role) { 
+                                                    return role.roleName; 
+                                                }).join(', ')}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap space-x-2">
+                                                <button
+                                                    onClick={function() { handleEdit(account); }}
+                                                    className="text-blue-600 hover:text-blue-900"
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    onClick={function() { handleDelete(account.accountId); }}
+                                                    className="text-red-600 hover:text-red-900"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(AccountManagement));
+    </script>
