@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Motorbike Management</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Motorbike Management</h1>
+        
+        <div class="row mt-4">
+            <!-- Kiểm tra nếu danh sách xe máy trống -->
+            <div th:if="${motorbikes.size() == 0}" class="col-12">
+                <p>No motorbikes available</p>
+            </div>
+            
+            <!-- Lặp qua danh sách xe máy và tạo các card Bootstrap -->
+            <div th:each="motorbike : ${motorbikes}" class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img th:src="${motorbike.imageUrl != null ? motorbike.imageUrl : 'https://via.placeholder.com/150'}"
+                         class="card-img-top" th:alt="${motorbike.make} + ' ' + ${motorbike.model}">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${motorbike.make} + ' ' + ${motorbike.model}"></h5>
+                        <p class="card-text">
+                            <strong>Year:</strong> <span th:text="${motorbike.year}">Year</span> <br />
+                            <strong>Mileage:</strong> <span th:text="${motorbike.mileage}">Mileage</span> km <br />
+                            <strong>Daily Rate:</strong> $<span th:text="${motorbike.dailyRate}">Daily Rate</span> <br />
+                            <strong>Condition:</strong> <span th:text="${motorbike.condition}">Condition</span>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Rent Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS và các phụ thuộc -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

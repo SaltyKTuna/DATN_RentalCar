@@ -29,6 +29,7 @@ public class DetailVehicleController {
 	@Autowired
     private CarRepo carRepo;
 	
+	
 	@Autowired
     private CarService carService;
 	@Autowired
@@ -49,7 +50,7 @@ public class DetailVehicleController {
         return "car-details2";  // Trả về trang chi tiết xe
     }
 	
-	
+
 	@GetMapping("/motorbike/detail/{id}")
     public String getMotobikeById(@PathVariable Long id, Model model) {
         Optional<Motorbike> motorbike = motorbikeRepo.findById(id);

@@ -1,0 +1,1263 @@
+.cover-car {
+    position: relative;
+    padding-bottom: 32px;
+}
+.m-container {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+.cover-car-container {
+    display: flex;
+    position: relative;
+    gap: 16px;
+    width: 100%;
+}
+.cover-car-container .main-img {
+    position: relative;
+    width: calc(68% - 16px);
+}
+.cover-car-item {
+    cursor: pointer;
+}
+.cover-car-item img {
+    width: 100%;
+    height: 600px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+.cover-car-container .sub-img {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.cover-car-container .sub-img img {
+    height: 189.333px;
+}
+a, button, img {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, .2) !important;
+}
+img {
+    display: block;
+}
+.see-more-img {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+}
+.see-more-img .wrap-svg {
+    margin-right: 8px;
+}
+.wrap-svg {
+    line-height: 0;
+    -webkit-user-select: none;
+    user-select: none;
+}
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+.cover-car-swiper {
+    display: none;
+}
+.swiper {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    z-index: 9999;
+}
+.swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    transition-property: transform, -webkit-transform;
+}
+.fix-img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.swiper-slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition-property: transform, -webkit-transform;
+}
+.fix-img {
+    position: relative;
+    max-width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+}
+
+/* Car */
+.details-wrapper {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start; 
+}
+.car-info {
+    width: calc(68% - 16px); 
+    padding: 20px;
+    /* background-color: rgb(238, 238, 238);  */
+    box-sizing: border-box;
+    border-radius: 16px;
+    height: auto; /* Cho phép thay đổi chiều cao tùy theo nội dung */
+}
+/*Đặc Điểm*/
+.info-car-desc {
+    padding: 10px 0;
+    margin-top: 10px;
+}
+
+.info-car-desc h6 {
+    font-size: 28px; /* Tăng kích thước chữ */
+    font-weight: bold;
+    color: #333; /* Màu chữ đậm */
+    margin: 0;
+    margin-bottom: 20px; /* Xóa khoảng cách mặc định để căn đều */
+}
+
+.outstanding-features {
+    display: flex;
+    flex-wrap: wrap; /* Đặt wrap để các phần tử tự động xuống dòng nếu không đủ chỗ */
+    gap: 16px; /* Khoảng cách giữa các phần tử */
+    justify-content: space-between; /* Phân phối đều các phần tử để không tạo thanh cuộn */
+}
+
+.outstanding-features__item {
+    display: flex;
+    align-items: center;
+    width: 22%; /* Điều chỉnh lại kích thước để phù hợp với nhiều kích thước màn hình hơn */
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước tổng */
+}
+
+.wrap-svg {
+    width: 28px; /* Giảm kích thước icon */
+    height: 28px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrap-svg svg {
+    width: 100%;
+    height: auto;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+}
+
+.title .sub {
+    font-size: 12px; /* Giảm kích thước chữ phụ */
+    color: #888; /* Màu chữ phụ */
+    margin-bottom: 2px;
+}
+
+.title .main {
+    font-size: 14px; /* Giảm kích thước chữ chính */
+    font-weight: bold;
+    color: #333; /* Màu chữ chính */
+}
+.features-car {
+    margin-top: 10px;
+}
+
+/* Định dạng cho danh sách ul và các mục li */
+.features-car ul {
+    list-style-type: none; /* Bỏ dấu bullet */
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Tự động xuống dòng nếu quá dài */
+    gap: 15px; /* Khoảng cách giữa các mục trong danh sách */
+}
+
+.features-car li {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Định dạng cho hình ảnh của tiện nghi */
+.features-car img {
+    width: 28px; /* Giảm kích thước để không quá to */
+    height: 28px;
+    margin-right: 8px; /* Khoảng cách giữa ảnh và nội dung */
+    border-radius: 4px;
+}
+
+/* Đảm bảo khoảng cách phù hợp với các phần khác */
+.info-car-desc {
+    margin-bottom: 20px;
+}
+
+
+/*định dạng giấy phép*/
+.required-papers {
+    background-color: #fdf6f1;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 5px solid #f26324;
+}
+/*Dieukhoang*/
+.Dieukhoang ul {
+    padding-left: 20px;
+}
+
+.Dieukhoang li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.Dieukhoang p {
+    font-weight: bold;
+}
+
+/*Chính sách*/
+/* Định dạng bảng chính sách hủy chuyến */
+.cancel-policy {
+    margin: 20px 0;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #e5e7eb;
+    font-family: Arial, sans-serif;
+    text-align: center; /* Căn giữa tất cả nội dung */
+}
+
+.column.title {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.column {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #e5e7eb;
+}
+
+.column__item {
+    flex: 1;
+    padding: 16px;
+    border-right: 1px solid #e5e7eb;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.column__item.case {
+    text-align: left;
+    padding-left: 20px;
+    justify-content: center;
+}
+
+.column__item span {
+    font-size: 12px;
+    color: #666666;
+    margin-top: 4px;
+}
+
+.column__item:last-child {
+    border-right: none;
+}
+
+.wrap-svg {
+    margin: 8px 0;
+}
+
+.wrap-svg svg {
+    vertical-align: middle;
+}
+
+.column__item .wrap-svg {
+    display: inline-block;
+}
+
+.column__item p {
+    margin: 0;
+}
+
+/* CSS cho đoạn ghi chú ngoài bảng */
+.desc-note {
+    font-size: 12px;
+    color: #666666;
+    margin-top: 20px; /* Khoảng cách phía trên để tách rời khỏi bảng */
+    line-height: 1.5; /* Để làm cho đoạn văn rõ ràng hơn */
+}
+/*Định vị*/
+/* Định dạng phần "Vị trí xe" */
+.car-address {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
+}
+
+.address {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: black;
+}
+
+.address .wrap-svg {
+    margin-right: 10px;
+}
+
+.maps-detail {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.maps-detail .wrap-svg {
+    margin-left: 10px;
+}
+
+.maps-detail p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700; /* Định dạng chữ đậm */
+    color: black;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.font-14 {
+    font-size: 14px;
+}
+
+.fontWeight-7 {
+    font-weight: 700;
+}
+
+/* Điều chỉnh icon để căn giữa */
+.wrap-svg svg {
+    vertical-align: middle;
+}
+/*review*/
+/* Định dạng phần đánh giá */
+.reviews {
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: black;
+    margin-top: 10px;
+}
+
+.rate-review {
+    display: flex;
+    align-items: center;
+}
+
+.rate-review .wrap-svg {
+    margin-right: 5px;
+}
+
+.star-rating {
+    vertical-align: middle;
+}
+/*list review*/ 
+/* Định dạng danh sách đánh giá */
+.list-reviews {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.item-review {
+    display: flex;
+    align-items: flex-start;
+    border: 1px solid #e5e7eb; /* Đường viền bao quanh */
+    border-radius: 8px; /* Bo góc */
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+/* Định dạng ảnh đại diện nhỏ hơn */
+.avatar {
+    width: 50px; /* Kích thước của avatar */
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px; /* Khoảng cách với tên */
+    flex-shrink: 0; /* Ngăn avatar thay đổi kích thước */
+}
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
+}
+
+/* Định dạng thông tin */
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.info h6 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+.info .rate {
+    display: flex;
+    align-items: center;
+    margin-top: 5px; /* Khoảng cách giữa tên và sao */
+}
+.star-container {
+    display: inline-block;
+    margin-right: 5px;
+}
+.rate-review {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.rate-review .rate {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.rate-review .wrap-svg svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Định dạng ngôi sao và đánh giá */
+.rate {
+    color: #FFC634;
+}
+
+.time {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+}
+p.review-comment {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+.dot {
+    margin: 0 5px;
+}
+
+/* Kiểu chữ cho nội dung đánh giá */
+p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0 0;
+}
+
+
+.rate {
+    font-weight: bold;
+    margin: 0;
+    font-size: 14px;
+}
+
+.total-review {
+    margin-left: 5px;
+    color: #666666; /* Màu xám cho tổng số đánh giá */
+}
+
+.dot {
+    margin: 0 5px;
+    color: #666666; /* Màu xám cho dấu chấm */
+}
+
+
+.required-papers__item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.type__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.wrap-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.font-12 {
+    font-size: 12px;
+    color: #666;
+}
+
+.type-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.type-content img {
+    width: 40px;
+    height: auto;
+}
+
+.type-name {
+    font-size: 14px;
+    color: #333;
+}
+
+/*side*/
+.sidebar-detail {
+    width: 32%;
+    padding: 20px;
+    box-sizing: border-box;
+
+    height: auto; 
+    align-self: flex-start; /*Không bị ảnh hưởng bởi car-infor khi tăn độ dài*/
+}
+
+/*Bảng giá*/
+.rent-box {
+    background-color: #f8fafc;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    font-family: 'Arial', sans-serif;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.price-discount {
+    display: flex;
+    align-items: center;
+}
+
+.price-discount .origin {
+    text-decoration: line-through;
+    color: #9ca3af;
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+.price-discount .discount {
+    background-color: #f87171;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+h4 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    color: #111827;
+}
+
+.inner-h {
+    font-size: 16px;
+    color: #6b7280;
+}
+
+.date-time-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: white;
+}
+
+.form-item {
+    text-align: center;
+}
+
+.form-item label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 5px;
+}
+
+.wrap-date-time {
+    display: flex;
+    flex-direction: column;
+}
+
+.value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.line {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 0 20px;
+}
+
+.dc-week-month {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dc-week-month .wrap-svg {
+    margin-right: 10px;
+}
+
+.dc-week-month p {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.text-primary {
+    color: #3b82f6;
+}
+
+.dropdown-form {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.wrap-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.has-arrow:after {
+    content: '▼';
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.line-page {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 20px 0;
+}
+
+.price-container {
+    margin-bottom: 20px;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.df-align-center {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.cost {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.promo-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+.promotion-radio {
+    margin-bottom: 20px;
+}
+
+.promotion-radio__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 10px;
+}
+
+.custom-radio input[type='radio'] {
+    display: none;
+}
+
+.custom-radio label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.promo-text-main {
+    display: flex;
+    align-items: center;
+}
+
+.promo-text-main .wrap-svg {
+    margin-right: 10px;
+}
+
+.promo-text-sub {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.promo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-primary {
+    background-color: #22c55e;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary:hover {
+    background-color: #16a34a;
+}
+
+.btn-primary .wrap-svg {
+    margin-right: 10px;
+}
+
+.total {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+}
+
+/*nhan xe tra xe*/
+.date-picker-container {
+    margin: 20px;
+}
+
+.date-picker-container label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.date-picker-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+/*surcharge*/
+
+.surcharge {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    width: 100%;
+}
+
+.surcharge .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #28a745;
+    /* margin-bottom: 0px; */
+}
+
+.surcharge-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.surcharge-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.surcharge-item .wrap-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.surcharge-item .wrap-svg svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: #666666;
+}
+
+.surcharge-item .content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.surcharge-item .content-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3px;
+    flex-wrap: nowrap; /* Không cho phép xuống dòng */
+}
+
+.surcharge-item .content-item .title {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    flex: 1; /* Chiếm phần không gian còn lại để căn chỉnh với chi phí */
+}
+
+.surcharge-item .content-item .cost {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-left: 10px;
+    text-align: right;
+    flex-shrink: 0; /* Đảm bảo chi phí không bị thu nhỏ */
+}
+
+.surcharge-item .content-item p {
+    color: #666;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.surcharge-item .content-item span {
+    font-weight: bold;
+    color: #000;
+}
+
+.surcharge-item .content-item .cost span {
+    font-weight: bold;
+    color: #000;
+}
+
+
+
+
+
+/*car Details*/
+.car-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px; 
+}
+.car-header h3 {
+    font-size: 40px; 
+    font-weight: bold;
+    margin: 0; 
+}
+
+.car-actions {
+    display: flex ;
+    gap: 16px; 
+    align-items: center; 
+}
+.action-icons {
+    display: flex;
+    align-items: center; 
+    gap: 20px;
+}
+.share-icon, .fav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%; 
+    border: 1px solid #252525;
+    transition: background-color 0.3s, border-color 0.3s; 
+}
+
+.share-icon:hover, .fav-icon:hover {
+    background-color: #b8b8b8; /* Thay đổi màu nền khi hover */
+    border-color: #000; /* Thay đổi màu viền khi hover */
+}
+
+
+
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 40px; 
+    height: 40px;
+    /* border-radius: 50%; 
+    border: 2px solid #252525; 
+    transition: background-color 0.3s, border-color 0.3s;  */
+}
+
+.car-summary {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Khoảng cách giữa các mục tóm tắt */
+    margin-bottom: 16px; /* Khoảng cách dưới phần tóm tắt */
+}
+
+.car-tags {
+    display: flex;
+    gap: 8px; /* Khoảng cách giữa các thẻ */
+    flex-wrap: wrap; /* Để các thẻ xuống hàng nếu không đủ chỗ */
+}
+
+.tag-item {
+    padding: 6px 12px;
+    background-color: #eef6ff; /* Màu nền nhạt */
+    border-radius: 12px; /* Góc bo tròn */
+    font-size: 14px;
+    color: #000; /* Màu chữ */
+}
+/* Thay đổi màu cho từng thẻ */
+.automatic {
+    background-color: #eef7ff; 
+}
+.doorstep {
+    background-color: #dff5e7; 
+}
+.fast-rent {
+    background-color: #fff0cb; 
+}
+.no-mortgage {
+    background-color: #dff5e7; 
+}
+.hourly-rent {
+    background-color: #cde8ff;
+}
+.insurance {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px; 
+}
+.insurance img {
+    width: 40px; 
+    height: auto;
+}
+/*Sidebar-detail*/
+.sidebar-detail {
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    /* border: 1px solid black; */
+}
+
+.insurance.success.cardetail {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #4CAF50; 
+    border-radius: 10px; 
+    padding: 20px; /* Space inside the border */
+}
+
+.insurance-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.insurance-header svg {
+    margin-right: 15px;
+}
+
+.insurance-title {
+    font-size: 1.25em;
+    font-weight: bold;
+    color: #333;
+}
+
+.content {
+    padding-left: 15px;
+}
+
+.note {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.desc a.info {
+    font-size: 1em;
+    color: #161616;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.desc a.info:hover {
+    text-decoration: underline;
+}
+
+
+/*style cho modal */
+.modal {
+    display: none;  /* Modal sẽ bị ẩn khi load trang */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 900px;  /* Chiều rộng tối đa cho modal */
+    width: 80%;  /* Tỷ lệ chiều rộng của modal */
+    background-color: rgba(57, 57, 57, 0.95);  
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* CSS cho modal chính */
+.modal-main-image {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;  
+}
+
+.modal-main-image img {
+    max-width: 100%;  
+    max-height: 100%;  
+    border-radius: 10px;
+    object-fit: contain;  
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+.modal-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.modal-thumbnails img {
+    width: 100px;
+    height: 75px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.modal-thumbnails img:hover {
+    transform: scale(1.1);
+}
+
+/* CSS cho mũi tên trái và phải */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.left-arrow {
+    left: 10px; 
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+.arrow:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    transform: scale(1.1);
+}
+
+.arrow svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2.5;
+    stroke: white; 
+}
+/*Product Car Detail*/ 
+
+.cover-car-container {
+    display: flex !important;
+    gap: 16px !important;
+}
+
+
+  /* modal thuê xe */
+.unique-modal {
+    display: none; /* Ẩn modal ban đầu */
+    position: fixed; /* Đặt modal cố định trên màn hình */
+    z-index: 1000; /* Đảm bảo modal nổi trên các thành phần khác */
+    top: 0;
+    left: 0;
+    width: 100%; /* Modal sẽ chiếm toàn bộ chiều rộng */
+    height: 100%; /* Modal sẽ chiếm toàn bộ chiều cao */
+    background-color: rgba(0, 0, 0, 0.7); /* Nền mờ */
+    display: flex; /* Sử dụng flex để căn giữa */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.unique-modal-content {
+    background-color: #fefefe;
+    border-radius: 10px; /* Bo tròn các góc */
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Hiệu ứng đổ bóng */
+    width: 40%; /* Độ rộng modal */
+    max-width: 600px;
+    position: relative;
+    animation: fadeInModal 0.3s ease-in-out; /* Hiệu ứng xuất hiện */
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.unique-modal-close {
+    color: #888;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.unique-modal-close:hover,
+.unique-modal-close:focus {
+    color: #ff5f5f; /* Đổi màu nút đóng khi hover */
+}
+
+.unique-modal h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.unique-modal label {
+    font-size: 16px;
+    color: #555;
+}
+
+.unique-modal-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.unique-modal-input:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); /* Hiệu ứng khi focus */
+}
+
+.btn-unique-save {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Hiệu ứng hover */
+}
+
+.btn-unique-save:hover {
+    background-color: #218838; /* Đổi màu khi hover */
+}

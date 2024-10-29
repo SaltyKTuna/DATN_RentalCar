@@ -1,0 +1,188 @@
+
+.back-arrow {
+    position: absolute;
+  margin-top: 5px;
+    cursor: pointer; /* Thay đổi con trỏ thành hình bàn tay */
+    transition: transform 0.3s ease; /* Hiệu ứng khi hover */
+  }
+  
+  .back-arrow:hover {
+    transform: scale(1.2); /* Phóng to một chút khi hover */
+  }
+  
+  #btn-Login-with {
+      /* transform: ; */
+      display: flex;
+      /* Để sử dụng Flexbox */
+      flex-direction: column;
+      /* Sắp xếp theo chiều dọc */
+      align-items: center;
+      /* Căn giữa nội dung theo chiều ngang */
+      justify-content: center;
+      /* Căn giữa nội dung theo chiều dọc */
+  }
+  
+  
+  .title-login {
+    text-align: center; /* Canh giữa tiêu đề */
+    font-size: 40px; /* Kích thước chữ của tiêu đề */
+    font-weight: bold; /* In đậm tiêu đề */
+    color: #333; /* Màu chữ của tiêu đề */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+  }
+  
+  .btn-login {
+      background-color: #e0f7fa;
+      /* Màu xanh nhẹ */
+      /* border: 1px solid black; */
+      padding: 70px;
+      border-radius: 8px;
+  }
+  
+  .divider:after,
+  .divider:before {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #eee;
+  }
+  
+  .h-custom {
+      height: calc(100% - 73px);
+  }
+  
+  @media (max-width: 450px) {
+      .h-custom {
+          height: 100%;
+      }
+  }
+  .btn-login, .btn-register {
+    width: 100%;
+    max-width: 500px; /* Giới hạn chiều rộng để đảm bảo giao diện đẹp mắt */
+    margin: 0 auto; /* Canh giữa form */
+  }
+  /* Toàn bộ khung chứa */
+  .btn-register {
+    display: none; /* Ẩn đi cho đến khi được gọi */
+    background-color: #e0f7fa; 
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+    /* Tiêu đề của form đăng ký */
+    .title-register {
+      text-align: center; /* Canh giữa tiêu đề */
+      font-size: 40px; /* Kích thước chữ của tiêu đề */
+      font-weight: bold; /* In đậm tiêu đề */
+      color: #333; /* Màu chữ của tiêu đề */
+      margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+    }
+    
+    /* Input chung */
+    .btn-register .form-outline input {
+      width: 100%; /* Chiếm toàn bộ chiều rộng của form */
+      padding: 10px; /* Khoảng cách padding bên trong input */
+      border: 1px solid #ccc; /* Đường viền màu xám nhạt */
+      border-radius: 5px; /* Bo góc cho input */
+      font-size: 16px; /* Kích thước chữ */
+      transition: border-color 0.3s ease; /* Hiệu ứng chuyển đổi màu đường viền */
+    }
+    
+    /* Input khi focus */
+    .btn-register .form-outline input:focus {
+      border-color: #007bff; /* Đổi màu đường viền khi input được chọn */
+      outline: none; /* Loại bỏ đường viền mặc định của trình duyệt */
+    }
+    
+    /* Nhãn của các input */
+    .btn-register .form-label {
+      font-size: 14px; /* Kích thước chữ cho label */
+      font-weight: 500; /* Độ đậm chữ */
+      color: #333; /* Màu chữ */
+      margin-bottom: 5px; /* Khoảng cách dưới nhãn */
+    }
+    
+    /* Nút Đăng Ký */
+    .btn-register .btn-primary {
+      background-color: #007bff; /* Màu nền nút */
+      border: none; /* Loại bỏ đường viền của nút */
+      padding: 10px 20px; /* Khoảng cách padding trong nút */
+      border-radius: 5px; /* Bo góc cho nút */
+      color: #fff; /* Màu chữ */
+      font-size: 16px; /* Kích thước chữ */
+      cursor: pointer; /* Thay đổi con trỏ thành bàn tay khi hover */
+      transition: background-color 0.3s ease; /* Hiệu ứng khi hover */
+    }
+    
+    /* Nút Đăng Ký khi hover */
+    .btn-register .btn-primary:hover {
+      background-color: #0056b3; /* Đổi màu khi hover */
+    }
+    
+    /* Liên kết đăng nhập */
+    .btn-register .link-danger {
+      color: #dc3545; /* Màu đỏ cho liên kết */
+      text-decoration: none; /* Loại bỏ gạch chân */
+      transition: color 0.3s ease; /* Hiệu ứng khi hover */
+    }
+    
+    .btn-register .link-danger:hover {
+      color: #a71d2a; /* Đổi màu khi hover */
+    }
+    
+    /* Div chứa các button đăng ký với mạng xã hội */
+    #btn-Register-with {
+      display: flex;
+      justify-content: center; /* Canh giữa các nút */
+      margin-top: 20px; /* Khoảng cách trên */
+    }
+    
+    /* Nút đăng ký với mạng xã hội */
+    #btn-Register-with .btn {
+      background-color: #3b5998; /* Màu nền của nút */
+      border: none; /* Loại bỏ viền */
+      color: #fff; /* Màu chữ */
+      border-radius: 50%; /* Bo tròn nút */
+      width: 40px; /* Chiều rộng của nút */
+      height: 40px; /* Chiều cao của nút */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px; /* Khoảng cách giữa các nút */
+      transition: background-color 0.3s ease; /* Hiệu ứng khi hover */
+    }
+    
+    /* Nút đăng ký mạng xã hội khi hover */
+    #btn-Register-with .btn:hover {
+      background-color: #2d4373; /* Đổi màu nền khi hover */
+    }
+    
+    /* Checkbox và liên kết quên mật khẩu */
+    .btn-register .form-check-label {
+      font-size: 14px; /* Kích thước chữ cho label */
+      color: #333; /* Màu chữ */
+    }
+    
+    .btn-register .text-body {
+      color: #007bff; /* Màu chữ cho liên kết quên mật khẩu */
+    }
+    
+    .btn-register .text-body:hover {
+      text-decoration: underline; /* Gạch chân khi hover */
+    }
+    
+    /* Divider (hoặc) */
+    .btn-register .divider {
+      text-align: center;
+      border-bottom: 1px solid #ddd; /* Đường viền ngang */
+      line-height: 0;
+      margin: 20px 0; /* Khoảng cách trên và dưới */
+    }
+    
+    .btn-register .divider p {
+      background: #fff; /* Nền trắng để nổi bật chữ */
+      padding: 0 10px; /* Khoảng cách hai bên */
+      color: #555; /* Màu chữ */
+    }
+  
