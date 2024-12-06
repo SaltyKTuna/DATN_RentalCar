@@ -74,7 +74,7 @@ const rentalSchema = z.object({
   actualReturnDate: z.date().nullable().optional(),
   totalCost: z.number(),
   renStatus: z.string(),
-  discountId: z.number(),
+  discountId: z.number().nullable(),
   haveDriver: z.boolean(),
   rentalLocations: z.string(),
   notes: z.string().optional(),
@@ -93,8 +93,8 @@ interface Rental {
   totalCost: number
   renStatus: string
   discount: {
-    discountId: number
-  }
+    discountId: number | null
+  } | null
   haveDriver: boolean
   rentalLocations: string
   notes: string | null
@@ -194,11 +194,14 @@ export default function RentalPage() {
   const onSubmit = async (data: z.infer<typeof rentalSchema>) => {
     try {
       setLoading(true)
-      const payload = {
+      const payload: any = {
         ...data,
         account: { accountId: data.accountId },
-        discount: { discountId: data.discountId },
         renStatus: RENTAL_STATUS[data.renStatus as keyof typeof RENTAL_STATUS]
+      }
+
+      if (data.discountId) {
+        payload.discount = { discountId: data.discountId };
       }
 
       if (selectedRental) {
@@ -236,7 +239,7 @@ export default function RentalPage() {
       actualReturnDate: rental.actualReturnDate ? new Date(rental.actualReturnDate) : undefined,
       totalCost: rental.totalCost,
       renStatus: RENTAL_STATUS_REVERSE[rental.renStatus] || 'PENDING',
-      discountId: rental.discount.discountId,
+      discountId: rental.discount?.discountId || 0,
       haveDriver: rental.haveDriver,
       rentalLocations: rental.rentalLocations,
       notes: rental.notes || '',
@@ -374,7 +377,7 @@ export default function RentalPage() {
                                 {field.value ? (
                                   moment(field.value).format('DD/MM/YYYY')
                                 ) : (
-                                  <span>Chọn ngày trả</span>
+                                  <span>Ch���n ngày trả</span>
                                 )}
                                 <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                               </Button>
@@ -505,7 +508,7 @@ export default function RentalPage() {
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder='Chọn trạng thái'>
+                            <SelectValue placeholder='Chọn tr���ng thái'>
                               {RENTAL_STATUS[field.value as keyof typeof RENTAL_STATUS]}
                             </SelectValue>
                           </SelectTrigger>

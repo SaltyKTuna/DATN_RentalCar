@@ -33,36 +33,61 @@ public class LoginController {
         return "login"; // Tên của file template đăng nhập (login.html hoặc login.jsp)
     }
 
-    // Phương thức POST để xử lý đăng nhập
+//    // Phương thức POST để xử lý đăng nhập
+//    @PostMapping
+//    public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+//        Account account = accountService.findByEmail(email);  // Gọi accountService
+//
+//        if (account == null) {  // Kiểm tra tài khoản không tồn tại
+//            model.addAttribute("error", "Tài khoản không tồn tại");
+//            return "login"; // Hiển thị lại trang đăng nhập kèm thông báo lỗi
+//        }
+//        
+//        if (account != null && account.getPasswordHash().equals(password)) {  // Nên thay thế bằng cơ chế mã hóa mật khẩu như BCrypt
+//            session.set("user", account);  // Lưu thông tin người dùng vào session
+//            
+//            Account loggedAcc = session.get("user");
+//            System.out.println("User from session: " + loggedAcc.getUsername());
+//            
+//            // Kiểm tra vai trò người dùng và chuyển hướng tương ứng
+//            if (this.checkAdmin(account)) {
+//                session.set("userAdmin", this.checkAdmin(account) ? "admin" : "staff");  // Lưu vai trò vào session
+//                return "redirect:http://localhost:5173/";  // Redirect đến trang 5173 nếu là admin hoặc staff
+//            } else {
+//                session.set("userAdmin", "customer");
+//                return "redirect:http://localhost:8080";  // Redirect về localhost:8080 nếu không phải admin hoặc staff
+//            }
+//        } else {
+//            model.addAttribute("error", "Email hoặc mật khẩu không hợp lệ");
+//            return "login"; // Hiển thị lại trang đăng nhập kèm thông báo lỗi
+//        }
+//    }
+    
     @PostMapping
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-        Account account = accountService.findByEmail(email);  // Gọi accountService
+        Account account = accountService.findByEmail(email);
 
-        if (account == null) {  // Kiểm tra tài khoản không tồn tại
+        if (account == null) {
             model.addAttribute("error", "Tài khoản không tồn tại");
-            return "login"; // Hiển thị lại trang đăng nhập kèm thông báo lỗi
+            return "login";
         }
-        
-        if (account != null && account.getPasswordHash().equals(password)) {  // Nên thay thế bằng cơ chế mã hóa mật khẩu như BCrypt
-            session.set("user", account);  // Lưu thông tin người dùng vào session
-            
-            Account loggedAcc = session.get("user");
-            System.out.println("User from session: " + loggedAcc.getUsername());
-            
-            // Kiểm tra vai trò người dùng và chuyển hướng tương ứng
+
+        if (account != null && account.getPasswordHash().equals(password)) {
+            session.set("user", account);
+
             if (this.checkAdmin(account)) {
-                session.set("userAdmin", this.checkAdmin(account) ? "admin" : "staff");  // Lưu vai trò vào session
-                return "redirect:http://localhost:5173/";  // Redirect đến trang 5173 nếu là admin hoặc staff
+                model.addAttribute("role", "admin");
+                model.addAttribute("redirectUrl", "http://localhost:5173/");
+                return "confirmRedirect";
             } else {
                 session.set("userAdmin", "customer");
-                return "redirect:http://localhost:8080";  // Redirect về localhost:8080 nếu không phải admin hoặc staff
+                return "redirect:http://localhost:8080";
             }
         } else {
             model.addAttribute("error", "Email hoặc mật khẩu không hợp lệ");
-            return "login"; // Hiển thị lại trang đăng nhập kèm thông báo lỗi
+            return "login";
         }
     }
-
     
 
  // Phương thức xử lý login cho nextjs
@@ -93,7 +118,6 @@ public class LoginController {
 
         return response;  // Trả về Map dưới dạng JSON
     }
-
 
     
     public Boolean checkAdmin(Account account) { // Hàm để Check admin

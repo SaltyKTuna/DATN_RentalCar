@@ -16,7 +16,9 @@ import { RecentSales } from './components/recent-sales'
 import { Overview } from './components/overview'
 import { useTranslations } from 'use-intl'
 import LanguageSwitch from '@/components/language-switch'
+import { RentalDataTable } from '@/pages/dashboard/components/rentalDataTable'
 
+  
 export default function Dashboard() {
   const t = useTranslations('dashboard')
   return (
@@ -50,7 +52,7 @@ export default function Dashboard() {
           <div className='w-full overflow-x-auto pb-2'>
             <TabsList>
               <TabsTrigger value='overview'>{t('overview')}</TabsTrigger>
-              <TabsTrigger value='analytics'>{t('analytics')}</TabsTrigger>
+              <TabsTrigger value='rental_data'>{'Danh sách thuê'}</TabsTrigger>
               <TabsTrigger value='reports'>{t('reports')}</TabsTrigger>
               <TabsTrigger value='notifications'>
                 {t('notifications')}
@@ -166,7 +168,7 @@ export default function Dashboard() {
             <div className='grid grid-cols-1 gap-4 lg:grid-cols-7'>
               <Card className='col-span-1 lg:col-span-4'>
                 <CardHeader>
-                  <CardTitle>{t(' Tổng Quan Trong Vòng 3 Tháng Gần Đây')}</CardTitle>
+                  <CardTitle>{'Tổng Doanh Thu Trong Tháng Này'}</CardTitle>
                 </CardHeader>
                 <CardContent className='pl-2'>
                   <Overview />
@@ -185,6 +187,106 @@ export default function Dashboard() {
               </Card>
             </div>
           </TabsContent>
+
+          {/* New Analytics Tab Content */}
+          <TabsContent value='analytics' className='space-y-4'>
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('analytics')}</CardTitle>
+                <CardDescription>
+                  {t('analytics_desc', { period: 'Last 30 days' })}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {/* Add analytics components or charts here */}
+                <p>Detailed analytics and performance metrics</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* New Reports Tab Content */}
+          <TabsContent value='rental_data' className='space-y-4'>
+            <RentalDataTable />
+          </TabsContent>
+
+          {/* New Notifications Tab Content */}
+          <TabsContent value='notifications' className='space-y-4'>
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('notifications')}</CardTitle>
+                <CardDescription>
+                  {t('notifications_desc', { unread: '3' })}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className='space-y-2'>
+                  <div className='border-b pb-2'>
+                    <p className='font-medium'>New Order #1234</p>
+                    <p className='text-sm text-muted-foreground'>
+                      Received 2 hours ago
+                    </p>
+                  </div>
+                  <div className='border-b pb-2'>
+                    <p className='font-medium'>Payment Received</p>
+                    <p className='text-sm text-muted-foreground'>
+                      Confirmed 1 hour ago
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* New Customers Tab Content */}
+          <TabsContent value='customers' className='space-y-4'>
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('customers')}</CardTitle>
+                <CardDescription>
+                  {t('customers_desc', { total: '1,250' })}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {/* Add customer list or summary */}
+                <div className='space-y-2'>
+                  <RecentSales />
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* New Products Tab Content */}
+          <TabsContent value='products' className='space-y-4'>
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('products')}</CardTitle>
+                <CardDescription>
+                  {t('products_desc', { active: '45' })}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className='grid grid-cols-2 gap-4'>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Total Products</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className='text-2xl font-bold'>120</p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Out of Stock</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className='text-2xl font-bold'>5</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
         </Tabs>
       </Layout.Body>
     </Layout>

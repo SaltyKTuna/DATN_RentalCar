@@ -41,7 +41,7 @@ public class Rental {
     private String renStatus;
 
     @ManyToOne
-    @JoinColumn(name = "discountId")
+    @JoinColumn(name = "discountId", nullable = true)
     //@JsonIgnore
     private Discount discount;
 

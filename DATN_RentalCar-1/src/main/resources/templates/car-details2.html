@@ -1304,21 +1304,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     collectRentalData() {
       const logAccId = /*[[${loggedAcc != null ? loggedAcc.accountId : 0}]]*/ 0;
-      const notesElement = document.getElementById('rental-notes');
-      const notesValue = notesElement ? notesElement.value.trim() : '';
-      
-      return {
-        account: { accountId: logAccId },
-        rentalDate: new Date(`${DOM.getValue("modalPickUpDate")} ${DOM.getValue("modalPickUpTime")} GMT+07:00`).toISOString(),
-        returnDate: new Date(`${DOM.getValue("modalReturnDate")} ${DOM.getValue("modalReturnTime")} GMT+07:00`).toISOString(),
-        totalCost: Number(DOM.getText("totalRatePrice").replace(/\D/g, "")),
-        renStatus: "Chờ xác nhận",
-        discount: { discountId: Number(DOM.getValue("selectedDiscountValue")) || 0 },
-        haveDriver: this.elements.driverCheckbox.checked,
-        rentalLocations: DOM.getValue("address-input"),
-        notes: notesValue,
-      };
-    }
+  	  const notesElement = document.getElementById('rental-notes');
+  	  const notesValue = notesElement ? notesElement.value.trim() : '';
+  	  const discountId = Number(DOM.getValue("selectedDiscountValue")) || null; // Sửa đổi ở đây
+
+  	  return {
+  	    account: { accountId: logAccId },
+  	    rentalDate: new Date(`${DOM.getValue("modalPickUpDate")} ${DOM.getValue("modalPickUpTime")} GMT+07:00`).toISOString(),
+  	    returnDate: new Date(`${DOM.getValue("modalReturnDate")} ${DOM.getValue("modalReturnTime")} GMT+07:00`).toISOString(),
+  	    totalCost: Number(DOM.getText("totalRatePrice").replace(/\D/g, "")),
+  	    renStatus: "Chờ xác nhận",
+  	    discount: discountId ? { discountId } : null, // Bỏ discount nếu không hợp lệ
+  	    haveDriver: this.elements.driverCheckbox.checked,
+  	    rentalLocations: DOM.getValue("address-input"),
+  	    notes: notesValue,
+  	  };
+  	}
+
 
     updateModalContent(rentalData) {
       DOM.get("pickupTime").textContent = DOM.formatDate(rentalData.rentalDate);
