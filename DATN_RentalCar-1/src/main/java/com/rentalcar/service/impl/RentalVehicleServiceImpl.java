@@ -8,6 +8,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.rentalcar.dao.RentalVehicleRepo;
+import com.rentalcar.entity.Rental;
 import com.rentalcar.entity.RentalVehicle;
 import com.rentalcar.service.RentalVehicleService;
 
@@ -25,6 +26,10 @@ public class RentalVehicleServiceImpl implements RentalVehicleService{
 
 	public Optional<RentalVehicle> findById(Long id) {
 		return rentalvehicleRepo.findById(id);
+	}
+	
+	public List<RentalVehicle> getRentalByRentalId(Long id) {
+		return rentalvehicleRepo.findByRental_RentalId(id);
 	}
 
 	public boolean existsById(Long id) {

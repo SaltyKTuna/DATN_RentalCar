@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.rentalcar.dao.PaymentRepo;
 import com.rentalcar.entity.Payment;
+import com.rentalcar.entity.RentalVehicle;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,12 @@ public class PaymentController {
                                  .body(null);
         }
         return ResponseEntity.ok(payment.get());
+    }
+    
+    @GetMapping(value ="/by-rental/{id}")
+    public ResponseEntity<List<Payment>> getRentalByRentalId(@PathVariable Long id) {
+        List<Payment> payments = paymentRepo.findByRental_RentalId(id);
+        return ResponseEntity.ok(payments);
     }
 
     // Lưu

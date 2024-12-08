@@ -235,3 +235,264 @@ export function RentalDataTable() {
       </div>
     );
   }
+
+
+  //////////////////////////////////////////////////////////
+
+  Rental Details Modal Component
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/components/ui/use-toast';
+import { Loader2 } from 'lucide-react';
+
+// Detailed Interfaces for Type Safety
+interface Account {
+  accountId: number;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  username?: string;
+}
+
+interface Car {
+  carId: number;
+  make: string;
+  model: string;
+  year: number;
+  licensePlate: string;
+  color: string;
+  condition: string;
+  vehicleLocation: string;
+}
+
+interface Motorbike {
+  motobikeId: number;
+  make: string;
+  model: string;
+  year: number;
+  licensePlate: string;
+  color: string;
+}
+
+interface Payment {
+  paymentId?: number;
+  amount: number;
+  paymentMethod: string;
+  paymentDate: string;
+  idQrCode?: string;
+}
+
+interface RentalDetails {
+  rentalId: number;
+  account: Account;
+  rentalDate: string;
+  returnDate: string;
+  actualReturnDate: string | null;
+  totalCost: number;
+  renStatus: string;
+  haveDriver: boolean;
+  rentalLocations: string;
+  notes?: string;
+}
+
+interface RentalVehicle {
+  vehicleType: 'car' | 'motorbike';
+  car?: Car;
+  motorbike?: Motorbike;
+}
+
+// Component Props Interface
+interface RentalDetailsModalProps {
+  rentalId?: number | null;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+// Status Color Mapping
+const STATUS_COLORS: Record<string, string> = {
+  'Chờ xác nhận': 'warning',
+  'Đang tới': 'info',
+  'Đang thuê': 'success',
+  'Hoàn tất': 'secondary',
+  'Đã Hủy': 'destructive',
+};
+
+export function RentalDetailsModal({
+  rentalId,
+  isOpen,
+  onClose,
+}: RentalDetailsModalProps) {
+  const [details, setDetails] = useState<{
+    rental?: RentalDetails;
+    rentalVehicle?: RentalVehicle;
+    payment?: Payment;
+  }>({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  // Utility Functions
+  const formatDate = (dateString?: string | null): string => {
+    if (!dateString) return 'N/A';
+    try {
+      return new Date(dateString).toLocaleString('vi-VN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch {
+      return 'N/A';
+    }
+  };
+
+  const formatCurrency = (amount?: number): string => {
+    return amount 
+      ? new Intl.NumberFormat('vi-VN', { 
+          style: 'currency', 
+          currency: 'VND' 
+        }).format(amount)
+      : 'N/A';
+  };
+
+  // Data Fetching
+  useEffect(() => {
+    const fetchRentalDetails = async () => {
+      if (!isOpen || !rentalId) return;
+
+      setLoading(true);
+      setError(null);
+
+      try {
+        const [rentalRes, vehicleRes, paymentRes] = await Promise.all([
+          axios.get(`/api/rental/${rentalId}`),
+          axios.get(`/api/rental-vehicle/by-rental/${rentalId}`),
+          axios.get(`/api/payment/by-rental/${rentalId}`)
+        ]);
+
+        setDetails({
+          rental: rentalRes.data,
+          rentalVehicle: vehicleRes.data[0] || undefined,
+          payment: paymentRes.data[0] || undefined
+        });
+      } catch (err: any) {
+        const errorMsg = err.response?.data?.message || 'Lỗi tải dữ liệu';
+        setError(errorMsg);
+        toast({
+          title: 'Lỗi',
+          description: errorMsg,
+          variant: 'destructive'
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRentalDetails();
+  }, [rentalId, isOpen, toast]);
+
+  // Render Helpers
+  const renderStatusBadge = (status?: string) => (
+    status ? <Badge variant={STATUS_COLORS[status] || 'default'}>{status}</Badge> : null
+  );
+
+  const renderVehicleInfo = () => {
+    const vehicle = details.rentalVehicle;
+    if (!vehicle) return <p>Không có thông tin phương tiện</p>;
+
+    const info = vehicle.vehicleType === 'car' ? vehicle.car : vehicle.motorbike;
+    return (
+      <>
+        <p><strong>Loại:</strong> {vehicle.vehicleType === 'car' ? 'Ô Tô' : 'Xe Máy'}</p>
+        <p><strong>Hãng:</strong> {info?.make || 'N/A'}</p>
+        <p><strong>Mẫu:</strong> {info?.model || 'N/A'}</p>
+        <p><strong>Năm:</strong> {info?.year || 'N/A'}</p>
+        <p><strong>Biển Số:</strong> {info?.licensePlate || 'N/A'}</p>
+        <p><strong>Màu:</strong> {info?.color || 'N/A'}</p>
+      </>
+    );
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-4xl">
+        <DialogHeader>
+          <DialogTitle>
+            {loading
+              ? 'Đang tải chi tiết thuê xe...'
+              : `Chi Tiết Thuê Xe - Mã Thuê #${details.rental?.rentalId || rentalId}`}
+          </DialogTitle>
+          <DialogDescription>Thông tin chi tiết về đơn thuê xe</DialogDescription>
+        </DialogHeader>
+
+        {loading ? (
+          <div className="flex justify-center items-center h-32">
+            <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
+          </div>
+        ) : error ? (
+          <div className="text-red-500">{error}</div>
+        ) : (
+          <div className="grid grid-cols-2 gap-4">
+            {/* Thông Tin Khách Hàng */}
+            <Card>
+              <CardHeader><CardTitle>Thông Tin Khách Hàng</CardTitle></CardHeader>
+              <CardContent>
+                <p><strong>Tên:</strong> {details.rental?.account?.fullName || 'N/A'}</p>
+                <p><strong>Email:</strong> {details.rental?.account?.email || 'N/A'}</p>
+                <p><strong>SĐT:</strong> {details.rental?.account?.phoneNumber || 'N/A'}</p>
+              </CardContent>
+            </Card>
+
+            {/* Chi Tiết Thuê Xe */}
+            <Card>
+              <CardHeader><CardTitle>Chi Tiết Thuê Xe</CardTitle></CardHeader>
+              <CardContent>
+                <p><strong>Ngày Thuê:</strong> {formatDate(details.rental?.rentalDate)}</p>
+                <p><strong>Trạng Thái:</strong> {renderStatusBadge(details.rental?.renStatus)}</p>
+                <p><strong>Ngày Trả Dự Kiến:</strong> {formatDate(details.rental?.returnDate)}</p>
+                <p><strong>Ngày Trả Thực Tế:</strong> {formatDate(details.rental?.actualReturnDate)}</p>
+                <p><strong>Tổng Chi Phí:</strong> {formatCurrency(details.rental?.totalCost)}</p>
+                <p><strong>Có Tài Xế:</strong> {details.rental?.haveDriver ? 'Có' : 'Không'}</p>
+              </CardContent>
+            </Card>
+
+            {/* Thông Tin Phương Tiện */}
+            <Card>
+              <CardHeader><CardTitle>Thông Tin Phương Tiện</CardTitle></CardHeader>
+              <CardContent>
+                {renderVehicleInfo()}
+              </CardContent>
+            </Card>
+
+            {/* Thông Tin Thanh Toán */}
+            <Card>
+              <CardHeader><CardTitle>Thông Tin Thanh Toán</CardTitle></CardHeader>
+              <CardContent>
+                {details.payment ? (
+                  <>
+                    <p><strong>Số Tiền:</strong> {formatCurrency(details.payment.amount)}</p>
+                    <p><strong>Phương Thức:</strong> {details.payment.paymentMethod}</p>
+                    <p><strong>Ngày Thanh Toán:</strong> {formatDate(details.payment.paymentDate)}</p>
+                  </>
+                ) : (
+                  <p>Chưa có thông tin thanh toán</p>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}

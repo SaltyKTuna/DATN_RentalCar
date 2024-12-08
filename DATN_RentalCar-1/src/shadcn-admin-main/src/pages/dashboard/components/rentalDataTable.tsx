@@ -24,6 +24,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
+import { RentalStatusDropdown } from './rentalStatusDropdown';
+import { RentalActionMenu } from './rentalActionMenu';
+import { RentalDetailsModal } from './rentalDetailsModal';
 
 interface RentalData {
   rentalId: number;
@@ -49,6 +52,8 @@ export function RentalDataTable() {
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 20;
   const { toast } = useToast();
+  const [selectedRentalId, setSelectedRentalId] = useState<number | null>(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   const fetchRentalData = async () => {
     setLoading(true);
@@ -120,6 +125,11 @@ export function RentalDataTable() {
     }
   };
 
+  const openDetailModal = (rentalId: number) => {
+    setSelectedRentalId(rentalId);
+    setIsDetailModalOpen(true);
+  };
+
   useEffect(() => {
     fetchRentalData();
   }, [currentPage]);
@@ -149,10 +159,6 @@ export function RentalDataTable() {
                   <TableHead>Mã Thuê</TableHead>
                   <TableHead>Tên Khách Hàng</TableHead>
                   <TableHead>Email</TableHead>
-                  <TableHead>Số Điện Thoại</TableHead>
-                  <TableHead>Ngày Thuê</TableHead>
-                  <TableHead>Ngày Trả</TableHead>
-                  <TableHead>Ngày Trả Thực Tế</TableHead>
                   <TableHead>Trạng Thái</TableHead>
                   <TableHead>Thao Tác</TableHead>
                 </TableRow>
@@ -163,103 +169,19 @@ export function RentalDataTable() {
                     <TableCell>{rental.rentalId}</TableCell>
                     <TableCell>{rental.account.fullName}</TableCell>
                     <TableCell>{rental.account.email}</TableCell>
-                    <TableCell>{rental.account.phoneNumber}</TableCell>
                     <TableCell>
-                      {new Date(rental.rentalDate).toLocaleDateString()}
+                      <RentalStatusDropdown
+                        rentalId={rental.rentalId}
+                        currentStatus={rental.renStatus}
+                        onUpdateStatus={(newStatus, actualReturnDate) => updateRentalStatus(rental.rentalId, newStatus, actualReturnDate)}
+                      />
                     </TableCell>
                     <TableCell>
-                      {new Date(rental.returnDate).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell>
-                      {rental.actualReturnDate
-                        ? new Date(rental.actualReturnDate).toLocaleDateString()
-                        : 'Chưa trả'}
-                    </TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="outline" className="h-8 w-32 p-0 border border-gray-300 rounded-md flex items-center justify-between text-gray-800">
-                            <span className="text-sm font-semibold">{rental.renStatus.toLowerCase()}</span> 
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem
-                            onClick={() =>
-                              updateRentalStatus(
-                                rental.rentalId,
-                                'Chờ xác nhận',
-                                null
-                              )
-                            }
-                            className="text-yellow-500"
-                          >
-                            Chờ xác nhận
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() =>
-                              updateRentalStatus(
-                                rental.rentalId,
-                                'Đang tới',
-                                null
-                              )
-                            }
-                            className="text-blue-500"
-                          >
-                            Đang tới
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() =>
-                              updateRentalStatus(
-                                rental.rentalId,
-                                'Đang thuê',
-                                null
-                              )
-                            }
-                            className="text-green-500"
-                          >
-                            Đang thuê
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() =>
-                              updateRentalStatus(
-                                rental.rentalId,
-                                'Hoàn tất',
-                                new Date().toISOString()
-                              )
-                            }
-                            className="text-gray-500"
-                          >
-                            Hoàn tất
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() =>
-                              updateRentalStatus(
-                                rental.rentalId,
-                                'Đã Hủy',
-                                null
-                              )
-                            }
-                            className="text-red-500"
-                          >
-                            Đã Hủy
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Mở menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>Xem Chi Tiết</DropdownMenuItem>
-                          <DropdownMenuItem>Chỉnh Sửa</DropdownMenuItem>
-                          <DropdownMenuItem>Xóa</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                      <RentalActionMenu
+                        onViewDetails={() => openDetailModal(rental.rentalId)}
+                        onEdit={() => console.log('Chỉnh sửa', rental.rentalId)}
+                        onDelete={() => console.log('Xóa', rental.rentalId)}
+                      />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -267,7 +189,7 @@ export function RentalDataTable() {
             </Table>
           </div>
           {/* Thanh chuyển trang */}
-          <div className="flex justify-between items-center mt-4">
+          <div className="flex justify-between mt-4">
             <Button
               variant="outline"
               disabled={currentPage === 1}
@@ -288,6 +210,15 @@ export function RentalDataTable() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Modal Chi Tiết Thuê Xe */}
+      {selectedRentalId && (
+        <RentalDetailsModal
+          rentalId={selectedRentalId}
+          isOpen={isDetailModalOpen}
+          onClose={() => setIsDetailModalOpen(false)}
+        />
+      )}
     </>
   );
 }
