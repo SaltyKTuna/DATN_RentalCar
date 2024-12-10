@@ -1,0 +1,724 @@
+USE [rentalCar_test]
+GO
+SET IDENTITY_INSERT [dbo].[accounts] ON 
+GO
+INSERT [dbo].[accounts] ([account_id], [address], [date_of_birth], [email], [full_name], [image_url], [password_hash], [phone_number], [username]) VALUES (1, N'77 trần cao vân', CAST(N'2004-02-14T07:00:00.0000000' AS DateTime2), N'jkhanhno1@gmail.com', N'Dương Hữu Khánh', N'2f082c3a-7df9-4df3-a6be-7d5a3f40a720_khanhduong.jpg', N'123', N'0387527152', N'admin')
+GO
+INSERT [dbo].[accounts] ([account_id], [address], [date_of_birth], [email], [full_name], [image_url], [password_hash], [phone_number], [username]) VALUES (2, N'08 hà văn tính', CAST(N'2024-10-04T07:00:00.0000000' AS DateTime2), N'vietantran0987123@gmail.com', N'cba', NULL, N'123', N'0932398152', N'anct')
+GO
+INSERT [dbo].[accounts] ([account_id], [address], [date_of_birth], [email], [full_name], [image_url], [password_hash], [phone_number], [username]) VALUES (3, N'123 Street, Hanoi', CAST(N'1990-05-15T00:00:00.0000000' AS DateTime2), N'nguyenvana@example.com', N'Nguyen Van A', NULL, N'123', N'0909123456', N'nguyenvana')
+GO
+INSERT [dbo].[accounts] ([account_id], [address], [date_of_birth], [email], [full_name], [image_url], [password_hash], [phone_number], [username]) VALUES (4, N'456 Avenue, Ho Chi Minh', CAST(N'1985-08-10T00:00:00.0000000' AS DateTime2), N'rentalcar@gmail.com', N'test', NULL, N'123', N'0909123457', N'test')
+GO
+INSERT [dbo].[accounts] ([account_id], [address], [date_of_birth], [email], [full_name], [image_url], [password_hash], [phone_number], [username]) VALUES (5, N'789 Road, Da Nang', CAST(N'1992-11-22T00:00:00.0000000' AS DateTime2), N'lequocc@example.com', N'Le Quoc C', NULL, N'123', N'0909123458', N'lequocc')
+GO
+INSERT [dbo].[accounts] ([account_id], [address], [date_of_birth], [email], [full_name], [image_url], [password_hash], [phone_number], [username]) VALUES (6, N'abs', CAST(N'2024-10-16T22:32:34.4230000' AS DateTime2), N'12vietantran1230@gmail.com', N'tr?n vi?t an', NULL, N'123', N'123', N'admin12')
+GO
+INSERT [dbo].[accounts] ([account_id], [address], [date_of_birth], [email], [full_name], [image_url], [password_hash], [phone_number], [username]) VALUES (9, N'abs', CAST(N'2023-10-30T19:00:00.0000000' AS DateTime2), N'12345vietantran1230@gmail.com', N'trần viết an', NULL, N'123', N'123', N'admin123')
+GO
+INSERT [dbo].[accounts] ([account_id], [address], [date_of_birth], [email], [full_name], [image_url], [password_hash], [phone_number], [username]) VALUES (10, N'456 Maple Street', CAST(N'1995-05-15T07:00:00.0000000' AS DateTime2), N'janedoe@example.com', N'Jane Doe', NULL, N'123', N'987654321', N'janedoe')
+GO
+INSERT [dbo].[accounts] ([account_id], [address], [date_of_birth], [email], [full_name], [image_url], [password_hash], [phone_number], [username]) VALUES (11, N'456 Maple Street', CAST(N'1995-05-15T07:00:00.0000000' AS DateTime2), N'123janedoe@example.com', N'Jane Doe', NULL, N'123', N'987654321', N'janedoe123')
+GO
+SET IDENTITY_INSERT [dbo].[accounts] OFF
+GO
+SET IDENTITY_INSERT [dbo].[roles] ON 
+GO
+INSERT [dbo].[roles] ([role_id], [description], [role_name]) VALUES (1, N'Qu?n tr? h? th?ng', N'admin')
+GO
+INSERT [dbo].[roles] ([role_id], [description], [role_name]) VALUES (2, N'Khách hàng s? d?ng d?ch v?', N'customer')
+GO
+INSERT [dbo].[roles] ([role_id], [description], [role_name]) VALUES (3, N'Tài x? lái xe', N'driver')
+GO
+SET IDENTITY_INSERT [dbo].[roles] OFF
+GO
+INSERT [dbo].[account_roles] ([account_id], [role_id]) VALUES (1, 1)
+GO
+INSERT [dbo].[account_roles] ([account_id], [role_id]) VALUES (1, 2)
+GO
+INSERT [dbo].[account_roles] ([account_id], [role_id]) VALUES (1, 3)
+GO
+INSERT [dbo].[account_roles] ([account_id], [role_id]) VALUES (2, 2)
+GO
+INSERT [dbo].[account_roles] ([account_id], [role_id]) VALUES (2, 3)
+GO
+INSERT [dbo].[account_roles] ([account_id], [role_id]) VALUES (6, 1)
+GO
+INSERT [dbo].[account_roles] ([account_id], [role_id]) VALUES (9, 1)
+GO
+INSERT [dbo].[account_roles] ([account_id], [role_id]) VALUES (10, 1)
+GO
+INSERT [dbo].[account_roles] ([account_id], [role_id]) VALUES (10, 2)
+GO
+INSERT [dbo].[account_roles] ([account_id], [role_id]) VALUES (11, 1)
+GO
+SET IDENTITY_INSERT [dbo].[rentals] ON 
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (2, CAST(N'2023-11-04T15:30:00.0000000' AS DateTime2), 1, NULL, N'hoan tat', CAST(N'2023-10-30T12:00:00.0000000' AS DateTime2), N'12345 Main St, Anytown USA', CAST(N'2023-11-05T12:00:00.0000000' AS DateTime2), CAST(1000.00 AS Numeric(10, 2)), 3, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (3, CAST(N'2023-11-04T15:30:00.0000000' AS DateTime2), 1, NULL, N'hoan tat', CAST(N'2023-10-30T12:00:00.0000000' AS DateTime2), N'12345 Main St, Anytown USA', CAST(N'2023-11-05T12:00:00.0000000' AS DateTime2), CAST(1000.00 AS Numeric(10, 2)), 3, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (4, CAST(N'2023-11-04T15:30:00.0000000' AS DateTime2), 1, NULL, N'chua tra', CAST(N'2023-10-30T12:00:00.0000000' AS DateTime2), N'12345 Main St, Anytown USA', CAST(N'2023-11-05T12:00:00.0000000' AS DateTime2), CAST(1000.00 AS Numeric(10, 2)), 3, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (5, CAST(N'2023-11-04T15:30:00.0000000' AS DateTime2), 1, NULL, N'chua tra', CAST(N'2023-10-30T12:00:00.0000000' AS DateTime2), N'12345 Main St, Anytown USA', CAST(N'2023-11-05T12:00:00.0000000' AS DateTime2), CAST(1000.00 AS Numeric(10, 2)), 3, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (6, CAST(N'2023-11-04T15:30:00.0000000' AS DateTime2), 1, NULL, N'chua tra', CAST(N'2023-10-30T12:00:00.0000000' AS DateTime2), N'12345 Main St, Anytown USA', CAST(N'2023-11-05T12:00:00.0000000' AS DateTime2), CAST(1000.00 AS Numeric(10, 2)), 3, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (7, NULL, 1, N'123', N'Đã huỷ', CAST(N'2024-11-23T14:00:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-24T14:00:00.0000000' AS DateTime2), CAST(962640.00 AS Numeric(10, 2)), 1, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (8, NULL, 1, N'123abc', N'Đã huỷ', CAST(N'2024-11-23T14:00:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-24T14:00:00.0000000' AS DateTime2), CAST(962640.00 AS Numeric(10, 2)), 1, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (9, NULL, 1, N'abc', N'Đã huỷ', CAST(N'2024-11-23T14:00:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-24T14:00:00.0000000' AS DateTime2), CAST(855680.00 AS Numeric(10, 2)), 1, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (11, NULL, 1, N'ambcabcjc', N'Đã huỷ', CAST(N'2024-11-23T14:30:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-24T14:30:00.0000000' AS DateTime2), CAST(855680.00 AS Numeric(10, 2)), 1, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (12, NULL, 1, N'ambcabcjc', N'Chờ xác nhận', CAST(N'2024-11-23T14:30:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-24T14:30:00.0000000' AS DateTime2), CAST(855680.00 AS Numeric(10, 2)), 1, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (13, NULL, 1, N'abcxux', N'Chờ xác nhận', CAST(N'2024-11-23T14:30:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-24T14:30:00.0000000' AS DateTime2), CAST(855680.00 AS Numeric(10, 2)), 1, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (14, NULL, 1, N'abc', N'Chờ xác nhận', CAST(N'2024-11-23T14:30:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-24T14:30:00.0000000' AS DateTime2), CAST(855680.00 AS Numeric(10, 2)), 1, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (15, NULL, 1, N'anv', N'Chờ xác nhận', CAST(N'2024-11-23T14:30:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-24T14:30:00.0000000' AS DateTime2), CAST(855680.00 AS Numeric(10, 2)), 1, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (16, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-11-23T15:00:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-27T15:00:00.0000000' AS DateTime2), CAST(4446000.00 AS Numeric(10, 2)), 1, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (17, NULL, 1, N'', N'Đã hủy', CAST(N'2024-11-23T18:30:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-29T18:30:00.0000000' AS DateTime2), CAST(7239000.00 AS Numeric(10, 2)), 1, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (18, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-11-24T08:30:00.0000000' AS DateTime2), N'08 hà văn tính, hòa khánh nam, liên chiểu, TP đà nẵng', CAST(N'2024-11-30T08:30:00.0000000' AS DateTime2), CAST(7239000.00 AS Numeric(10, 2)), 1, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (19, NULL, 1, N'am mnva', N'Chờ xác nhận', CAST(N'2024-11-23T15:30:00.0000000' AS DateTime2), N'18-11-2024', CAST(N'2024-11-30T15:30:00.0000000' AS DateTime2), CAST(9267440.00 AS Numeric(10, 2)), 1, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (20, NULL, 1, N'iihihih', N'Đã hủy', CAST(N'2024-11-23T16:00:00.0000000' AS DateTime2), N'777  tran cao van', CAST(N'2024-11-28T16:00:00.0000000' AS DateTime2), CAST(5490000.00 AS Numeric(10, 2)), 1, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (21, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-11-27T01:30:00.0000000' AS DateTime2), N'7777 tran cao van', CAST(N'2024-11-29T07:00:00.0000000' AS DateTime2), CAST(2282976.00 AS Numeric(10, 2)), 5, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (22, NULL, 1, N'test', N'Đang thuê', CAST(N'2024-11-27T17:00:00.0000000' AS DateTime2), N'777 tran cao', CAST(N'2024-11-28T17:00:00.0000000' AS DateTime2), CAST(918000.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (23, NULL, 1, N'', N'Đã huỷ', CAST(N'2024-11-29T10:00:00.0000000' AS DateTime2), N'123 tran van', CAST(N'2024-12-04T10:00:00.0000000' AS DateTime2), CAST(5785200.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (24, NULL, 1, N'123 test', N'Đã huỷ', CAST(N'2024-11-28T10:00:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-11-29T10:00:00.0000000' AS DateTime2), CAST(851200.00 AS Numeric(10, 2)), 4, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (25, NULL, 1, N'', N'Đã huỷ', CAST(N'2024-11-29T10:00:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-12-03T10:00:00.0000000' AS DateTime2), CAST(4680080.00 AS Numeric(10, 2)), 4, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (26, NULL, 1, N'123 test', N'Đã huỷ', CAST(N'2024-11-30T10:30:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-12-06T10:30:00.0000000' AS DateTime2), CAST(7635720.00 AS Numeric(10, 2)), 4, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (27, NULL, 0, N'ádasd dsa', N'Chờ xác nhận', CAST(N'2024-12-04T16:00:00.0000000' AS DateTime2), N'đá ád ád ádasd d', CAST(N'2024-12-05T16:00:00.0000000' AS DateTime2), CAST(364800.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (28, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-12-13T23:00:00.0000000' AS DateTime2), CAST(4986360.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (31, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-11T23:00:00.0000000' AS DateTime2), N'sd asd asd a', CAST(N'2024-12-18T23:00:00.0000000' AS DateTime2), CAST(3447360.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (32, NULL, 0, N'3123123', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'asdasd asd asd asd', CAST(N'2024-12-14T23:00:00.0000000' AS DateTime2), CAST(4124520.00 AS Numeric(10, 2)), 4, 4)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (39, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'fsd fsdf sdf sdf', CAST(N'2024-12-05T23:00:00.0000000' AS DateTime2), CAST(554040.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (42, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'sf sf sdf sdfd fsdf', CAST(N'2024-12-12T23:00:00.0000000' AS DateTime2), CAST(4924800.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (43, NULL, 0, N'123123123', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'g dfsg d gdf dfg d', CAST(N'2024-12-06T23:00:00.0000000' AS DateTime2), CAST(1231200.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (44, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-11T23:00:00.0000000' AS DateTime2), N'dfgd fgdfg dfg dfg dfg', CAST(N'2024-12-20T23:00:00.0000000' AS DateTime2), CAST(5540400.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (45, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-11T23:00:00.0000000' AS DateTime2), N'dfgd fgdfg dfg dfg dfg', CAST(N'2024-12-20T23:00:00.0000000' AS DateTime2), CAST(5540400.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (46, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-11T23:00:00.0000000' AS DateTime2), N'dfgd fgdfg dfg dfg dfg', CAST(N'2024-12-20T23:00:00.0000000' AS DateTime2), CAST(5540400.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (47, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'sdf sdfs df', CAST(N'2024-12-20T23:00:00.0000000' AS DateTime2), CAST(9849600.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (48, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'sdf sdfs df', CAST(N'2024-12-20T23:00:00.0000000' AS DateTime2), CAST(9849600.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (49, NULL, 0, N'4234234', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'sfsdf fsdfsdf d', CAST(N'2024-12-18T23:00:00.0000000' AS DateTime2), CAST(8618400.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (50, NULL, 0, N'fgdsfsdf', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'fs dfsdf sdf sdf s', CAST(N'2024-12-05T23:00:00.0000000' AS DateTime2), CAST(615600.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (51, NULL, 0, N'fgdsfsdf', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'fs dfsdf sdf sdf s', CAST(N'2024-12-05T23:00:00.0000000' AS DateTime2), CAST(615600.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (52, NULL, 0, N'fgdsfsdf', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'fs dfsdf sdf sdf s', CAST(N'2024-12-05T23:00:00.0000000' AS DateTime2), CAST(615600.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (53, NULL, 0, N'fgdsfsdf', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'fs dfsdf sdf sdf s', CAST(N'2024-12-05T23:00:00.0000000' AS DateTime2), CAST(615600.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (54, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'sdfsdf sdf', CAST(N'2024-12-20T23:00:00.0000000' AS DateTime2), CAST(9849600.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (55, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'sdfsdf sdf', CAST(N'2024-12-20T23:00:00.0000000' AS DateTime2), CAST(9849600.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (56, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-05T23:00:00.0000000' AS DateTime2), N'fsdf sdfsdf sdfs dfsd f', CAST(N'2024-12-13T23:00:00.0000000' AS DateTime2), CAST(4924800.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (57, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-05T23:00:00.0000000' AS DateTime2), N'fsdf sdfsdf sdfs dfsd f', CAST(N'2024-12-13T23:00:00.0000000' AS DateTime2), CAST(4924800.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (58, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'sdfsadf sdf sdfsd sdf sd', CAST(N'2024-12-12T23:00:00.0000000' AS DateTime2), CAST(4924800.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (59, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'sdfsadf sdf sdfsd sdf sd', CAST(N'2024-12-12T23:00:00.0000000' AS DateTime2), CAST(4924800.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (60, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'sdfsadf sdf sdfsd sdf sd', CAST(N'2024-12-12T23:00:00.0000000' AS DateTime2), CAST(4924800.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (61, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'sdfsadf sdf sdfsd sdf sd', CAST(N'2024-12-12T23:00:00.0000000' AS DateTime2), CAST(4924800.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (62, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'fsdf sdf sdfsd f', CAST(N'2024-12-06T23:00:00.0000000' AS DateTime2), CAST(1231200.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (63, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-05T23:00:00.0000000' AS DateTime2), N'gdgdsfg dfg dfg d', CAST(N'2024-12-13T23:00:00.0000000' AS DateTime2), CAST(4924800.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (64, NULL, 1, N'', N'Đã huỷ', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'fdsfsdfsdfsdfsdfsdfsdf', CAST(N'2024-12-06T23:00:00.0000000' AS DateTime2), CAST(2247200.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (65, NULL, 1, N'', N'Đã huỷ', CAST(N'2024-12-04T23:00:00.0000000' AS DateTime2), N'fdsfsdfsdfsdfsdfsdfsdf', CAST(N'2024-12-06T23:00:00.0000000' AS DateTime2), CAST(2247200.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (66, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-07T04:30:00.0000000' AS DateTime2), N'1312312312 123123 3123', CAST(N'2024-12-26T04:30:00.0000000' AS DateTime2), CAST(11111580.00 AS Numeric(10, 2)), 4, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (67, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-07T04:30:00.0000000' AS DateTime2), N'24234 234 234 dfg fgfd g', CAST(N'2024-12-25T04:30:00.0000000' AS DateTime2), CAST(7387200.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (68, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-06T12:00:00.0000000' AS DateTime2), N'sdf sdfsad fsdfsdfd sdf sdfsdf', CAST(N'2024-12-26T05:00:00.0000000' AS DateTime2), CAST(11080800.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (69, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-06T13:00:00.0000000' AS DateTime2), N'fsdf sdf sadafasdf 234', CAST(N'2024-12-26T05:00:00.0000000' AS DateTime2), CAST(8208000.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (70, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-06T13:00:00.0000000' AS DateTime2), N'fsdf sdf sadafasdf 234', CAST(N'2024-12-26T05:00:00.0000000' AS DateTime2), CAST(410400.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (71, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-06T13:00:00.0000000' AS DateTime2), N'fsdf sdf sadafasdf 234', CAST(N'2024-12-26T05:00:00.0000000' AS DateTime2), CAST(410400.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (72, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-07T05:30:00.0000000' AS DateTime2), N'fsdf sdf sadafasdf 234', CAST(N'2024-12-25T05:30:00.0000000' AS DateTime2), CAST(7387200.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (73, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-07T05:30:00.0000000' AS DateTime2), N'fdsa fsdfsda fas fsdf', CAST(N'2024-12-18T05:30:00.0000000' AS DateTime2), CAST(6094440.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (74, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-06T05:30:00.0000000' AS DateTime2), N'3123123 213123123 123123', CAST(N'2024-12-07T05:30:00.0000000' AS DateTime2), CAST(554040.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (75, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-07T05:30:00.0000000' AS DateTime2), N'sdf sfsd f asdf sdfsdf', CAST(N'2024-12-25T05:30:00.0000000' AS DateTime2), CAST(9972720.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (76, NULL, 0, N'dsfdaDSDASD', N'Đã huỷ', CAST(N'2024-12-07T14:30:00.0000000' AS DateTime2), N'sdjfkfkls sdlkfj kljsdlkfj klsdjflk jsdfkljsdlk jfdslk', CAST(N'2024-12-19T14:30:00.0000000' AS DateTime2), CAST(7387200.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (77, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-07T15:00:00.0000000' AS DateTime2), N'dsfsd fsdf sdf sd', CAST(N'2024-12-26T15:00:00.0000000' AS DateTime2), CAST(10830000.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (78, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-07T15:00:00.0000000' AS DateTime2), N'sdf sdfsd sdf', CAST(N'2024-12-21T15:00:00.0000000' AS DateTime2), CAST(7980000.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (79, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-07T15:00:00.0000000' AS DateTime2), N'adá đá asdasd sdf fsd', CAST(N'2024-12-22T15:00:00.0000000' AS DateTime2), CAST(8550000.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (80, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-06T15:00:00.0000000' AS DateTime2), N'fsd fsdf sdfsdf', CAST(N'2024-12-07T15:00:00.0000000' AS DateTime2), CAST(570000.00 AS Numeric(10, 2)), 4, NULL)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (81, NULL, 1, N'', N'Đã huỷ', CAST(N'2024-12-07T15:30:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-12-19T15:30:00.0000000' AS DateTime2), CAST(17898000.00 AS Numeric(10, 2)), 4, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (82, NULL, 1, N'', N'Đã huỷ', CAST(N'2024-12-07T15:30:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-12-19T15:30:00.0000000' AS DateTime2), CAST(16956000.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (83, NULL, 1, N'test', N'Chờ xác nhận', CAST(N'2024-12-07T16:00:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-12-12T16:00:00.0000000' AS DateTime2), CAST(4752000.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10079, NULL, 1, N'Hihihi Test !!!!', N'Chờ xác nhận', CAST(N'2024-12-09T05:00:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-12T05:00:00.0000000' AS DateTime2), CAST(2826240.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10080, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T05:00:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-19T05:00:00.0000000' AS DateTime2), CAST(11304000.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10081, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-08T05:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T05:30:00.0000000' AS DateTime2), CAST(918000.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10082, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-08T05:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T05:30:00.0000000' AS DateTime2), CAST(492480.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10083, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-08T05:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T05:30:00.0000000' AS DateTime2), CAST(492480.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10084, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-08T05:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T05:30:00.0000000' AS DateTime2), CAST(492480.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10085, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-08T05:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T05:30:00.0000000' AS DateTime2), CAST(492480.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10086, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-08T05:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T05:30:00.0000000' AS DateTime2), CAST(492480.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10087, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-08T05:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T05:30:00.0000000' AS DateTime2), CAST(492480.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10088, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-08T05:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T05:30:00.0000000' AS DateTime2), CAST(492480.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10089, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-09T06:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-18T06:00:00.0000000' AS DateTime2), CAST(4986360.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10090, NULL, 0, N'', N'Đã huỷ', CAST(N'2024-12-09T06:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-18T06:00:00.0000000' AS DateTime2), CAST(4986360.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10091, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-08T07:00:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-12-09T07:00:00.0000000' AS DateTime2), CAST(615600.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10092, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-08T07:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T07:00:00.0000000' AS DateTime2), CAST(1016120.00 AS Numeric(10, 2)), 4, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10093, NULL, 1, N'giao xe trước 1 giờ', N'Chờ xác nhận', CAST(N'2024-12-08T08:30:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T08:30:00.0000000' AS DateTime2), CAST(962640.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10094, NULL, 1, N'giao trước 2h', N'Chờ xác nhận', CAST(N'2024-12-08T09:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-09T09:00:00.0000000' AS DateTime2), CAST(851200.00 AS Numeric(10, 2)), 4, 3)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10095, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-08T10:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-19T10:00:00.0000000' AS DateTime2), CAST(6771600.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10096, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-09T10:00:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-12-17T10:00:00.0000000' AS DateTime2), CAST(4560000.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10097, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T10:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-26T10:00:00.0000000' AS DateTime2), CAST(26296960.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10098, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-08T10:00:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-12-18T10:00:00.0000000' AS DateTime2), CAST(5700000.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10099, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-10T10:00:00.0000000' AS DateTime2), N'123 tran caooooo', CAST(N'2024-12-20T10:00:00.0000000' AS DateTime2), CAST(5700000.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10100, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-09T10:30:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-18T10:30:00.0000000' AS DateTime2), CAST(4617000.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10101, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-09T10:30:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-19T10:30:00.0000000' AS DateTime2), CAST(5700000.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10102, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T10:30:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-11T10:30:00.0000000' AS DateTime2), CAST(1712000.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10103, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T11:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-19T11:00:00.0000000' AS DateTime2), CAST(14000400.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10104, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T12:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-18T12:00:00.0000000' AS DateTime2), CAST(12162960.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10105, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T12:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-19T12:00:00.0000000' AS DateTime2), CAST(14000400.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10106, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T12:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-18T12:00:00.0000000' AS DateTime2), CAST(12162960.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10107, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T12:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-11T12:00:00.0000000' AS DateTime2), CAST(2022480.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10108, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-10T12:30:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-13T12:30:00.0000000' AS DateTime2), CAST(2635200.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10109, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T12:30:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-27T12:30:00.0000000' AS DateTime2), CAST(32199120.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10110, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T13:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-18T13:00:00.0000000' AS DateTime2), CAST(11502000.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10111, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T13:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-18T13:00:00.0000000' AS DateTime2), CAST(12162960.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10112, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T13:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-14T13:00:00.0000000' AS DateTime2), CAST(5785200.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10113, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-09T15:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-18T15:00:00.0000000' AS DateTime2), CAST(12162960.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10114, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-10T15:00:00.0000000' AS DateTime2), N'777  tran cao van', CAST(N'2024-12-26T15:00:00.0000000' AS DateTime2), CAST(9120000.00 AS Numeric(10, 2)), 4, 0)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10115, NULL, 1, N'test', N'Đã huỷ', CAST(N'2024-12-11T11:30:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-20T11:30:00.0000000' AS DateTime2), CAST(9849600.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10116, NULL, 0, N'test', N'Chờ xác nhận', CAST(N'2024-12-11T12:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-12T12:00:00.0000000' AS DateTime2), CAST(554040.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10117, NULL, 1, N'', N'Chờ xác nhận', CAST(N'2024-12-10T13:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-11T13:30:00.0000000' AS DateTime2), CAST(806400.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10118, NULL, 1, N'Toyota Camry 2020', N'Chờ xác nhận', CAST(N'2024-12-11T13:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-13T13:30:00.0000000' AS DateTime2), CAST(1684800.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10119, NULL, 1, N'Toyota Camry 2020', N'Chờ xác nhận', CAST(N'2024-12-11T13:30:00.0000000' AS DateTime2), N'123 trần cao vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-13T13:30:00.0000000' AS DateTime2), CAST(1684800.00 AS Numeric(10, 2)), 4, 1)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10120, NULL, 1, N'tets', N'Chờ xác nhận', CAST(N'2024-12-10T14:00:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-11T14:00:00.0000000' AS DateTime2), CAST(716800.00 AS Numeric(10, 2)), 4, 2)
+GO
+INSERT [dbo].[rentals] ([rental_id], [actual_return_date], [have_driver], [notes], [ren_status], [rental_date], [rental_locations], [return_date], [total_cost], [account_id], [discount_id]) VALUES (10121, NULL, 0, N'', N'Chờ xác nhận', CAST(N'2024-12-10T14:30:00.0000000' AS DateTime2), N'123 Trần cao Vân, Thanh Khê Đông, Đà Nẵng', CAST(N'2024-12-11T14:30:00.0000000' AS DateTime2), CAST(456000.00 AS Numeric(10, 2)), 4, 0)
+GO
+SET IDENTITY_INSERT [dbo].[rentals] OFF
+GO
+SET IDENTITY_INSERT [dbo].[cars] ON 
+GO
+INSERT [dbo].[cars] ([car_id], [car_type], [color], [condition], [daily_rate], [detail_car], [engine_capacity], [facilities], [fuel_consumption], [fuel_type], [gear_box], [image_url], [license_plate], [make], [mileage], [model], [percent_discount], [rentals], [seats], [status], [transmission], [vehicle_location], [year]) VALUES (1, NULL, N'Black', N'Good', CAST(500000.00 AS Numeric(10, 2)), N'Sedan, 4-door', 2000, N'Air Conditioner, GPS', CAST(8.5 AS Numeric(4, 1)), N'Petrol', N'Tự Động', N'Suzuki-Jimny.jpg,Suzuki-Swift.jpg', N'30A-12345', N'Toyota', 50000, N'Camry', CAST(0.00 AS Numeric(5, 2)), NULL, 5, N'S?n sàng', N'Automatic', N'Hanoi', 2020)
+GO
+INSERT [dbo].[cars] ([car_id], [car_type], [color], [condition], [daily_rate], [detail_car], [engine_capacity], [facilities], [fuel_consumption], [fuel_type], [gear_box], [image_url], [license_plate], [make], [mileage], [model], [percent_discount], [rentals], [seats], [status], [transmission], [vehicle_location], [year]) VALUES (2, NULL, N'White', N'New', CAST(600000.00 AS Numeric(10, 2)), N'Sedan, 4-door', 1800, N'Air Conditioner, GPS', CAST(7.5 AS Numeric(4, 1)), N'Petrol', NULL, N'Suzuki-Swift.jpg', N'50A-98765', N'Honda', 30000, N'Civic', CAST(10.00 AS Numeric(5, 2)), NULL, 5, N'Ðang thuê', N'Automatic', N'Ho Chi Minh', 2021)
+GO
+INSERT [dbo].[cars] ([car_id], [car_type], [color], [condition], [daily_rate], [detail_car], [engine_capacity], [facilities], [fuel_consumption], [fuel_type], [gear_box], [image_url], [license_plate], [make], [mileage], [model], [percent_discount], [rentals], [seats], [status], [transmission], [vehicle_location], [year]) VALUES (3, NULL, N'Black', N'Good', CAST(500000.00 AS Numeric(10, 2)), N'Sedan, 4-door', 2000, N'Air Conditioner, GPS', CAST(8.5 AS Numeric(4, 1)), N'Petrol', NULL, N'8534b768-fc19-4ff3-a86d-9fff8c0bf7a8_xe-toyota-camry-2020-van-hanh.png,8939d180-070a-4777-993c-86c6ea632c06_toyota-camry-2020-gia-ban-moi-nhat-danh-gia-thong-so-ky-thuat.png,cb7db2b5-669b-4de1-8018-fbedbf02cbf7_2020-toyota-camry-awd2_KQRS.png,ae606afd-1fd0-413e-872a-1bf86e3b77ee_toyota-camry-2020-gia-ban-moi-nhat-danh-gia-thong-so-ky-thuat-11.png', N'30A-12345', N'Toyota', 50000, N'Camry', CAST(20.00 AS Numeric(5, 2)), NULL, 5, N'S?n sàng', N'Automatic', N'Hanoi', 2020)
+GO
+SET IDENTITY_INSERT [dbo].[cars] OFF
+GO
+SET IDENTITY_INSERT [dbo].[motorbikes] ON 
+GO
+INSERT [dbo].[motorbikes] ([motorbike_id], [color], [condition], [daily_rate], [detail_bike], [engine_capacity], [facilities], [fuel_consumption], [fuel_type], [gear_box], [image_url], [license_plate], [make], [mileage], [model], [motorbike_type], [percent_discount], [rentals], [status], [vehicle_location], [year]) VALUES (1, N'Blue', N'Good', CAST(100000.00 AS Numeric(10, 2)), N'Sport Bike', 150, N'Helmet, GPS', CAST(2.5 AS Numeric(4, 1)), N'Petrol', NULL, N'ex2010-4.jpg,Ex2015-1.jpg', N'29B1-23456', N'Yamaha', 20000, N'Exciter', NULL, CAST(0.00 AS Numeric(5, 2)), NULL, N'Sẵn sàng', N'Quận Ngũ Hành Sơn TP Đà Nẵng', 2019)
+GO
+INSERT [dbo].[motorbikes] ([motorbike_id], [color], [condition], [daily_rate], [detail_bike], [engine_capacity], [facilities], [fuel_consumption], [fuel_type], [gear_box], [image_url], [license_plate], [make], [mileage], [model], [motorbike_type], [percent_discount], [rentals], [status], [vehicle_location], [year]) VALUES (2, N'Red', N'New', CAST(80000.00 AS Numeric(10, 2)), N'Scooter', 125, N'Helmet, GPS', CAST(2.0 AS Numeric(4, 1)), N'Petrol', NULL, N'future-5.jpg', N'43B2-67890', N'Honda', 10000, N'Air Blade', NULL, CAST(0.00 AS Numeric(5, 2)), NULL, N'Bảo trì', N'Da Nang', 2020)
+GO
+INSERT [dbo].[motorbikes] ([motorbike_id], [color], [condition], [daily_rate], [detail_bike], [engine_capacity], [facilities], [fuel_consumption], [fuel_type], [gear_box], [image_url], [license_plate], [make], [mileage], [model], [motorbike_type], [percent_discount], [rentals], [status], [vehicle_location], [year]) VALUES (3, N'Blue', N'Good', CAST(100000.00 AS Numeric(10, 2)), N'Sport Bike', 150, N'Helmet, GPS', CAST(2.5 AS Numeric(4, 1)), N'Petrol', NULL, N'bike_image1.jpg', N'29B1-23456', N'Yamaha', 20000, N'Exciter', NULL, CAST(0.00 AS Numeric(5, 2)), NULL, N'Sẵn sàng', N'Hanoi', 2019)
+GO
+INSERT [dbo].[motorbikes] ([motorbike_id], [color], [condition], [daily_rate], [detail_bike], [engine_capacity], [facilities], [fuel_consumption], [fuel_type], [gear_box], [image_url], [license_plate], [make], [mileage], [model], [motorbike_type], [percent_discount], [rentals], [status], [vehicle_location], [year]) VALUES (4, N'Red', N'New', CAST(80000.00 AS Numeric(10, 2)), N'Scooter', 125, N'Helmet, GPS', CAST(2.0 AS Numeric(4, 1)), N'Petrol', NULL, N'bike_image2.jpg', N'43B2-67890', N'Honda', 10000, N'Air Blade', NULL, CAST(0.00 AS Numeric(5, 2)), NULL, N'Bảo trì', N'Da Nang', 2020)
+GO
+SET IDENTITY_INSERT [dbo].[motorbikes] OFF
+GO
+SET IDENTITY_INSERT [dbo].[car_maintenance] ON 
+GO
+INSERT [dbo].[car_maintenance] ([maintenance_id], [cost], [description], [maintenance_date], [car_id], [motorbike_id]) VALUES (3, CAST(500000.00 AS Numeric(10, 2)), N'thay dầu động cơ và kiểm tra lớp xe', CAST(N'2024-09-20T00:00:00.0000000' AS DateTime2), NULL, NULL)
+GO
+INSERT [dbo].[car_maintenance] ([maintenance_id], [cost], [description], [maintenance_date], [car_id], [motorbike_id]) VALUES (4, CAST(300000.00 AS Numeric(10, 2)), N'thay nhớt', CAST(N'2024-09-22T00:00:00.0000000' AS DateTime2), NULL, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[car_maintenance] OFF
+GO
+SET IDENTITY_INSERT [dbo].[drivers] ON 
+GO
+INSERT [dbo].[drivers] ([driver_id], [experience_years], [full_name], [image_url], [license_number], [phone_number], [status]) VALUES (1, 5, N'Pham Van D', N'driver_image1.jpg', N'987654321', N'0909345678', N'S?n sàng')
+GO
+INSERT [dbo].[drivers] ([driver_id], [experience_years], [full_name], [image_url], [license_number], [phone_number], [status]) VALUES (2, 7, N'Nguyen Thi E', N'driver_image2.jpg', N'876543210', N'0909123765', N'B?n')
+GO
+SET IDENTITY_INSERT [dbo].[drivers] OFF
+GO
+SET IDENTITY_INSERT [dbo].[rental_vehicles] ON 
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (3, N'Car', 1, 1, NULL, 3)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (4, N'Motorbike', NULL, NULL, 1, 2)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (5, N'car', 2, NULL, NULL, 7)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (6, N'car', 2, NULL, NULL, 8)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (7, N'car', 2, NULL, NULL, 9)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (9, N'car', 2, NULL, NULL, 11)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10, N'car', 2, NULL, NULL, 12)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (11, N'car', 2, NULL, NULL, 13)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (13, N'car', 2, NULL, NULL, 15)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (14, N'car', 1, NULL, NULL, 16)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (15, N'car', 1, NULL, NULL, 17)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (16, N'car', 1, NULL, NULL, 18)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (17, N'car', 2, 1, NULL, 19)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (18, N'car', 1, NULL, NULL, 20)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (19, N'car', 2, NULL, NULL, 21)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (20, N'car', 1, NULL, NULL, 22)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (21, N'car', 2, NULL, NULL, 23)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (22, N'car', 3, NULL, NULL, 24)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (23, N'car', 2, NULL, NULL, 25)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (24, N'car', 2, NULL, NULL, 26)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (25, N'car', 3, NULL, NULL, 27)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (26, N'car', 2, NULL, NULL, 28)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (28, N'car', 2, NULL, NULL, 31)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (29, N'car', 2, NULL, NULL, 32)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (35, N'car', 2, NULL, NULL, 39)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (36, N'car', 2, NULL, NULL, 42)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (37, N'car', 2, NULL, NULL, 43)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (38, N'car', 2, NULL, NULL, 44)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (39, N'car', 2, NULL, NULL, 45)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (40, N'car', 2, NULL, NULL, 46)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (41, N'car', 2, NULL, NULL, 47)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (42, N'car', 2, NULL, NULL, 48)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (43, N'car', 2, NULL, NULL, 50)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (44, N'car', 2, NULL, NULL, 51)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (45, N'car', 2, NULL, NULL, 52)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (46, N'car', 2, NULL, NULL, 53)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (47, N'car', 2, NULL, NULL, 54)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (48, N'car', 2, NULL, NULL, 55)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (49, N'car', 2, NULL, NULL, 56)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (50, N'car', 2, NULL, NULL, 57)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (51, N'car', 2, NULL, NULL, 58)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (52, N'car', 2, NULL, NULL, 59)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (53, N'car', 2, NULL, NULL, 60)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (54, N'car', 2, NULL, NULL, 61)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (55, N'car', 2, NULL, NULL, 62)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (56, N'car', 2, NULL, NULL, 63)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (57, N'car', 2, NULL, NULL, 64)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (58, N'car', 2, NULL, NULL, 65)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (59, N'car', 2, NULL, NULL, 66)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (60, N'car', 3, NULL, NULL, 67)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (61, N'car', 2, NULL, NULL, 68)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (62, N'car', 3, NULL, NULL, 69)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (63, N'car', 3, NULL, NULL, 70)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (64, N'car', 3, NULL, NULL, 71)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (65, N'car', 3, NULL, NULL, 72)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (66, N'car', 2, NULL, NULL, 73)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (67, N'car', 2, NULL, NULL, 74)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (68, N'car', 2, NULL, NULL, 75)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (69, N'car', 2, NULL, NULL, 76)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (70, N'car', 1, NULL, NULL, 77)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (71, N'car', 1, NULL, NULL, 78)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (72, N'car', 1, NULL, NULL, 79)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (73, N'car', 1, NULL, NULL, 80)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (74, N'car', 1, NULL, NULL, 81)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (75, N'car', 1, NULL, NULL, 82)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (76, N'car', 3, NULL, NULL, 83)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10072, N'car', 2, NULL, NULL, 10079)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10073, N'car', 3, NULL, NULL, 10080)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10074, N'car', 1, NULL, NULL, 10081)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10075, N'car', 2, NULL, NULL, 10082)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10076, N'car', 2, NULL, NULL, 10083)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10077, N'car', 2, NULL, NULL, 10084)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10078, N'car', 2, NULL, NULL, 10085)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10079, N'car', 2, NULL, NULL, 10086)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10080, N'car', 2, NULL, NULL, 10087)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10081, N'car', 2, NULL, NULL, 10088)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10082, N'car', 2, NULL, NULL, 10089)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10083, N'car', 2, NULL, NULL, 10090)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10084, N'car', 2, NULL, NULL, 10091)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10085, N'car', 2, NULL, NULL, 10092)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10086, N'car', 2, NULL, NULL, 10093)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10087, N'car', 3, NULL, NULL, 10094)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10088, N'car', 2, NULL, NULL, 10095)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10089, N'car', 1, NULL, NULL, 10096)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10090, N'car', 2, NULL, NULL, 10097)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10091, N'car', 1, NULL, NULL, 10098)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10092, N'car', 1, NULL, NULL, 10099)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10093, N'car', 1, NULL, NULL, 10100)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10094, N'car', 1, NULL, NULL, 10101)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10095, N'car', 1, NULL, NULL, 10102)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10096, N'car', 2, NULL, NULL, 10103)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10097, N'car', 2, NULL, NULL, 10104)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10098, N'car', 2, NULL, NULL, 10105)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10099, N'car', 2, NULL, NULL, 10106)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10100, N'car', 2, NULL, NULL, 10107)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10101, N'car', 3, NULL, NULL, 10108)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10102, N'car', 2, NULL, NULL, 10109)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10103, N'car', 1, NULL, NULL, 10110)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10104, N'car', 2, NULL, NULL, 10111)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10105, N'car', 2, NULL, NULL, 10112)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10106, N'car', 2, NULL, NULL, 10113)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10107, N'car', 1, NULL, NULL, 10114)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10108, N'car', 3, NULL, NULL, 10115)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10109, N'car', 2, NULL, NULL, 10116)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10110, N'car', 3, NULL, NULL, 10117)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10111, N'car', 3, NULL, NULL, 10118)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10112, N'car', 3, NULL, NULL, 10119)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10113, N'car', 3, NULL, NULL, 10120)
+GO
+INSERT [dbo].[rental_vehicles] ([rental_vehicle_id], [vehicle_type], [car_id], [driver_id], [motorbike_id], [rental_id]) VALUES (10114, N'car', 3, NULL, NULL, 10121)
+GO
+SET IDENTITY_INSERT [dbo].[rental_vehicles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[feedbacks] ON 
+GO
+INSERT [dbo].[feedbacks] ([feedback_id], [comment], [feedback_date], [rating], [rental_id]) VALUES (3, N'abc', CAST(N'2023-11-04' AS Date), 5, 2)
+GO
+INSERT [dbo].[feedbacks] ([feedback_id], [comment], [feedback_date], [rating], [rental_id]) VALUES (4, N'abc', CAST(N'2023-11-04' AS Date), 5, 3)
+GO
+SET IDENTITY_INSERT [dbo].[feedbacks] OFF
+GO
+SET IDENTITY_INSERT [dbo].[payments] ON 
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (8, CAST(855680.00 AS Numeric(10, 2)), N'RC0002A1TRANVIETAN241123T24', NULL, CAST(N'2024-11-23' AS Date), N'prePayment', 15, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (9, CAST(4446000.00 AS Numeric(10, 2)), N'RC0001A1TRANVIETAN241123T96', NULL, CAST(N'2024-11-23' AS Date), N'prePayment', 16, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10, CAST(7239000.00 AS Numeric(10, 2)), N'RC0001A1TRANVIETAN241124T144', NULL, CAST(N'2024-11-23' AS Date), N'prePayment', 17, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (11, CAST(7239000.00 AS Numeric(10, 2)), N'RC0001A1TRANVIETAN241124T144', NULL, CAST(N'2024-11-23' AS Date), N'prePayment', 18, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (12, CAST(9267440.00 AS Numeric(10, 2)), N'RC0002A1TRANVIETAN241123T168', NULL, CAST(N'2024-11-23' AS Date), N'prePayment', 19, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (13, CAST(5490000.00 AS Numeric(10, 2)), N'RC0001A1DUONGHUUKHANH241124T120', NULL, CAST(N'2024-11-23' AS Date), N'postPayment', 20, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (14, CAST(2282976.00 AS Numeric(10, 2)), N'RC0002A5LEQUOCC241127T53', NULL, CAST(N'2024-11-25' AS Date), N'postPayment', 21, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (15, CAST(918000.00 AS Numeric(10, 2)), N'RC0001A4TRANTHIB241128T24', NULL, CAST(N'2024-11-26' AS Date), N'postPayment', 22, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (16, CAST(5785200.00 AS Numeric(10, 2)), N'RC0002A4TEST241129T120', NULL, CAST(N'2024-11-28' AS Date), N'postPayment', 23, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (17, CAST(851200.00 AS Numeric(10, 2)), N'RC0003A4TEST241128T24', NULL, CAST(N'2024-11-28' AS Date), N'prePayment', 24, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (18, CAST(4680080.00 AS Numeric(10, 2)), N'RC0002A4TEST241129T96', NULL, CAST(N'2024-11-28' AS Date), N'prePayment', 25, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (19, CAST(7635720.00 AS Numeric(10, 2)), N'RC0002A4TEST241130T144', NULL, CAST(N'2024-11-28' AS Date), N'prePayment', 26, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (20, CAST(364800.00 AS Numeric(10, 2)), N'RC0003A4TEST241204T24', NULL, CAST(N'2024-12-04' AS Date), N'prePayment', 27, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (21, CAST(4986360.00 AS Numeric(10, 2)), N'RC0002A4TEST241205T216', NULL, CAST(N'2024-12-04' AS Date), N'prePayment', 28, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (23, CAST(3447360.00 AS Numeric(10, 2)), N'RC0002A4TEST241212T168', NULL, CAST(N'2024-12-04' AS Date), N'prePayment', 31, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (24, CAST(4124520.00 AS Numeric(10, 2)), N'RC0002A4TEST241205T240', NULL, CAST(N'2024-12-04' AS Date), N'prePayment', 32, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (28, CAST(4924800.00 AS Numeric(10, 2)), N'RC0002A4TEST241206T192', NULL, CAST(N'2024-12-04' AS Date), N'prePayment', 57, NULL, N'COD', NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (29, CAST(2247200.00 AS Numeric(10, 2)), N'RC0002A4TEST241205T48', NULL, CAST(N'2024-12-04' AS Date), N'prePayment', 64, NULL, N'COD', NULL, NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (30, CAST(11080800.00 AS Numeric(10, 2)), N'RC0002A4TEST241206T473', NULL, CAST(N'2024-12-06' AS Date), N'prePayment', 68, NULL, N'ONLINE', N'unpaid', NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (31, CAST(8208000.00 AS Numeric(10, 2)), N'RC0003A4TEST241206T472', NULL, CAST(N'2024-12-06' AS Date), N'prePayment', 69, NULL, N'COD', N'pending', NULL)
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (32, CAST(410400.00 AS Numeric(10, 2)), N'RC0003A4TEST241206T24', NULL, CAST(N'2024-12-06' AS Date), N'prePayment', 70, NULL, N'ONLINE', N'unpaid', N'241206_4965079')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (33, CAST(410400.00 AS Numeric(10, 2)), N'RC0003A4TEST241206T24', NULL, CAST(N'2024-12-06' AS Date), N'prePayment', 71, NULL, N'ONLINE', N'unpaid', N'241206_5617834')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (34, CAST(7387200.00 AS Numeric(10, 2)), N'RC0003A4TEST241207T432', NULL, CAST(N'2024-12-06' AS Date), N'prePayment', 72, NULL, N'ONLINE', N'pending', N'241206_7432846')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (35, CAST(6094440.00 AS Numeric(10, 2)), N'RC0002A4TEST241207T264', NULL, CAST(N'2024-12-06' AS Date), N'prePayment', 73, NULL, N'ONLINE', N'pending', N'241206_3577462')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (36, CAST(554040.00 AS Numeric(10, 2)), N'RC0002A4TEST241206T24', NULL, CAST(N'2024-12-06' AS Date), N'postPayment', 74, NULL, N'COD', N'pending', N'241206_163025')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (37, CAST(9972720.00 AS Numeric(10, 2)), N'RC0002A4TEST241207T432', NULL, CAST(N'2024-12-06' AS Date), N'postPayment', 75, NULL, N'ONLINE', N'unpaid', N'241206_58389')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (38, CAST(7387200.00 AS Numeric(10, 2)), N'RC0002A4TEST241207T288', NULL, CAST(N'2024-12-06' AS Date), N'postPayment', 76, NULL, N'ONLINE', N'unpaid', N'241206_5853494')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (39, CAST(10830000.00 AS Numeric(10, 2)), N'RC0001A4TEST241207T456', NULL, CAST(N'2024-12-06' AS Date), N'postPayment', 77, NULL, N'COD', N'pending', N'241206_8282731')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (40, CAST(7980000.00 AS Numeric(10, 2)), N'RC0001A4TEST241207T336', NULL, CAST(N'2024-12-06' AS Date), N'postPayment', 78, NULL, N'ONLINE', N'unpaid', N'241206_5322119')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (41, CAST(8550000.00 AS Numeric(10, 2)), N'RC0001A4TEST241207T360', NULL, CAST(N'2024-12-06' AS Date), N'postPayment', 79, NULL, N'ONLINE', N'unpaid', N'241206_8824654')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (42, CAST(570000.00 AS Numeric(10, 2)), N'RC0001A4TEST241206T24', NULL, CAST(N'2024-12-06' AS Date), N'postPayment', 80, NULL, N'ONLINE', N'unpaid', N'241206_8414368')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (43, CAST(17898000.00 AS Numeric(10, 2)), N'RC0001A4TEST241207T288', NULL, CAST(N'2024-12-06' AS Date), N'postPayment', 81, NULL, N'ONLINE', N'unpaid', N'241206_2083018')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (44, CAST(16956000.00 AS Numeric(10, 2)), N'RC0001A4TEST241207T288', NULL, CAST(N'2024-12-06' AS Date), N'postPayment', 82, NULL, N'ONLINE', N'unpaid', N'241206_8212315')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (45, CAST(4752000.00 AS Numeric(10, 2)), N'RC0003A4TEST241207T120', NULL, CAST(N'2024-12-06' AS Date), N'postPayment', 83, NULL, N'ONLINE', N'unpaid', N'241206_6281796')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10041, CAST(2826240.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T72', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10079, NULL, N'COD', N'pending', N'241208_8784069')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10042, CAST(11304000.00 AS Numeric(10, 2)), N'RC0003A4TEST241209T240', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10080, NULL, N'ONLINE', N'unpaid', N'241208_7394078')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10043, CAST(918000.00 AS Numeric(10, 2)), N'RC0001A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10081, NULL, N'ONLINE', N'unpaid', N'241208_1652559')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10044, CAST(492480.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10082, NULL, N'ONLINE', N'unpaid', N'241208_57477')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10045, CAST(492480.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10083, NULL, N'ONLINE', N'unpaid', N'241208_2361114')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10046, CAST(492480.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10084, NULL, N'ONLINE', N'unpaid', N'241208_9267815')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10047, CAST(492480.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10085, NULL, N'ONLINE', N'unpaid', N'241208_7575636')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10048, CAST(492480.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10086, NULL, N'ONLINE', N'unpaid', N'241208_1523365')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10049, CAST(492480.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10087, NULL, N'ONLINE', N'unpaid', N'241208_2107537')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10050, CAST(492480.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10088, NULL, N'ONLINE', N'unpaid', N'241208_3023465')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10051, CAST(4986360.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T216', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10089, NULL, N'ONLINE', N'unpaid', N'241208_8844363')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10052, CAST(4986360.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T216', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10090, NULL, N'ONLINE', N'unpaid', N'241208_1384693')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10053, CAST(615600.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10091, NULL, N'ONLINE', N'unpaid', N'241208_1533015')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10054, CAST(1016120.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10092, NULL, N'ONLINE', N'unpaid', N'241208_989118')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10055, CAST(962640.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10093, NULL, N'ONLINE', N'unpaid', N'241208_7084704')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10056, CAST(851200.00 AS Numeric(10, 2)), N'RC0003A4TEST241208T24', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10094, NULL, N'ONLINE', N'unpaid', N'241208_5001420')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10057, CAST(6771600.00 AS Numeric(10, 2)), N'RC0002A4TEST241208T264', NULL, CAST(N'2024-12-08' AS Date), N'prePayment', 10095, NULL, N'ONLINE', N'pending', N'241208_4100519')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10058, CAST(4560000.00 AS Numeric(10, 2)), N'RC0001A4TEST241209T192', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10096, NULL, N'ONLINE', N'unpaid', N'241208_5215852')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10059, CAST(26296960.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T408', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10097, NULL, N'ONLINE', N'unpaid', N'241208_8303115')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10060, CAST(5700000.00 AS Numeric(10, 2)), N'RC0001A4TEST241208T240', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10098, NULL, N'ONLINE', N'unpaid', N'241208_8603928')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10061, CAST(5700000.00 AS Numeric(10, 2)), N'RC0001A4TEST241210T240', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10099, NULL, N'ONLINE', N'unpaid', N'241208_7279065')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10062, CAST(4617000.00 AS Numeric(10, 2)), N'RC0001A4TEST241209T216', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10100, NULL, N'ONLINE', N'unpaid', N'241208_9337021')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10063, CAST(5700000.00 AS Numeric(10, 2)), N'RC0001A4TEST241209T240', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10101, NULL, N'ONLINE', N'unpaid', N'241208_4496386')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10064, CAST(1712000.00 AS Numeric(10, 2)), N'RC0001A4TEST241209T48', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10102, NULL, N'ONLINE', N'success', N'241208_1556530')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10065, CAST(14000400.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T240', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10103, NULL, N'ONLINE', N'unpaid', N'241208_8557916')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10066, CAST(12162960.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T216', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10104, NULL, N'ONLINE', N'success', N'241208_3990272')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10067, CAST(14000400.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T240', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10105, NULL, N'ONLINE', N'unpaid', N'241208_3401143')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10068, CAST(12162960.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T216', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10106, NULL, N'ONLINE', N'success', N'241208_5892791')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10069, CAST(2022480.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T48', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10107, NULL, N'ONLINE', N'success', N'241208_7080015')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10070, CAST(2635200.00 AS Numeric(10, 2)), N'RC0003A4TEST241210T72', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10108, NULL, N'ONLINE', N'success', N'241208_9688912')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10071, CAST(32199120.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T432', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10109, NULL, N'ONLINE', N'success', N'241208_8053639')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10072, CAST(11502000.00 AS Numeric(10, 2)), N'RC0001A4TEST241209T216', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10110, NULL, N'ONLINE', N'success', N'241208_1739945')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10073, CAST(12162960.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T216', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10111, NULL, N'ONLINE', N'success', N'241208_5505622')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10074, CAST(5785200.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T120', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10112, NULL, N'ONLINE', N'success', N'241208_7611872')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10075, CAST(12162960.00 AS Numeric(10, 2)), N'RC0002A4TEST241209T216', NULL, CAST(N'2024-12-08' AS Date), N'postPayment', 10113, NULL, N'COD', N'pending', N'241208_6354531')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10076, CAST(9120000.00 AS Numeric(10, 2)), N'RC0001A4TEST241210T384', NULL, CAST(N'2024-12-09' AS Date), N'postPayment', 10114, NULL, N'ONLINE', N'unpaid', N'241209_1676129')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10077, CAST(9849600.00 AS Numeric(10, 2)), N'RC0003A4TEST241211T216', NULL, CAST(N'2024-12-10' AS Date), N'postPayment', 10115, NULL, N'VNPay', N'success', N'241210_3152471')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10078, CAST(554040.00 AS Numeric(10, 2)), N'RC0002A4TEST241211T24', NULL, CAST(N'2024-12-10' AS Date), N'postPayment', 10116, NULL, N'VNPay', N'success', N'241210_4520313')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10079, CAST(806400.00 AS Numeric(10, 2)), N'RC0003A4TEST241210T24', NULL, CAST(N'2024-12-10' AS Date), N'postPayment', 10117, NULL, N'ZaloPay', N'unpaid', N'241210_3926874')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10080, CAST(1684800.00 AS Numeric(10, 2)), N'RC0003A4TEST241211T48', NULL, CAST(N'2024-12-10' AS Date), N'postPayment', 10118, NULL, N'COD', N'pending', N'241210_195077')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10081, CAST(1684800.00 AS Numeric(10, 2)), N'RC0003A4TEST241211T48', NULL, CAST(N'2024-12-10' AS Date), N'postPayment', 10119, NULL, N'VNPay', N'success', N'241210_8034519')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10082, CAST(716800.00 AS Numeric(10, 2)), N'RC0003A4TEST241210T24', NULL, CAST(N'2024-12-10' AS Date), N'postPayment', 10120, NULL, N'VNPay', N'success', N'241210_3019533')
+GO
+INSERT [dbo].[payments] ([payment_id], [amount], [id_qr_code], [notes], [payment_date], [payment_method], [rental_id], [iscod], [payment_type], [status], [trans_id]) VALUES (10083, CAST(456000.00 AS Numeric(10, 2)), N'RC0003A4TEST241210T24', NULL, CAST(N'2024-12-10' AS Date), N'postPayment', 10121, NULL, N'VNPay', N'unpaid', N'241210_9652393')
+GO
+SET IDENTITY_INSERT [dbo].[payments] OFF
+GO
+SET IDENTITY_INSERT [dbo].[discounts] ON 
+GO
+INSERT [dbo].[discounts] ([discount_id], [description], [discount_code], [discount_percentage], [end_date], [start_date], [status]) VALUES (1, N'giảm giá 10 % cho thuê xe', N'DISCOUNT2023', CAST(10.00 AS Numeric(5, 2)), CAST(N'2024-11-28T21:20:00.0000000' AS DateTime2), CAST(N'2024-11-24T13:20:00.0000000' AS DateTime2), N'Còn hiệu lực')
+GO
+INSERT [dbo].[discounts] ([discount_id], [description], [discount_code], [discount_percentage], [end_date], [start_date], [status]) VALUES (2, N'giảm giá 20 % chúc mừng năm mới', N'NEWYEAR2024', CAST(20.00 AS Numeric(5, 2)), CAST(N'2024-11-28T20:20:00.0000000' AS DateTime2), CAST(N'2024-11-24T13:20:00.0000000' AS DateTime2), N'Chưa có hiệu lực')
+GO
+INSERT [dbo].[discounts] ([discount_id], [description], [discount_code], [discount_percentage], [end_date], [start_date], [status]) VALUES (3, N'5%', N'test', CAST(5.00 AS Numeric(5, 2)), CAST(N'1111-12-11T18:11:00.0000000' AS DateTime2), CAST(N'1111-11-11T18:11:00.0000000' AS DateTime2), N'Chưa có hiệu lực')
+GO
+INSERT [dbo].[discounts] ([discount_id], [description], [discount_code], [discount_percentage], [end_date], [start_date], [status]) VALUES (4, N'323', N'323', CAST(33.00 AS Numeric(5, 2)), CAST(N'2024-12-13T06:40:00.0000000' AS DateTime2), CAST(N'2024-12-06T06:40:00.0000000' AS DateTime2), N'Còn hiệu lực')
+GO
+SET IDENTITY_INSERT [dbo].[discounts] OFF
+GO
