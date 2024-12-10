@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	  <meta charset="UTF-8" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	  <!-- Link Swiper's CSS -->
+	  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> -->
+	  <link rel="stylesheet" href="./assets/css/base.css" />
+	  <link rel="stylesheet" href="./assets/css/utils.css" />
+	  <link rel="stylesheet" href="./assets/css/style.css" />
+	  <link rel="stylesheet" href="./assets/css/responsive.css" />
+	  <!-- <link rel="stylesheet" href="./assets/css/Search-option.css"> -->
+	  <link rel="stylesheet" href="./assets/css/thanhcong.css">
+	 <!-- Search-option--> 
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.css">
+	  <title>TRANG CHỦ RENTALCAR</title>
+	</head>
+	
+	<body>
+	<!-- header -->
+	<header th:replace="~{module/header :: header}">
+		
+	</header>
+	
+	  <!------------------------------------------------------------->
+	  <div style="padding: 20px 200px; margin-top: -10px;">
+
+		  <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 60px; min-height: 400px;">
+			<!-- Left Section: Image and Fireworks -->
+			<div style="flex: 2; position: relative; text-align: center;">
+			  <img src="/assets/images/others/sucess.png" alt="thanhcong" style="max-width: 100%; height: auto;">
+			  <div id="payment-success" class="payment-success hidden" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 255, 0, 0.8); color: white; padding: 10px 20px; border-radius: 10px; font-size: 18px;">
+				<span>Thanh Toán Thành Công</span>
+			  </div>
+			  <div id="fireworks-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+			</div>
+		  
+			<!-- Right Section: Payment Information -->
+			<div style="flex: 2; margin: 0 ; padding: 40px; text-align: center; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+			  <h2 style="color: #4CAF50; font-size: 24px; margin-bottom: 20px;">Thông Tin Thanh Toán</h2>
+			  <div style="margin: 10px 0; padding: 15px; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+				<p><strong>ID Thanh Toán:</strong> <span th:text="${paymentInfo.paymentId}"></span></p>
+			  </div>
+			  <div style="margin: 10px 0; padding: 15px; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+				<p><strong>Ngày nhận xe:</strong> <span th:text="${#temporals.format(paymentInfo.rental.rentalDate, 'dd-MM-yyyy')}"></span></p>
+
+			  </div>
+			  <div style="margin: 10px 0; padding: 15px; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+				<p><strong>Ngày trả xe:</strong> <span th:text="${#temporals.format(paymentInfo.rental.returnDate, 'dd-MM-yyyy')}"></span></p>
+			  </div>
+			  <div style="margin: 10px 0; padding: 15px; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+				<p><strong>Địa chỉ nhận xe:</strong> <span th:text="${paymentInfo.rental.rentalLocations }"></span></p>
+			  </div>
+			  <div style="margin: 10px 0; padding: 15px; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+				<p  ><strong>Tổng số tiền thanh toán: </strong> <span style="color : blue ; " id="formattedAmount" th:text="${paymentInfo.rental.totalCost}"></span></p>
+
+
+			  </div>
+			 
+			  <div style="margin: 10px 0; padding: 15px; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+				<p><strong>Trạng thái thanh toán:</strong> 
+					<span 
+						th:text="${paymentInfo.status == 'success' ? 'Đã thanh toán' : 'Chưa thanh toán'}" 
+						th:style="${paymentInfo.status == 'success' ? 'color: green;' : 'color: gray;'}">
+					</span>
+				</p>
+			  </div>
+			  <div style="margin: 10px 0; padding: 15px; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+				<p><strong>Trạng thái nhận xe:</strong> <span th:text="${paymentInfo.rental.renStatus}"></span></p>
+			</div>
+			  
+			</div>
+		  </div>
+	  </div>
+	  
+	
+	  <!------------------------------------------------------------->
+	<!-- footer -->
+	<div class="footer">
+		<div th:replace="~{module/footer :: footer }"  class="container">
+			
+		</div>
+	</div>
+	  <script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/fireworks.min.js"></script>
+	  <script src="./assets/js/thanhcong.js"></script>
+	</body>
+	<script>
+		window.onload = function() {
+			var amountElement = document.getElementById("formattedAmount");
+			var rawAmount = amountElement.innerText;
+			var formattedAmount = parseFloat(rawAmount).toLocaleString('de-DE'); 
+			amountElement.innerText = formattedAmount + " vnđ";
+		};
+	</script>
+	
+	</html>

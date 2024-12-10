@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,12 +31,14 @@ import com.rentalcar.dao.AccountRepo;
 import com.rentalcar.dao.CarRepo;
 import com.rentalcar.dao.DrivingLiscenseRepo;
 import com.rentalcar.dao.MotorbikeRepo;
+import com.rentalcar.dao.PaymentRepo;
 import com.rentalcar.dao.RentalVehicleRepo;
 import com.rentalcar.dto.RentalDTO;
 import com.rentalcar.dto.RentalDTO2;
 import com.rentalcar.entity.Car;
 import com.rentalcar.entity.DrivingLicense;
 import com.rentalcar.entity.Motorbike;
+import com.rentalcar.entity.Payment;
 import com.rentalcar.entity.Rental;
 import com.rentalcar.entity.RentalVehicle;
 import com.rentalcar.service.AccountService;
@@ -68,6 +72,9 @@ public class homePageController {
     private EmailService emailService;
 	@Autowired
     private RentalService rentalService;
+
+    @Autowired
+    private PaymentRepo paymentRepo; 
 	
 	//private final String uploadDir = "uploads/accountsImg/";
 
@@ -341,6 +348,29 @@ public class homePageController {
         return "pick-vehicle2";
     }
     
+    @RequestMapping(value = "/success")
+    public String showSuccessPage(Model model, @RequestParam Map<String, String> allParams) {
+        String app_trans_id = allParams.get("apptransid");
+        Optional<Payment>  paymentFound = paymentRepo.findByTransId(app_trans_id); 
+    
+        Optional<String> optional = Optional.of("Hello, World!");
+
+        paymentFound.ifPresentOrElse(value -> {
+            model.addAttribute("paymentInfo", value); 
+            System.out.println("payment  info  : " + value);
+            
+            model.addAttribute("message", "Cảm ơn bạn đã tin tưởng chúng tôi."); 
+        }, 
+            () -> {
+                model.addAttribute("message", "Không tìm thấy payment..."); 
+            }            
+        );
+
+        return "successfully"; 
+    }
+    
+    
+
     @GetMapping("/rentalList")
     public String getRentalList(Model model) {
         // Lấy danh sách xe ô tô đã thuê

@@ -1,0 +1,50 @@
+/* Cải thiện modal */
+.modal-content {
+    border-radius: 15px;  /* Bo tròn các góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Tạo bóng mờ */
+}
+
+.modal-header {
+    background-color: #007bff;  /* Màu nền cho header */
+    color: white;  /* Màu chữ trắng */
+    font-weight: bold;  /* Chữ đậm */
+}
+
+.modal-body {
+    font-size: 1rem;  /* Định dạng chữ */
+    line-height: 1.5;  /* Khoảng cách giữa các dòng */
+}
+
+.modal-footer {
+    text-align: right;
+}
+
+/* Cải thiện nút trong modal */
+.btn {
+    font-size: 1rem;  /* Cỡ chữ trong nút */
+    padding: 10px 20px;  /* Định dạng padding */
+    border-radius: 50px;  /* Bo tròn các nút */
+}
+
+/* Cải thiện khung thông tin trong modal */
+#rentalDetailContent p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+#rentalDetailContent p strong {
+    color: #007bff;
+}
+
+
+/* Tạo hiệu ứng mượt mà cho modal */
+.modal.fade .modal-dialog {
+    transform: translate(0, -50%);  /* Ban đầu modal sẽ nằm ở trên cùng */
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal.show .modal-dialog {
+    transform: translate(0, 0);  /* Khi modal hiển thị sẽ trở lại vị trí chính */
+    opacity: 1;
+}

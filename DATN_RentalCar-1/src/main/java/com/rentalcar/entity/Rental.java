@@ -40,8 +40,9 @@ public class Rental {
     @Column(nullable = false, length = 50, columnDefinition = "NVARCHAR(50)")
     private String renStatus;
 
+   
     @ManyToOne
-    @JoinColumn(name = "discountId", nullable = true)
+    @JoinColumn(name = "discountId" , nullable =  true)
     //@JsonIgnore
     private Discount discount;
 
@@ -62,4 +63,7 @@ public class Rental {
     
     @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Feedback> Feedback;
+    
+    
+    
 }

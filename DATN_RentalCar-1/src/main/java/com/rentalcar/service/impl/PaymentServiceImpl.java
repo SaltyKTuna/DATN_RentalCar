@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.rentalcar.dao.PaymentRepo;
 import com.rentalcar.entity.Payment;
-import com.rentalcar.entity.RentalVehicle;
 import com.rentalcar.service.PaymentService;
 
 import java.util.List;
@@ -71,10 +70,6 @@ public class PaymentServiceImpl implements PaymentService {
 	 */
 	public Optional<Payment> findById(Long id) {
 		return paymentRepo.findById(id);
-	}
-	
-	public List<Payment> getRentalByRentalId(Long id) {
-		return paymentRepo.findByRental_RentalId(id);
 	}
 
 	/**

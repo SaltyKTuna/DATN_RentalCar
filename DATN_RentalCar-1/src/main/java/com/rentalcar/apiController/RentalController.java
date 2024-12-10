@@ -52,6 +52,9 @@ public class RentalController {
     // Lưu thông tin rental
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Rental rentalRequest) {
+    	System.out.println("request data : " + rentalRequest.toString());
+    	
+    	
         try {
             // Kiểm tra Account
             if (rentalRequest.getAccount() == null || rentalRequest.getAccount().getAccountId() == null) {
@@ -64,13 +67,18 @@ public class RentalController {
             // Kiểm tra Discount
             if (rentalRequest.getDiscount() != null && rentalRequest.getDiscount().getDiscountId() != null) {
                 Discount discount = discountRepo.findById(rentalRequest.getDiscount().getDiscountId())
-                                                 .orElseThrow(() -> new RuntimeException("Discount ID not found"));
-                rentalRequest.setDiscount(discount);
+                                                 .orElse(null); 
+                if(discount != null) {                	
+                	rentalRequest.setDiscount(discount);
+                }
             }
 
             Rental savedRental = rentalRepo.save(rentalRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedRental);
         } catch (Exception e) {
+        	
+        	System.out.println(e.getMessage());
+        	
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving rental: " + e.getMessage());
         }
     }
@@ -99,28 +107,6 @@ public class RentalController {
         rentalUpdate.setHaveDriver(rentalDetail.getHaveDriver());
         rentalUpdate.setRentalLocations(rentalDetail.getRentalLocations());
         rentalUpdate.setNotes(rentalDetail.getNotes());
-        rentalUpdate.setRenStatus(rentalDetail.getRenStatus());
-
-        Rental updatedRental = rentalRepo.save(rentalUpdate);
-        return ResponseEntity.ok(updatedRental);
-    }
-    
-    @PutMapping("/status/{id}")
-    public ResponseEntity<?> updateStatus(@PathVariable("id") Long id, @RequestBody Rental rentalDetail) {
-        Optional<Rental> optionalRental = rentalRepo.findById(id);
-        if (optionalRental.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Rental ID " + id + " not found");
-        }
-
-        Rental rentalUpdate = optionalRental.get();
-
-        // Chỉ cập nhật renStatus nếu trạng thái là "Chờ xác nhận"
-        if ("Chờ xác nhận".equals(rentalUpdate.getRenStatus()) && "Đã huỷ".equals(rentalDetail.getRenStatus())) {
-            rentalUpdate.setRenStatus("Đã huỷ");
-        }
-        	
-        rentalUpdate.setActualReturnDate(rentalDetail.getActualReturnDate());
-        rentalUpdate.setRenStatus(rentalDetail.getRenStatus());
 
         Rental updatedRental = rentalRepo.save(rentalUpdate);
         return ResponseEntity.ok(updatedRental);

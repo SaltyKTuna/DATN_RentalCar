@@ -7,5 +7,5 @@ import com.rentalcar.entity.Discount;
 
 @Repository
 public interface DiscountRepo extends JpaRepository<Discount, Long>{
-
+		
 }

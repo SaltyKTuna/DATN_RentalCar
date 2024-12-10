@@ -40,6 +40,8 @@ function createRentalRow(rental, index, vehicleType) {
     const cancelButton = renStatus === 'Chờ xác nhận' 
         ? `<button class="btn btn-danger btn-sm" onclick="cancelRental(${index}, '${vehicleType}')">Huỷ</button>` 
         : '';  
+ // Nút "Xem Chi Tiết"
+ const detailButton = `<button class="btn btn-info btn-sm" onclick="viewRentalDetails(${index}, '${vehicleType}')">Xem Chi Tiết</button>`;
 
     const row = document.createElement('tr');
 
@@ -50,7 +52,7 @@ function createRentalRow(rental, index, vehicleType) {
             <td class="rental-table-cell">${new Date(rental.rental.rentalDate).toLocaleDateString('vi-VN')}</td>
             <td class="rental-table-cell">${new Date(rental.rental.returnDate).toLocaleDateString('vi-VN')}</td>
             <td class="rental-table-cell">${renStatus}</td>
-            <td class="rental-table-cell">${cancelButton}</td>
+            <td class="rental-table-cell">${cancelButton}</td><td class="rental-table-cell">${detailButton}
         `;
     } else {    
         row.innerHTML = `
@@ -58,6 +60,7 @@ function createRentalRow(rental, index, vehicleType) {
             <td class="rental-table-cell">${new Date(rental.rental.rentalDate).toLocaleDateString('vi-VN')}</td>
             <td class="rental-table-cell">${new Date(rental.rental.returnDate).toLocaleDateString('vi-VN')}</td>
             <td class="rental-table-cell">${renStatus}</td>
+            <td class="rental-table-cell">${cancelButton}</td><td class="rental-table-cell">${detailButton}
         `;
     }
 
@@ -158,3 +161,70 @@ function fetchAndSaveRentalVehicles() {
 
 // Gọi hàm fetch khi trang được load
 document.addEventListener('DOMContentLoaded', fetchAndSaveRentalVehicles);
+
+
+
+
+function viewRentalDetails(index, vehicleType) {
+    // Lấy dữ liệu từ LocalStorage dựa vào loại phương tiện
+    const rentals = vehicleType === 'car' 
+        ? getRentalsFromLocalStorage('carRentals') 
+        : getRentalsFromLocalStorage('motorbikeRentals');
+
+    // Kiểm tra dữ liệu thuê xe tại index
+    if (!rentals || !rentals[index]) {
+        console.error('Thông tin thuê xe không đầy đủ:', rentals ? rentals[index] : 'Không có dữ liệu');
+        alert('Không tìm thấy thông tin thuê xe!');
+        return;
+    }
+
+    const rental = rentals[index]; // Lấy thông tin thuê xe
+    console.log('Chi tiết thuê xe:', rental);
+
+    // Kiểm tra và hiển thị thông tin vào modal
+    const rentalAddress = rental.rental.account?.address || 'Chưa có địa chỉ';
+    const rentalFullName = rental.rental.account?.fullName || 'Chưa có tên';
+    const rentalEmail = rental.rental.account?.email || 'Chưa có email';
+    const rentalPhone = rental.rental.account?.phoneNumber || 'Chưa có số điện thoại';
+    const rentalStatus = rental.rental.renStatus || 'Chưa có trạng thái';
+    const rentalLocation = rental.rental.rentalLocations || 'Chưa có thông tin vị trí nhận xe';
+    const rentalNotes = rental.rental.notes || 'Chưa có ghi chú';
+    const rentalDiscount = rental.rental.discount?.discountCode || 'Không có mã giảm giá';
+    const rentalTotalCost = rental.rental.totalCost || 0;
+    const rentalDriver = rental.rental.haveDriver ? 'Có' : 'Không';
+
+    // Kiểm tra và lấy ảnh xe (nếu có)
+    let rentalImage = 'default-car-image.jpg'; // Hình ảnh mặc định
+    if (rental.car && rental.car.imageUrl) {
+        rentalImage = rental.car.imageUrl; // Nếu có ảnh, dùng ảnh đó
+    }
+
+    // điền vào dom ở dươi
+    //            <div class="col-md-4">
+    // <img src="${rentalImage}" alt="Car Image" class="img-fluid rounded" />
+    // </div>
+
+
+    // Điền nội dung vào modal
+    document.querySelector('#rentalDetailContent').innerHTML = `
+        <div class="row">
+        
+            <div class="col-md-8">
+                <p><strong>Tên khách hàng:</strong> ${rentalFullName}</p>
+                <p><strong>Email:</strong> ${rentalEmail}</p>
+                <p><strong>Địa chỉ:</strong> ${rentalAddress}</p>
+                <p><strong>Số điện thoại:</strong> ${rentalPhone}</p>
+                <p><strong>Trạng thái:</strong> ${rentalStatus}</p>
+                <p><strong>Vị trí nhận xe:</strong> ${rentalLocation}</p>
+                <p><strong>Giảm giá:</strong> ${rentalDiscount}</p>
+                <p><strong>Ghi chú:</strong> ${rentalNotes}</p>
+                <p><strong>Tổng chi phí:</strong> ${rentalTotalCost.toLocaleString()}</p>
+                <p><strong>Thuê xe có tài xế:</strong> ${rentalDriver}</p>
+            </div>
+        </div>
+    `;
+
+    // Hiển thị modal
+    const modal = new bootstrap.Modal(document.getElementById('rentalDetailModal'));
+    modal.show();
+}

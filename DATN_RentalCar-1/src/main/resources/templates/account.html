@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="./assets/css/account.css">
 <link rel="stylesheet" href="./assets/css/change-password.css">
 <link rel="stylesheet" href="./assets/css/rental-list.css">
+<link rel="stylesheet" href="./assets/css/modal.css">
 
 <!-- Search-option-->
 <link rel="stylesheet"
@@ -93,6 +94,8 @@
     </div>
 </div>
 
+
+
 	</div>
 	<!-- footer -->
 	<div class="footer">
@@ -103,5 +106,32 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./assets/js/renderRental.js"></script>
+    <!-- Các phần còn lại của trang web -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="rentalDetailModal" tabindex="-1" aria-labelledby="rentalDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary ">
+                <h5 class="modal-title" id="rentalDetailModalLabel">Chi tiết thuê xe</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="rentalDetailContent" class="container-fluid">
+                    <!-- Các chi tiết thuê xe sẽ được chèn vào đây -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  
+
 </body>
 </html>
