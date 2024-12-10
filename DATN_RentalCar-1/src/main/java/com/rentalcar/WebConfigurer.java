@@ -1,4 +1,4 @@
-package com.rentalcar;
+	package com.rentalcar;
 
 import java.util.List;
 
@@ -49,7 +49,8 @@ public class WebConfigurer implements WebMvcConfigurer {
         // Thêm các nguồn gốc (origins) được phép
         config.setAllowedOrigins(List.of(
             "http://localhost:3000", 
-            "http://localhost:5173"
+            "http://localhost:5173",
+            "http://localhost:5174"
         ));
         
         // Các phương thức HTTP được phép
