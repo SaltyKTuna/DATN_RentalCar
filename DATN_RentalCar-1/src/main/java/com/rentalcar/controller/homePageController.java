@@ -178,7 +178,7 @@ public class homePageController {
                                   @RequestParam String address, 
                                   @RequestParam String dateOfBirth, 
                                   @RequestParam String email, 
-                                  //@RequestParam String licenseNumber,
+                                  @RequestParam(required = false) String licenseNumber, // Thêm licenseNumber ở đây
                                   Model model) throws ParseException {
 
         // Lấy thông tin người dùng đã đăng nhập từ session
@@ -202,6 +202,13 @@ public class homePageController {
             user.setUsername(userName);
         }
 
+     // Kiểm tra nếu họ và tên chứa ký tự không hợp lệ (số hoặc ký tự đặc biệt)
+        String fullNameRegex = "^[a-zA-ZÀ-ỹ\\s]+$"; // Chỉ cho phép các ký tự chữ cái và dấu cách
+        if (!fullName.matches(fullNameRegex)) {
+            model.addAttribute("error", "Họ và tên không được chứa số hoặc ký tự đặc biệt.");
+            model.addAttribute("user", user); // Giữ lại dữ liệu người dùng nhập
+            return "account"; // Trả về trang tài khoản với thông báo lỗi
+        }
 
      // Kiểm tra nếu email có thay đổi hay không
         if (!email.equals(user.getEmail())) {
@@ -260,16 +267,30 @@ public class homePageController {
             Date dob = dateFormat.parse(dateOfBirth);
             user.setDateOfBirth(dob); // Cập nhật ngày sinh
 
-            // Kiểm tra và cập nhật thông tin giấy phép lái xe chưa thực hiện được 
-//            DrivingLicense drivingLicense = user.getDrivingLicense();
-//            if (drivingLicense == null) {
-//                drivingLicense = new DrivingLicense();
-//                drivingLicense.setAccount(user);
-//                user.setDrivingLicense(drivingLicense);
-//            }
-//            // chưa thành công
-//            drivingLicense.setLicenseNumber(licenseNumber); // Cập nhật số giấy phép lái xe
-//            drivingLiscenseRepo.save(drivingLicense); // Lưu thông tin giấy phép lái xe
+         // Kiểm tra và cập nhật thông tin giấy phép lái xe
+            if (licenseNumber != null && !licenseNumber.isEmpty()) {
+                // Kiểm tra nếu người dùng chưa có giấy phép lái xe
+                DrivingLicense drivingLicense = user.getDrivingLicense();
+                if (drivingLicense == null) {
+                    // Nếu chưa có giấy phép lái xe, thêm mới
+                    drivingLicense = new DrivingLicense();
+                    drivingLicense.setAccount(user); // Gán tài khoản người dùng hiện tại cho giấy phép lái xe
+                    drivingLicense.setLicenseNumber(licenseNumber); // Cập nhật số giấy phép
+                    drivingLicense.setDateOfBirth(user.getDateOfBirth()); // Gán ngày sinh của người dùng vào giấy phép
+                    drivingLicense.setLicenseStatus("ACTIVE"); // Gán trạng thái giấy phép là "ACTIVE" hoặc theo nhu cầu của bạn
+
+
+                    // Liên kết giấy phép lái xe với người dùng
+                    user.setDrivingLicense(drivingLicense);
+                } else {
+                    // Nếu người dùng đã có giấy phép, chỉ cập nhật số giấy phép
+                    drivingLicense.setLicenseNumber(licenseNumber);
+                }
+
+                // Lưu thông tin giấy phép lái xe vào cơ sở dữ liệu
+                drivingLiscenseRepo.save(drivingLicense);
+            }
+            
 
             // Lưu lại thông tin người dùng vào cơ sở dữ liệu
             accountRepo.save(user); // Lưu thay đổi vào cơ sở dữ liệu
