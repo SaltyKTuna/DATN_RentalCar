@@ -2,10 +2,14 @@ package com.rentalcar.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 import java.util.Optional;
 import com.rentalcar.entity.Payment;
 
 @Repository
 public interface PaymentRepo extends JpaRepository<Payment, Long>{
+	List<Payment> findByRental_RentalId(Long rentalId);
+	
     Optional<Payment> findByTransId(String transId);
 }

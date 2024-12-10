@@ -26,7 +26,9 @@ public class RentalVehicleServiceImpl implements RentalVehicleService{
 	public Optional<RentalVehicle> findById(Long id) {
 		return rentalvehicleRepo.findById(id);
 	}
-
+	public List<RentalVehicle> getRentalByRentalId(Long id) {
+		return rentalvehicleRepo.findByRental_RentalId(id);
+	}
 	public boolean existsById(Long id) {
 		return rentalvehicleRepo.existsById(id);
 	}

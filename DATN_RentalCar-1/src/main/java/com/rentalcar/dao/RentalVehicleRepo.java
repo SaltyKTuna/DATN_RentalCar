@@ -12,5 +12,8 @@ import java.util.List;
 @Repository
 public interface RentalVehicleRepo extends JpaRepository<RentalVehicle, Long>{
 	 @Query("SELECT rv FROM RentalVehicle rv WHERE rv.rental.account.accountId = :accountId")
-	    List<RentalVehicle> findByAccountId(@Param("accountId") Long accountId);
+	 List<RentalVehicle> findByAccountId(@Param("accountId") Long accountId);
+	 
+	 List<RentalVehicle> findByRental_RentalId(Long rentalId);
+	 
 }

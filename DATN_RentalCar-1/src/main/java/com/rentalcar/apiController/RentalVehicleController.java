@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentalcar.dao.RentalVehicleRepo;
-import com.rentalcar.entity.Damage;
 import com.rentalcar.entity.RentalVehicle;
-import com.rentalcar.service.AccountService;
 import com.rentalcar.service.SessionService;
 
 import jakarta.transaction.Transactional;
@@ -31,6 +29,7 @@ import com.rentalcar.dao.AccountRepo;
 public class RentalVehicleController {
 	@Autowired RentalVehicleRepo rentalvehicleRepo;
 	@Autowired AccountRepo accountRepo;
+	
 	@Autowired
     private SessionService session;
 
@@ -51,6 +50,15 @@ public class RentalVehicleController {
 				return ResponseEntity.ok(rentalvehicleRepo.findById(id));
 			}
 		}
+		
+		@GetMapping(value ="/by-rental/{id}")
+	    public ResponseEntity<List<RentalVehicle>> getRentalByRentalId(@PathVariable Long id) {
+			System.out.println("--------------------------------findById------------------: "+ rentalvehicleRepo.findByRental_RentalId(id));
+	        List<RentalVehicle> rentalVehicles = rentalvehicleRepo.findByRental_RentalId(id);
+	        return ResponseEntity.ok(rentalVehicles);
+	    }
+
+
 
 		// lưu
 //		@PostMapping
