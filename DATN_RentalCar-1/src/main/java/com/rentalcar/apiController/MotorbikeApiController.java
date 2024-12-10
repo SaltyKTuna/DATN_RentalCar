@@ -2,6 +2,7 @@ package com.rentalcar.apiController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rentalcar.dao.MotorbikeRepo;
 import com.rentalcar.entity.Motorbike;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 
 @RestController
 @RequestMapping("/api/motorbikes")
 public class MotorbikeApiController {
 
     private final MotorbikeRepo motorbikeRepo;
+    
+    @Autowired
+    private HttpServletRequest request;
 
     @Autowired
     public MotorbikeApiController(MotorbikeRepo motorbikeRepo) {
@@ -35,6 +41,26 @@ public class MotorbikeApiController {
     public List<Motorbike> getAllMotorbikes() {
         return motorbikeRepo.findAll();
     }
+    
+//    @GetMapping
+//    public List<Motorbike> getAllMotorbikes() {
+//        // Lấy URL hiện tại
+//        String currentURL = request.getRequestURL().toString();
+//
+//        // Kiểm tra URL có chứa "http://localhost:8080"
+//        boolean isLocalhost = currentURL.contains("http://localhost:8080");
+//
+//        // Lọc danh sách xe máy
+//        return motorbikeRepo.findAll().stream()
+//                .filter(motorbike -> {
+//                    // Điều kiện status và URL
+//                    if (isLocalhost && !"sẵn sàng".equalsIgnoreCase(motorbike.getStatus())) {
+//                        return false; // Không trả về nếu không sẵn sàng và đang ở localhost
+//                    }
+//                    return true;
+//                })
+//                .collect(Collectors.toList());
+//    }
 
     // Lấy xe máy theo ID
     @GetMapping("/{id}")

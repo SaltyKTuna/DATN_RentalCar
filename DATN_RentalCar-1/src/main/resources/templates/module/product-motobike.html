@@ -1,63 +1,79 @@
 <div th:fragment="product-motobike" class="container">
-			<div class="product-layout">
-				<h2 class="title-big">Xe Máy Dành Cho Bạn</h2>
-				<div class="product-list">
+    <div class="product-layout">
+        <h2 class="title-big">Xe Máy Dành Cho Bạn</h2>
+        <div class="product-list">
 
-					<!-- Kiểm tra nếu danh sách xe máy trống -->
-					<div th:if="${motorbikes.size() == 0}" class="col-12">
-						<p>No cars available</p>
-					</div>
+            <!-- Kiểm tra nếu danh sách xe máy trống -->
+            <div th:if="${motorbikes.size() == 0}" class="col-12">
+                <p>No motorbikes available</p>
+            </div>
 
-					<div th:each="motorbike, iterStat : ${motorbikes}" th:if="${iterStat.index < 8}" class="product-item">
-						<a th:href="@{'/motorbike/detail/' + ${motorbike.motorbikeId}}" class="product-link">
-							<div class="product-img">
-								<img th:src="@{'/assets/images/motorbike/' + ${#strings.arraySplit(motorbike.imageUrl, ',')[0]}}" alt="" />
-								<!-- Phần trăm giảm giá (hiển thị nếu có giảm giá) -->
-								<div th:if="${motorbike.percentDiscount != null and motorbike.percentDiscount > 0}" class="product-discount">
-							        Giảm <span th:text=" ${motorbike.percentDiscount} + '%'"></span>
-							    </div>
-								<div class="product-rents">
-									<span class="product-rent">Miễn thế chấp
-										<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
-											<!-- SVG content -->
-										</svg>
-									</span>
-								</div>
-							</div>
-							<div class="product-tags">
-								<div th:text="${motorbike.gearBox}" class="product-tag"></div>
-								<div class="product-tag">Giao xe tận nơi</div>
-							</div>
-							<div th:text="${motorbike.make + ' ' + motorbike.model + ' ' + motorbike.year}"
-								class="product-title"></div>
-							<div class="product-location">
-								<div class="wrap-svg">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17"
-										viewBox="0 0 16 17" fill="none">
-										<!-- SVG content -->
-									</svg>
-								</div>
-								Huyện Đức Trọng, Lâm Đồng
-							</div>
-							<div class="product-line"></div>
-							<!-- Giá thuê và chi tiết -->
-							<div class="product-bottom">
-								<div th:text="${motorbike.rentals != null ? motorbike.rentals + ' chuyến' : 'Chưa có chuyến'}" class="product-ship"></div>
-								<div class="product-price">
-							        <!-- Giá gốc, chỉ hiển thị khi có giảm giá -->
-							        <div th:if="${motorbike.percentDiscount != null and motorbike.percentDiscount > 0}" class="old-price">
-							            <span th:text="${#numbers.formatInteger(motorbike.dailyRate, 3, 'POINT') + 'đ'}"></span>
-							        </div>
-							        <!-- Giá mới sau khi giảm -->
-							        <div th:text="${#numbers.formatInteger(motorbike.dailyRate * (1 - (motorbike.percentDiscount / 100)), 3, 'POINT') + 'đ'}" class="new-price"></div>
-							        <span>/</span>
-							        <p>ngày</p>
-    							</div>
-							</div>
-						</a>
-					</div>
+            <!-- Lặp qua danh sách xe máy -->
+            <div th:each="motorbike, iterStat : ${motorbikes}" 
+                 th:if="${#strings.equals(motorbike.status, 'Sẵn sàng') and iterStat.index < 8}" 
+                 class="product-item">
+                <a th:href="@{'/motorbike/detail/' + ${motorbike.motorbikeId}}" class="product-link">
+                    <div class="product-img">
+                        <img th:src="@{'/assets/images/motorbike/' + ${#strings.arraySplit(motorbike.imageUrl, ',')[0]}}" alt="Motorbike Image" />
+                        
+                        <!-- Phần trăm giảm giá (nếu có) -->
+                        <div th:if="${motorbike.percentDiscount != null and motorbike.percentDiscount > 0}" 
+                             class="product-discount">
+                            Giảm <span th:text="${motorbike.percentDiscount + '%'}"></span>
+                        </div>
 
-				</div>
-			</div>
-		</div>
+                        <div class="product-rents">
+                            <span class="product-rent">Miễn thế chấp
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <!-- SVG content -->
+                                </svg>
+                            </span>
+                        </div>
+	                    </div>
+
+                    <!-- Thẻ tags -->
+                    <div class="product-tags">
+                        <div th:text="${motorbike.gearBox}" class="product-tag"></div>
+                        <div class="product-tag">Giao xe tận nơi</div>
+                    </div>
+
+                    <!-- Tiêu đề xe -->
+                    <div th:text="${motorbike.make + ' ' + motorbike.model + ' ' + motorbike.year}" 
+                         class="product-title"></div>
+
+                    <!-- Địa điểm -->
+                    <div class="product-location">
+                        <div class="wrap-svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                <!-- SVG content -->
+                            </svg>
+                        </div>
+                        Huyện Đức Trọng, Lâm Đồng
+                    </div>
+
+                    <div class="product-line"></div>
+
+                    <!-- Giá thuê và chi tiết -->
+                    <div class="product-bottom">
+                        <div th:text="${motorbike.rentals != null ? motorbike.rentals + ' chuyến' : 'Chưa có chuyến'}" 
+                             class="product-ship"></div>
+                        <div class="product-price">
+                            <!-- Giá gốc -->
+                            <div th:if="${motorbike.percentDiscount != null and motorbike.percentDiscount > 0}" 
+                                 class="old-price">
+                                <span th:text="${#numbers.formatInteger(motorbike.dailyRate, 3, 'POINT') + 'đ'}"></span>
+                            </div>
+                            <!-- Giá sau khi giảm -->
+                            <div class="new-price">
+                                <span th:text="${#numbers.formatInteger(motorbike.dailyRate * (1 - (motorbike.percentDiscount / 100)), 3, 'POINT') + 'đ'}"></span>
+                                <span>/</span>
+                                <p>ngày</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
