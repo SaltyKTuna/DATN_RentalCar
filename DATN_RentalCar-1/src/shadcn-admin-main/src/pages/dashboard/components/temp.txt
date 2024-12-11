@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@/components/ui/table';
 import {
-  Card, CardContent, CardDescription, CardHeader, CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/custom/button';
 import { useToast } from '@/components/ui/use-toast';
 import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
-import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
-} from '@/components/ui/dialog';
+import { RentalStatusDropdown } from './rentalStatusDropdown';
+import { RentalActionMenu } from './rentalActionMenu';
+import { RentalDetailsModal } from './rentalDetailsModal';
 
 interface RentalData {
   rentalId: number;
@@ -32,467 +44,211 @@ interface RentalData {
   rentalLocations: string;
 }
 
-interface RentalVehicle {
-  rentalVehicleId: number;
-  // Add other relevant vehicle properties here
-  vehicleMake: string;
-  vehicleModel: string;
-}
-
-interface Payment {
-  paymentId: number;
-  paymentDate: string;
-  amount: number;
-  paymentMethod: string;
-  notes: string | null;
-  idQrCode: string;
-}
-
-interface RentalDetail extends RentalData {
-  rentalVehicles: RentalVehicle[];
-  payments: Payment[];
-}
-
 export function RentalDataTable() {
   const [rentalData, setRentalData] = useState<RentalData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 40;
+  const itemsPerPage = 20;
   const { toast } = useToast();
-  const [isOpen, setIsOpen] = useState(false);
-  const [detailData, setDetailData] = useState<RentalDetail | null>(null);
-  const [loadingDetail, setLoadingDetail] = useState(false);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+  const [selectedRentalId, setSelectedRentalId] = useState<number | null>(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   const fetchRentalData = async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await axios.get('http://localhost:8080/api/rental', {
-        params: { page: currentPage - 1, size: itemsPerPage },
+        params: {
+          page: currentPage - 1,
+          size: itemsPerPage,
+        },
       });
       const data = response.data;
-      setRentalData(data?.content || []);
-      setTotalPages(data?.totalPages || 1);
-    } catch (err) {
-      console.error('Error fetching rental data:', err);
+
+      if (data && Array.isArray(data.content)) {
+        setRentalData(data.content);
+        setTotalPages(data.totalPages);
+      } else {
+        setError('Dữ liệu trả về không hợp lệ.');
+      }
+    } catch (err: any) {
+      console.error('Lỗi khi gọi API:', err);
       setError('Không thể tải dữ liệu thuê xe.');
     } finally {
       setLoading(false);
     }
   };
 
-
-  const updateRentalStatus = async (rentalId: number, newStatus: string, actualReturnDate: string | null) => {
+  const updateRentalStatus = async (
+    rentalId: number,
+    newStatus: string,
+    actualReturnDate: string | null
+  ) => {
     try {
-      await axios.put(`http://localhost:8080/api/rental/status/${rentalId}`, { renStatus: newStatus, actualReturnDate });
-      setRentalData((prevData) => prevData.map((rental) =>
-        rental.rentalId === rentalId ? { ...rental, renStatus: newStatus, actualReturnDate } : rental
-      ));
-      toast({ title: 'Cập nhật thành công', description: `Trạng thái đã được cập nhật thành "${newStatus}".`, variant: 'success' });
-    } catch (error) {
-      console.error('Error updating rental status:', error);
-      toast({ title: 'Cập nhật thất bại', description: 'Có lỗi xảy ra khi cập nhật trạng thái.', variant: 'destructive' });
+      const payload = {
+        renStatus: newStatus.toString(), // Chuyển newStatus thành string
+        actualReturnDate: new Date().toISOString() // Thời gian hiện tại theo ISO 8601
+      };
+  
+      const response = await axios.put(
+        `http://localhost:8080/api/rental/status/${rentalId}`,
+        payload
+      );
+  
+      if (response.data) {
+        setRentalData((prevData) =>
+          prevData.map((rental) =>
+            rental.rentalId === rentalId
+              ? { 
+                  ...rental, 
+                  renStatus: response.data.renStatus || newStatus,
+                  actualReturnDate: response.data.actualReturnDate || payload.actualReturnDate
+                }
+              : rental
+          )
+        );
+  
+        toast({
+          title: 'Cập nhật thành công',
+          description: `Trạng thái đã được cập nhật thành "${newStatus}".`,
+          variant: 'success',
+        });
+      } else {
+        throw new Error('Không nhận được phản hồi từ server');
+      }
+    } catch (err: any) {
+      console.error('Lỗi khi cập nhật trạng thái:', err);
+      toast({
+        title: 'Cập nhật thất bại',
+        description: err.response?.data?.message || 'Có lỗi xảy ra khi cập nhật trạng thái',
+        variant: 'destructive',
+      });
+    }
+  };
+  
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
     }
   };
 
-  const fetchRentalDetail = async (rentalId: number) => {
-    setLoadingDetail(true);
-    setIsOpen(true);
-    try {
-      const [rental, vehicles, payments] = await Promise.all([
-        axios.get<RentalData>(`http://localhost:8080/api/rental/${rentalId}`),
-        axios.get<RentalVehicle[]>(`http://localhost:8080/api/rental-vehicle?rentalId=${rentalId}`),
-        axios.get<Payment[]>(`http://localhost:8080/api/payment?rentalId=${rentalId}`),
-      ]);
-      setDetailData({ ...rental.data, rentalVehicles: vehicles.data, payments: payments.data });
-    } catch (error) {
-      console.error('Error fetching rental detail:', error);
-      toast({ title: 'Lỗi', description: 'Không thể tải dữ liệu chi tiết.', variant: 'destructive' });
-    } finally {
-      setLoadingDetail(false);
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
     }
   };
 
+  const openDetailModal = (rentalId: number) => {
+    setSelectedRentalId(rentalId);
+    setIsDetailModalOpen(true);
+  };
 
   useEffect(() => {
     fetchRentalData();
   }, [currentPage]);
 
-  if (loading) return <div>Đang tải dữ liệu...</div>;
-  if (error) return <div>Có lỗi xảy ra: {error}</div>;
-  
-    return (
-      <div className='h-screen overflow-y-auto'>
-        <Card>
-          <CardHeader>
-            <div className="flex justify-between">
-              <CardTitle>Dữ Liệu Thuê Xe</CardTitle>
-              <CardDescription>Tổng số lượng thuê: {rentalData.length}</CardDescription>
-              <Button>Xuất Excel</Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Mã Thuê</TableHead>
-                  <TableHead>Tên Khách Hàng</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Số Điện Thoại</TableHead>
-                  <TableHead>Ngày Thuê</TableHead>
-                  <TableHead>Ngày Trả</TableHead>
-                  <TableHead>Ngày Trả Thực Tế</TableHead>
-                  <TableHead>Trạng Thái</TableHead>
-                  <TableHead>Thao Tác</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {rentalData.map((rental) => (
-                  <TableRow key={rental.rentalId}>
-                    <TableCell>{rental.rentalId}</TableCell>
-                    <TableCell>{rental.account.fullName}</TableCell>
-                    <TableCell>{rental.account.email}</TableCell>
-                    <TableCell>{rental.account.phoneNumber}</TableCell>
-                    <TableCell>{new Date(rental.rentalDate).toLocaleDateString()}</TableCell>
-                    <TableCell>{new Date(rental.returnDate).toLocaleDateString()}</TableCell>
-                    <TableCell>{rental.actualReturnDate ? new Date(rental.actualReturnDate).toLocaleDateString() : 'Chưa trả'}</TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="outline">{rental.renStatus}</Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                          <DropdownMenuItem onClick={() => updateRentalStatus(rental.rentalId, 'Chờ xác nhận', null)}>Chờ xác nhận</DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => updateRentalStatus(rental.rentalId, 'Đang tới', null)}>Đang tới</DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => updateRentalStatus(rental.rentalId, 'Đang thuê', null)}>Đang thuê</DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => updateRentalStatus(rental.rentalId, 'Hoàn tất', new Date().toISOString())}>Hoàn tất</DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => updateRentalStatus(rental.rentalId, 'Đã Hủy', null)}>Đã Hủy</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                    <TableCell>
-                      <Button onClick={() => fetchRentalDetail(rental.rentalId)}>Xem chi tiết</Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <div className="flex justify-between mt-4">
-              <Button onClick={() => handlePageChange(Math.max(1, currentPage - 1))} disabled={currentPage === 1}>Trang trước</Button>
-              <span>Trang {currentPage} / {totalPages}</span>
-              <Button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Trang sau</Button>
-            </div>
-          </CardContent>
-        </Card>
-  
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="bg-white p-4 rounded-md shadow-md w-96 h-screen overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Chi tiết đặt thuê xe</DialogTitle>
-            <Button variant="ghost" className="absolute top-2 right-2" onClick={() => setIsOpen(false)}>
-              <svg width={16} height={16} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 2L14 1L8 7L1 1L0 2L7 8L0 15L1 16L7 10L14 16L15 15L8 9Z" fill="currentColor"></path></svg>
-            </Button>
-          </DialogHeader>
-          {loadingDetail ? (
-            <p>Đang tải dữ liệu...</p>
-          ) : detailData ? (
-            <>
-              <h3>Thông tin đặt thuê</h3>
-              <p><b>Mã đặt thuê:</b> {detailData.rentalId}</p>
-              <p><b>Khách hàng:</b> {detailData.account.fullName}</p>
-              <p><b>Email:</b> {detailData.account.email}</p>
-              <p><b>Ngày thuê:</b> {detailData.rentalDate}</p>
-              {/* Add other relevant rental details */}
-
-              <h3>Thông tin xe</h3>
-              {detailData.rentalVehicles.map((vehicle) => (
-                <div key={vehicle.rentalVehicleId}>
-                  <p><b>ID xe:</b> {vehicle.rentalVehicleId}</p>
-                  <p><b>Hãng xe:</b> {vehicle.vehicleMake}</p>
-                  <p><b>Mẫu xe:</b> {vehicle.vehicleModel}</p>
-                  {/* Add other relevant vehicle details */}
-                </div>
-              ))}
-
-              <h3>Thông tin thanh toán</h3>
-              {detailData.payments.map((payment) => (
-                <div key={payment.paymentId}>
-                  <p><b>ID thanh toán:</b> {payment.paymentId}</p>
-                  <p><b>Số tiền:</b> {payment.amount}</p>
-                  {/* Add other relevant payment details */}
-                </div>
-              ))}
-            </>
-          ) : <p>Không tìm thấy dữ liệu chi tiết.</p>}
-        </DialogContent>
-      </Dialog>
-      </div>
-    );
-  }
-
-
-  //////////////////////////////////////////////////////////
-
-  Rental Details Modal Component
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { useToast } from '@/components/ui/use-toast';
-import { Loader2 } from 'lucide-react';
-
-// Detailed Interfaces for Type Safety
-interface Account {
-  accountId: number;
-  fullName: string;
-  email: string;
-  phoneNumber: string;
-  username?: string;
-}
-
-interface Car {
-  carId: number;
-  make: string;
-  model: string;
-  year: number;
-  licensePlate: string;
-  color: string;
-  condition: string;
-  vehicleLocation: string;
-}
-
-interface Motorbike {
-  motobikeId: number;
-  make: string;
-  model: string;
-  year: number;
-  licensePlate: string;
-  color: string;
-}
-
-interface Payment {
-  paymentId?: number;
-  amount: number;
-  paymentMethod: string;
-  paymentDate: string;
-  idQrCode?: string;
-}
-
-interface RentalDetails {
-  rentalId: number;
-  account: Account;
-  rentalDate: string;
-  returnDate: string;
-  actualReturnDate: string | null;
-  totalCost: number;
-  renStatus: string;
-  haveDriver: boolean;
-  rentalLocations: string;
-  notes?: string;
-}
-
-interface RentalVehicle {
-  vehicleType: 'car' | 'motorbike';
-  car?: Car;
-  motorbike?: Motorbike;
-}
-
-// Component Props Interface
-interface RentalDetailsModalProps {
-  rentalId?: number | null;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-// Status Color Mapping
-const STATUS_COLORS: Record<string, string> = {
-  'Chờ xác nhận': 'warning',
-  'Đang tới': 'info',
-  'Đang thuê': 'success',
-  'Hoàn tất': 'secondary',
-  'Đã Hủy': 'destructive',
-};
-
-export function RentalDetailsModal({
-  rentalId,
-  isOpen,
-  onClose,
-}: RentalDetailsModalProps) {
-  const [details, setDetails] = useState<{
-    rental?: RentalDetails;
-    rentalVehicle?: RentalVehicle;
-    payment?: Payment;
-  }>({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const { toast } = useToast();
-
-  // Utility Functions
-  const formatDate = (dateString?: string | null): string => {
-    if (!dateString) return 'N/A';
-    try {
-      return new Date(dateString).toLocaleString('vi-VN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    } catch {
-      return 'N/A';
-    }
-  };
-
-  const formatCurrency = (amount?: number): string => {
-    return amount 
-      ? new Intl.NumberFormat('vi-VN', { 
-          style: 'currency', 
-          currency: 'VND' 
-        }).format(amount)
-      : 'N/A';
-  };
-
-  // Data Fetching
-  useEffect(() => {
-    const fetchRentalDetails = async () => {
-      if (!isOpen || !rentalId) return;
-
-      setLoading(true);
-      setError(null);
-
-      try {
-        const [rentalRes, vehicleRes, paymentRes] = await Promise.all([
-          axios.get(`/api/rental/${rentalId}`),
-          axios.get(`/api/rental-vehicle/by-rental/${rentalId}`),
-          axios.get(`/api/payment/by-rental/${rentalId}`)
-        ]);
-
-        setDetails({
-          rental: rentalRes.data,
-          rentalVehicle: vehicleRes.data[0] || undefined,
-          payment: paymentRes.data[0] || undefined
-        });
-      } catch (err: any) {
-        const errorMsg = err.response?.data?.message || 'Lỗi tải dữ liệu';
-        setError(errorMsg);
-        toast({
-          title: 'Lỗi',
-          description: errorMsg,
-          variant: 'destructive'
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRentalDetails();
-  }, [rentalId, isOpen, toast]);
-
-  // Render Helpers
-  const renderStatusBadge = (status?: string) => (
-    status ? <Badge variant={STATUS_COLORS[status] || 'default'}>{status}</Badge> : null
-  );
-
-  const renderVehicleInfo = () => {
-    const vehicle = details.rentalVehicle;
-    if (!vehicle) return <p>Không có thông tin phương tiện</p>;
-
-    const info = vehicle.vehicleType === 'car' ? vehicle.car : vehicle.motorbike;
-    return (
-      <>
-        <p><strong>Loại:</strong> {vehicle.vehicleType === 'car' ? 'Ô Tô' : 'Xe Máy'}</p>
-        <p><strong>Hãng:</strong> {info?.make || 'N/A'}</p>
-        <p><strong>Mẫu:</strong> {info?.model || 'N/A'}</p>
-        <p><strong>Năm:</strong> {info?.year || 'N/A'}</p>
-        <p><strong>Biển Số:</strong> {info?.licensePlate || 'N/A'}</p>
-        <p><strong>Màu:</strong> {info?.color || 'N/A'}</p>
-      </>
-    );
-  };
+  if (loading) return <div>Đang tải dữ liệu, vui lòng đợi...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl">
-        <DialogHeader>
-          <DialogTitle>
-            {loading
-              ? 'Đang tải chi tiết thuê xe...'
-              : `Chi Tiết Thuê Xe - Mã Thuê #${details.rental?.rentalId || rentalId}`}
-          </DialogTitle>
-          <DialogDescription>Thông tin chi tiết về đơn thuê xe</DialogDescription>
-        </DialogHeader>
-
-        {loading ? (
-          <div className="flex justify-center items-center h-32">
-            <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
+    <>
+      <Card>
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <div>
+              <CardTitle>Dữ Liệu Thuê Xe</CardTitle>
+              <CardDescription>
+                Tổng số lượng thuê: {rentalData.length}
+              </CardDescription>
+            </div>
+            <Button variant="outline">Xuất Excel</Button>
           </div>
-        ) : error ? (
-          <div className="text-red-500">{error}</div>
-        ) : (
-          <div className="grid grid-cols-2 gap-4">
-            {/* Thông Tin Khách Hàng */}
-            <Card>
-              <CardHeader><CardTitle>Thông Tin Khách Hàng</CardTitle></CardHeader>
-              <CardContent>
-                <p><strong>Tên:</strong> {details.rental?.account?.fullName || 'N/A'}</p>
-                <p><strong>Email:</strong> {details.rental?.account?.email || 'N/A'}</p>
-                <p><strong>SĐT:</strong> {details.rental?.account?.phoneNumber || 'N/A'}</p>
-              </CardContent>
-            </Card>
+        </CardHeader>
+        <CardContent>
+          <div className="rounded-md border">
+            <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Mã Thuê</TableHead>
+                <TableHead>Tên Khách Hàng</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Ngày Thuê</TableHead>
+                <TableHead>Ngày Trả Dự Kiến</TableHead>
+                <TableHead>Ngày Trả Thực Tế</TableHead>
+                <TableHead>Trạng Thái</TableHead>
+                <TableHead>Thao Tác</TableHead>
+              </TableRow>
+            </TableHeader>
 
-            {/* Chi Tiết Thuê Xe */}
-            <Card>
-              <CardHeader><CardTitle>Chi Tiết Thuê Xe</CardTitle></CardHeader>
-              <CardContent>
-                <p><strong>Ngày Thuê:</strong> {formatDate(details.rental?.rentalDate)}</p>
-                <p><strong>Trạng Thái:</strong> {renderStatusBadge(details.rental?.renStatus)}</p>
-                <p><strong>Ngày Trả Dự Kiến:</strong> {formatDate(details.rental?.returnDate)}</p>
-                <p><strong>Ngày Trả Thực Tế:</strong> {formatDate(details.rental?.actualReturnDate)}</p>
-                <p><strong>Tổng Chi Phí:</strong> {formatCurrency(details.rental?.totalCost)}</p>
-                <p><strong>Có Tài Xế:</strong> {details.rental?.haveDriver ? 'Có' : 'Không'}</p>
-              </CardContent>
-            </Card>
+            <TableBody>
+              {rentalData.map((rental) => (
+                <TableRow key={rental.rentalId}>
+                  <TableCell>{rental.rentalId}</TableCell>
+                  <TableCell>{rental.account.fullName}</TableCell>
+                  <TableCell>{rental.account.email}</TableCell>
+                  <TableCell>{new Date(rental.rentalDate).toLocaleDateString()}</TableCell>
+                  <TableCell>{new Date(rental.returnDate).toLocaleDateString()}</TableCell>
+                  <TableCell>
+                    {rental.actualReturnDate
+                      ? new Date(rental.actualReturnDate).toLocaleDateString()
+                      : 'Chưa trả'}
+                  </TableCell>
+                  <TableCell>
+                    <RentalStatusDropdown
+                      rentalId={rental.rentalId}
+                      currentStatus={rental.renStatus}
+                      onUpdateStatus={(rentalId, newStatus, actualReturnDate) =>
+                        updateRentalStatus(rentalId, newStatus, actualReturnDate)
+                      }
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <RentalActionMenu
+                      onViewDetails={() => openDetailModal(rental.rentalId)}
+                      onEdit={() => console.log('Chỉnh sửa', rental.rentalId)}
+                      onDelete={() => console.log('Xóa', rental.rentalId)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
 
-            {/* Thông Tin Phương Tiện */}
-            <Card>
-              <CardHeader><CardTitle>Thông Tin Phương Tiện</CardTitle></CardHeader>
-              <CardContent>
-                {renderVehicleInfo()}
-              </CardContent>
-            </Card>
-
-            {/* Thông Tin Thanh Toán */}
-            <Card>
-              <CardHeader><CardTitle>Thông Tin Thanh Toán</CardTitle></CardHeader>
-              <CardContent>
-                {details.payment ? (
-                  <>
-                    <p><strong>Số Tiền:</strong> {formatCurrency(details.payment.amount)}</p>
-                    <p><strong>Phương Thức:</strong> {details.payment.paymentMethod}</p>
-                    <p><strong>Ngày Thanh Toán:</strong> {formatDate(details.payment.paymentDate)}</p>
-                  </>
-                ) : (
-                  <p>Chưa có thông tin thanh toán</p>
-                )}
-              </CardContent>
-            </Card>
+            </Table>
           </div>
-        )}
-      </DialogContent>
-    </Dialog>
+          {/* Thanh chuyển trang */}
+          <div className="flex justify-between mt-4">
+            <Button
+              variant="outline"
+              disabled={currentPage === 1}
+              onClick={handlePreviousPage}
+            >
+              Trang trước
+            </Button>
+            <span>
+              Trang {currentPage} / {totalPages}
+            </span>
+            <Button
+              variant="outline"
+              disabled={currentPage === totalPages}
+              onClick={handleNextPage}
+            >
+              Trang sau
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Modal Chi Tiết Thuê Xe */}
+      {selectedRentalId && (
+        <RentalDetailsModal
+          rentalId={selectedRentalId}
+          isOpen={isDetailModalOpen}
+          onClose={() => setIsDetailModalOpen(false)}
+        />
+      )}
+    </>
   );
 }

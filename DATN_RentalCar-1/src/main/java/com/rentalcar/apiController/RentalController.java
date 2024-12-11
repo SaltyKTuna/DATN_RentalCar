@@ -2,7 +2,10 @@ package com.rentalcar.apiController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,19 +35,80 @@ public class RentalController {
     @Autowired
     private DiscountRepo discountRepo;
 
-    // Tìm tất cả với phân trang
+//    // Tìm tất cả với phân trang
+//    @GetMapping
+//    public ResponseEntity<Page<Rental>> getAll(Pageable pageable) {
+//        Page<Rental> rentals = rentalRepo.findAll(pageable);
+//        return ResponseEntity.ok(rentals);
+//    }
+//
+//    
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Rental> getByID(@PathVariable("id") Long id) {
+//        Optional<Rental> rental = rentalRepo.findById(id);
+//
+//        // Kiểm tra nếu tìm thấy rental thì trả về, ngược lại trả về NOT FOUND
+//        return rental.map(ResponseEntity::ok)
+//                     .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+//    }
+    
     @GetMapping
-    public ResponseEntity<Page<Rental>> getAll(Pageable pageable) {
-        Page<Rental> rentals = rentalRepo.findAll(pageable);
+    public ResponseEntity<Page<Rental>> getRentals(
+        @RequestParam(required = false) Long accountId,
+        @RequestParam(required = false) String renStatus,
+        @RequestParam(required = false) String rentalDateFrom,
+        @RequestParam(required = false) String rentalDateTo,
+        @RequestParam(required = false) String accountName,  // Thêm tìm kiếm theo tên tài khoản
+        @RequestParam(required = false) String accountPhone, // Thêm tìm kiếm theo số điện thoại tài khoản
+        @RequestParam(required = false) String accountEmail, // Thêm tìm kiếm theo email tài khoản
+        @RequestParam(value = "sort", defaultValue = "rentalId") String sortField,
+        @RequestParam(value = "direction", defaultValue = "asc") String direction,
+        Pageable pageable) {
+
+        // Tạo Specification để tìm kiếm theo các điều kiện
+        Specification<Rental> spec = Specification.where(null);
+
+        // Xử lý các điều kiện tìm kiếm
+        if (accountId != null) {
+            spec = spec.and(RentalSpecifications.hasAccountId(accountId));
+        }
+        if (renStatus != null) {
+            spec = spec.and(RentalSpecifications.hasRenStatus(renStatus));
+        }
+        if (rentalDateFrom != null) {
+            spec = spec.and(RentalSpecifications.rentalDateAfter(rentalDateFrom));
+        }
+        if (rentalDateTo != null) {
+            spec = spec.and(RentalSpecifications.rentalDateBefore(rentalDateTo));
+        }
+        
+        // Tìm kiếm theo các thuộc tính của Account
+        if (accountName != null) {
+            spec = spec.and(RentalSpecifications.hasAccountName(accountName));
+        }
+        if (accountPhone != null) {
+            spec = spec.and(RentalSpecifications.hasAccountPhone(accountPhone));
+        }
+        if (accountEmail != null) {
+            spec = spec.and(RentalSpecifications.hasAccountEmail(accountEmail));
+        }
+
+        // Xác định hướng sắp xếp (ASC hoặc DESC)
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortField).descending() : Sort.by(sortField).ascending();
+        
+        // Tạo Pageable với sắp xếp
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+
+        // Truy vấn và trả về dữ liệu đã lọc và sắp xếp
+        Page<Rental> rentals = rentalRepo.findAll(spec, sortedPageable);
         return ResponseEntity.ok(rentals);
     }
 
-    
+
+    // Tìm theo ID
     @GetMapping("/{id}")
     public ResponseEntity<Rental> getByID(@PathVariable("id") Long id) {
         Optional<Rental> rental = rentalRepo.findById(id);
-
-        // Kiểm tra nếu tìm thấy rental thì trả về, ngược lại trả về NOT FOUND
         return rental.map(ResponseEntity::ok)
                      .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

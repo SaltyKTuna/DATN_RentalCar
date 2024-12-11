@@ -98,6 +98,9 @@ const STATUS_COLORS: Record<string, string> = {
   'Đã Hủy': 'destructive',
 };
 
+// Phân trang cho Thông Tin Phương Tiện
+const ITEMS_PER_PAGE = 1; // Số phương tiện hiển thị mỗi trang
+
 export function RentalDetailsModal({
   rentalId,
   isOpen,
@@ -105,11 +108,30 @@ export function RentalDetailsModal({
 }: RentalDetailsModalProps) {
   const [details, setDetails] = useState<{
     rental?: RentalDetails;
-    rentalVehicle?: RentalVehicle;
+    rentalVehicle?: RentalVehicle[];
     payment?: Payment;
   }>({});
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
+
+  const totalPages = details.rentalVehicle
+    ? Math.ceil(details.rentalVehicle.length / ITEMS_PER_PAGE)
+    : 1;
+
+  const paginatedVehicles = details.rentalVehicle
+    ? details.rentalVehicle.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        currentPage * ITEMS_PER_PAGE
+      )
+    : [];
+
+  // Điều khiển trang
+  const goToPage = (page: number) => {
+    if (page > 0 && page <= totalPages) setCurrentPage(page);
+  };
+
   const { toast } = useToast();
 
   // Utility Functions
@@ -154,7 +176,7 @@ export function RentalDetailsModal({
   
         setDetails({
           rental: rentalRes.data,
-          rentalVehicle: rentalVehicleRes.data[0] || undefined,
+          rentalVehicle: rentalVehicleRes.data,  // Lưu toàn bộ mảng
           payment: paymentRes.data[0] || undefined,
         });
   
@@ -178,7 +200,6 @@ export function RentalDetailsModal({
   
     fetchRentalDetails();
   }, [rentalId, isOpen, toast]);
-  
 
   // Render Helpers
   const renderStatusBadge = (status?: string) => (
@@ -188,7 +209,7 @@ export function RentalDetailsModal({
   const renderVehicleInfo = (vehicle: RentalVehicle) => {
     const info = vehicle.vehicleType === 'car' ? vehicle.car : vehicle.motorbike;
     return (
-      <div key={vehicle.rentalVehicleId}>
+      <div key={vehicle.rentalVehicleId} className="border-b pb-4 mb-4">
         <p><strong>Loại:</strong> {vehicle.vehicleType === 'car' ? 'Ô Tô' : 'Xe Máy'}</p>
         <p><strong>Hãng:</strong> {info?.make || 'N/A'}</p>
         <p><strong>Mẫu:</strong> {info?.model || 'N/A'}</p>
@@ -253,8 +274,35 @@ export function RentalDetailsModal({
             <Card>
               <CardHeader><CardTitle>Thông Tin Phương Tiện</CardTitle></CardHeader>
               <CardContent>
-                {details.rental?.rentalVehicle && details.rental.rentalVehicle.length > 0 ? (
-                  details.rental.rentalVehicle.map((vehicle) => renderVehicleInfo(vehicle))
+                {loading ? (
+                  <div className="flex justify-center items-center h-16">
+                    <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
+                  </div>
+                ) : details.rentalVehicle && details.rentalVehicle.length > 0 ? (
+                  <>
+                    {paginatedVehicles.map((vehicle) => renderVehicleInfo(vehicle))}
+
+                    {/* Điều hướng phân trang */}
+                    <div className="flex justify-between items-center mt-4">
+                      <button
+                        onClick={() => goToPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="text-sm font-semibold text-blue-500 disabled:text-gray-400"
+                      >
+                        ← Trang trước
+                      </button>
+                      <span className="text-sm">
+                        Trang {currentPage} / {totalPages}
+                      </span>
+                      <button
+                        onClick={() => goToPage(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="text-sm font-semibold text-blue-500 disabled:text-gray-400"
+                      >
+                        Trang sau →
+                      </button>
+                    </div>
+                  </>
                 ) : (
                   <p>Không có thông tin phương tiện</p>
                 )}

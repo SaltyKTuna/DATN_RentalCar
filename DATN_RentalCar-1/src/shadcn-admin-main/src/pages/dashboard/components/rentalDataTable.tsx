@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import {
   Table,
@@ -55,6 +55,36 @@ export function RentalDataTable() {
   const [selectedRentalId, setSelectedRentalId] = useState<number | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
+  const [filters, setFilters] = useState({
+    accountName: '',
+    accountPhone: '',
+    accountEmail: '',
+    sortField: 'rentalId',
+    sortDirection: 'asc',
+  });
+
+  const [debouncedFilters, setDebouncedFilters] = useState(filters);
+
+  // Debounce function to delay the search after typing
+  const debounceSearch = useCallback(
+    (value: string, field: string) => {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        [field]: value,
+      }));
+    },
+    [setFilters]
+  );
+
+  useEffect(() => {
+    // Setting debounce delay
+    const timer = setTimeout(() => {
+      setDebouncedFilters(filters);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [filters]);
+
   const fetchRentalData = async () => {
     setLoading(true);
     setError(null);
@@ -63,6 +93,11 @@ export function RentalDataTable() {
         params: {
           page: currentPage - 1,
           size: itemsPerPage,
+          accountName: debouncedFilters.accountName,
+          accountPhone: debouncedFilters.accountPhone,
+          accountEmail: debouncedFilters.accountEmail,
+          sort: debouncedFilters.sortField,
+          direction: debouncedFilters.sortDirection,
         },
       });
       const data = response.data;
@@ -87,30 +122,65 @@ export function RentalDataTable() {
     actualReturnDate: string | null
   ) => {
     try {
-      await axios.put(`http://localhost:8080/api/rental/status/${rentalId}`, {
-        renStatus: newStatus,
-        actualReturnDate,
-      });
-      setRentalData((prevData) =>
-        prevData.map((rental) =>
-          rental.rentalId === rentalId
-            ? { ...rental, renStatus: newStatus, actualReturnDate }
-            : rental
-        )
+      const payload = {
+        renStatus: newStatus.toString(), // Chuyển newStatus thành string
+        actualReturnDate: new Date().toISOString() // Thời gian hiện tại theo ISO 8601
+      };
+  
+      const response = await axios.put(
+        `http://localhost:8080/api/rental/status/${rentalId}`,
+        payload
       );
-      toast({
-        title: 'Cập nhật thành công',
-        description: `Trạng thái đã được cập nhật thành "${newStatus}".`,
-        variant: 'success',
-      });
-    } catch (err) {
+  
+      if (response.data) {
+        setRentalData((prevData) =>
+          prevData.map((rental) =>
+            rental.rentalId === rentalId
+              ? { 
+                  ...rental, 
+                  renStatus: response.data.renStatus || newStatus,
+                  actualReturnDate: response.data.actualReturnDate || payload.actualReturnDate
+                }
+              : rental
+          )
+        );
+  
+        toast({
+          title: 'Cập nhật thành công',
+          description: `Trạng thái đã được cập nhật thành "${newStatus}".`,
+          variant: 'success',
+        });
+      } else {
+        throw new Error('Không nhận được phản hồi từ server');
+      }
+    } catch (err: any) {
       console.error('Lỗi khi cập nhật trạng thái:', err);
       toast({
         title: 'Cập nhật thất bại',
-        description: 'Có lỗi xảy ra khi cập nhật trạng thái. Vui lòng thử lại.',
+        description: err.response?.data?.message || 'Có lỗi xảy ra khi cập nhật trạng thái',
         variant: 'destructive',
       });
     }
+  };
+
+  useEffect(() => {
+    fetchRentalData();
+  }, [currentPage, debouncedFilters]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    debounceSearch(e.target.value, e.target.name);
+  };
+
+  const handleSearchClick = () => {
+    setDebouncedFilters(filters);
+  };
+
+  const handleSortChange = (field: string) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      sortField: field,
+      sortDirection: prevFilters.sortField === field && prevFilters.sortDirection === 'asc' ? 'desc' : 'asc',
+    }));
   };
 
   const handleNextPage = () => {
@@ -130,10 +200,6 @@ export function RentalDataTable() {
     setIsDetailModalOpen(true);
   };
 
-  useEffect(() => {
-    fetchRentalData();
-  }, [currentPage]);
-
   if (loading) return <div>Đang tải dữ liệu, vui lòng đợi...</div>;
   if (error) return <div>{error}</div>;
 
@@ -152,28 +218,92 @@ export function RentalDataTable() {
           </div>
         </CardHeader>
         <CardContent>
+          <div className="mb-4 flex gap-4">
+            <input
+              type="text"
+              name="accountName"
+              placeholder="Tìm theo tên"
+              value={filters.accountName}
+              onChange={handleSearchChange}
+              className="input"
+            />
+            <input
+              type="text"
+              name="accountPhone"
+              placeholder="Tìm theo số điện thoại"
+              value={filters.accountPhone}
+              onChange={handleSearchChange}
+              className="input"
+            />
+            <input
+              type="text"
+              name="accountEmail"
+              placeholder="Tìm theo email"
+              value={filters.accountEmail}
+              onChange={handleSearchChange}
+              className="input"
+            />
+            {/* <input
+              type="date"
+              name="rentalDate"
+              placeholder="Tìm theo ngày"
+              value={filters.rentalDate}
+              onChange={handleSearchChange}
+              className="input"
+            /> */}
+          </div>
+
           <div className="rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Mã Thuê</TableHead>
-                  <TableHead>Tên Khách Hàng</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Trạng Thái</TableHead>
-                  <TableHead>Thao Tác</TableHead>
+                  <TableHead onClick={() => handleSortChange('rentalId')}>
+                    Mã Thuê {filters.sortField === 'rentalId' && (filters.sortDirection === 'asc' ? '↑' : '↓')}
+                  </TableHead>
+                  <TableHead onClick={() => handleSortChange('account.fullName')}>
+                    Tên Khách Hàng {filters.sortField === 'account.fullName' && (filters.sortDirection === 'asc' ? '↑' : '↓')}
+                  </TableHead>
+                  <TableHead onClick={() => handleSortChange('account.email')}>
+                    Email {filters.sortField === 'account.email' && (filters.sortDirection === 'asc' ? '↑' : '↓')}
+                  </TableHead>
+                  <TableHead onClick={() => handleSortChange('rentalDate')}>
+                    Ngày Thuê {filters.sortField === 'rentalDate' && (filters.sortDirection === 'asc' ? '↑' : '↓')}
+                  </TableHead>
+                  <TableHead onClick={() => handleSortChange('returnDate')}>
+                    Ngày Trả Dự Kiến {filters.sortField === 'returnDate' && (filters.sortDirection === 'asc' ? '↑' : '↓')}
+                  </TableHead>
+                  <TableHead onClick={() => handleSortChange('actualReturnDate')}>
+                    Ngày Trả Thực Tế {filters.sortField === 'actualReturnDate' && (filters.sortDirection === 'asc' ? '↑' : '↓')}
+                  </TableHead>
+                  <TableHead>
+                    Trạng Thái
+                  </TableHead>
+                  <TableHead>
+                    Thao Tác
+                  </TableHead>
                 </TableRow>
               </TableHeader>
+
               <TableBody>
                 {rentalData.map((rental) => (
                   <TableRow key={rental.rentalId}>
                     <TableCell>{rental.rentalId}</TableCell>
                     <TableCell>{rental.account.fullName}</TableCell>
                     <TableCell>{rental.account.email}</TableCell>
+                    <TableCell>{new Date(rental.rentalDate).toLocaleDateString()}</TableCell>
+                    <TableCell>{new Date(rental.returnDate).toLocaleDateString()}</TableCell>
+                    <TableCell>
+                      {rental.actualReturnDate
+                        ? new Date(rental.actualReturnDate).toLocaleDateString()
+                        : 'Chưa trả'}
+                    </TableCell>
                     <TableCell>
                       <RentalStatusDropdown
                         rentalId={rental.rentalId}
                         currentStatus={rental.renStatus}
-                        onUpdateStatus={(newStatus, actualReturnDate) => updateRentalStatus(rental.rentalId, newStatus, actualReturnDate)}
+                        onUpdateStatus={(rentalId, newStatus, actualReturnDate) =>
+                          updateRentalStatus(rentalId, newStatus, actualReturnDate)
+                        }
                       />
                     </TableCell>
                     <TableCell>
@@ -188,7 +318,7 @@ export function RentalDataTable() {
               </TableBody>
             </Table>
           </div>
-          {/* Thanh chuyển trang */}
+
           <div className="flex justify-between mt-4">
             <Button
               variant="outline"
@@ -211,7 +341,6 @@ export function RentalDataTable() {
         </CardContent>
       </Card>
 
-      {/* Modal Chi Tiết Thuê Xe */}
       {selectedRentalId && (
         <RentalDetailsModal
           rentalId={selectedRentalId}
