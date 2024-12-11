@@ -27,22 +27,27 @@
 	  <div style="padding: 20px 200px; margin-top: -10px;">
 
 		  <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 60px; min-height: 400px;">
-			<!-- Left Section: Image and Fireworks -->
 			<div style="flex: 2; position: relative; text-align: center;">
 				<img 
 				  th:src="${paymentInfo.status == 'success' ? '/assets/images/others/sucess.png' : '/assets/images/others/fail.png'}" 
 				  alt="status-image" 
 				  style="max-width: 100%; height: auto;"
 				>
+				<div id="fireworks" th:if="${paymentInfo.status == 'success'}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+				<div id="payment-message" th:if="${paymentInfo.status == 'success'}" style="color: rgb(0, 0, 0); position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); font-size: 30px; background-color: rgb(4, 175, 4); opacity: 0; transition: opacity 1s; border-radius: 8px; padding: 10px; width: 100%;">
+					Quý khách đã thanh toán thành công
+				</div>
+				<div id="payment-message-fail" th:if="${paymentInfo.status != 'success'}" style="color: rgb(255, 255, 255); position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); font-size: 30px; background-color: rgb(255, 0, 0); opacity: 0; transition: opacity 1s; border-radius: 8px; border-radius: 5px; padding: 10px; width: 100%;">
+					Quý khách chưa thanh toán
+				</div>
 				<div 
 				  id="payment-success" 
 				  class="payment-success hidden" 
 				  th:classappend="${paymentInfo.status == 'success' ? '' : 'hidden'}"
-				  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 255, 0, 0.8); color: white; padding: 10px 20px; border-radius: 10px; font-size: 18px;">
-				  <span th:text="${paymentInfo.status == 'success' ? 'Thanh Toán Thành Công' : 'Thanh Toán Chưa Thành Công'}"></span>
+				  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 255, 0, 0.8); color: white; padding: 10px 20px; border-radius: 10px; font-size: 18px; opacity: 0; transition: opacity 1s;">
+				  <span th:text="${paymentInfo.status == 'success' ? 'Thanh Toán Thành Công' : 'Thanh Toán Chưa Thành Công'}" style="opacity: 1;"></span>
 				</div>
 			</div>
-			<!-- Right Section: Payment Information -->
 			<div style="flex: 2; margin: 0 ; padding: 40px; text-align: center; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
 			  <h2 style="color: #4CAF50; font-size: 24px; margin-bottom: 20px;">Thông Tin Thanh Toán</h2>
 			  <div style="margin: 10px 0; padding: 15px; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
@@ -80,12 +85,23 @@
 		  </div>
 	  </div>
 		<div style="display: flex; justify-content: center; align-items: center; padding: 10px; font-size: 20px; text-align: center; margin-bottom: 20px; margin-top: -40px; color: blue;">
-		    <a href="/" style="text-decoration: none; color: blue;" onmouseover="this.style.color='red'" onmouseout="this.style.color='blue'">Quay Về Trang Chủ</a>
+		    <button 
+		        onclick="window.location.href='/'" 
+		        style="background-color: gray; color: white; border: none; padding: 10px 20px; font-size: 20px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s;"
+		        onmouseover="this.style.backgroundColor='red';" 
+		        onmouseout="this.style.backgroundColor='gray';">
+		        Quay Về Trang Chủ
+		    </button>
+		    <!-- <div style="margin: 0 20px;"></div>
+		    <button 
+		        onclick="window.location.href='/'" 
+		        style="background-color: gray; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s;"
+		        onmouseover="this.style.backgroundColor='red';" 
+		        onmouseout="this.style.backgroundColor='gray';">
+		        Quay về trang Lịch Sử
+		    </button> -->
 		</div>
-		
-
 	  
-	
 	  <!------------------------------------------------------------->
 	<!-- footer -->
 	<div class="footer">
@@ -102,7 +118,36 @@
 			var rawAmount = amountElement.innerText;
 			var formattedAmount = parseFloat(rawAmount).toLocaleString('de-DE'); 
 			amountElement.innerText = formattedAmount + " vnđ";
-		};
+		if (document.getElementById("fireworks")) {
+			const fireworks = new Fireworks(document.getElementById("fireworks"));
+			fireworks.start();
+			setTimeout(function() {
+				fireworks.stop(); 
+				document.getElementById("fireworks").style.display = 'none'; 
+			}, 3000);
+		}
+		const successMessage = document.getElementById("payment-message");
+		const failMessage = document.getElementById("payment-message-fail");
+		
+		if (successMessage) {
+			successMessage.style.opacity = '1'; 
+		}
+		if (failMessage) {
+			failMessage.style.opacity = '1'; 
+		}
+		setTimeout(function() {
+			if (successMessage) {
+				successMessage.style.opacity = '0'; 
+			}
+			if (failMessage) {
+				failMessage.style.opacity = '0'; 
+			}
+		}, 3000);
+	};
+	// fomat giá tiền
+	// window.onload = function() {
+	
+	// 	};//////////////
 	</script>
 	
 	</html>
