@@ -78,18 +78,29 @@ public class homePageController {
 	
 	//private final String uploadDir = "uploads/accountsImg/";
 
-    // Phương thức để lấy danh sách xe và hiển thị trong Thymeleaf template
-    @GetMapping()
-    public String viewAll(Model model) {
-    	
-        List<Car> cars = carRepo.findAll();
-        List<Motorbike> motorbikes = motorbikeRepo.findAll();
-        
-        model.addAttribute("cars", cars);      
-        model.addAttribute("motorbikes", motorbikes);
-        
-        return "index2";
-    }
+ // Phương thức để lấy danh sách xe và hiển thị trong Thymeleaf template
+ 	@GetMapping
+ 	public String viewAll(Model model) {
+
+ 	    // Lấy danh sách xe ô tô và lọc theo trạng thái "Sẵn Sàng"
+ 	    List<Car> availableCars = carRepo.findAll()
+ 	                                     .stream()
+ 	                                     .filter(car -> "Sẵn sàng".equals(car.getStatus()))
+ 	                                     .collect(Collectors.toList());
+
+ 	    // Lấy danh sách xe máy và lọc theo trạng thái "Sẵn Sàng"
+ 	    List<Motorbike> availableMotorbikes = motorbikeRepo.findAll()
+ 	                                                       .stream()
+ 	                                                       .filter(motorbike -> "Sẵn sàng".equals(motorbike.getStatus()))
+ 	                                                       .collect(Collectors.toList());
+
+ 	    // Thêm danh sách đã lọc vào model
+ 	    model.addAttribute("cars", availableCars);
+ 	    model.addAttribute("motorbikes", availableMotorbikes);
+
+ 	    return "index2";
+ 	}
+ 	
     // Phương thức hiển thị trang đổi mật khẩu
     @GetMapping("/change-password")
     public String showChangePasswordPage() {

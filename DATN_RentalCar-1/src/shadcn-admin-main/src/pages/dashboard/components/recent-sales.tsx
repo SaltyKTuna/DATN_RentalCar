@@ -21,24 +21,31 @@ interface Payment {
   paymentId: number
   rental: Rental
   amount: number
-  paymentDate: string
+  paymentDate: string // Định dạng ISO: "2024-06-12T12:30:00Z"
 }
 
 export function RecentSales() {
   const [payments, setPayments] = useState<Payment[]>([])
 
   useEffect(() => {
-    // Hàm fetch dữ liệu từ các API
     const fetchData = async () => {
       try {
-        const [rentalResponse, rentalVehicleResponse, paymentResponse] = await Promise.all([
+        const [, , paymentResponse] = await Promise.all([
           axios.get('http://localhost:8080/api/rental'),
           axios.get('http://localhost:8080/api/rental-vehicle'),
-          axios.get('http://localhost:8080/api/payment')
+          axios.get('http://localhost:8080/api/payment'),
         ])
 
-        // Giả sử API trả về mảng các payment
-        setPayments(paymentResponse.data)
+        // Lọc dữ liệu theo ngày hiện tại và sắp xếp giảm dần theo thời gian
+        const today = new Date().toISOString().slice(0, 10) // YYYY-MM-DD
+        const filteredPayments = paymentResponse.data
+          .filter((payment: Payment) => payment.paymentDate.startsWith(today)) // Lọc ngày hiện tại
+          .sort(
+            (a: Payment, b: Payment) =>
+              new Date(b.paymentDate).getTime() - new Date(a.paymentDate).getTime()
+          ) // Sắp xếp giảm dần theo thời gian
+
+        setPayments(filteredPayments)
       } catch (error) {
         console.error('Lỗi khi tải dữ liệu:', error)
       }
@@ -57,14 +64,22 @@ export function RecentSales() {
     return initials.slice(0, 2)
   }
 
+  // Hàm định dạng ngày giờ thành giờ:phút
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString)
+    const hours = String(date.getHours()).padStart(2, '0')
+    const minutes = String(date.getMinutes()).padStart(2, '0')
+    return `${hours}:${minutes}`
+  }
+
   return (
     <div className='space-y-4 h-screen overflow-y-auto'>
       {payments.map(payment => (
         <div key={payment.paymentId} className='flex items-center gap-4'>
           <Avatar className='h-9 w-9'>
-            <AvatarImage 
-              src={payment.rental.account.imageUrl || '/avatars/default.png'} 
-              alt={payment.rental.account.fullName} 
+            <AvatarImage
+              src={payment.rental.account.imageUrl || '/avatars/default.png'}
+              alt={payment.rental.account.fullName}
             />
             <AvatarFallback>
               {getAvatarFallback(payment.rental.account.fullName)}
@@ -82,7 +97,7 @@ export function RecentSales() {
             <div className='font-medium'>
               +{payment.amount.toLocaleString()}đ
               <p className='text-xs text-muted-foreground'>
-                {payment.paymentDate}
+                {formatTime(payment.paymentDate)} {/* Hiển thị giờ:phút */}
               </p>
             </div>
           </div>
