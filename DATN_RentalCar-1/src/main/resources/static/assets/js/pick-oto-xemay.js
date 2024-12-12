@@ -117,6 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		'Hồ Chí Minh': ['Quận 1', 'Quận 2', 'Quận 3', 'Quận 7'],
 		'Đà Nẵng': ['Quận Hải Châu', 'Quận Thanh Khê', 'Quận Liên Chiểu'],
 		'Hải Phòng': ['Quận Hồng Bàng', 'Quận Lê Chân', 'Quận Ngô Quyền'],
+		'Bình Dương': [],
+		'Biên Hòa': [],
+		'Đà Lạt': [],
+		'Phú Quốc': [],
 	};
 
 	// Tạo dropdown cho thành phố
@@ -290,6 +294,59 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	// Xử lý chọn ngày
+	// Đồng bộ dữ liệu tìm kiếm từ localStorage tới input
+	function syncSearchData() {
+		// Lấy các phần tử input
+		const startDateInput = document.getElementById("start-date-btn");
+		const endDateInput = document.getElementById("end-date-btn");
+
+		// Lấy giá trị JSON từ localStorage
+		const searchData = JSON.parse(localStorage.getItem("searchData"));
+
+		// Đồng bộ dữ liệu vào các input nếu có trong localStorage
+		if (searchData) {
+			if (searchData.pickupDate) startDateInput.value = searchData.pickupDate;
+			if (searchData.returnDate) endDateInput.value = searchData.returnDate;
+
+			// Nếu có location trong searchData, cập nhật city dropdown
+			if (searchData.location) {
+				selectedCity = searchData.location;
+
+				// Cập nhật nội dung hiển thị trong dropdown thành phố
+				const citySelectedText = document.querySelector('.selected-city-text');
+				if (citySelectedText) {
+					citySelectedText.textContent = selectedCity;
+				}
+
+				// Cập nhật dropdown quận/huyện dựa trên thành phố đã chọn
+				updateDistrictDropdown(selectedCity);
+			}
+		}
+
+		// Lắng nghe sự kiện thay đổi để cập nhật lại localStorage
+		startDateInput.addEventListener("change", () => {
+			console.log("Pickup Date changed to:", startDateInput.value);
+			updateSearchData("pickupDate", startDateInput.value);
+		});
+
+		endDateInput.addEventListener("change", () => {
+			console.log("Return Date changed to:", endDateInput.value);
+			updateSearchData("returnDate", endDateInput.value);
+		});
+	}
+
+
+	// Hàm cập nhật lại dữ liệu JSON trong localStorage
+	function updateSearchData(key, value) {
+		// Lấy dữ liệu hiện tại từ localStorage
+		const searchData = JSON.parse(localStorage.getItem("searchData")) || {};
+
+		// Cập nhật giá trị mới
+		searchData[key] = value;
+
+		// Lưu lại vào localStorage
+		localStorage.setItem("searchData", JSON.stringify(searchData));
+	}
 
 	// Xử lý cuộn trang
 	window.addEventListener('scroll', () => {
@@ -297,4 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (window.scrollY > 0) rightColumn.classList.add('scrolled');
 		else rightColumn.classList.remove('scrolled');
 	});
+
+	syncSearchData();
+	filterVehicles();
 });

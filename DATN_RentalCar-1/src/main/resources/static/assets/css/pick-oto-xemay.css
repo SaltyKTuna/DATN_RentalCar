@@ -523,3 +523,18 @@ form {
   input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
   }
+  
+.clear-btn {
+    font-size: 16px;
+    color: #f00; /* Màu đỏ */
+    cursor: pointer;
+    margin-left: 10px;
+    display: none; /* Ẩn mặc định */
+}
+
+.selected-text:hover .clear-btn {
+    display: inline; /* Hiển thị khi hover vào văn bản */
+}
+
+
+  
