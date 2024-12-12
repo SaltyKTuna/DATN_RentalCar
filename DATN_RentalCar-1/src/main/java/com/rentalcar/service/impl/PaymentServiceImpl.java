@@ -71,6 +71,10 @@ public class PaymentServiceImpl implements PaymentService {
 	public Optional<Payment> findById(Long id) {
 		return paymentRepo.findById(id);
 	}
+	
+	public List<Payment> getRentalByRentalId(Long id) {
+		return paymentRepo.findByRental_RentalId(id);
+	}	
 
 	/**
 	 * @param id

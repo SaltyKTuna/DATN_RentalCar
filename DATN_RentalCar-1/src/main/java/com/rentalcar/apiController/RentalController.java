@@ -176,6 +176,27 @@ public class RentalController {
         return ResponseEntity.ok(updatedRental);
     }
     
+    @PutMapping("/status/{id}")
+    public ResponseEntity<?> updateStatus(@PathVariable("id") Long id, @RequestBody Rental rentalDetail) {
+        Optional<Rental> optionalRental = rentalRepo.findById(id);
+        if (optionalRental.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Rental ID " + id + " not found");
+        }
+
+        Rental rentalUpdate = optionalRental.get();
+
+        // Chỉ cập nhật renStatus nếu trạng thái là "Chờ xác nhận"
+        if ("Chờ xác nhận".equals(rentalUpdate.getRenStatus()) && "Đã huỷ".equals(rentalDetail.getRenStatus())) {
+            rentalUpdate.setRenStatus("Đã huỷ");
+        }
+        	
+        rentalUpdate.setActualReturnDate(rentalDetail.getActualReturnDate());
+        rentalUpdate.setRenStatus(rentalDetail.getRenStatus());
+
+        Rental updatedRental = rentalRepo.save(rentalUpdate);
+        return ResponseEntity.ok(updatedRental);
+    }
+    
     @PutMapping("/cancel/{id}")
     public ResponseEntity<Rental> updateRental(@PathVariable Long id, @RequestBody Rental rental) {
         // Kiểm tra xem rental tồn tại hay không

@@ -51,6 +51,12 @@ public class RentalVehicleController {
 				return ResponseEntity.ok(rentalvehicleRepo.findById(id));
 			}
 		}
+		
+		@GetMapping(value ="/by-rental/{id}")
+	    public ResponseEntity<List<RentalVehicle>> getRentalByRentalId(@PathVariable Long id) {
+	        List<RentalVehicle> rentalVehicles = rentalvehicleRepo.findByRental_RentalId(id);
+	        return ResponseEntity.ok(rentalVehicles);
+	    }
 
 		// lưu
 //		@PostMapping

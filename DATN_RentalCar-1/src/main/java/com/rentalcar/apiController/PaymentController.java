@@ -198,6 +198,12 @@ public class PaymentController {
 		}
 		return ResponseEntity.ok(payment.get());
 	}
+	
+    @GetMapping(value ="/by-rental/{id}")
+    public ResponseEntity<List<Payment>> getRentalByRentalId(@PathVariable Long id) {
+        List<Payment> payments = paymentRepo.findByRental_RentalId(id);
+        return ResponseEntity.ok(payments);
+    }
 
 	@Data
 	@AllArgsConstructor
