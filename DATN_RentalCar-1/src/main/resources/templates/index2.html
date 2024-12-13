@@ -37,11 +37,17 @@
 		color: inherit;
 		display: block; /* Make the whole div clickable */
 	}
+
+	.scrollll{
+    max-height: 100vh !important;
+    overflow-y: auto !important;
+	}
+
 </style>
 </head>
 
 <body>
-	
+	<div class="scrollll">
 	<!-- header -->
 	<header th:replace="~{module/header :: header}">
 		
@@ -490,6 +496,7 @@
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	</div>
 </body>
 
 </html>

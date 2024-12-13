@@ -7,7 +7,10 @@
 
 html {
   font-size: 62.5%;
+  scrollbar-width: 27px !important;
 }
+
+
 
 *,
 *:before,
