@@ -10,52 +10,20 @@
 <link rel="stylesheet" href="/assets/css/style.css" />
 <link rel="stylesheet" href="/assets/css/responsive.css" />
 <link rel="stylesheet" href="/assets/css/car-details.css" />
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Search-option-->
 
-<title>Chi Tiết Ô Tô</title>
+<title>Chi Tiết Xe Máy</title>
 </head>
 
 
 <body>
 	<!-- header -->
-	<header>
-		<div class="container">
-			<div class="header-layout">
-				<a href="index.html" id="logo"> <img
-					src="./assets/images/Logo.png" alt="" />
-				</a>
-				<ul class="menu-list">
-					<li><a href="about.html">Về Chúng Tôi</a></li>
-					<li><a href="#!">Hổ Trợ</a></li>
-					<li><a href="#!">Khuyến Mãi</a></li>
-					<div class="menu-line"></div>
-					<li><a href="rigister.html" class="register-link">Đăng ký</a></li>
-					<li><a href="/Login" class="border">Đăng nhập</a></li>
-				</ul>
-				<div class="menu-mobile">
-					<div class="wrap-svg tab-menu">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-							xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 6H19" stroke="black"
-								stroke-width="1.5" stroke-linecap="round"
-								stroke-linejoin="round"></path>
-                            <path d="M5 18H19" stroke="black"
-								stroke-width="1.5" stroke-linecap="round"
-								stroke-linejoin="round">
-                            </path>
-                            <path d="M5 12H19" stroke="black"
-								stroke-width="1.5" stroke-linecap="round"
-								stroke-linejoin="round">
-                            </path>
-                        </svg>
-					</div>
-				</div>
-			</div>
-		</div>
+	<header th:replace="~{module/header :: header}">
+		
 	</header>
-	<!--motorbike Details-->
+	<!--Car Details-->
 	<div class="cover-car">
 		<div class="m-container">
 			<div covers="[object Object],[object Object],[object Object],[object Object]" class="cover-car-container">
@@ -119,7 +87,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- Popup Modal -->
+				<!-- Popup Modal -->
 		<div id="imageModal" class="modal">
 		    <span class="close">&times;</span>
 		    <div class="modal-content">
@@ -145,9 +113,6 @@
 		        </div>
 		    </div>
 		</div>
-		
-		
-	
 	<!--Details Product-->
 	<div class="car-details">
 		<div class="container">
@@ -156,7 +121,8 @@
 					<!-- Tittle-->
 					<div class="car-header d-flex-center-btw">
 						<h3 th:text="${motorbike.make + ' ' + motorbike.model + ' ' + motorbike.year}"
-							class="product-title"></h3>
+							class="product-title">
+						</h3>
 
 						<div class="car-actions">
 							<div class="action-icons">
@@ -209,8 +175,6 @@
 						</div>
 						<span class="info" th:text="${#numbers.formatDecimal(averageRating, 1, 1)}"></span>
 						<span class="separator">•</span>
-
-
 						<!-- Icon Trip Count -->
 						<div class="icon-wrapper trip-count-icon">
 							<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -234,7 +198,7 @@
 						<span class="info" th:text="${formattedLocation}"></span>
 					</div>
 					<div class="car-tags">
-						 <span
+							<span
 							class="tag-item doorstep">Giao xe tận nơi</span> <span
 							class="tag-item fast-rent">Đặt xe nhanh</span> <span
 							class="tag-item no-mortgage">Miễn thế chấp</span> <span
@@ -275,10 +239,10 @@
 								</div>
 								<div class="title">
 									<p class="sub">Truyền động</p>
-									<p th:text="${motorbike.gearBox}" class="main">Hộp số:</p>
+									<p th:text="${motorbike.gearBox}" class="main"></p>
 								</div>
 							</div>
-							
+
 							<div class="outstanding-features__item">
 								<div class="wrap-svg">
 									<svg width="32" height="32" viewBox="0 0 32 32" fill="none"
@@ -299,7 +263,7 @@
 								</div>
 								<div class="title">
 									<p class="sub">Nhiên liệu</p>
-									<p th:text="${motorbike.fuelType}" class="main">Loại nhiên liệu:
+									<p th:text="${motorbike.fuelType}" class="main">
 									</p>
 								</div>
 							</div>
@@ -355,7 +319,15 @@
 					</div>
 					<br>
 					<hr>
-
+					<div class="info-car-desc" id="outsfeatures">
+						<h6>Các tiện nghi khác</h6>
+						<br>
+						<div class="features-car">
+							<ul>
+								<li th:text="${motorbike.facilities}"></li>
+							</ul>
+						</div>
+					</div>
 					<br>
 					<hr>
 					<div class="info-car-desc" id="outsfeatures">
@@ -419,185 +391,6 @@
 								tuyệt vời!</p>
 						</div>
 					</div>
-					<div class="info-car-desc" id="outsfeatures">
-						<h6>Chính sách huỷ chuyến</h6>
-						<br>
-						<div class="cancel-policy">
-							<div class="column title">
-								<div class="column__item case">Thời điểm hủy chuyến</div>
-								<div class="column__item">Khách thuê hủy chuyến</div>
-								<div class="column__item">Chủ xe hủy chuyến</div>
-							</div>
-							<div class="column">
-								<div class="column__item case">Trong vòng 1h sau giữ chỗ</div>
-								<div class="column__item">
-									<div class="wrap-svg">
-										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
-                                            <path
-												d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z"
-												fill="#12B76A"></path>
-                                        </svg>
-									</div>
-									Hoàn tiền giữ chỗ 100%
-								</div>
-								<div class="column__item">
-									<div class="wrap-svg">
-										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
-                                            <path
-												d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z"
-												fill="#12B76A"></path>
-                                        </svg>
-									</div>
-									Không tốn phí<span>(Đánh giá hệ thống 3*)</span>
-								</div>
-							</div>
-							<div class="column">
-								<div class="column__item case">Trước chuyến đi &gt;7 ngày</div>
-								<div class="column__item">
-									<div class="wrap-svg">
-										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
-                                            <path
-												d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z"
-												fill="#12B76A"></path>
-                                        </svg>
-									</div>
-									Hoàn tiền giữ chỗ 70%
-								</div>
-								<div class="column__item">
-									<div class="wrap-svg">
-										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
-                                            <path
-												d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z"
-												fill="#12B76A"></path>
-                                        </svg>
-									</div>
-									Đền tiền 30%<span>(Đánh giá hệ thống 3*)</span>
-								</div>
-							</div>
-							<div class="column">
-								<div class="column__item case">Trước khi nhận xe</div>
-								<div class="column__item">
-									<div class="wrap-svg">
-										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
-                                            <path
-												d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM14.67 13.39C14.97 13.69 14.96 14.16 14.67 14.45C14.52 14.59 14.33 14.67 14.14 14.67C13.95 14.67 13.75 14.59 13.61 14.44L12.25 13.07L10.9 14.44C10.75 14.59 10.56 14.67 10.36 14.67C10.17 14.67 9.98 14.59 9.84 14.45C9.54 14.16 9.53999 13.69 9.82999 13.39L11.2 12L9.82999 10.61C9.53999 10.31 9.54 9.84 9.84 9.55C10.13 9.26 10.61 9.26 10.9 9.56L12.25 10.93L13.61 9.56C13.9 9.26 14.37 9.26 14.67 9.55C14.96 9.84 14.97 10.31 14.67 10.61L13.3 12L14.67 13.39Z"
-												fill="#F04438"></path>
-                                        </svg>
-									</div>
-									Không hoàn tiền
-								</div>
-								<div class="column__item">
-									<div class="wrap-svg">
-										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
-                                            <path
-												d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM14.67 13.39C14.97 13.69 14.96 14.16 14.67 14.45C14.52 14.59 14.33 14.67 14.14 14.67C13.95 14.67 13.75 14.59 13.61 14.44L12.25 13.07L10.9 14.44C10.75 14.59 10.56 14.67 10.36 14.67C10.17 14.67 9.98 14.59 9.84 14.45C9.54 14.16 9.53999 13.69 9.82999 13.39L11.2 12L9.82999 10.61C9.53999 10.31 9.54 9.84 9.84 9.55C10.13 9.26 10.61 9.26 10.9 9.56L12.25 10.93L13.61 9.56C13.9 9.26 14.37 9.26 14.67 9.55C14.96 9.84 14.97 10.31 14.67 10.61L13.3 12L14.67 13.39Z"
-												fill="#F04438"></path>
-                                        </svg>
-									</div>
-									Đền tiền 100%<span>(Đánh giá hệ thống 2*)</span>
-								</div>
-							</div>
-
-						</div>
-						<div class="desc-note">
-							<p>* Khách thuê không nhận xe sẽ không được hoàn tiền giữ chỗ</p>
-							<p>* Chủ xe không giao xe sẽ hoàn và đền 100% tiền giữ chỗ
-								cho bạn</p>
-							<p class="df-align-center">
-								* Tiền giữ chỗ và tiền bồi thường do chủ xe hủy chuyến (nếu có)
-								sẽ được RENTALCAR hoàn trả đến bạn bằng chuyển khoản ngân hàng
-								trong vòng 1-3 ngày làm&nbsp;việc.<span
-									class="tooltip tooltip--m "><br> </svg></span><span
-									class="tooltip-text"><b>Thủ tục hoàn tiền &amp; đền
-										cọc</b>RENTALCAR sẽ hoàn lại tiền cọc (&amp; tiền đền cọc do chủ
-									xe hủy chuyến (nếu có) theo chính sách hủy chuyến) qua tài
-									khoản ngân hàng của khách thuê trong vòng 1-3 ngày làm việc kể
-									từ thời điểm hủy chuyến.<i>*Nhân viên RENTALCAR sẽ liên hệ
-										khách thuê (qua số điện thoại đã đăng ký trên RENTALCAR) để
-										xin thông tin tài khoản ngân hàng, hoặc Khách thuê có thể chủ
-										động gửi thông tin cho RENTALCAR qua email
-										Contact@RENTALCAR.vn hoặc nhắn tin tại RENTALCAR Fanpage</i></span></span>
-							</p>
-						</div>
-					</div>
-					<hr>
-					<div class="info-car-desc" id="outsfeatures">
-						<h6>Xem vị trí bản đồ</h6>
-						<br>
-						<div class="car-address">
-							<div class="address">
-								<div class="wrap-svg">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-                                        <path
-											d="M11.9998 2.56885C7.8898 2.56885 4.5498 5.90884 4.5498 10.0188C4.5498 14.9088 10.7298 21.8288 10.9898 22.1189C11.2498 22.4089 11.6198 22.5688 11.9998 22.5688C12.3798 22.5688 12.7498 22.4089 13.0098 22.1189C13.6698 21.3889 19.4498 14.7988 19.4498 10.0188C19.4498 5.90884 16.1098 2.56885 11.9998 2.56885ZM11.9998 20.9988C11.1898 20.0588 6.0498 14.0188 6.0498 10.0188C6.0498 6.73884 8.7198 4.06885 11.9998 4.06885C15.2798 4.06885 17.9498 6.73884 17.9498 10.0188C17.9498 13.3988 14.1198 18.5988 11.9998 20.9988Z"
-											fill="black"></path>
-                                        <path
-											d="M11.9998 2.56885C7.8898 2.56885 4.5498 5.90884 4.5498 10.0188C4.5498 14.9088 10.7298 21.8288 10.9898 22.1189C11.2498 22.4089 11.6198 22.5688 11.9998 22.5688C12.3798 22.5688 12.7498 22.4089 13.0098 22.1189C13.6698 21.3889 19.4498 14.7988 19.4498 10.0188C19.4498 5.90884 16.1098 2.56885 11.9998 2.56885ZM8.87981 10.0188C8.87981 8.29884 10.2798 6.89885 11.9998 6.89885C13.7198 6.89885 15.1198 8.29884 15.1198 10.0188C15.1198 11.7388 13.7198 13.1389 11.9998 13.1389C10.2798 13.1389 8.87981 11.7388 8.87981 10.0188Z"
-											fill="black"></path>
-                                    </svg>
-								</div>
-								<p>Quận Bình Thạnh, TP. Hồ Chí Minh</p>
-							</div>
-							<div class="maps-detail pointer">
-								<div class="wrap-svg">
-									<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-                                        <path
-											d="M5.41653 7.3916H3.99987C3.04987 7.3916 2.2832 8.15827 2.2832 9.10827V15.0999C2.2832 16.0499 3.04987 16.8166 3.99987 16.8166H15.9915C16.9415 16.8166 17.7082 16.0499 17.7082 15.0999V9.10827"
-											stroke="black" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round"></path>
-                                        <path
-											d="M13.4253 7.3916H8.55859" stroke="black" stroke-width="1.5"
-											stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path
-											d="M13.4248 13.3833H15.9915C16.9415 13.3833 17.7081 14.15 17.7081 15.1C17.7081 16.05 16.9415 16.8166 15.9915 16.8166H13.4248"
-											stroke="black" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round"></path>
-                                        <path
-											d="M13.4248 4.81665H15.9915C16.9415 4.81665 17.7081 5.58332 17.7081 6.53332"
-											stroke="black" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round"></path>
-                                        <path d="M17.708 15.1V6.53333"
-											stroke="black" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round"></path>
-                                        <path
-											d="M13.4248 4.81665V13.3833" stroke="black"
-											stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round"></path>
-                                        <path
-											d="M2.29199 11.6749H5.71699C6.19199 11.6749 6.57532 11.9999 6.57532 12.4083C6.57532 12.8166 6.95866 13.1416 7.43366 13.1416H8.29199C8.76699 13.1416 9.15032 13.4666 9.15032 13.8749V14.6083V16.8083"
-											stroke="black" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round"></path>
-                                        <path
-											d="M7.00006 3.19165C5.81673 3.19165 4.8584 4.14998 4.8584 5.33332C4.8584 6.79998 6.77506 8.94998 6.85839 9.04165C6.93339 9.12498 7.06674 9.12498 7.14174 9.04165C7.22507 8.94998 9.14173 6.79998 9.14173 5.33332C9.14173 4.14998 8.18339 3.19165 7.00006 3.19165Z"
-											stroke="black" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round"></path>
-                                        <path
-											d="M7.00046 6.14996C7.41007 6.14996 7.74212 5.8179 7.74212 5.40829C7.74212 4.99868 7.41007 4.66663 7.00046 4.66663C6.59084 4.66663 6.25879 4.99868 6.25879 5.40829C6.25879 5.8179 6.59084 6.14996 7.00046 6.14996Z"
-											fill="black"></path>
-                                    </svg>
-								</div>
-								<p class="font-14 fontWeight-7">Xem&nbsp;bản&nbsp;đồ</p>
-								<div class="wrap-svg">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-										viewBox="0 0 20 20" fill="none">
-                                        <path
-											d="M12.9499 9.40832L8.23328 4.69999C8.15581 4.62188 8.06364 4.55989 7.96209 4.51758C7.86054 4.47527 7.75162 4.45349 7.64161 4.45349C7.5316 4.45349 7.42268 4.47527 7.32113 4.51758C7.21958 4.55989 7.12741 4.62188 7.04994 4.69999C6.89474 4.85613 6.80762 5.06734 6.80762 5.28749C6.80762 5.50764 6.89474 5.71885 7.04994 5.87499L11.1749 10.0417L7.04994 14.1667C6.89474 14.3228 6.80762 14.534 6.80762 14.7542C6.80762 14.9743 6.89474 15.1855 7.04994 15.3417C7.12712 15.4204 7.21916 15.483 7.32072 15.526C7.42229 15.5689 7.53135 15.5912 7.64161 15.5917C7.75187 15.5912 7.86094 15.5689 7.9625 15.526C8.06406 15.483 8.1561 15.4204 8.23328 15.3417L12.9499 10.6333C13.0345 10.5553 13.102 10.4606 13.1482 10.3552C13.1944 10.2497 13.2182 10.1359 13.2182 10.0208C13.2182 9.90574 13.1944 9.7919 13.1482 9.68648C13.102 9.58107 13.0345 9.48636 12.9499 9.40832Z"
-											fill="black"></path>
-                                    </svg>
-								</div>
-							</div>
-						</div>
-						<p class="note-address">Địa chỉ cụ thể sẽ được hiển thị sau
-							khi đặt cọc</p>
-					</div>
 					<hr>
 					<div class="info-car-desc" id="outsfeatures">
 						<div class="reviews">
@@ -637,7 +430,7 @@
 						        </div>
 						    </div>    
 						</div>
-<!-- feedback end -->
+<!-- feedback end -->				
 					</div>
 				</div>
 				<div class="sidebar-detail">
@@ -667,85 +460,259 @@
 						</div>
 					</div>
 					<br>
+					
 					<div class="rent-box" id="cardetail" style="position: relative;">
 						<div class="price">
-							<div class="price-discount">
-								<!-- Giá gốc (dailyRate * 1.1) -->
-								<p class="origin">
-									<span th:text="${#numbers.formatInteger(motorbike.dailyRate, 3, 'POINT') + 'đ'}"></span>
-								</p>
-								<!-- Thẻ giảm giá -->
-								<span class="tag-item discount">-14%</span>
+							<div class="price-discount" th:if="${motorbike.percentDiscount != null and motorbike.percentDiscount > 0}">
+							    <!-- Giá gốc (dailyRate) -->
+							    <p class="origin">
+							        <span th:text="${#numbers.formatInteger(motorbike.dailyRate, 3, 'POINT') + 'đ'}"></span>
+							    </p>
+							    <!-- Thẻ giảm giá -->
+							    <span th:text="'-' + ${#numbers.formatInteger(motorbike.percentDiscount, 2)} + '%'" class="tag-item discount"></span>
 							</div>
 
 							<!-- Tính giá sau khi giảm -->
 							<h4>
-								<!-- Giá đã giảm = giá gốc - (giá gốc * 14%) -->
-								<span th:text="${#numbers.formatInteger(motorbike.dailyRate * (1 - 0.14), 3, 'POINT')}"></span>đ
+								<!-- Giá đã giảm = giá gốc - (giá gốc * % giảm giá) -->
+								<span th:text="${#numbers.formatInteger(motorbike.dailyRate * ( 1 - (motorbike.percentDiscount / 100)), 3, 'POINT')}"></span>đ
 								<span class="inner-h"> /ngày</span>
 							</h4>
 						</div>
-                        <div class="date-time-form ">
-                            <div class="form-item"><label>Nhận xe </label>
-                                <div class="wrap-date-time">
-                                    <div class="wrap-date"><span class="value">08/10/2024</span></div>
-                                    <div class="wrap-time"><span class="value">21:00</span></div>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="form-item"><label>Trả xe</label>
-                                <div class="wrap-date-time">
-                                    <div class="wrap-date"><span class="value">09/10/2024</span></div>
-                                    <div class="wrap-time"><span class="value">20:00</span></div>
-                                </div>
-                            </div>
-                        </div>
-						<div class="dc-week-month rent-hour">
-							<div class="wrap-svg">
-								<svg width="44" height="44" viewBox="0 0 44 44" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-                                    <path
-										d="M22.5788 38.9584C30.9017 38.9584 37.6488 32.2113 37.6488 23.8884C37.6488 15.5654 30.9017 8.81836 22.5788 8.81836C14.2559 8.81836 7.50879 15.5654 7.50879 23.8884C7.50879 32.2113 14.2559 38.9584 22.5788 38.9584Z"
-										stroke="black" stroke-width="3" stroke-linecap="round"
-										stroke-linejoin="round">
-                                    </path>
-                                    <path d="M22.5791 5.04102V8.81768"
-										stroke="black" stroke-width="3" stroke-linecap="round"
-										stroke-linejoin="round"></path>
-                                    <path
-										d="M9.25 10.5586L11.2666 12.5753" stroke="black"
-										stroke-width="3" stroke-linecap="round"
-										stroke-linejoin="round"></path>
-                                    <path
-										d="M35.9072 10.5586L33.8906 12.5753" stroke="black"
-										stroke-width="3" stroke-linecap="round"
-										stroke-linejoin="round"></path>
-                                    <path
-										d="M22.5788 25.7767C23.6217 25.7767 24.4671 24.9312 24.4671 23.8883C24.4671 22.8454 23.6217 22 22.5788 22C21.5359 22 20.6904 22.8454 20.6904 23.8883C20.6904 24.9312 21.5359 25.7767 22.5788 25.7767Z"
-										stroke="black" stroke-width="3" stroke-linecap="round"
-										stroke-linejoin="round">
-                                    </path>
-                                    <path
-										d="M22.5791 23.8874L27.2908 19.1758" stroke="black"
-										stroke-width="3" stroke-linecap="round"
-										stroke-linejoin="round"></path>
-                                    <path d="M20.6904 5.04102H24.4671"
-										stroke="black" stroke-width="3" stroke-linecap="round"
-										stroke-linejoin="round"></path>
-                                </svg>
-							</div>
-							<p>
-								Chủ xe hỗ trợ thuê xe theo giờ.<span
-									class="text-primary pointer fontWeight-6">
-									Tìm&nbsp;hiểu&nbsp;thêm</span>
-							</p>
-						</div>
-						<div class="dropdown-form pointer ">
-							<label class="pointer">Địa điểm giao nhận xe</label>
-							<div class="wrap-form has-arrow">
-								<span class="value">Quận Bình Thạnh, TP. Hồ Chí Minh</span>
-							</div>
-						</div>
+						
+                        <div class="date-time-form" id="dateTimeForm">
+    <div class="form-item"><label>Nhận xe </label>
+        <div class="wrap-date-time">
+            <span class="value" id="pickUpDateTime">08-10-2024 | 21:00</span>
+        </div>
+    </div>
+    <hr>
+    <div class="form-item"><label>Trả xe</label>
+        <div class="wrap-date-time">
+            <span class="value" id="returnDateTime">09-10-2024 | 20:00</span>
+        </div>
+    </div>
+</div>
+
+<!-- modal -->
+<div id="uniqueModal" class="unique-modal" style="display: none;">
+    <div class="unique-modal-content">
+        <span class="unique-modal-close" id="closeModal">&times;</span>
+
+        <h2>Chọn ngày và giờ nhận xe</h2>
+        
+        <div class="date-time-container">
+            <div class="date-picker">
+                <label for="modalPickUpDate">Chọn ngày:</label> 
+                <input type="date" id="modalPickUpDate" class="unique-modal-input">
+            </div>
+            <div class="time-picker">
+                <label for="modalPickUpTime">Giờ:</label>
+                <select id="modalPickUpTime" class="unique-modal-input">
+                    <!-- Các tùy chọn giờ sẽ được tạo bằng JavaScript -->
+                </select>
+            </div>
+        </div>
+        
+        <h2>Chọn ngày và giờ trả xe</h2>
+        
+        <div class="date-time-container">
+            <div class="date-picker">
+                <label for="modalReturnDate">Chọn ngày:</label> 
+                <input type="date" id="modalReturnDate" class="unique-modal-input">
+            </div>
+            <div class="time-picker">
+                <label for="modalReturnTime">Giờ:</label>
+                <select id="modalReturnTime" class="unique-modal-input">
+                    <!-- Các tùy chọn giờ sẽ được tạo bằng JavaScript -->
+                </select>
+            </div>
+        </div>
+        <!-- Add this inside the modal content -->
+		<p><strong>Tổng số thời gian chọn thuê:</strong> <span id="totalRentalHours">0</span> giờ</p>
+        
+        <button id="saveDateTime" class="btn-unique-save">Tiếp tục</button>
+        <p id="errorMessage" style="color: red; display: none;">Thời gian thuê phải tối thiểu là 2 giờ.</p>
+    </div>
+</div>
+
+<script th:inline="javascript">
+//DOM Elements
+const elements = {
+    form: document.getElementById("dateTimeForm"),
+    modal: document.getElementById("uniqueModal"),
+    closeBtn: document.getElementById("closeModal"),
+    saveBtn: document.getElementById("saveDateTime"),
+    errorMsg: document.getElementById("errorMessage"),
+    pickUpDateTime: document.getElementById("pickUpDateTime"),
+    returnDateTime: document.getElementById("returnDateTime"),
+    totalRentalHours: document.getElementById("totalRentalHours"),
+    modalInputs: {
+        pickUpDate: document.getElementById("modalPickUpDate"),
+        pickUpTime: document.getElementById("modalPickUpTime"),
+        returnDate: document.getElementById("modalReturnDate"),
+        returnTime: document.getElementById("modalReturnTime")
+    }
+};
+
+
+// Constants
+const TIME_CONFIG = {
+    START_HOUR: 6,
+    END_HOUR: 23,
+    INTERVAL_MINUTES: 30,
+    MIN_RENTAL_HOURS: 2
+};
+
+// Utility Functions
+const formatDateTime = (date, time) => {
+    const [year, month, day] = date.split("-");
+    return `${day}-${month}-${year} | ${time}`;
+};
+
+const roundToNext30Minutes = (date) => {
+    const minutes = date.getMinutes();
+    const roundedDate = new Date(date);
+    roundedDate.setMinutes(minutes < 30 ? 30 : 0);
+    roundedDate.setSeconds(0, 0);
+    if (minutes >= 30) {
+        roundedDate.setHours(roundedDate.getHours() + 1);
+    }
+    return roundedDate;
+};
+
+const getTimeString = (date) => {
+    return date.toTimeString().slice(0, 5);
+};
+
+const create30MinIntervalOptions = (selectElement, selectedTime) => {
+    selectElement.innerHTML = '';
+    const time = new Date();
+    time.setHours(TIME_CONFIG.START_HOUR, 0, 0, 0);
+    const endTime = new Date();
+    endTime.setHours(TIME_CONFIG.END_HOUR, 0, 0, 0);
+
+    while (time <= endTime) {
+        const option = document.createElement("option");
+        const timeString = getTimeString(time);
+        option.value = timeString;
+        option.text = time.toLocaleTimeString("en-GB", { 
+            hour: "2-digit", 
+            minute: "2-digit" 
+        });
+        option.selected = timeString === selectedTime;
+        selectElement.appendChild(option);
+        time.setMinutes(time.getMinutes() + TIME_CONFIG.INTERVAL_MINUTES);
+    }
+};
+
+// Core Functions
+const updateTotalRentalHours = () => {
+    const { pickUpDate, pickUpTime, returnDate, returnTime } = elements.modalInputs;
+    
+    if (pickUpDate.value && pickUpTime.value && returnDate.value && returnTime.value) {
+        const pickUpDateTime = new Date(`${pickUpDate.value}T${pickUpTime.value}`);
+        const returnDateTime = new Date(`${returnDate.value}T${returnTime.value}`);
+        
+        const diffInHours = (returnDateTime - pickUpDateTime) / (1000 * 60 * 60);
+        elements.totalRentalHours.textContent = diffInHours.toFixed(2);
+        return diffInHours;
+    }
+    
+    elements.totalRentalHours.textContent = "0";
+    return 0;
+};
+
+const initializeModal = () => {
+    // Get current date and time
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    // Round current time to next 30 minutes
+    const roundedNow = roundToNext30Minutes(now);
+    const currentTime = getTimeString(roundedNow);
+    
+    // Set pickup date and time
+    const pickUpDate = now.toISOString().slice(0, 10);
+    elements.modalInputs.pickUpDate.value = pickUpDate;
+    elements.modalInputs.pickUpDate.min = pickUpDate;
+    
+    // Set return date and time
+    const returnDate = tomorrow.toISOString().slice(0, 10);
+    elements.modalInputs.returnDate.value = returnDate;
+    elements.modalInputs.returnDate.min = pickUpDate;
+    
+    // Create time options and select current time
+    create30MinIntervalOptions(elements.modalInputs.pickUpTime, currentTime);
+    create30MinIntervalOptions(elements.modalInputs.returnTime, currentTime);
+    
+    // Update display
+    elements.pickUpDateTime.textContent = formatDateTime(pickUpDate, currentTime);
+    elements.returnDateTime.textContent = formatDateTime(returnDate, currentTime);
+    
+    // Calculate initial rental hours
+    updateTotalRentalHours();
+};
+
+initializeModal();
+
+const updateDateTime = () => {
+    const { pickUpDate, pickUpTime, returnDate, returnTime } = elements.modalInputs;
+    
+    elements.pickUpDateTime.textContent = formatDateTime(pickUpDate.value, pickUpTime.value);
+    elements.returnDateTime.textContent = formatDateTime(returnDate.value, returnTime.value);
+};
+
+// Event Handlers
+const handleSave = () => {
+    const diffInHours = updateTotalRentalHours();
+    
+    if (diffInHours < TIME_CONFIG.MIN_RENTAL_HOURS) {
+        elements.errorMsg.style.display = "block";
+        return;
+    }
+    
+    elements.errorMsg.style.display = "none";
+    updateDateTime();
+    elements.modal.style.display = "none";
+};
+
+// Event Listeners
+elements.form.addEventListener("click", () => {
+    initializeModal();
+    elements.modal.style.display = "flex";
+});
+
+elements.closeBtn.addEventListener("click", () => {
+    elements.modal.style.display = "none";
+});
+
+window.addEventListener("click", (event) => {
+    if (event.target === elements.modal) {
+        elements.modal.style.display = "none";
+    }
+});
+
+elements.saveBtn.addEventListener("click", handleSave);
+
+// Add change listeners for date/time inputs
+Object.values(elements.modalInputs).forEach(input => {
+    input.addEventListener("change", updateTotalRentalHours);
+});
+</script>
+
+
+
+
+						<div class="form-group">
+    <label for="address-input" class="form-label">Địa điểm giao nhận xe</label>
+    <div class="input-group">
+        <input type="text" id="address-input" class="form-control" placeholder="Nhập địa chỉ" aria-label="Nhập địa chỉ">
+    </div>
+</div>
+						
+						
 						<div class="line-page"></div>
 						<div class="price-container">
 							<div class="price-item">
@@ -768,7 +735,7 @@
                                             </svg></span></span>
 								</p>
 								<p class="cost">
-									<span th:text="${#numbers.formatInteger(motorbike.dailyRate * (1 - 0.14), 3, 'POINT')}"></span>
+									<span th:text="${#numbers.formatInteger(motorbike.dailyRate * (1 - (motorbike.percentDiscount / 100)), 3, 'POINT')}"></span>đ/ ngày <!-- Giá thuê theo ngày -->
 								</p>
 							</div>
 							<div class="price-item">
@@ -791,107 +758,971 @@
                                             </svg></span></span>
 								</p>
 								<p class="cost">
-									<span>88.374đ/ ngày</span>
+									<span th:text="${#numbers.formatInteger(motorbike.dailyRate * (1 - motorbike.percentDiscount / 100) * 0.14, 3, 'POINT')}"></span>đ/ ngày <!-- bảo hiểm thuê xe 1 ngày = Giá thuê theo ngày * 0,14 -->
 								</p>
 							</div>
-							<div class="line-page"></div>
 							<div class="price-item">
-								<p>Tổng cộng</p>
-								<p class="cost">
-								    <span th:text="${#numbers.formatInteger((motorbike.dailyRate * (1 - 0.14)) + 88374, 3, 'POINT')}"></span> x 1 ngày
+    
+</div>
 
-								</p>
-							</div>
+<div class="line-page"></div>
+<div class="price-item">
+    <p>Tổng cộng</p>
+    <p class="cost">
+        <span value="0" id="dailyRateDisplay"></span>
+    </p>
+</div>
+
+<script th:inline="javascript">
+const VAT_PERCENTAGE = 0.14;
+let motorbikeDailyRate = /*[[${motorbike.dailyRate}]]*/ 0;
+let motorbikePercentDiscount = /*[[${motorbike.percentDiscount}]]*/ 0;
+const hoursElement = document.getElementById("totalRentalHours");
+
+
+let currentDiscountPercentage = 0; //"finalRentRate"
+
+// Hàm tính toán giá thuê
+function calculateRentalRate(dailyRate, percentDiscount, hours) {
+  if (dailyRate == null || percentDiscount == null) {
+    return "N/A";
+  }
+
+  const baseDailyRate = dailyRate * (1 - (percentDiscount / 100));
+  console.log("Base Daily Rate: ", baseDailyRate);
+  let rentalRate;
+  const fullDays = Math.floor(hours / 24);
+  const remainingHours = hours % 24;
+
+  rentalRate = baseDailyRate * fullDays;
+
+  if (remainingHours > 0) {
+    if (remainingHours <= 4) {
+      rentalRate += baseDailyRate * 0.4;
+    } else if (remainingHours <= 12) {
+      rentalRate += baseDailyRate * 0.4 + (Math.floor((remainingHours - 4) / 2) * baseDailyRate * 0.2);
+      if (rentalRate > (fullDays + 1) * baseDailyRate) rentalRate = (fullDays + 1) * baseDailyRate;
+    } else {
+      rentalRate += baseDailyRate;
+    }
+  }
+  console.log("Rental Rate: ", rentalRate);
+  
+  return rentalRate + (rentalRate * VAT_PERCENTAGE);
+}
+
+//Cập nhật giá thuê
+function updateRentalRate() {
+  const hours = parseFloat(hoursElement.textContent) || 0;
+  const rentalRate = calculateRentalRate(motorbikeDailyRate, motorbikePercentDiscount, hours); 
+  
+  document.getElementById("dailyRateDisplay").textContent = typeof rentalRate === 'number' ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(rentalRate) : rentalRate;
+}
+
+//Sử dụng MutationObserver để theo dõi thay đổi của hoursElement
+const observer = new MutationObserver(updateRentalRate);
+observer.observe(hoursElement, { childList: true, characterData: true, subtree: true });
+
+//Khởi tạo giá trị ban đầu
+updateRentalRate();
+</script>
+</script>
+
+
+
+
+							
 							<div class="line-page"></div>
-							<div class="promotion-radio">
-								<div class="promotion-radio__item">
-									<div class="custom-radio">
-										<input type="radio" id="default" name="promo" value="0"
-											checked=""><label for="default">
-											<div class="promo-text">
-												<div class="promo-text-main">
-													<div class="wrap-svg">
-														<svg width="24" height="24" viewBox="0 0 24 24"
-															fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-																d="M21.3 10.8394C21.69 10.8394 22 10.5294 22 10.1394V9.20938C22 5.10938 20.75 3.85938 16.65 3.85938H7.35C3.25 3.85937 2 5.10938 2 9.20938V9.67938C2 10.0694 2.31 10.3794 2.7 10.3794C3.6 10.3794 4.33 11.1094 4.33 12.0094C4.33 12.9094 3.6 13.6294 2.7 13.6294C2.31 13.6294 2 13.9394 2 14.3294V14.7994C2 18.8994 3.25 20.1494 7.35 20.1494H16.65C20.75 20.1494 22 18.8994 22 14.7994C22 14.4094 21.69 14.0994 21.3 14.0994C20.4 14.0994 19.67 13.3694 19.67 12.4694C19.67 11.5694 20.4 10.8394 21.3 10.8394ZM9 8.87938C9.55 8.87938 10 9.32938 10 9.87938C10 10.4294 9.56 10.8794 9 10.8794C8.45 10.8794 8 10.4294 8 9.87938C8 9.32938 8.44 8.87938 9 8.87938ZM15 15.8794C14.44 15.8794 13.99 15.4294 13.99 14.8794C13.99 14.3294 14.44 13.8794 14.99 13.8794C15.54 13.8794 15.99 14.3294 15.99 14.8794C15.99 15.4294 15.56 15.8794 15 15.8794ZM15.9 9.47937L9.17 16.2094C9.02 16.3594 8.83 16.4294 8.64 16.4294C8.45 16.4294 8.26 16.3594 8.11 16.2094C7.82 15.9194 7.82 15.4394 8.11 15.1494L14.84 8.41938C15.13 8.12938 15.61 8.12938 15.9 8.41938C16.19 8.70938 16.19 9.18937 15.9 9.47937Z"
-																fill="#F26A2B"></path>
-                                                        </svg>
-													</div>
-													<p>Chương trình giảm giá</p>
-												</div>
-												<p class="promo-text-sub">Giảm 120K trên đơn giá</p>
-											</div>
-											<p class="promo-price">
-												-<span>120 000đ</span>
-											</p>
-										</label>
-									</div>
-								</div>
-								<div class="promotion-radio__item">
-									<div class="custom-radio">
-										<input type="radio" id="code" name="promo" value="1"><label
-											for="code">
-											<div class="promo-text">
-												<div class="promo-text-main">
-													<div class="wrap-svg">
-														<svg width="24" height="24" viewBox="0 0 24 24"
-															fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-																d="M21.3 10.8394C21.69 10.8394 22 10.5294 22 10.1394V9.20938C22 5.10938 20.75 3.85938 16.65 3.85938H7.35C3.25 3.85937 2 5.10938 2 9.20938V9.67938C2 10.0694 2.31 10.3794 2.7 10.3794C3.6 10.3794 4.33 11.1094 4.33 12.0094C4.33 12.9094 3.6 13.6294 2.7 13.6294C2.31 13.6294 2 13.9394 2 14.3294V14.7994C2 18.8994 3.25 20.1494 7.35 20.1494H16.65C20.75 20.1494 22 18.8994 22 14.7994C22 14.4094 21.69 14.0994 21.3 14.0994C20.4 14.0994 19.67 13.3694 19.67 12.4694C19.67 11.5694 20.4 10.8394 21.3 10.8394ZM9 8.87938C9.55 8.87938 10 9.32938 10 9.87938C10 10.4294 9.56 10.8794 9 10.8794C8.45 10.8794 8 10.4294 8 9.87938C8 9.32938 8.44 8.87938 9 8.87938ZM15 15.8794C14.44 15.8794 13.99 15.4294 13.99 14.8794C13.99 14.3294 14.44 13.8794 14.99 13.8794C15.54 13.8794 15.99 14.3294 15.99 14.8794C15.99 15.4294 15.56 15.8794 15 15.8794ZM15.9 9.47937L9.17 16.2094C9.02 16.3594 8.83 16.4294 8.64 16.4294C8.45 16.4294 8.26 16.3594 8.11 16.2094C7.82 15.9194 7.82 15.4394 8.11 15.1494L14.84 8.41938C15.13 8.12938 15.61 8.12938 15.9 8.41938C16.19 8.70938 16.19 9.18937 15.9 9.47937Z"
-																fill="#5FCF86"></path>
-                                                        </svg>
-													</div>
-													<p>Mã khuyến mãi</p>
-												</div>
-											</div>
-											<div class="promo-price">
-												<div class="wrap-svg">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-															d="M14.8299 11.2897L10.5899 7.0497C10.497 6.95598 10.3864 6.88158 10.2645 6.83081C10.1427 6.78004 10.012 6.75391 9.87994 6.75391C9.74793 6.75391 9.61723 6.78004 9.49537 6.83081C9.37351 6.88158 9.26291 6.95598 9.16994 7.0497C8.98369 7.23707 8.87915 7.49052 8.87915 7.7547C8.87915 8.01889 8.98369 8.27234 9.16994 8.4597L12.7099 11.9997L9.16994 15.5397C8.98369 15.7271 8.87915 15.9805 8.87915 16.2447C8.87915 16.5089 8.98369 16.7623 9.16994 16.9497C9.26338 17.0424 9.3742 17.1157 9.49604 17.1655C9.61787 17.2152 9.74834 17.2405 9.87994 17.2397C10.0115 17.2405 10.142 17.2152 10.2638 17.1655C10.3857 17.1157 10.4965 17.0424 10.5899 16.9497L14.8299 12.7097C14.9237 12.6167 14.9981 12.5061 15.0488 12.3843C15.0996 12.2624 15.1257 12.1317 15.1257 11.9997C15.1257 11.8677 15.0996 11.737 15.0488 11.6151C14.9981 11.4933 14.9237 11.3827 14.8299 11.2897Z"
-															fill="#263D2A"></path>
-                                                    </svg>
-												</div>
-											</div>
-										</label>
-									</div>
-								</div>
-							</div>
-							<div class="line-page"></div>
+
+								<!-- Nút kích hoạt popup -->
+<div class="promotion-radio__item" data-bs-toggle="modal" data-bs-target="#promoModal">
+    <div class="custom-radio">
+        <input type="radio" id="code" name="promo" value="1">
+        <label for="code">
+            <div class="promo-text">
+                <div class="wrap-svg">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.3 10.8394C21.69 10.8394 22 10.5294 22 10.1394V9.20938C22 5.10938 20.75 3.85938 16.65 3.85938H7.35C3.25 3.85937 2 5.10938 2 9.20938V9.67938C2 10.0694 2.31 10.3794 2.7 10.3794C3.6 10.3794 4.33 11.1094 4.33 12.0094C4.33 12.9094 3.6 13.6294 2.7 13.6294C2.31 13.6294 2 13.9394 2 14.3294V14.7994C2 18.8994 3.25 20.1494 7.35 20.1494H16.65C20.75 20.1494 22 18.8994 22 14.7994C22 14.4094 21.69 14.0994 21.3 14.0994C20.4 14.0994 19.67 13.3694 19.67 12.4694C19.67 11.5694 20.4 10.8394 21.3 10.8394ZM9 8.87938C9.55 8.87938 10 9.32938 10 9.87938C10 10.4294 9.56 10.8794 9 10.8794C8.45 10.8794 8 10.4294 8 9.87938C8 9.32938 8.44 8.87938 9 8.87938ZM15 15.8794C14.44 15.8794 13.99 15.4294 13.99 14.8794C13.99 14.3294 14.44 13.8794 14.99 13.8794C15.54 13.8794 15.99 14.3294 15.99 14.8794C15.99 15.4294 15.56 15.8794 15 15.8794ZM15.9 9.47937L9.17 16.2094C9.02 16.3594 8.83 16.4294 8.64 16.4294C8.45 16.4294 8.26 16.3594 8.11 16.2094C7.82 15.9194 7.82 15.4394 8.11 15.1494L14.84 8.41938C15.13 8.12938 15.61 8.12938 15.9 8.41938C16.19 8.70938 16.19 9.18937 15.9 9.47937Z" fill="#5FCF86"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="promo-price">
+                <div class="wrap-svg">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.8299 11.2897L10.5899 7.0497C10.497 6.95598 10.3864 6.88158 10.2645 6.83081C10.1427 6.78004 10.012 6.75391 9.87994 6.75391C9.74793 6.75391 9.61723 6.78004 9.49537 6.83081C9.37351 6.88158 9.26291 6.95598 9.16994 7.0497C8.98369 7.23707 8.87915 7.49052 8.87915 7.7547C8.87915 8.01889 8.98369 8.27234 9.16994 8.4597L12.7099 11.9997L9.16994 15.5397C8.98369 15.7271 8.87915 15.9805 8.87915 16.2447C8.87915 16.5089 8.98369 16.7623 9.16994 16.9497C9.26338 17.0424 9.3742 17.1157 9.49604 17.1655C9.61787 17.2152 9.74834 17.2405 9.87994 17.2397C10.0115 17.2405 10.142 17.2152 10.2638 17.1655C10.3857 17.1157 10.4965 17.0424 10.5899 16.9497L14.8299 12.7097C14.9237 12.6167 14.9981 12.5061 15.0488 12.3843C15.0996 12.2624 15.1257 12.1317 15.1257 11.9997C15.1257 11.8677 15.0996 11.737 15.0488 11.6151C14.9981 11.4933 14.9237 11.3827 14.8299 11.2897Z" fill="#263D2A"/>
+                    </svg>
+                </div>
+            </div>
+          	<div id="selectedPromoDisplay">
+                <p class="mb-0">Mã khuyến mãi</p>
+                <div class="selected-promo" style="display: none;">
+                    <span class="selected-promo-code"></span>
+                    <span class="selected-promo-description"></span>
+                    <span class="promo-cancel" style="cursor: pointer; color: red; margin-left: 20px;">&times;</span>
+                </div>
+            </div>
+
+            <script th:inline="javascript">
+            
+            const promoCodes = /*[[${discounts}]]*/ [];
+
+          //Hàm tính tổng: giá thuê - mã giảm giá
+          function calculateTotalRate(rentalRate, hours) {
+              rentalRate = calculateRentalRate(motorbikeDailyRate, motorbikePercentDiscount, hours); 
+              let totalRate = rentalRate;
+              
+              totalRate -= (totalRate * currentDiscountPercentage) / 100; 
+              return totalRate;
+          }  
+
+          // Hàm hiển thị danh sách mã giảm giá
+          function displayPromoCodes() {
+              const promoList = document.getElementById('promoCodesList');
+              promoList.innerHTML = '';
+              
+              promoCodes.forEach(promo => {
+                  const promoItem = document.createElement('div');
+                  promoItem.className = 'promo-code-item';
+                  promoItem.innerHTML = `
+                      <div class="promo-code-info">
+                          <div class="promo-code-value">${promo.discountCode}</div>
+                          <div class="promo-code-description">${promo.description}</div>
+                          <div id="discountPercentage" value="${promo.discountPercentage}">Giảm: ${promo.discountPercentage}%</div>
+                          
+                          <!-- Thêm thẻ hidden chứa giá trị discountId -->
+                          <input type="hidden" id="hiddenDiscountValue" value="${promo.discountId}">
+                          
+                          <!-- Thêm thẻ hidden chứa value của hiddenDiscountValue khi chọn -->
+                          <input type="hidden" id="selectedDiscountValue" value="">
+                      </div>
+                      <div class="promo-code-status">${promo.status}</div>
+                  `;
+                  
+                  promoItem.addEventListener('click', () => {
+                      applyPromoCode(promo);
+                      
+                   // Cập nhật giá trị của thẻ ẩn khi chọn mã giảm giá
+                      const selectedDiscountValue =
+                        document.getElementById(
+                          "selectedDiscountValue"
+                        );
+                      selectedDiscountValue.value = promo.discountId;
+                  });
+                  
+                  promoList.appendChild(promoItem);
+              });
+          }
+
+          // Hàm tính toán tổng giá
+          function updateTotalPriceWithDiscount(discountPercentage) {
+              const hoursElement = document.getElementById("totalRentalHours");
+              const hours = parseFloat(hoursElement.textContent) || 0;
+              const rentalRate = calculateRentalRate(motorbikeDailyRate, motorbikePercentDiscount, hours); 
+              
+              // Nếu có mã giảm giá, tính toán giảm giá, nếu không thì giữ nguyên giá gốc
+              const discountAmount = discountPercentage > 0 ? (rentalRate * discountPercentage) / 100 : 0;
+              const totalRate = rentalRate - discountAmount;
+
+              // Cập nhật tổng giá vào giao diện
+              console.log("Discount Amount:", discountAmount);
+              console.log("Total Price After Discount:", totalRate);
+
+              // Hiển thị tổng giá mới
+              const totalRateElement = document.getElementById('totalRatePrice');
+              if (totalRateElement) {
+                  totalRateElement.textContent = typeof totalRate === 'number' ? 
+                      new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalRate) : totalRate;
+              }
+          }
+
+          // Hàm áp dụng mã giảm giá
+          function applyPromoCode(promo) {
+              document.getElementById('code').checked = true;
+
+              const selectedPromoDisplay = document.getElementById('selectedPromoDisplay');
+              const selectedPromo = selectedPromoDisplay.querySelector('.selected-promo');
+              const selectedPromoCode = selectedPromoDisplay.querySelector('.selected-promo-code');
+              const selectedPromoDescription = selectedPromoDisplay.querySelector('.selected-promo-description');
+
+              console.log("Selected Discount Percentage:", promo.discountPercentage);
+
+              selectedPromoDisplay.querySelector('p').style.display = 'none';
+              selectedPromo.style.display = 'flex';
+              selectedPromoCode.textContent = promo.discountCode;
+              selectedPromoDescription.textContent = `(Giảm ${promo.discountPercentage}%)`;
+
+              // Gọi hàm tính tổng giá với discountPercentage
+              updateTotalPriceWithDiscount(promo.discountPercentage);
+
+              const modal = bootstrap.Modal.getInstance(document.getElementById('promoModal'));
+              modal.hide();
+          }
+
+          // Hàm hủy bỏ mã giảm giá
+          function cancelPromoCode() {
+              document.getElementById('code').checked = false;
+
+              const selectedPromoDisplay = document.getElementById('selectedPromoDisplay');
+              selectedPromoDisplay.querySelector('p').style.display = 'block';
+              const selectedPromo = selectedPromoDisplay.querySelector('.selected-promo');
+              selectedPromo.style.display = 'none';
+
+              selectedPromo.querySelector('.selected-promo-code').textContent = '';
+              selectedPromo.querySelector('.selected-promo-description').textContent = '';
+              
+              // Cập nhật lại giá gốc khi không có mã giảm giá
+              updateTotalPriceWithDiscount(0);
+          }
+
+          // Khi tài liệu HTML đã sẵn sàng
+          document.addEventListener('DOMContentLoaded', () => {
+              displayPromoCodes();
+              
+              // Thiết lập MutationObserver để theo dõi thay đổi giờ thuê
+              const dailyRateDisplay = document.getElementById("dailyRateDisplay");
+              if (dailyRateDisplay) {
+                  const observer = new MutationObserver((mutations) => {
+                      // Lấy giá trị discount hiện tại
+                      const selectedPromo = document.querySelector('.selected-promo');
+                      let currentDiscount = 0;
+                      
+                      if (selectedPromo && selectedPromo.style.display !== 'none') {
+                          const discountText = document.querySelector('.selected-promo-description').textContent;
+                          currentDiscount = parseInt(discountText.match(/\d+/)[0]) || 0;
+                      }
+                      
+                      // Cập nhật giá với discount hiện tại
+                      updateTotalPriceWithDiscount(currentDiscount);
+                  });
+
+                  // Cấu hình observer để theo dõi nội dung và cả cây con
+                  observer.observe(dailyRateDisplay, { 
+                      childList: true, 
+                      characterData: true, 
+                      subtree: true 
+                  });
+              }
+
+              // Khởi tạo giá ban đầu
+              updateTotalPriceWithDiscount(0);
+              
+              // Thêm sự kiện cho nút hủy mã giảm giá
+              const promoCancelBtn = document.querySelector('.promo-cancel');
+              if (promoCancelBtn) {
+                  promoCancelBtn.addEventListener('click', cancelPromoCode);
+              }             
+          });
+</script>
+
+
+        </label>
+    </div>
+</div>
+                    
+<!-- Modal Popup -->
+<div class="modal fade" id="promoModal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="promoModalLabel">Chọn mã giảm giá</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="promoCodesList">
+                    <!-- Danh sách mã giảm giá sẽ được thêm vào đây -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+								
+								
+
+
+								<div class="line-page"></div>
+								
 							<div class="price-item total">
-								<p>Thành tiền</p>
-								<p class="cost">
-									<span th:text="${#numbers.formatDecimal((motorbike.dailyRate * 1.1) * (1 - 0.14) + 88374, 0, 3)}"></span>
-								</p>
+							    <p>Thành tiền</p>
+							    <p class="cost">
+							        <span id="totalRatePrice"></span>
+							    </p>
 							</div>
+							
+							<script type="text/javascript">
+							
+				                
+							</script>
+
 						</div>
-						<a class="btn btn-primary btn--m width-100">
-							<div class="wrap-svg">
-								<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-                                    <path
-										d="M12.9733 7.70015L8.46667 14.2668C8.29334 14.5268 8.01335 14.6668 7.71335 14.6668C7.62002 14.6668 7.52667 14.6535 7.43334 14.6268C7.05334 14.5068 6.79335 14.1668 6.79335 13.7735V10.0135C6.79335 9.86015 6.64667 9.72682 6.46667 9.72682L3.78001 9.6935C3.44001 9.6935 3.12668 9.50016 2.97335 9.20682C2.82668 8.92016 2.84668 8.5735 3.03335 8.30017L7.53335 1.7335C7.76001 1.40016 8.18001 1.25349 8.56668 1.37349C8.94668 1.49349 9.20668 1.83349 9.20668 2.22682V5.98683C9.20668 6.14017 9.35335 6.2735 9.53335 6.2735L12.22 6.30682C12.56 6.30682 12.8733 6.49349 13.0267 6.79349C13.1733 7.08016 13.1533 7.42682 12.9733 7.70015Z"
-										fill="#FFC634"></path>
-                                </svg>
-							</div>CHỌN THUÊ
-						</a>
-					</div>
-					<!-- modal -->
-					<div id="uniqueModal" class="unique-modal">
-						<div class="unique-modal-content">
-							<span class="unique-modal-close">&times;</span>
-							<h2>Chọn ngày và giờ nhận xe</h2>
-							<label for="modalDate">Chọn ngày:</label> <input type="date"
-								id="modalDate" name="modalDate" class="unique-modal-input"><br>
-							<br> <label for="modalTime">Chọn giờ:</label> <input
-								type="time" id="modalTime" name="modalTime"
-								class="unique-modal-input"><br>
-							<br>
-							<button id="saveDateTime" class="btn-unique-save">Lưu</button>
-						</div>
-					</div>
+						
+						<!-- Button -->
+						
+<a class="btn btn-primary btn--m width-100" id="rentButton" data-bs-toggle="modal" data-bs-target="#rentModal">
+    <div class="wrap-svg">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.9733 7.70015L8.46667 14.2668C8.29334 14.5268 8.01335 14.6668 7.71335 14.6668C7.62002 14.6668 7.52667 14.6535 7.43334 14.6268C7.05334 14.5068 6.79335 14.1668 6.79335 13.7735V10.0135C6.79335 9.86015 6.64667 9.72682 6.46667 9.72682L3.78001 9.6935C3.44001 9.6935 3.12668 9.50016 2.97335 9.20682C2.82668 8.92016 2.84668 8.5735 3.03335 8.30017L7.53335 1.7335C7.76001 1.40016 8.18001 1.25349 8.56668 1.37349C8.94668 1.49349 9.20668 1.83349 9.20668 2.22682V5.98683C9.20668 6.14017 9.35335 6.2735 9.53335 6.2735L12.22 6.30682C12.56 6.30682 12.8733 6.49349 13.0267 6.79349C13.1733 7.08016 13.1533 7.42682 12.9733 7.70015Z" fill="#FFC634"></path>
+        </svg>
+    </div>CHỌN THUÊ
+</a>
+
+
+ <!-- Modal -->
+                <div
+                  class="modal fade"
+                  id="rentModal"
+                  tabindex="-1"
+                  aria-labelledby="rentModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog modal-lg" style="max-width: 800px">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h2
+                          class="modal-title"
+                          id="rentModalLabel"
+                          style="font-size: 24px"
+                        >
+                          Thông tin thuê xe
+                        </h2>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <br />
+                        <div class="row">
+                          <div class="col-md-8">
+                            <div class="card mb-3" style="border-radius: 10px">
+                              <div class="card-body text-start">
+                                <h5
+                                  class="card-title text-center"
+                                  style="font-size: 23px"
+                                >
+                                  <strong>Thông tin cá nhân</strong>
+                                </h5>
+                                <p class="card-text" style="font-size: 18px">
+                                  <span>Họ Tên:</span>
+                                  <strong
+                                    th:text="${loggedAcc != null && loggedAcc.fullName != null && loggedAcc.fullName != '' ? loggedAcc.fullName : 'Chưa có tên'}"
+                                    id="fullName"
+                                  ></strong>
+                                </p>
+                                <p class="card-text" style="font-size: 18px">
+                                  <span>SĐT:</span>
+                                  <strong
+                                    th:text="${loggedAcc != null && loggedAcc.phoneNumber != null && loggedAcc.phoneNumber != '' ? loggedAcc.phoneNumber : 'Chưa có số điện thoại'}"
+                                    id="sdt"
+                                  ></strong>
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="card mb-3" style="border-radius: 10px">
+                              <div class="card-body text-start">
+                                <h5
+                                  class="card-title text-center"
+                                  style="font-size: 23px"
+                                >
+                                  <strong>Thông tin thuê xe</strong>
+                                </h5>
+                                <p class="card-text" style="font-size: 18px">
+                                  <span>Thời gian nhận xe:</span>
+                                  <strong id="pickupTime"></strong>
+                                </p>
+                                <p class="card-text" style="font-size: 18px">
+                                  <span>Thời gian trả xe:</span>
+                                  <strong id="returnTime"></strong>
+                                </p>
+                                <p class="card-text" style="font-size: 18px">
+                                  <span>Tổng số giờ thuê:</span>
+                                  <strong id="rentalHours"></strong>
+                                </p>
+                                <p class="card-text" style="font-size: 18px">
+                                  <span>Địa chỉ:</span>
+                                  <strong id="rentalAddress"></strong>
+                                </p>
+                                <p class="card-text" style="font-size: 18px">
+                                  <span>Mã giảm giá:</span>
+                                  <strong id="promoCode"></strong>
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="card mb-3" style="border-radius: 10px">
+                              <div class="card-body text-start">
+                                <h5
+                                  class="card-title text-center"
+                                  style="font-size: 23px"
+                                >
+                                  <strong>Ghi chú</strong>
+                                </h5>
+                                <textarea
+                                  id="rental-notes"
+                                  name="rental-notes"
+                                  rows="6"
+                                  style="
+                                    width: 100%;
+                                    resize: vertical;
+                                    border-radius: 5px;
+                                  "
+                                ></textarea>
+                              </div>
+                            </div>
+
+                            <div class="card mb-3" style="border-radius: 10px">
+                              <div class="card-body text-start">
+                                <h5
+                                  class="card-title text-center"
+                                  style="font-size: 23px"
+                                >
+                                  <strong>Thanh Toán</strong>
+                                </h5>
+                                <p class="card-text" style="font-size: 18px">
+                                  <span>Tổng thanh toán:</span>
+                                  <span
+                                    value="0"
+                                    id="finalRentRate"
+                                    class="text-danger fw-bold"
+                                  ></span>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4 text-center">
+                            <div class="card mb-3" style="border-radius: 10px">
+                              <div class="card-body text-start">
+                                <h5 class="card-title" style="font-size: 20px">
+                                  <strong>Hình thức thanh toán</strong>
+                                </h5>
+                                <div class="form-check form-check-inline">
+                                  <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="paymentOption"
+                                    id="postpay"
+                                    value="postpay"
+                                    checked
+                                  />
+                                  <label class="form-check-label" for="postpay"
+                                    >Trả trước</label
+                                  >
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="paymentOption"
+                                    id="prepay"
+                                    value="prepay"
+                                  />
+                                  <label class="form-check-label" for="prepay"
+                                    >Trả sau</label
+                                  >
+                                </div>
+                                <br />
+                                <br />
+
+                                <div id="prepay-panel" style="display: none">
+                                  <h6>Đây là nội dung trả sau</h6>
+                                </div>
+
+                                <div id="payment-type-panel">
+                                  <div class="form-check form-check-inline">
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      name="paymentType"
+                                      id="cod-payment"
+                                      value="COD"
+                                      checked
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      for="cod-payment"
+                                      >Thanh toán tiền mặt
+                                    </label>
+                                  </div>
+
+                                  <div class="form-check form-check-inline">
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      name="paymentType"
+                                      id="zalo-payment"
+                                      value="ZaloPay"
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      for="zalo-payment"
+                                      >Thanh toán Zalo pay</label
+                                    >
+                                  </div>
+
+                                  <div class="form-check form-check-inline">
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      name="paymentType"
+                                      id="vnpay-payment"
+                                      value="VNPay"
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      for="vnpay-payment"
+                                      >Thanh toán VNPay</label
+                                    >
+                                  </div>
+                                </div>
+
+                                <br />
+                                <br />
+
+                                <div id="postpayMessage" style="display: none">
+                                  <p class="text-warning">
+                                    Lưu ý: Bạn sẽ thanh toán sau khi trả xe. Hãy
+                                    chắc chắn rằng bạn đã hoàn tất việc trả xe
+                                    đúng giờ.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Đóng
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          id="confirmRentButton"
+                        >
+                          Xác nhận thuê
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <script th:inline="javascript">
+                  document.addEventListener("DOMContentLoaded", () => {
+                    // Constants
+                    const CONSTANTS = {
+                      BANK: {
+                        ID: "MB",
+                        ACCOUNT_NO: "3666116122004",
+                        ACCOUNT_NAME: "RENTALCAR",
+                      },
+                      RENTAL: {
+                        MIN_HOURS: 2,
+                        MAX_DAYS: 30,
+                        get MAX_HOURS() {
+                          return this.MAX_DAYS * 24;
+                        },
+                      },
+                      ADDRESS: {
+                        MIN_LENGTH: 10,
+                        MAX_LENGTH: 200,
+                      },
+                      NOTES_MAX_LENGTH: 500,
+                      API_ENDPOINTS: {
+                        RENTAL: "http://localhost:8080/api/rental",
+                        RENTAL_VEHICLE:
+                          "http://localhost:8080/api/rental-vehicle",
+                        RENTAL_PAYMENT: "http://localhost:8080/api/payment",
+                      },
+                    };
+
+                    // Helper Functions
+                    const DOM = {
+                      get: (id) => document.getElementById(id),
+                      getValue: (id, defaultValue = "") =>
+                        DOM.get(id)?.value.trim() || defaultValue,
+                      getText: (id, defaultValue = "") =>
+                        DOM.get(id)?.textContent.trim() || defaultValue,
+                      formatDate: (isoString) =>
+                        moment(isoString).format("YYYY-MM-DD HH:mm:ss"),
+                    };
+
+                    class RentalFormHandler {
+                      constructor() {
+                        this.initializeElements();
+                        this.initializeEventListeners();
+                      }
+
+                      initializeElements() {
+                        this.elements = {
+                          rentButton: DOM.get("rentButton"),
+                          rentModal: DOM.get("rentModal"),
+                          prepayRadio: DOM.get("prepay"),
+                          postpayRadio: DOM.get("postpay"),
+                          paymentTypePanel: DOM.get("payment-type-panel"),
+                          prepayPanel: DOM.get("prepay-panel"),
+
+                          // qrContainer: document.querySelector(".qr-code-container"),
+                          postpayMessage: DOM.get("postpayMessage"),
+                          confirmRentButton: DOM.get("confirmRentButton"),
+                          // qrImage: DOM.get("qrImage"),
+                          qrText: DOM.get("qrText"),
+                        };
+                      }
+
+                      initializeEventListeners() {
+                        const {
+                          prepayRadio,
+                          postpayRadio,
+                          rentButton,
+                          confirmRentButton,
+                        } = this.elements;
+                        prepayRadio?.addEventListener("change", () =>
+                          this.togglePaymentUI(true)
+                        );
+                        postpayRadio?.addEventListener("change", () =>
+                          this.togglePaymentUI(false)
+                        );
+                        rentButton?.addEventListener("click", () =>
+                          this.handleRentButtonClick()
+                        );
+                        confirmRentButton?.addEventListener("click", () =>
+                          this.handleConfirmRent()
+                        );
+                      }
+
+                      togglePaymentUI(isPostPay) {
+                        const {
+                          paymentTypePanel,
+                          prepayPanel,
+                          postpayMessage,
+                        } = this.elements;
+
+                        if (isPostPay) {
+                          paymentTypePanel.style.display = "none";
+                          postpayMessage.style.display = "block";
+                        } else {
+                          paymentTypePanel.style.display = "block";
+                          postpayMessage.style.display = "none";
+                        }
+                      }
+                      validateDateTime(pickupDT, returnDT) {
+                        const pickup = new Date(pickupDT);
+                        const return_ = new Date(returnDT);
+                        const now = new Date();
+                        const diffHours = (return_ - pickup) / 3600000;
+
+                        if (pickup < now) {
+                          throw new Error(
+                            "Thời gian đặt xe không thể ở quá khứ"
+                          );
+                        }
+                        if (return_ <= pickup) {
+                          throw new Error(
+                            "Thời gian trả xe phải sau thời gian đặt xe"
+                          );
+                        }
+                        if (
+                          diffHours < CONSTANTS.RENTAL.MIN_HOURS ||
+                          diffHours > CONSTANTS.RENTAL.MAX_HOURS
+                        ) {
+                          throw new Error(
+                            `Thời gian thuê từ ${CONSTANTS.RENTAL.MIN_HOURS} giờ đến ${CONSTANTS.RENTAL.MAX_DAYS} ngày`
+                          );
+                        }
+                      }
+
+                      validateAddress(address) {
+                        const { MIN_LENGTH, MAX_LENGTH } = CONSTANTS.ADDRESS;
+                        if (
+                          !address ||
+                          address.length < MIN_LENGTH ||
+                          address.length > MAX_LENGTH
+                        ) {
+                          throw new Error(
+                            `Địa chỉ từ ${MIN_LENGTH} đến ${MAX_LENGTH} ký tự`
+                          );
+                        }
+                      }
+
+                      validateRentalData(data) {
+                        if (!data.account.accountId) {
+                          throw new Error("Vui lòng đăng nhập để tiếp tục");
+                        }
+                        this.validateDateTime(data.rentalDate, data.returnDate);
+                        this.validateAddress(data.rentalLocations);
+                        if (
+                          data.notes &&
+                          data.notes.length > CONSTANTS.NOTES_MAX_LENGTH
+                        ) {
+                          throw new Error(
+                            `Ghi chú không quá ${CONSTANTS.NOTES_MAX_LENGTH} ký tự`
+                          );
+                        }
+                      }
+
+                      generateBookingCode(
+                        motorbikeId,
+                        accId,
+                        fullName,
+                        pickupDateTime,
+                        rentalHours
+                      ) {
+                        const normalizedName = fullName
+                          .normalize("NFD")
+                          .replace(/[\u0300-\u036f\s]/g, "")
+                          .toUpperCase();
+                        const pickupFormatted =
+                          moment(pickupDateTime).format("YYMMDD");
+                        return `RC${String(motorbikeId).padStart(
+                          4,
+                          "0"
+                        )}A${accId}${normalizedName}${pickupFormatted}T${Math.floor(
+                          rentalHours
+                        )}`;
+                      }
+
+                      collectRentalData() {
+                    	  const logAccId = /*[[${loggedAcc != null ? loggedAcc.accountId : 0}]]*/ 0;
+                    	  const notesElement = document.getElementById("rental-notes");
+                    	  const notesValue = notesElement ? notesElement.value.trim() : "";
+
+                    	  // Lấy giá trị selectedDiscountValue
+                    	  const discountValue = DOM.getValue("selectedDiscountValue");
+                    	  const discount = discountValue ? { discountId: Number(discountValue) } : null;
+
+                    	  return {
+                    	    account: { accountId: logAccId },
+                    	    rentalDate: new Date(
+                    	      `${DOM.getValue("modalPickUpDate")} ${DOM.getValue("modalPickUpTime")} GMT+07:00`
+                    	    ).toISOString(),
+                    	    returnDate: new Date(
+                    	      `${DOM.getValue("modalReturnDate")} ${DOM.getValue("modalReturnTime")} GMT+07:00`
+                    	    ).toISOString(),
+                    	    totalCost: Number(DOM.getText("totalRatePrice").replace(/\D/g, "")),
+                    	    renStatus: "Chờ xác nhận",
+                    	    discount: discount, // Truyền null nếu discountValue không tồn tại
+                    	    haveDriver: false,
+                    	    rentalLocations: DOM.getValue("address-input"),
+                    	    notes: notesValue,
+                    	  };
+                    	}
+
+                      updateModalContent(rentalData) {
+                        DOM.get("pickupTime").textContent = DOM.formatDate(
+                          rentalData.rentalDate
+                        );
+                        DOM.get("returnTime").textContent = DOM.formatDate(
+                          rentalData.returnDate
+                        );
+                        DOM.get("finalRentRate").textContent =
+                          DOM.getText("totalRatePrice");
+                        DOM.get("rentalAddress").textContent =
+                          rentalData.rentalLocations;
+
+                        const selectedPromoCode = document.querySelector(
+                          ".selected-promo-code"
+                        );
+                        const selectedPromoDescription = document.querySelector(
+                          ".selected-promo-description"
+                        );
+                        const promoText =
+                          selectedPromoCode && selectedPromoDescription
+                            ? `${selectedPromoCode.textContent} - ${selectedPromoDescription.textContent}`
+                            : null;
+
+                        DOM.get("rentalHours").textContent =
+                          DOM.getText("totalRentalHours");
+                        DOM.get("promoCode").textContent = promoText;
+
+                        console.log("rentalData: ", rentalData);
+                      }
+
+                      async makeApiRequest(endpoint, data, errorMessage) {
+                    	  console.log("Data gửi đi:", JSON.stringify(data));
+
+                    	  try {
+                    	    const response = await fetch(endpoint, {
+                    	      method: "POST",
+                    	      headers: { "Content-Type": "application/json" },
+                    	      body: JSON.stringify(data),
+                    	    });
+
+                    	    // Kiểm tra nếu response không phải JSON
+                    	    const contentType = response.headers.get("Content-Type");
+                    	    if (!contentType || !contentType.includes("application/json")) {
+                    	      const text = await response.text(); // Đọc văn bản thô từ response
+                    	      throw new Error(`Server Error: ${text || "Invalid response format"}`);
+                    	    }
+
+                    	    if (!response.ok) {
+                    	      const errorData = await response.json();
+                    	      throw new Error(errorData.message || errorMessage);
+                    	    }
+
+                    	    return await response.json();
+                    	  } catch (error) {
+                    	    console.error("API Request Error:", error.message);
+                    	    throw new Error(`${errorMessage}: ${error.message}`);
+                    	  }
+                    	}
+
+
+                      async postRentalVehicle(rentalId, motorbikeId) {
+                        const rentalVehicleData = {
+                          rental: { rentalId },
+                          car: null,
+                          motorbike: { motorbikeId },
+                          vehicleType: "motobike",
+                          haveDriver: false
+                        };
+
+                        console.log("rentalVehicleData: ", rentalVehicleData);
+
+                        return this.makeApiRequest(
+                          CONSTANTS.API_ENDPOINTS.RENTAL_VEHICLE,
+                          rentalVehicleData,
+                          "Có lỗi xảy ra khi lưu thông tin rentalVehicle"
+                        );
+                      }
+
+                      async postRentalPayment(
+                        rentalId,
+                        amount,
+                        paymentMethod,
+                        idQrcode,
+                        paymentType
+                      ) {
+                        const paymentData = {
+                          rental: { rentalId },
+                          paymentDate: new Date().toISOString().split("T")[0],
+                          amount,
+                          paymentMethod,
+                          idQrCode: idQrcode, // Đảm bảo tên trường khớp với backend
+                          paymentType,
+                        };
+
+                        console.log(
+                          "postRentalPayment data: ",
+                          paymentData.paymentType
+                        ); // Sửa lỗi consolid thành console.log
+
+                        return this.makeApiRequest(
+                          CONSTANTS.API_ENDPOINTS.RENTAL_PAYMENT,
+                          paymentData,
+                          "Có lỗi xảy ra khi lưu thông tin thanh toán"
+                        );
+                      }
+
+                      async handleRentButtonClick() {
+                        const fullName = DOM.getText("fullName");
+                        if (fullName === "Chưa có tên") {
+                          alert("Vui lòng đăng nhập để tiếp tục.");
+                          window.location.href = "/login";
+                          return;
+                        }
+
+                        try {
+                          const rentalData = this.collectRentalData();
+                          this.updateModalContent(rentalData);
+                          const bookingCode = this.generateBookingCode(
+                            rentalData.motorbikeId || 0,
+                            rentalData.account.accountId || 0,
+                            fullName || "User",
+                            rentalData.rentalDate,
+                            DOM.getText("totalRentalHours")
+                          );
+
+                          const { BANK } = CONSTANTS;
+                          // this.elements.qrImage.src =
+                          // `https://img.vietqr.io/image/${BANK.ID}-${BANK.ACCOUNT_NO}-compact2.png?amount=${rentalData.totalCost}&addInfo=${bookingCode}&accountName=${BANK.ACCOUNT_NAME}`;
+                          //this.elements.qrText.textContent = bookingCode;
+                        } catch (error) {
+                          alert(error.message);
+                        }
+                      }
+
+                      async handleConfirmRent() {
+                        //  if (!confirm("Hãy chắc chắn rằng bạn đã thanh toán nếu chọn trả trước!")) {
+                        //     return;
+                        //}
+
+                        try {
+                          const rentalData = this.collectRentalData();
+                          console.log("rentalData : " + rentalData);
+
+                          this.validateRentalData(rentalData);
+
+                          // Lấy motorbikeId từ document hoặc data attribute để đảm bảo giá trị luôn tồn tại
+                          const motorbikeId = /*[[${motorbike.motorbikeId}]]*/ 0;
+                          const fullName = DOM.getText("fullName") || "User";
+
+                          // Tạo booking code
+                          const bookingCode = this.generateBookingCode(
+                            motorbikeId,
+                            rentalData.account.accountId,
+                            fullName,
+                            rentalData.rentalDate,
+                            DOM.getText("totalRentalHours")
+                          );
+
+                          // Lưu thông tin thuê xe error
+                          const rental = await this.makeApiRequest(
+                            CONSTANTS.API_ENDPOINTS.RENTAL,
+                            rentalData,
+                            "Có lỗi xảy ra khi lưu thông tin thuê xe"
+                          );
+
+                          console.log(
+                            "result retal save : " + rental.toString()
+                          );
+
+                          await this.postRentalVehicle(rental.rentalId, motorbikeId);
+
+                          // Xử lý thanh toán
+                          const paymentMethod = this.elements.prepayRadio
+                            .checked
+                            ? "prePayment"
+                            : "postPayment";
+                          const paymentType = document.querySelector(
+                            'input[name="paymentType"]:checked'
+                          ).value;
+
+                          const paymentResult = await this.postRentalPayment(
+                            rental.rentalId,
+                            rentalData.totalCost,
+                            paymentMethod,
+                            bookingCode,
+                            paymentType
+                          );
+
+                          paymentResult.message.includes("https://")
+                            ? (window.location.href = paymentResult.message)
+                            : (window.location.href =
+                                "http://localhost:8080/account");
+
+                          alert("Đăng ký thuê xe thành công!");
+                          bootstrap.Modal.getInstance(
+                            this.elements.rentModal
+                          ).hide();
+                        } catch (error) {
+                          alert(error.message);
+                        }
+                      }
+                    }
+
+                    // Initialize the form handler
+                    new RentalFormHandler();
+                  });
+                </script>
+              </div>
+					
 
 					<div class="surcharge">
 						<p class="title text-primary">Phụ phí có thể phát sinh</p>
@@ -1023,171 +1854,25 @@
 
 		</div>
 	</div>
+	
 	<!-- footer -->
 	<div class="footer">
-		<div class="container">
-			<div class="footer-row one">
-				<div class="footer-col">
-					<div class="footer-logo">
-						<img src="./assets/images/logoFooter.png" alt="" />
-					</div>
-					<div class="row">
-						<span>1900 0000</span>
-						<p>Tổng đài hỗ trợ: 7AM - 10PM</p>
-					</div>
-					<div class="row">
-						<span>contactrentalcar@gmail.com</span>
-						<p>Gửi mail cho RENTALCAR</p>
-					</div>
-					<div class="footer-contact">
-						<!--Facebook-->
-						<a class="wrap-svg" target="_blank" href="#"><svg width="24"
-								height="24" viewBox="0 0 24 24" fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-                                <path
-									d="M11.94 21.2501V14.1601H9.5V11.4301H11.94V9.43012C11.94 8.31012 12.22 7.47012 12.86 6.83012C13.5 6.19012 14.34 5.87012 15.42 5.87012C16.22 5.87012 16.94 5.91012 17.5 5.99012V8.39012H16.06C15.54 8.39012 15.18 8.51012 14.98 8.75012C14.82 8.99012 14.74 9.31012 14.74 9.71012V11.4301H17.51L17.15 14.1601H14.75V21.2501"
-									stroke="black" stroke-width="1.5" stroke-linecap="round"
-									stroke-linejoin="round">
-                                </path>
-                                <path
-									d="M17.14 21.25H6.86C4.59 21.25 2.75 19.41 2.75 17.14V6.86C2.75 4.59 4.59 2.75 6.86 2.75H17.14C19.41 2.75 21.25 4.59 21.25 6.86V17.14C21.25 19.41 19.41 21.25 17.14 21.25Z"
-									stroke="black" stroke-width="1.5" stroke-linecap="round"
-									stroke-linejoin="round">
-                                </path>
-                                <!--TikTok-->
-                            </svg></a><a class="wrap-svg" target="_blank" href="#"><svg
-								width="24" height="24" viewBox="0 0 24 24" fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-                                <path
-									d="M9.75999 12.69C8.27999 12.69 7.04999 13.92 7.04999 15.4C7.04999 16.88 8.27999 18.11 9.75999 18.11C11.24 18.11 12.47 16.88 12.47 15.4V2.75H15.65C15.65 2.79 15.65 2.79 15.65 2.82C15.65 3.07 15.65 3.33 15.72 3.58C15.94 4.77 16.66 5.82 17.67 6.47C18.36 6.94 19.19 7.19 20.05 7.19C20.05 7.19 20.05 7.19 20.09 7.19V10.33H20.05C18.39 10.33 16.87 9.82 15.64 8.92V15.39C15.64 18.64 13 21.24 9.74999 21.24C6.49999 21.24 3.89999 18.64 3.89999 15.39C3.89999 12.14 6.49999 9.5 9.74999 9.5V12.69H9.75999Z"
-									stroke="black" stroke-width="1.5" stroke-linecap="round"
-									stroke-linejoin="round">
-                                </path>
-                                <!--Zalo-->
-                            </svg></a><a class="wrap-svg" target="_blank" href="#"><svg
-								width="24" height="24" viewBox="0 0 24 24" fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-                                <mask id="path-1-outside-1_6394_301594"
-									maskUnits="userSpaceOnUse" x="0.919998" y="0.919922" width="22"
-									height="22" fill="black">
-                                    <rect fill="white" x="0.919998"
-									y="0.919922" width="22" height="22"></rect>
-                                    <path
-									d="M4.32 1.91992C3.00023 1.91992 1.92 3.00015 1.92 4.31992V19.6799C1.92 20.9997 3.00023 22.0799 4.32 22.0799H19.68C20.999822.0799 22.08 20.9997 22.08 19.6799V4.31992C22.08 3.00015 20.9998 1.91992 19.68 1.91992H4.32ZM4.32 2.87992H7.47656C5.81666 4.60701 4.8 6.87526 4.8 9.35992C4.8 11.9334 5.88871 14.2792 7.65562 16.0265C7.5914 15.9653 7.67454 16.0717 7.68281 16.2599C7.69134 16.4542 7.66209 16.7212 7.58344 16.9855C7.42613 17.5143 7.09711 18.0017 6.56812 18.178C6.46765 18.2115 6.38107 18.2773 6.32187 18.3651C6.26266 18.4529 6.23416 18.5578 6.24079 18.6635C6.24742 18.7692 6.28882 18.8698 6.35854 18.9495C6.42826 19.0292 6.52238 19.0836 6.62625 19.1043C7.95091 19.3692 8.8879 18.9704 9.57844 18.6534C10.269 18.3363 10.6421 18.123 11.34 18.4049L11.3456 18.4068C12.6523 18.9176 14.091 19.1999 15.6 19.1999C17.6147 19.1999 19.503 18.6965 21.12 17.819V19.6799C21.12 20.4808 20.4809 21.1199 19.68 21.1199H4.32C3.51913 21.1199 2.88 20.4808 2.88 19.6799V4.31992C2.88 3.51905 3.51913 2.87992 4.32 2.87992ZM8.87812 2.87992H19.68C20.4809 2.87992 21.12 3.51905 21.12 4.31992V16.7062C19.5489 17.67 17.6518 18.2399 15.6 18.2399C14.2129 18.2399 12.8945 17.9804 11.7 17.5143C10.6857 17.1046 9.85955 17.4677 9.17812 17.7805C8.80908 17.95 8.44498 18.0908 8.03344 18.1687C8.23704 17.8784 8.4112 17.5683 8.50312 17.2593C8.61173 16.8942 8.65588 16.5367 8.64187 16.2177C8.62791 15.8998 8.60013 15.6087 8.33156 15.3449L8.33062 15.344C6.72812 13.7593 5.76 11.6633 5.76 9.35992C5.76 6.80508 6.95336 4.50598 8.87812 2.87992ZM15.8325 7.19336C15.7054 7.19535 15.5842 7.2477 15.4956 7.33892C15.407 7.43014 15.3583 7.55278 15.36 7.67992V11.9999C15.3591 12.0635 15.3708 12.1267 15.3946 12.1857C15.4183 12.2447 15.4535 12.2984 15.4982 12.3437C15.5428 12.389 15.596 12.425 15.6547 12.4496C15.7134 12.4741 15.7764 12.4868 15.84 12.4868C15.9036 12.4868 15.9666 12.4741 16.0253 12.4496C16.084 12.425 16.1372 12.389 16.1818 12.3437C16.2265 12.2984 16.2617 12.2447 16.2854 12.1857C16.3091 12.1267 16.3209 12.0635 16.32 11.9999V7.67992C16.3209 7.6157 16.3089 7.55196 16.2847 7.49247C16.2605 7.43298 16.2246 7.37895 16.1791 7.33358C16.1337 7.28821 16.0796 7.25242 16.02 7.22833C15.9605 7.20425 15.8967 7.19236 15.8325 7.19336ZM8.64 7.67992C8.57639 7.67902 8.51324 7.69077 8.45422 7.71449C8.39519 7.73821 8.34147 7.77342 8.29617 7.81808C8.25088 7.86275 8.21491 7.91597 8.19036 7.97465C8.1658 8.03333 8.15316 8.09631 8.15316 8.15992C8.15316 8.22353 8.1658 8.28651 8.19036 8.3452C8.21491 8.40388 8.25088 8.4571 8.29617 8.50176C8.34147 8.54642 8.39519 8.58163 8.45422 8.60535C8.51324 8.62907 8.57639 8.64082 8.64 8.63992H10.1747L8.23312 11.7459C8.18782 11.8185 8.16277 11.9019 8.16057 11.9875C8.15837 12.0731 8.17909 12.1577 8.22059 12.2326C8.2621 12.3075 8.32287 12.3699 8.39661 12.4134C8.47036 12.4569 8.55439 12.4798 8.64 12.4799H11.04C11.1036 12.4808 11.1668 12.4691 11.2258 12.4454C11.2848 12.4216 11.3385 12.3864 11.3838 12.3418C11.4291 12.2971 11.4651 12.2439 11.4896 12.1852C11.5142 12.1265 11.5268 12.0635 11.5268 11.9999C11.5268 11.9363 11.5142 11.8733 11.4896 11.8146C11.4651 11.756 11.4291 11.7027 11.3838 11.6581C11.3385 11.6134 11.2848 11.5782 11.2258 11.5545C11.1668 11.5308 11.1036 11.519 11.04 11.5199H9.50531L11.4469 8.41398C11.4922 8.34134 11.5172 8.25791 11.5194 8.17232C11.5216 8.08674 11.5009 8.00213 11.4594 7.92725C11.4179 7.85237 11.3571 7.78995 11.2834 7.74647C11.2096 7.70298 11.1256 7.68 11.04 7.67992H8.64ZM14.3925 9.11336C14.3138 9.11475 14.2366 9.13549 14.1677 9.17374C14.0989 9.212 14.0406 9.2666 13.9978 9.33273C13.759 9.20158 13.4897 9.11992 13.2 9.11992C12.2778 9.11992 11.52 9.87777 11.52 10.7999C11.52 11.7221 12.2778 12.4799 13.2 12.4799C13.4894 12.4799 13.7582 12.398 13.9969 12.2671C14.0534 12.3546 14.1369 12.4213 14.2347 12.4572C14.3325 12.493 14.4393 12.4961 14.539 12.4659C14.6387 12.4358 14.7259 12.374 14.7874 12.2899C14.8489 12.2059 14.8814 12.1041 14.88 11.9999V10.7999V9.59992C14.8809 9.5357 14.8689 9.47196 14.8447 9.41247C14.8205 9.35298 14.7846 9.29895 14.7391 9.25358C14.6937 9.20821 14.6396 9.17242 14.58 9.14833C14.5205 9.12425 14.4567 9.11236 14.3925 9.11336ZM18.48 9.11992C17.5578 9.11992 16.8 9.87777 16.8 10.7999C16.8 11.7221 17.5578 12.4799 18.48 12.4799C19.4022 12.4799 20.16 11.7221 20.16 10.7999C20.16 9.87777 19.4022 9.11992 18.48 9.11992ZM13.2 10.0799C13.6033 10.0799 13.92 10.3966 13.92 10.7999C13.92 11.2033 13.6033 11.5199 13.2 11.5199C12.7967 11.5199 12.48 11.2033 12.48 10.7999C12.48 10.3966 12.7967 10.0799 13.2 10.0799ZM18.48 10.0799C18.8833 10.0799 19.2 10.3966 19.2 10.7999C19.2 11.2033 18.8833 11.5199 18.48 11.5199C18.0767 11.5199 17.76 11.2033 17.76 10.7999C17.76 10.3966 18.0767 10.0799 18.48 10.0799Z">
-                                    </path>
-                                </mask>
-                                <path
-									d="M4.32 1.91992C3.00023 1.91992 1.92 3.00015 1.92 4.31992V19.6799C1.92 20.9997 3.00023 22.0799 4.32 22.0799H19.68C20.9998 22.0799 22.08 20.9997 22.08 19.6799V4.31992C22.08 3.00015 20.9998 1.91992 19.68 1.91992H4.32ZM4.32 2.87992H7.47656C5.81666 4.60701 4.8 6.87526 4.8 9.35992C4.8 11.9334 5.88871 14.2792 7.65562 16.0265C7.5914 15.9653 7.67454 16.0717 7.68281 16.2599C7.69134 16.4542 7.66209 16.7212 7.58344 16.9855C7.42613 17.5143 7.09711 18.0017 6.56812 18.178C6.46765 18.2115 6.38107 18.2773 6.32187 18.3651C6.26266 18.4529 6.23416 18.5578 6.24079 18.6635C6.24742 18.7692 6.28882 18.8698 6.35854 18.9495C6.42826 19.0292 6.52238 19.0836 6.62625 19.1043C7.95091 19.3692 8.8879 18.9704 9.57844 18.6534C10.269 18.3363 10.6421 18.123 11.34 18.4049L11.3456 18.4068C12.6523 18.9176 14.091 19.1999 15.6 19.1999C17.6147 19.1999 19.503 18.6965 21.12 17.819V19.6799C21.12 20.4808 20.4809 21.1199 19.68 21.1199H4.32C3.51913 21.1199 2.88 20.4808 2.88 19.6799V4.31992C2.88 3.51905 3.51913 2.87992 4.32 2.87992ZM8.87812 2.87992H19.68C20.4809 2.87992 21.12 3.51905 21.12 4.31992V16.7062C19.5489 17.67 17.6518 18.2399 15.6 18.2399C14.2129 18.2399 12.8945 17.9804 11.7 17.5143C10.6857 17.1046 9.85955 17.4677 9.17812 17.7805C8.80908 17.95 8.44498 18.0908 8.03344 18.1687C8.23704 17.8784 8.4112 17.5683 8.50312 17.2593C8.61173 16.8942 8.65588 16.5367 8.64187 16.2177C8.62791 15.8998 8.60013 15.6087 8.33156 15.3449L8.33062 15.344C6.72812 13.7593 5.76 11.6633 5.76 9.35992C5.76 6.80508 6.95336 4.50598 8.87812 2.87992ZM15.8325 7.19336C15.7054 7.19535 15.5842 7.2477 15.4956 7.33892C15.407 7.43014 15.3583 7.55278 15.36 7.67992V11.9999C15.3591 12.0635 15.3708 12.1267 15.3946 12.1857C15.4183 12.2447 15.4535 12.2984 15.4982 12.3437C15.5428 12.389 15.596 12.425 15.6547 12.4496C15.7134 12.4741 15.7764 12.4868 15.84 12.4868C15.9036 12.4868 15.9666 12.4741 16.0253 12.4496C16.084 12.425 16.1372 12.389 16.1818 12.3437C16.2265 12.2984 16.2617 12.2447 16.2854 12.1857C16.3091 12.1267 16.3209 12.0635 16.32 11.9999V7.67992C16.3209 7.6157 16.3089 7.55196 16.2847 7.49247C16.2605 7.43298 16.2246 7.37895 16.1791 7.33358C16.1337 7.28821 16.0796 7.25242 16.02 7.22833C15.9605 7.20425 15.8967 7.19236 15.8325 7.19336ZM8.64 7.67992C8.57639 7.67902 8.51324 7.69077 8.45422 7.71449C8.39519 7.73821 8.34147 7.77342 8.29617 7.81808C8.25088 7.86275 8.21491 7.91597 8.19036 7.97465C8.1658 8.03333 8.15316 8.09631 8.15316 8.15992C8.15316 8.22353 8.1658 8.28651 8.19036 8.3452C8.21491 8.40388 8.25088 8.4571 8.29617 8.50176C8.34147 8.54642 8.39519 8.58163 8.45422 8.60535C8.51324 8.62907 8.57639 8.64082 8.64 8.63992H10.1747L8.23312 11.7459C8.18782 11.8185 8.16277 11.9019 8.16057 11.9875C8.15837 12.0731 8.17909 12.1577 8.22059 12.2326C8.2621 12.3075 8.32287 12.3699 8.39661 12.4134C8.47036 12.4569 8.55439 12.4798 8.64 12.4799H11.04C11.1036 12.4808 11.1668 12.4691 11.2258 12.4454C11.2848 12.4216 11.3385 12.3864 11.3838 12.3418C11.4291 12.2971 11.4651 12.2439 11.4896 12.1852C11.5142 12.1265 11.5268 12.0635 11.5268 11.9999C11.5268 11.9363 11.5142 11.8733 11.4896 11.8146C11.4651 11.756 11.4291 11.7027 11.3838 11.6581C11.3385 11.6134 11.2848 11.5782 11.2258 11.5545C11.1668 11.5308 11.1036 11.519 11.04 11.5199H9.50531L11.4469 8.41398C11.4922 8.34134 11.5172 8.25791 11.5194 8.17232C11.5216 8.08674 11.5009 8.00213 11.4594 7.92725C11.4179 7.85237 11.3571 7.78995 11.2834 7.74647C11.2096 7.70298 11.1256 7.68 11.04 7.67992H8.64ZM14.3925 9.11336C14.3138 9.11475 14.2366 9.13549 14.1677 9.17374C14.0989 9.212 14.0406 9.2666 13.9978 9.33273C13.759 9.20158 13.4897 9.11992 13.2 9.11992C12.2778 9.11992 11.52 9.87777 11.52 10.7999C11.52 11.7221 12.2778 12.4799 13.2 12.4799C13.4894 12.4799 13.7582 12.398 13.9969 12.2671C14.0534 12.3546 14.1369 12.4213 14.2347 12.4572C14.3325 12.493 14.4393 12.4961 14.539 12.4659C14.6387 12.4358 14.7259 12.374 14.7874 12.2899C14.8489 12.2059 14.8814 12.1041 14.88 11.9999V10.7999V9.59992C14.8809 9.5357 14.8689 9.47196 14.8447 9.41247C14.8205 9.35298 14.7846 9.29895 14.7391 9.25358C14.6937 9.20821 14.6396 9.17242 14.58 9.14833C14.5205 9.12425 14.4567 9.11236 14.3925 9.11336ZM18.48 9.11992C17.5578 9.11992 16.8 9.87777 16.8 10.7999C16.8 11.7221 17.5578 12.4799 18.48 12.4799C19.4022 12.4799 20.16 11.7221 20.16 10.7999C20.16 9.87777 19.4022 9.11992 18.48 9.11992ZM13.2 10.0799C13.6033 10.0799 13.92 10.3966 13.92 10.7999C13.92 11.2033 13.6033 11.5199 13.2 11.5199C12.7967 11.5199 12.48 11.2033 12.48 10.7999C12.48 10.3966 12.7967 10.0799 13.2 10.0799ZM18.48 10.0799C18.8833 10.0799 19.2 10.3966 19.2 10.7999C19.2 11.2033 18.8833 11.5199 18.48 11.5199C18.0767 11.5199 17.76 11.2033 17.76 10.7999C17.76 10.3966 18.0767 10.0799 18.48 10.0799Z"
-									fill="black"></path>
-                                <path
-									d="M4.32 1.91992C3.00023 1.91992 1.92 3.00015 1.92 4.31992V19.6799C1.92 20.9997 3.00023 22.0799 4.32 22.0799H19.68C20.9998 22.0799 22.08 20.9997 22.08 19.6799V4.31992C22.08 3.00015 20.9998 1.91992 19.68 1.91992H4.32ZM4.32 2.87992H7.47656C5.81666 4.60701 4.8 6.87526 4.8 9.35992C4.8 11.9334 5.88871 14.2792 7.65562 16.0265C7.5914 15.9653 7.67454 16.0717 7.68281 16.2599C7.69134 16.4542 7.66209 16.7212 7.58344 16.9855C7.42613 17.5143 7.09711 18.0017 6.56812 18.178C6.46765 18.2115 6.38107 18.2773 6.32187 18.3651C6.26266 18.4529 6.23416 18.5578 6.24079 18.6635C6.24742 18.7692 6.28882 18.8698 6.35854 18.9495C6.42826 19.0292 6.52238 19.0836 6.62625 19.1043C7.95091 19.3692 8.8879 18.9704 9.57844 18.6534C10.269 18.3363 10.6421 18.123 11.34 18.4049L11.3456 18.4068C12.6523 18.9176 14.091 19.1999 15.6 19.1999C17.6147 19.1999 19.503 18.6965 21.12 17.819V19.6799C21.12 20.4808 20.4809 21.1199 19.68 21.1199H4.32C3.51913 21.1199 2.88 20.4808 2.88 19.6799V4.31992C2.88 3.51905 3.51913 2.87992 4.32 2.87992ZM8.87812 2.87992H19.68C20.4809 2.87992 21.12 3.51905 21.12 4.31992V16.7062C19.5489 17.67 17.6518 18.2399 15.6 18.2399C14.2129 18.2399 12.8945 17.9804 11.7 17.5143C10.6857 17.1046 9.85955 17.4677 9.17812 17.7805C8.80908 17.95 8.44498 18.0908 8.03344 18.1687C8.23704 17.8784 8.4112 17.5683 8.50312 17.2593C8.61173 16.8942 8.65588 16.5367 8.64187 16.2177C8.62791 15.8998 8.60013 15.6087 8.33156 15.3449L8.33062 15.344C6.72812 13.7593 5.76 11.6633 5.76 9.35992C5.76 6.80508 6.95336 4.50598 8.87812 2.87992ZM15.8325 7.19336C15.7054 7.19535 15.5842 7.2477 15.4956 7.33892C15.407 7.43014 15.3583 7.55278 15.36 7.67992V11.9999C15.3591 12.0635 15.3708 12.1267 15.3946 12.1857C15.4183 12.2447 15.4535 12.2984 15.4982 12.3437C15.5428 12.389 15.596 12.425 15.6547 12.4496C15.7134 12.4741 15.7764 12.4868 15.84 12.4868C15.9036 12.4868 15.9666 12.4741 16.0253 12.4496C16.084 12.425 16.1372 12.389 16.1818 12.3437C16.2265 12.2984 16.2617 12.2447 16.2854 12.1857C16.3091 12.1267 16.3209 12.0635 16.32 11.9999V7.67992C16.3209 7.6157 16.3089 7.55196 16.2847 7.49247C16.2605 7.43298 16.2246 7.37895 16.1791 7.33358C16.1337 7.28821 16.0796 7.25242 16.02 7.22833C15.9605 7.20425 15.8967 7.19236 15.8325 7.19336ZM8.64 7.67992C8.57639 7.67902 8.51324 7.69077 8.45422 7.71449C8.39519 7.73821 8.34147 7.77342 8.29617 7.81808C8.25088 7.86275 8.21491 7.91597 8.19036 7.97465C8.1658 8.03333 8.15316 8.09631 8.15316 8.15992C8.15316 8.22353 8.1658 8.28651 8.19036 8.3452C8.21491 8.40388 8.25088 8.4571 8.29617 8.50176C8.34147 8.54642 8.39519 8.58163 8.45422 8.60535C8.51324 8.62907 8.57639 8.64082 8.64 8.63992H10.1747L8.23312 11.7459C8.18782 11.8185 8.16277 11.9019 8.16057 11.9875C8.15837 12.0731 8.17909 12.1577 8.22059 12.2326C8.2621 12.3075 8.32287 12.3699 8.39661 12.4134C8.47036 12.4569 8.55439 12.4798 8.64 12.4799H11.04C11.1036 12.4808 11.1668 12.4691 11.2258 12.4454C11.2848 12.4216 11.3385 12.3864 11.3838 12.3418C11.4291 12.2971 11.4651 12.2439 11.4896 12.1852C11.5142 12.1265 11.5268 12.0635 11.5268 11.9999C11.5268 11.9363 11.5142 11.8733 11.4896 11.8146C11.4651 11.756 11.4291 11.7027 11.3838 11.6581C11.3385 11.6134 11.2848 11.5782 11.2258 11.5545C11.1668 11.5308 11.1036 11.519 11.04 11.5199H9.50531L11.4469 8.41398C11.4922 8.34134 11.5172 8.25791 11.5194 8.17232C11.5216 8.08674 11.5009 8.00213 11.4594 7.92725C11.4179 7.85237 11.3571 7.78995 11.2834 7.74647C11.2096 7.70298 11.1256 7.68 11.04 7.67992H8.64ZM14.3925 9.11336C14.3138 9.11475 14.2366 9.13549 14.1677 9.17374C14.0989 9.212 14.0406 9.2666 13.9978 9.33273C13.759 9.20158 13.4897 9.11992 13.2 9.11992C12.2778 9.11992 11.52 9.87777 11.52 10.7999C11.52 11.7221 12.2778 12.4799 13.2 12.4799C13.4894 12.4799 13.7582 12.398 13.9969 12.2671C14.0534 12.3546 14.1369 12.4213 14.2347 12.4572C14.3325 12.493 14.4393 12.4961 14.539 12.4659C14.6387 12.4358 14.7259 12.374 14.7874 12.2899C14.8489 12.2059 14.8814 12.1041 14.88 11.9999V10.7999V9.59992C14.8809 9.5357 14.8689 9.47196 14.8447 9.41247C14.8205 9.35298 14.7846 9.29895 14.7391 9.25358C14.6937 9.20821 14.6396 9.17242 14.58 9.14833C14.5205 9.12425 14.4567 9.11236 14.3925 9.11336ZM18.48 9.11992C17.5578 9.11992 16.8 9.87777 16.8 10.7999C16.8 11.7221 17.5578 12.4799 18.48 12.4799C19.4022 12.4799 20.16 11.7221 20.16 10.7999C20.16 9.87777 19.4022 9.11992 18.48 9.11992ZM13.2 10.0799C13.6033 10.0799 13.92 10.3966 13.92 10.7999C13.92 11.2033 13.6033 11.5199 13.2 11.5199C12.7967 11.5199 12.48 11.2033 12.48 10.7999C12.48 10.3966 12.7967 10.0799 13.2 10.0799ZM18.48 10.0799C18.8833 10.0799 19.2 10.3966 19.2 10.7999C19.2 11.2033 18.8833 11.5199 18.48 11.5199C18.0767 11.5199 17.76 11.2033 17.76 10.7999C17.76 10.3966 18.0767 10.0799 18.48 10.0799Z"
-									stroke="black" stroke-width="0.2"
-									mask="url(#path-1-outside-1_6394_301594)"></path>
-                            </svg> ></a>
-					</div>
-				</div>
-				<div class="footer-col">
-					<h3>Chính sách</h3>
-					<ul>
-						<li><a href="#!">Chính sách và quy định</a></li>
-						<li><a href="#!">Quy chế hoạt động</a></li>
-						<li><a href="#!">Bảo mật thông tin</a></li>
-						<li><a href="#!">Giải quyết tranh chấp</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<h3>Tìm hiểu thêm</h3>
-					<ul>
-						<li><a href="#!">Hướng dẫn chung</a></li>
-						<li><a href="#!">Hướng dẫn đặt xe</a></li>
-						<li><a href="#!">Hướng dẫn thanh toán</a></li>
-						<li><a href="#!">Hỏi và trả lời</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<ul class="none">
-						<li><a href="#!">Về RENTALCAR</a></li>
-						<li><a href="#!">RENTALCAR Blog</a></li>
-						<li><a href="#!">Tuyển dụng</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<h3>Đối Tác</h3>
-					<ul>
-						<li><a href="#!">Đăng ký chủ xe RENTALCAR</a></li>
-						<li><a href="#!">Đăng ký cho thuê xe dài hạn RENTALCAR</a></li>
-					</ul>
-				</div>
-			</div>
+		<div th:replace="~{module/footer :: footer }"  class="container">
+			
 		</div>
 	</div>
-
-	<script>
-        flatpickr(".wrap-date-time .wrap-date", {
-            enableTime: true,
-            dateFormat: "d/m/Y H:i",
-            defaultDate: "08/10/2024 21:00",
-            minDate: "today",
-            locale: "vn", // Ngôn ngữ tiếng Việt
-        });
-
-        flatpickr(".wrap-date-time .wrap-time", {
-            enableTime: true,
-            dateFormat: "d/m/Y H:i",
-            defaultDate: "09/10/2024 20:00",
-            minDate: "today",
-            locale: "vn",
-        });
-        
-        document.addEventListener("DOMContentLoaded", function () {
-            var modal = document.getElementById("uniqueModal");
-            var closeButton = document.querySelector(".unique-modal-close");
-
-            // Đảm bảo modal ẩn khi tải trang
-            modal.style.display = "none";
-
-            // Khi người dùng click vào "Nhận xe", mở modal
-            document.querySelector('.form-item:nth-child(1) .wrap-date-time').addEventListener('click', function () {
-                console.log('Nhận xe clicked');
-                modal.style.display = "flex"; // Hiển thị modal khi click vào "Nhận xe"
-            });
-
-            // Khi người dùng click vào "Trả xe", mở modal
-            document.querySelector('.form-item:nth-child(3) .wrap-date-time').addEventListener('click', function () {
-                console.log('Trả xe clicked');
-                modal.style.display = "flex"; // Hiển thị modal khi click vào "Trả xe"
-            });
-
-            // Khi người dùng click vào nút "X", đóng modal
-            closeButton.onclick = function () {
-                modal.style.display = "none"; // Ẩn modal khi bấm nút X
-            };
-
-            // Khi người dùng click ra ngoài modal, đóng modal
-            window.onclick = function (event) {
-                if (event.target == modal) {
-                    modal.style.display = "none"; // Ẩn modal khi click ra ngoài modal
-                }
-            };
-        });
-
-        
-
-    </script>
 
 	<!-- Ion-Icon -->
 	<script type="module"
 		src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-	<script nomodule
-		src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<!-- Popper.js (Bootstrap requirement) -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-	<!-- Bootstrap JS -->
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
+	<!-- Bootstrap JS và Popper.js -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
 	<!-- Flatpickr -->
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<!-- Swiper.js library -->
@@ -1198,9 +1883,10 @@
 	<!-- Search option JS -->
 <script src="/assets/js/Search-option.js"></script>
 	<!-- Car-details -->
-<script src="/assets/js/car-detail.js"></script>
-
-
+<script th:inline="javascript" src="/assets/js/car-detail.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+//
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+</div>
 </body>
-
 </html>

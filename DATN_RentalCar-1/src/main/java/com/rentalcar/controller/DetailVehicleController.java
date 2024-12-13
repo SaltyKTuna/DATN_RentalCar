@@ -128,7 +128,7 @@ public class DetailVehicleController {
 	        return "error-page";
 	    }
 
-	    return "motorbikes-details2";
+	    return "motorbikes-details";
 	}
 
 	
