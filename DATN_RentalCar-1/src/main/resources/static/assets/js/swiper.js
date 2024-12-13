@@ -158,49 +158,49 @@ if (menuEl && closeEl && openMenuEl) {
 }
 
 // Thêm sự kiện click cho từng swiper-slide
-document.querySelectorAll('.swiper-slide').forEach(slide => {
-	slide.addEventListener('click', async function() {
-		// Lấy id của address-item để làm location
-		const addressItem = this.querySelector('.address-item');
-		if (!addressItem) return;
-		const location = addressItem.id; // Lấy địa chỉ từ id của slide
+// document.querySelectorAll('.swiper-slide').forEach(slide => {
+// 	slide.addEventListener('click', async function() {
+// 		// Lấy id của address-item để làm location
+// 		const addressItem = this.querySelector('.address-item');
+// 		if (!addressItem) return;
+// 		const location = addressItem.id; // Lấy địa chỉ từ id của slide
 
-		// Lấy thông tin từ form
-		const pickupDate = document.getElementById('pickup-date').value;
-		const returnDate = document.getElementById('return-date').value;
-		const vehicleType = document.getElementById('vehicleType').value;
+// 		// Lấy thông tin từ form
+// 		const pickupDate = document.getElementById('pickup-date').value;
+// 		const returnDate = document.getElementById('return-date').value;
+// 		const vehicleType = document.getElementById('vehicleType').value;
 
-		// Xác định API tương ứng (ô tô hoặc xe máy)
-		const apiUrl = vehicleType === 'car'
-			? 'http://localhost:8080/api/car'
-			: 'http://localhost:8080/api/motorbikes';
+// 		// Xác định API tương ứng (ô tô hoặc xe máy)
+// 		const apiUrl = vehicleType === 'car'
+// 			? 'http://localhost:8080/api/car'
+// 			: 'http://localhost:8080/api/motorbikes';
 
-		try {
-			// Gọi API để lấy danh sách phương tiện
-			const response = await fetch(apiUrl);
-			if (!response.ok) throw new Error('Failed to fetch vehicle data');
-			const vehicles = await response.json();
+// 		try {
+// 			// Gọi API để lấy danh sách phương tiện
+// 			const response = await fetch(apiUrl);
+// 			if (!response.ok) throw new Error('Failed to fetch vehicle data');
+// 			const vehicles = await response.json();
 
-			// Lưu thông tin tìm kiếm vào localStorage
-			localStorage.setItem('searchData', JSON.stringify({
-				location, // Lấy location từ id
-				pickupDate,
-				returnDate,
-				vehicleType,
-			}));
-			if (vehicleType === "bike") {
-				localStorage.setItem('selectedVehicle', "motorbike");
-			} else {
-				localStorage.setItem('selectedVehicle', "car");
-			}
+// 			// Lưu thông tin tìm kiếm vào localStorage
+// 			localStorage.setItem('searchData', JSON.stringify({
+// 				location, // Lấy location từ id
+// 				pickupDate,
+// 				returnDate,
+// 				vehicleType,
+// 			}));
+// 			if (vehicleType === "bike") {
+// 				localStorage.setItem('selectedVehicle', "motorbike");
+// 			} else {
+// 				localStorage.setItem('selectedVehicle', "car");
+// 			}
 
 
-			// Chuyển hướng đến trang hiển thị kết quả
-			window.location.href = '/pick-vehicle';
-		} catch (error) {
-			console.error('Error fetching vehicles:', error);
-			alert('Không thể tải danh sách phương tiện. Vui lòng thử lại!');
-		}
-	});
-});
+// 			// Chuyển hướng đến trang hiển thị kết quả
+// 			window.location.href = '/pick-vehicle';
+// 		} catch (error) {
+// 			console.error('Error fetching vehicles:', error);
+// 			alert('Không thể tải danh sách phương tiện. Vui lòng thử lại!');
+// 		}
+// 	});
+// });
 
