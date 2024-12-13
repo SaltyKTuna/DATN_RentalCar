@@ -12,7 +12,7 @@
 					<div th:each="car, iterStat : ${cars}" th:if="${iterStat.index < 8}" class="product-item">
 						<a th:href="@{'/car/detail/' + ${car.carId}}" class="product-link">
 							<div class="product-img">
-								<img th:src="@{'/assets/images/car/' + ${#strings.arraySplit(car.imageUrl, ',')[0]}}" alt="" />
+								<img th:src="@{'/assets/images/car/' + ${#strings.arraySplit(car.imageUrl, ',')[0]}}" alt="" style="height: 200px;"/>
 								<!-- Phần trăm giảm giá (hiển thị nếu có giảm giá) -->
 								<div th:if="${car.percentDiscount != null and car.percentDiscount > 0}" class="product-discount">
 							        Giảm <span th:text="${car.percentDiscount} + '%'"></span>
@@ -36,7 +36,7 @@
 	
 							<!-- Thẻ sản phẩm -->
 							<div class="product-tags">
-								<div th:text="${car.gearBox}" class="product-tag"></div>
+								<div  class="product-tag"> Số Tự Động </div>
 								<!-- loại hộp số -->
 								<div class="product-tag">Giao xe tận nơi</div>
 							</div>
@@ -55,7 +55,7 @@
 		                <!-- SVG content for location icon -->
 		              </svg>
 								</div>
-								Huyện Đức Trọng, Lâm Đồng
+								<div style="margin-left: -20px; color: rgb(76, 0, 255); font-size: 13px; margin-bottom: 5px; font-weight: bold;"><span id="motorbikeLocation" th:text="'Thành Phố: ' + ${car.vehicleLocation}"></span></div>
 							</div>
 	
 							<!-- Phân cách -->

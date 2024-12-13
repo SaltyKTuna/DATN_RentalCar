@@ -50,16 +50,15 @@
 	<!-- banner -->
 	<section id="banner-section">
 		<div class="container">
-			<div class="banner-layout">
+			<div class="banner-layout" style="background-image: url('./assets/images/others/binhduong.jpg');">
 				<!--  -->
-				<h1>
-					RENTALCAR <span class="no-wrap"> <br>Cùng Bạn Đến Mọi
-						Hành Trình
-					</span>
+				<h1 style="font-size: 60px; transform: translateX(0%); ">
+					Bạn Đang Tìm Xe Tại  
+					<span class="no-wrap"><br>TP. Bình Dương</span>
 				</h1>
 				<!-- <h1>RENTALCAR&nbsp;<br>Cùng&nbsp;Bạn Đến Mọi Hành&nbsp;Trình</h1> -->
-				<div class="line"></div>
-				<h6 class="text-white">
+				<div class="line" style="margin: 0 auto;"></div>
+				<h6 class="text-white" style="transform: translateX(0%);">
 					Trải nghiệm sự khác biệt từ <span class="text-primary">hơn
 						8000</span> xe gia&nbsp;đình đời&nbsp;mới khắp Việt&nbsp;Nam
 				</h6>
@@ -73,7 +72,7 @@
 }
 </style>
 
-								       <div th:replace="~{module/search :: search}" class="rental-form">
+	 <div th:replace="~{module/search :: search}" class="rental-form">
 
           </div>
                 <!--------------------------------------------------------------------------->
@@ -81,28 +80,159 @@
 		</div>
 	</section>
 
-	<!-- sale -->
-	<section id="sale">
-		<div th:replace="~{module/sale :: sale}" class="container">
-			
+
+	<!-- product car -->
+	<div th:fragment="product-car" class="container" style="margin-top: 50px;">
+		<div class="product-layout">
+			<h2 class="title-big">Xe Oto dành cho bạn tại TP. Bình Dương</h2>
+			<div class="product-list">
+
+				<!-- Kiểm tra nếu danh sách xe ô tô trống -->
+				<div th:if="${cars.size() == 0}" class="col-12">
+					<p>No cars available</p>
+				</div>
+
+				<!-- Loop qua danh sách xe ô tô -- loop:thuật ngữ vòng lập -->
+				<div th:each="car, iterStat : ${cars}" th:if="${iterStat.index < 8}" class="product-item">
+					<a th:href="@{'/car/detail/' + ${car.carId}}" class="product-link">
+						<div class="product-img">
+							<img th:src="@{'/assets/images/car/' + ${#strings.arraySplit(car.imageUrl, ',')[0]}}" alt="" />
+							<!-- Phần trăm giảm giá (hiển thị nếu có giảm giá) -->
+							<div th:if="${car.percentDiscount != null and car.percentDiscount > 0}" class="product-discount">
+								Giảm <span th:text="${car.percentDiscount} + '%'"></span>
+							</div>
+							<div class="product-rents">
+								<span class="product-rent">Miễn thế chấp <svg width="16"
+										height="16" viewBox="0 0 16 16" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+					  <!-- SVG content for the icon -->
+					  <path
+											d="M2.06654 3.41201L3.30916 4.68289C3.50222 4.88033 3.81878 4.88389 4.01622 4.69084C4.21367 4.49778 4.21723 4.18122 4.02417 3.98378L2.73171 2.66192C4.08658 1.32458 5.9467 0.5 7.99999 0.5C12.1421 0.5 15.5 3.8579 15.5 8.00004C15.5 10.0709 14.6612 11.9454 13.3035 13.3031L11.9871 11.9806C11.7923 11.7849 11.4757 11.7842 11.28 11.979C11.0843 12.1738 11.0836 12.4904 11.2784 12.6861L12.5495 13.9631C11.2875 14.9276 9.71111 15.5001 7.99999 15.5001C3.85785 15.5001 0.5 12.1422 0.5 8.00004C0.5 6.27151 1.08422 4.68039 2.06654 3.41201Z"
+											stroke="#5FCF86" stroke-linecap="round"
+											stroke-linejoin="round"></path>
+					  <path
+											d="M10.3364 5.92398H10.1909C10.0678 5.21142 9.48584 4.66675 8.78821 4.66675H5.12098C4.65092 4.66675 4.26666 5.07712 4.26666 5.57703C4.26666 5.6106 4.27412 5.64045 4.27785 5.67402C4.27412 5.68895 4.26666 5.70387 4.26666 5.72252V9.93815C4.26666 10.7067 4.89341 11.3334 5.65819 11.3334H10.3364C11.1012 11.3334 11.728 10.7067 11.728 9.93815V7.31551C11.728 6.547 11.1012 5.92398 10.3364 5.92398ZM10.1275 9.09876C9.87009 9.09876 9.65745 8.88984 9.65745 8.6287C9.65745 8.36755 9.87009 8.1549 10.1275 8.1549C10.3887 8.1549 10.6013 8.36755 10.6013 8.6287C10.6013 8.88984 10.3887 9.09876 10.1275 9.09876ZM5.12098 5.22635H8.78821C9.17992 5.22635 9.50822 5.52107 9.61641 5.92398H5.12098C4.95683 5.92398 4.82626 5.76729 4.82626 5.57703C4.82626 5.38303 4.95683 5.22635 5.12098 5.22635Z"
+											fill="#5FCF86"></path>
+					</svg>
+								</span>
+							</div>
+						</div>
+
+						<!-- Thẻ sản phẩm -->
+						<div class="product-tags">
+							<div th:text="${car.gearBox}" class="product-tag"></div>
+							<!-- loại hộp số -->
+							<div class="product-tag">Giao xe tận nơi</div>
+						</div>
+
+						<!-- Tên xe -->
+						<div th:text="${car.make + ' ' + car.model + ' ' + car.year}"
+							class="product-title">
+						</div>
+
+
+						<!-- Địa điểm -->
+						<div class="product-location">
+							<div class="wrap-svg">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17"
+									viewBox="0 0 16 17" fill="none">
+					<!-- SVG content for location icon -->
+				  </svg>
+							</div>
+							<div style="margin-left: -20px; color: rgb(76, 0, 255); font-size: 13px; margin-bottom: 5px; font-weight: bold;"><span id="motorbikeLocation" th:text="'Thành Phố: ' + ${car.vehicleLocation}"></span></div>
+						</div>
+
+						<!-- Phân cách -->
+						<div class="product-line"></div>
+
+						<!-- Giá thuê và chi tiết -->
+						<div class="product-bottom">
+							<div th:text="${car.rentals != null ? car.rentals + ' chuyến' : 'Chưa có chuyến'}" class="product-ship"></div>
+						
+							<div class="product-price">
+								<!-- Giá gốc, chỉ hiển thị khi có giảm giá -->
+								<div th:if="${car.percentDiscount != null and car.percentDiscount > 0}" class="old-price">
+									<span th:text="${#numbers.formatInteger(car.dailyRate, 3, 'POINT') + 'đ'}"></span>
+								</div>
+								
+								<!-- Giá mới sau khi giảm -->
+								<div th:text="${#numbers.formatInteger(car.dailyRate * (1 - (car.percentDiscount / 100)), 3, 'POINT') + 'đ'}" class="new-price"></div>
+								<span>/</span>
+								<p>ngày</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				
+			</div>
 		</div>
-	</section>
-
-	<!-- product -->
-	<!-- Car Section -->
-	<section id="product-car">
-    	<div th:replace="~{module/product-car :: product-car}" class="container">
-    
-    	</div>
-	</section>
-
+	</div>
 	<!-- Motobike ----------------------------------------------------------------------------------------------------------------------------------------- -->
 
-	<section id="product-motobike">
-		<div th:replace="~{module/product-motobike :: product-motobike}" class="container">
-    
-    	</div>
-	</section>
+	<div th:fragment="product-motobike" class="container">
+		<div class="product-layout">
+			<h2 class="title-big">Xe máy dành cho bạn tại TP. Bình Dương </h2>
+			<div class="product-list">
+
+				<!-- Kiểm tra nếu danh sách xe máy trống -->
+				<div th:if="${motorbikes.size() == 0}" class="col-12">
+					<p>No cars available</p>
+				</div>
+
+				<div th:each="motorbike, iterStat : ${motorbikes}" th:if="${iterStat.index < 8}" class="product-item">
+					<a th:href="@{'/motorbike/detail/' + ${motorbike.motorbikeId}}" class="product-link">
+						<div class="product-img">
+							<img th:src="@{'/assets/images/motorbike/' + ${#strings.arraySplit(motorbike.imageUrl, ',')[0]}}" alt="" />
+							<!-- Phần trăm giảm giá (hiển thị nếu có giảm giá) -->
+							<div th:if="${motorbike.percentDiscount != null and motorbike.percentDiscount > 0}" class="product-discount">
+								Giảm <span th:text=" ${motorbike.percentDiscount} + '%'"></span>
+							</div>
+							<div class="product-rents">
+								<span class="product-rent">Miễn thế chấp
+									<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<!-- SVG content -->
+									</svg>
+								</span>
+							</div>
+						</div>
+						<div class="product-tags">
+							<div th:text="${motorbike.gearBox}" class="product-tag"></div>
+							<div class="product-tag">Giao xe tận nơi</div>
+						</div>
+						<div th:text="${motorbike.make + ' ' + motorbike.model + ' ' + motorbike.year}"
+							class="product-title"></div>
+						<div class="product-location">
+							<div class="wrap-svg">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17"
+									viewBox="0 0 16 17" fill="none">
+									<!-- SVG content -->
+								</svg>
+							</div>
+							<div style="margin-left: -20px; color: rgb(76, 0, 255); font-size: 13px; margin-bottom: 5px; font-weight: bold;"><span id="motorbikeLocation" th:text="'Thành Phố: ' + ${motorbike.vehicleLocation}"></span></div>
+                            
+						</div>
+						<div class="product-line"></div>
+						<!-- Giá thuê và chi tiết -->
+						<div class="product-bottom">
+							<div th:text="${motorbike.rentals != null ? motorbike.rentals + ' chuyến' : 'Chưa có chuyến'}" class="product-ship"></div>
+							<div class="product-price">
+								<!-- Giá gốc, chỉ hiển thị khi có giảm giá -->
+								<div th:if="${motorbike.percentDiscount != null and motorbike.percentDiscount > 0}" class="old-price">
+									<span th:text="${#numbers.formatInteger(motorbike.dailyRate, 3, 'POINT') + 'đ'}"></span>
+								</div>
+								<!-- Giá mới sau khi giảm -->
+								<div th:text="${#numbers.formatInteger(motorbike.dailyRate * (1 - (motorbike.percentDiscount / 100)), 3, 'POINT') + 'đ'}" class="new-price"></div>
+								<span>/</span>
+								<p>ngày</p>
+							</div>
+						</div>
+					</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
 
 	<!-- address -->
 	<section id="address-hot">
@@ -111,7 +241,6 @@
 		</div>
 	</section>
 
-<!-- Chi nhánh có xe  -->
 	<!-- features -->
 	<section id="features">
 		<div class="container">
@@ -464,6 +593,10 @@
 			
 		</div>
 	</div>
+
+	<script>
+	  
+	</script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>

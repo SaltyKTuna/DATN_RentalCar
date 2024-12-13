@@ -361,7 +361,89 @@ public class homePageController {
         return "support";
     }
 
+@GetMapping("/addresshothochiminh")
+public String viewAllVehiclehotHCM(Model model) {
+    List<Car> cars = carRepo.findAllVehicleLocation("Hồ Chí Minh"); 
+    List<Motorbike> motorbikes = motorbikeRepo.findAllVehicleLocation("Hồ Chí Minh");
+
+    model.addAttribute("cars", cars);      
+    model.addAttribute("motorbikes", motorbikes);
     
+    return "addresshot-hochiminh"; 
+}
+
+@GetMapping("/addresshotbinhduong")
+public String viewAllVehiclehotBD(Model model) {
+    List<Car> cars = carRepo.findAllVehicleLocation("Bình Dương"); 
+    List<Motorbike> motorbikes = motorbikeRepo.findAllVehicleLocation("Bình Dương");
+
+    model.addAttribute("cars", cars);      
+    model.addAttribute("motorbikes", motorbikes);
+    
+    return "address-binhduong"; 
+}
+    
+
+@GetMapping("/addresshothanoi")
+public String viewAllVehiclehotHanoi(Model model) {
+    List<Car> cars = carRepo.findAllVehicleLocation("Hà Nội"); 
+    List<Motorbike> motorbikes = motorbikeRepo.findAllVehicleLocation("Hà Nội");
+
+    model.addAttribute("cars", cars);      
+    model.addAttribute("motorbikes", motorbikes);
+    
+    return "address-hanoi"; 
+}
+
+@GetMapping("/addresshotdanang")
+public String viewAllVehiclehotDanang(Model model) {
+    List<Car> cars = carRepo.findAllVehicleLocation("Đà Nẵng"); 
+    List<Motorbike> motorbikes = motorbikeRepo.findAllVehicleLocation("Đà Nẵng");
+
+    model.addAttribute("cars", cars);      
+    model.addAttribute("motorbikes", motorbikes);
+    
+    return "address-danang"; 
+}
+@GetMapping("/addressbienhoa")
+public String viewAllVehiclehotBienHoa(Model model) {
+    List<Car> cars = carRepo.findAllVehicleLocation("Biên Hoà"); 
+    List<Motorbike> motorbikes = motorbikeRepo.findAllVehicleLocation("Biên Hoà");
+
+    model.addAttribute("cars", cars);      
+    model.addAttribute("motorbikes", motorbikes);
+    
+    return "address-bienhoa";
+}
+
+@GetMapping("/addressdalat")
+public String viewAllVehiclehotDaLat(Model model) {
+    List<Car> cars = carRepo.findAllVehicleLocation("Đà Lạt"); 
+    List<Motorbike> motorbikes = motorbikeRepo.findAllVehicleLocation("Đà Lạt");
+
+    model.addAttribute("cars", cars);      
+    model.addAttribute("motorbikes", motorbikes);
+    
+    return "address-dalat";
+}
+@GetMapping("/addressphuquoc")
+public String viewAllVehiclehotPhuQuoc(Model model) {
+    List<Car> cars = carRepo.findAllVehicleLocation("Phú Quốc"); 
+    List<Motorbike> motorbikes = motorbikeRepo.findAllVehicleLocation("Phú Quốc");
+
+    model.addAttribute("cars", cars);      
+    model.addAttribute("motorbikes", motorbikes);
+    
+    return "address-phuquoc";
+}
+
+
+
+
+
+
+
+
     @GetMapping("/forgotPassword")
     public String forgot() {
         return "forgotPassword";

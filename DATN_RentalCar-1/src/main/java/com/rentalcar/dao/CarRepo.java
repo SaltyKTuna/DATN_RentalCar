@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.rentalcar.entity.Car;
@@ -31,9 +32,16 @@ public interface CarRepo extends JpaRepository<Car, Long>{
 //	
 ////	@Query("SELECT p FROM Product p WHERE p.name LIKE :name")
 ////	public Page<Product> findByKeyword(@Param("name") String name, Pageable pageable);
-	@Query("SELECT DISTINCT c.model FROM Car c")
+	 @Query("SELECT DISTINCT c.model FROM Car c")
     List<String> findAllModels();
-	
-	@Query("SELECT DISTINCT c.make FROM Car c")
+    
+    @Query("SELECT DISTINCT c.make FROM Car c")
     List<String> findAllMakes();
+    
+    @Query("SELECT c FROM Car c WHERE c.vehicleLocation = :location")
+    List<Car> findAllVehicleLocation(@Param("location") String location);
+
+
+    
+
 }

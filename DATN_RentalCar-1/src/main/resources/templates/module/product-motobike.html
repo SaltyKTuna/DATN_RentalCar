@@ -11,7 +11,7 @@
 					<div th:each="motorbike, iterStat : ${motorbikes}" th:if="${iterStat.index < 8}" class="product-item">
 						<a th:href="@{'/motorbike/detail/' + ${motorbike.motorbikeId}}" class="product-link">
 							<div class="product-img">
-								<img th:src="@{'/assets/images/motorbike/' + ${#strings.arraySplit(motorbike.imageUrl, ',')[0]}}" alt="" />
+								<img th:src="@{'/assets/images/motorbike/' + ${#strings.arraySplit(motorbike.imageUrl, ',')[0]}}" alt="" style=" height: 300px;"/>
 								<!-- Phần trăm giảm giá (hiển thị nếu có giảm giá) -->
 								<div th:if="${motorbike.percentDiscount != null and motorbike.percentDiscount > 0}" class="product-discount">
 							        Giảm <span th:text=" ${motorbike.percentDiscount} + '%'"></span>
@@ -38,7 +38,8 @@
 										<!-- SVG content -->
 									</svg>
 								</div>
-								Huyện Đức Trọng, Lâm Đồng
+								<div style="margin-left: -20px; color: rgb(76, 0, 255); font-size: 13px; margin-bottom: 5px; font-weight: bold;"><span id="motorbikeLocation" th:text="'Thành Phố: ' + ${motorbike.vehicleLocation}"></span></div>
+
 							</div>
 							<div class="product-line"></div>
 							<!-- Giá thuê và chi tiết -->
