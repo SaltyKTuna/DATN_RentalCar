@@ -3,6 +3,7 @@ import { Edit, Trash2 } from "lucide-react";
 import axios from "axios";
 
 interface Motorbike {
+  gearBox: string | null;
   motorbikeId: number;
   make: string;
   model: string;
@@ -23,6 +24,7 @@ interface Motorbike {
   detailBike: string;
 }
 
+
 const MotorbikeManagement: React.FC = () => {
   const [motorbikes, setMotorbikes] = useState<Motorbike[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -34,6 +36,7 @@ const MotorbikeManagement: React.FC = () => {
 
 
   const [newMotorbike, setNewMotorbike] = useState<Motorbike>({
+    gearBox: null,
     motorbikeId: 0,
     make: "",
     model: "",
@@ -165,8 +168,25 @@ const MotorbikeManagement: React.FC = () => {
       .catch((error) => console.error("Lỗi khi xóa bảo dưỡng:", error));
   };
 
+  const validateMotorbike = (): boolean => {
+    if (!newMotorbike.make.trim()) {
+      alert("Hãng xe không được để trống.");
+      return false;
+    }
+    if (!newMotorbike.model.trim()) {
+      alert("Mẫu xe không được để trống.");
+      return false;
+    }
+    if (!newMotorbike.gearBox) {
+      alert("Vui lòng chọn loại hộp số.");
+      return false;
+    }
+    return true;
+  };
+
   const handleAddMotorbike = () => {
-    // Cập nhật ảnh vào newCar chỉ khi người dùng nhấn "Add Car"
+    if (!validateMotorbike()) return;
+
     const motorbikeDataToSend = {
       ...newMotorbike,
       imageUrl: uploadedImages.join(",") // Chỉ lưu ảnh đã được tải lên
@@ -235,6 +255,7 @@ const MotorbikeManagement: React.FC = () => {
 
   const resetForm = () => {
     setNewMotorbike({
+      gearBox: "Xe Số",
       motorbikeId: 0,
       make: "",
       model: "",
@@ -254,10 +275,11 @@ const MotorbikeManagement: React.FC = () => {
       licensePlate: "",
       detailBike: "",
     });
-    setUploadedImages([]); // Xóa ảnh tạm thời
-    setImagePreviews([]); // Xóa preview ảnh
+    setUploadedImages([]);
+    setImagePreviews([]);
     setIsEditing(false);
   };
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = event.target;
@@ -284,79 +306,79 @@ const MotorbikeManagement: React.FC = () => {
           <div className="grid grid-cols-3 gap-6">
             {/* Upload Image Section */}
             <div className="col-span-1">
-  <h3 className="text-lg font-semibold mb-4">Tải lên ảnh của xe</h3>
+              <h3 className="text-lg font-semibold mb-4">Tải lên ảnh của xe</h3>
 
-  {/* Ảnh Toàn Xe */}
-  <div className="border-dashed border-2 border-gray-400 rounded-lg h-48 w-full flex flex-col items-center justify-center text-gray-500 mb-4 relative group overflow-hidden">
-    <input
-      type="file"
-      accept="image/*"
-      onChange={handleImageUpload}
-      className="opacity-0 absolute h-full w-full cursor-pointer"
-      multiple // Cho phép chọn nhiều ảnh
-    />
+              {/* Ảnh Toàn Xe */}
+              <div className="border-dashed border-2 border-gray-400 rounded-lg h-48 w-full flex flex-col items-center justify-center text-gray-500 mb-4 relative group overflow-hidden">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="opacity-0 absolute h-full w-full cursor-pointer"
+                  multiple // Cho phép chọn nhiều ảnh
+                />
 
-    {isUploading && (
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
-      </div>
-    )}
+                {isUploading && (
+                  <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
+                  </div>
+                )}
 
-    {imagePreviews[0] ? (
-      <img
-        src={imagePreviews[0]}
-        alt="Ảnh Toàn Xe"
-        className="object-cover w-full h-full rounded-lg"
-      />
-    ) : (
-      <>
-        <p className="font-medium">Ảnh Toàn Xe</p>
-        <p className="text-sm text-gray-400">Kích thước: 1200 x 600 px • JPG, PNG</p>
-        <p className="text-sm text-gray-400">Dung lượng tối đa: 5 MB</p>
-      </>
-    )}
+                {imagePreviews[0] ? (
+                  <img
+                    src={imagePreviews[0]}
+                    alt="Ảnh Toàn Xe"
+                    className="object-cover w-full h-full rounded-lg"
+                  />
+                ) : (
+                  <>
+                    <p className="font-medium">Ảnh Toàn Xe</p>
+                    <p className="text-sm text-gray-400">Kích thước: 1200 x 600 px • JPG, PNG</p>
+                    <p className="text-sm text-gray-400">Dung lượng tối đa: 5 MB</p>
+                  </>
+                )}
 
-    {/* Hover button for delete */}
-    {imagePreviews[0] && (
-      <button
-        onClick={() => handleDeleteImage(0)} // Xóa ảnh "Ảnh Toàn Xe"
-        className="absolute top-0 right-0 bg-black text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 focus:outline-none"
-      >
-        &times;
-      </button>
-    )}
-  </div>
+                {/* Hover button for delete */}
+                {imagePreviews[0] && (
+                  <button
+                    onClick={() => handleDeleteImage(0)} // Xóa ảnh "Ảnh Toàn Xe"
+                    className="absolute top-0 right-0 bg-black text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 focus:outline-none"
+                  >
+                    &times;
+                  </button>
+                )}
+              </div>
 
-  {/* Display uploaded images */}
-  <div className="grid grid-cols-2 gap-4">
-    {["Ảnh Đầu Xe", "Ảnh Đuôi Xe", "Ảnh Đồng Hồ", "Ảnh Phụ"].map((label, index) => (
-      <div
-        key={index}
-        className="border-dashed border-2 border-gray-400 rounded-lg h-24 w-full flex items-center justify-center text-gray-500 relative group overflow-hidden"
-      >
-        {imagePreviews[index + 1] ? (
-          <div className="relative">
-            <img
-              src={imagePreviews[index + 1]}
-              alt={label}
-              className="object-cover w-full h-full rounded-lg"
-            />
-            <button
-              onClick={() => handleDeleteImage(index + 1)} // Xóa ảnh theo index
-              className="absolute top-0 right-0 bg-black text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 focus:outline-none"
-            >
-              &times;
-            </button>
-          </div>
-        ) : (
-          <div className="flex items-center justify-center text-gray-400">
-            <p className="font-medium">{label}</p>
-          </div>
-        )}
-      </div>
-    ))}
-  </div>
-</div>
+              {/* Display uploaded images */}
+              <div className="grid grid-cols-2 gap-4">
+                {["Ảnh Đầu Xe", "Ảnh Đuôi Xe", "Ảnh Đồng Hồ", "Ảnh Phụ"].map((label, index) => (
+                  <div
+                    key={index}
+                    className="border-dashed border-2 border-gray-400 rounded-lg h-24 w-full flex items-center justify-center text-gray-500 relative group overflow-hidden"
+                  >
+                    {imagePreviews[index + 1] ? (
+                      <div className="relative">
+                        <img
+                          src={imagePreviews[index + 1]}
+                          alt={label}
+                          className="object-cover w-full h-full rounded-lg"
+                        />
+                        <button
+                          onClick={() => handleDeleteImage(index + 1)} // Xóa ảnh theo index
+                          className="absolute top-0 right-0 bg-black text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 focus:outline-none"
+                        >
+                          &times;
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center text-gray-400">
+                        <p className="font-medium">{label}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
 
 
             {/* Thông Tin Xe */}
@@ -375,6 +397,24 @@ const MotorbikeManagement: React.FC = () => {
                     className="w-full p-2 bg-muted border rounded"
                   />
                 </div>
+
+                <div>
+                  <label htmlFor="gearBox" className="block font-medium">Loại hộp số</label>
+                  <select
+                    id="gearBox"
+                    value={newMotorbike.gearBox || ""}
+                    onChange={handleChange}
+                    className="w-full p-2 bg-muted border rounded"
+                  >
+                    <option value="">-- Chọn loại hộp số --</option>
+                    <option value="Xe Số">Xe số</option>
+                    <option value="Xe Côn">Xe côn</option>
+                    <option value="Xe ga">Xe ga</option>
+                  </select>
+                </div>
+
+
+
                 <div>
                   <label htmlFor="model" className="block font-medium">
                     Mẫu xe
@@ -438,7 +478,6 @@ const MotorbikeManagement: React.FC = () => {
               </form>
             </div>
 
-            {/* Thông Tin Bổ Sung */}
             <div className="col-span-1">
               <h3 className="text-lg font-semibold mb-4">Thông Tin Bổ Sung</h3>
               <form className="space-y-4">
@@ -549,6 +588,7 @@ const MotorbikeManagement: React.FC = () => {
                 <th className="border border-gray-200 p-2">Mẫu</th>
                 <th className="border border-gray-200 p-2">Năm</th>
                 <th className="border border-gray-200 p-2">Màu</th>
+                <th className="border border-gray-200 p-2">Hộp số</th>
                 <th className="border border-gray-200 p-2">Trạng thái</th>
                 <th className="border border-gray-200 p-2">Hành động</th>
               </tr>
@@ -560,6 +600,7 @@ const MotorbikeManagement: React.FC = () => {
                   <td className="border border-gray-200 p-2">{motorbike.model}</td>
                   <td className="border border-gray-200 p-2">{motorbike.year}</td>
                   <td className="border border-gray-200 p-2">{motorbike.color}</td>
+                  <td className="border border-gray-200 p-2">{motorbike.gearBox || "N/A"}</td>
                   <td className="border border-gray-200 p-2">{motorbike.status}</td>
                   <td className="border border-gray-200 p-2 flex justify-center items-center space-x-2">
                     <button

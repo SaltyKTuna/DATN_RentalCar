@@ -94,5 +94,9 @@ public class Car {
     @OneToMany(mappedBy = "car")
     private Set<RentalVehicle> rentalVehicle;
     
+    @ElementCollection
+    @Column(length = 1000)
+    private List<String> feedback;
+    
 }	
 

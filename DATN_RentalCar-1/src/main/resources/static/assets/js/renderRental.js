@@ -1,230 +1,420 @@
-// Hiển thị các thông tin thuê xe từ LocalStorage
 function displayRentals() {
-    console.log("Displaying rentals...");
+  console.log("Displaying rentals...");
 
-    const carRentals = getRentalsFromLocalStorage('carRentals');
-    const motorbikeRentals = getRentalsFromLocalStorage('motorbikeRentals');
+  const carRentals = getRentalsFromLocalStorage("carRentals");
+  const motorbikeRentals = getRentalsFromLocalStorage("motorbikeRentals");
 
-    console.log("Car Rentals:", carRentals);
-    console.log("Motorbike Rentals:", motorbikeRentals);
+  console.log("Car Rentals:", carRentals);
+  console.log("Motorbike Rentals:", motorbikeRentals);
 
-    const carTableBody = document.querySelector('#car-rentals tbody');
-    const motorbikeTableBody = document.querySelector('#motorbike-rentals tbody');
+  const carTableBody = document.querySelector("#car-rentals-body");
+  const motorbikeTableBody = document.querySelector("#motorbike-rentals-body");
 
-    // Làm sạch bảng trước khi thêm dữ liệu
-    carTableBody.innerHTML = '';
-    motorbikeTableBody.innerHTML = '';
+  carTableBody.innerHTML = "";
+  motorbikeTableBody.innerHTML = "";
 
-    // Thêm dữ liệu xe ô tô vào bảng
-    carRentals.forEach((rental, index) => {
-        const row = createRentalRow(rental, index, 'car');
-        carTableBody.appendChild(row);
-    });
+  carRentals.forEach((rental, index) => {
+    const row = createRentalRow(rental, index, "car");
+    carTableBody.appendChild(row);
+  });
 
-    // Thêm dữ liệu xe máy vào bảng
-    motorbikeRentals.forEach((rental, index) => {
-        const row = createRentalRow(rental, index, 'motorbike');
-        motorbikeTableBody.appendChild(row);
-    });
+  motorbikeRentals.forEach((rental, index) => {
+    const row = createRentalRow(rental, index, "motorbike");
+    motorbikeTableBody.appendChild(row);
+  });
 }
 
 // Tạo một dòng trong bảng hiển thị thông tin thuê xe
 function createRentalRow(rental, index, vehicleType) {
-    const renStatus = rental.rental.renStatus; // Lấy trạng thái thuê xe
-	
-	console.log(renStatus)
-	
-    const isCar = vehicleType === 'car';
+  const renStatus = rental.rental.renStatus;
 
-    // Chỉ hiển thị nút huỷ khi trạng thái là "Chờ xác nhận"
-    const cancelButton = renStatus === 'Chờ xác nhận' 
-        ? `<button class="btn btn-danger btn-sm" onclick="cancelRental(${index}, '${vehicleType}')">Huỷ</button>` 
-        : '';  
- // Nút "Xem Chi Tiết"
- const detailButton = `<button class="btn btn-info btn-sm" onclick="viewRentalDetails(${index}, '${vehicleType}')">Xem Chi Tiết</button>`;
+  console.log(renStatus);
 
-    const row = document.createElement('tr');
+  const isCar = vehicleType === "car";
 
-    if (isCar) {
-        row.innerHTML = `
-            
-			<td class="rental-table-cell">${rental.car.make} ${rental.car.model} ${rental.car.year} </td>
-            <td class="rental-table-cell">${new Date(rental.rental.rentalDate).toLocaleDateString('vi-VN')}</td>
-            <td class="rental-table-cell">${new Date(rental.rental.returnDate).toLocaleDateString('vi-VN')}</td>
+  // Chỉ hiển thị nút huỷ khi trạng thái là "Chờ xác nhận"
+  const cancelButton =
+    renStatus === "Chờ xác nhận"
+      ? `<button class="btn btn-danger btn-sm" onclick="cancelRental(${index}, '${vehicleType}')">Huỷ</button>`
+      : "";
+
+// Thêm nút đánh giá nếu trạng thái là "Hoàn tất"
+const reviewButton = renStatus === "Hoàn tất"
+  ? `<button class="btn btn-warning btn-sm" onclick="openRatingModal(${index}, '${vehicleType}')">Đánh giá</button>`
+  : "";
+  // Nút "Xem Chi Tiết"
+  const detailButton = `<button class="btn btn-info btn-sm" onclick="viewRentalDetails(${index}, '${vehicleType}')">Xem Chi Tiết</button>`;
+
+  const row = document.createElement("tr");
+
+  if (isCar) {
+    row.innerHTML = `
+            <td class="rental-table-cell">${
+              index + 1
+            }</td> <!-- Thêm số thứ tự -->
+			<td class="rental-table-cell">${rental.car.make} ${rental.car.model} ${
+      rental.car.year
+    } </td>
+            <td class="rental-table-cell">${new Date(
+              rental.rental.rentalDate
+            ).toLocaleDateString("vi-VN")}</td>
+            <td class="rental-table-cell">${new Date(
+              rental.rental.returnDate
+            ).toLocaleDateString("vi-VN")}</td>
             <td class="rental-table-cell">${renStatus}</td>
-            <td class="rental-table-cell">${cancelButton}</td><td class="rental-table-cell">${detailButton}
+            <td class="rental-table-cell">${cancelButton} ${reviewButton}</td><td class="rental-table-cell">${detailButton}
         `;
-    } else {    
-        row.innerHTML = `
+  } else {
+    row.innerHTML = `
+        <td class="rental-table-cell">${index + 1}</td> <!-- Thêm số thứ tự -->
             <td class="rental-table-cell">${rental.motorbike.model}</td>
-            <td class="rental-table-cell">${new Date(rental.rental.rentalDate).toLocaleDateString('vi-VN')}</td>
-            <td class="rental-table-cell">${new Date(rental.rental.returnDate).toLocaleDateString('vi-VN')}</td>
+            <td class="rental-table-cell">${new Date(
+              rental.rental.rentalDate
+            ).toLocaleDateString("vi-VN")}</td>
+            <td class="rental-table-cell">${new Date(
+              rental.rental.returnDate
+            ).toLocaleDateString("vi-VN")}</td>
             <td class="rental-table-cell">${renStatus}</td>
-            <td class="rental-table-cell">${cancelButton}</td><td class="rental-table-cell">${detailButton}
+            <td class="rental-table-cell">${cancelButton} ${reviewButton}</td><td class="rental-table-cell">${detailButton}
         `;
-    }
+  }
 
-    return row;
+  return row;
 }
 
 // Hàm huỷ thuê xe
 function cancelRental(index, vehicleType) {
-    console.log(`Canceling rental for ${vehicleType} at index: ${index}`);
+  console.log(`Canceling rental for ${vehicleType} at index: ${index}`);
 
-    const rentalList = getRentalsFromLocalStorage(vehicleType === 'car' ? 'carRentals' : 'motorbikeRentals');
-    const rental = rentalList[index];
+  const rentalList = getRentalsFromLocalStorage(
+    vehicleType === "car" ? "carRentals" : "motorbikeRentals"
+  );
+  const rental = rentalList[index];
 
-    // Cập nhật trạng thái "Đã huỷ" trong localStorage
-    rental.rental.renStatus = 'Đã huỷ';
+  rental.rental.renStatus = "Đã huỷ";
 
-    // Lưu lại vào localStorage
-    saveRentalsToLocalStorage(vehicleType === 'car' ? 'carRentals' : 'motorbikeRentals', rentalList);
+  saveRentalsToLocalStorage(
+    vehicleType === "car" ? "carRentals" : "motorbikeRentals",
+    rentalList
+  );
 
-    // Cập nhật UI ngay lập tức
-    displayRentals();
+  displayRentals();
 
-    // Gửi PUT request đến backend để cập nhật trạng thái
-    fetch(`http://localhost:8080/api/rental/cancel/${rental.rental.rentalId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            renStatus: 'Đã huỷ',
-        }),
+  fetch(`http://localhost:8080/api/rental/cancel/${rental.rental.rentalId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      renStatus: "Đã huỷ",
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json(); // Chuyển đổi phản hồi thành JSON
+    .then((data) => {
+      if (data && data.renStatus === "Đã huỷ") {
+        alert("Đã huỷ thành công");
+      } else {
+        console.error("Error: Response does not contain updated rental data");
+        alert("Cập nhật trạng thái thất bại");
+      }
     })
-    .then(data => {
-        if (data && data.renStatus === 'Đã huỷ') {
-            alert('Đã huỷ thành công');
-        } else {
-            console.error('Error: Response does not contain updated rental data');
-            alert('Cập nhật trạng thái thất bại');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Có lỗi xảy ra khi cập nhật trạng thái.');
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("Có lỗi xảy ra khi cập nhật trạng thái.");
     });
 }
 
-// Hàm lấy và lưu dữ liệu thuê xe từ LocalStorage
 function getRentalsFromLocalStorage(key) {
-    return JSON.parse(localStorage.getItem(key)) || [];
+  return JSON.parse(localStorage.getItem(key)) || [];
 }
 
 function saveRentalsToLocalStorage(key, rentals) {
-    localStorage.setItem(key, JSON.stringify(rentals));
+  localStorage.setItem(key, JSON.stringify(rentals));
 }
 
-// Lấy dữ liệu từ API và lưu vào LocalStorage
 function fetchAndSaveRentalVehicles() {
-    console.log("Fetching rental vehicles...");
-    fetch('http://localhost:8080/api/rental-vehicle/rental-List', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+  console.log("Fetching rental vehicles...");
+  fetch("http://localhost:8080/api/rental-vehicle/rental-List", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
+    .then((data) => {
+      console.log("Data fetched from API:", data);
+
+      const carRentals = data.filter((item) => item.vehicleType === "car");
+      const motorbikeRentals = data.filter(
+        (item) => item.vehicleType === "motobike"
+      );
+
+      carRentals.sort((a, b) => b.rentalVehicleId - a.rentalVehicleId);
+      motorbikeRentals.sort((a, b) => b.rentalVehicleId - a.rentalVehicleId);
+
+      console.log(
+        "Xe ô tô sau khi sắp xếp theo rentalVehicleId giảm dần:",
+        carRentals
+      );
+      console.log(
+        "Xe máy sau khi sắp xếp theo rentalVehicleId giảm dần:",
+        motorbikeRentals
+      );
+
+      saveRentalsToLocalStorage("carRentals", carRentals);
+      saveRentalsToLocalStorage("motorbikeRentals", motorbikeRentals);
+
+      displayRentals();
     })
-    .then(data => {
-        console.log("Data fetched from API:", data);
-
-        // Phân tách xe ô tô và xe máy
-        const carRentals = data.filter(item => item.vehicleType === 'car');
-        const motorbikeRentals = data.filter(item => item.vehicleType === 'motorbike');
-
-        // Lưu dữ liệu vào LocalStorage
-        saveRentalsToLocalStorage('carRentals', carRentals);
-        saveRentalsToLocalStorage('motorbikeRentals', motorbikeRentals);
-
-        console.log("Car rentals saved to localStorage:", carRentals);
-        console.log("Motorbike rentals saved to localStorage:", motorbikeRentals);
-
-        // Hiển thị danh sách thuê
-        displayRentals();
-    })
-    .catch(error => {
-        console.error('Error fetching rental vehicles:', error);
+    .catch((error) => {
+      console.error("Error fetching rental vehicles:", error);
     });
 }
 
-// Gọi hàm fetch khi trang được load
-document.addEventListener('DOMContentLoaded', fetchAndSaveRentalVehicles);
-
-
-
+document.addEventListener("DOMContentLoaded", fetchAndSaveRentalVehicles);
 
 function viewRentalDetails(index, vehicleType) {
-    // Lấy dữ liệu từ LocalStorage dựa vào loại phương tiện
-    const rentals = vehicleType === 'car' 
-        ? getRentalsFromLocalStorage('carRentals') 
-        : getRentalsFromLocalStorage('motorbikeRentals');
+  const rentals =
+    vehicleType === "car"
+      ? getRentalsFromLocalStorage("carRentals")
+      : getRentalsFromLocalStorage("motorbikeRentals");
 
-    // Kiểm tra dữ liệu thuê xe tại index
-    if (!rentals || !rentals[index]) {
-        console.error('Thông tin thuê xe không đầy đủ:', rentals ? rentals[index] : 'Không có dữ liệu');
-        alert('Không tìm thấy thông tin thuê xe!');
-        return;
-    }
+  if (!rentals || !rentals[index]) {
+    console.error(
+      "Thông tin thuê xe không đầy đủ:",
+      rentals ? rentals[index] : "Không có dữ liệu"
+    );
+    alert("Không tìm thấy thông tin thuê xe!");
+    return;
+  }
 
-    const rental = rentals[index]; // Lấy thông tin thuê xe
-    console.log('Chi tiết thuê xe:', rental);
+  const rental = rentals[index];
+  console.log("Chi tiết thuê xe:", rental);
+  const isCar = vehicleType === "car";
 
-    // Kiểm tra và hiển thị thông tin vào modal
-    const rentalAddress = rental.rental.account?.address || 'Chưa có địa chỉ';
-    const rentalFullName = rental.rental.account?.fullName || 'Chưa có tên';
-    const rentalEmail = rental.rental.account?.email || 'Chưa có email';
-    const rentalPhone = rental.rental.account?.phoneNumber || 'Chưa có số điện thoại';
-    const rentalStatus = rental.rental.renStatus || 'Chưa có trạng thái';
-    const rentalLocation = rental.rental.rentalLocations || 'Chưa có thông tin vị trí nhận xe';
-    const rentalNotes = rental.rental.notes || 'Chưa có ghi chú';
-    const rentalDiscount = rental.rental.discount?.discountCode || 'Không có mã giảm giá';
-    const rentalTotalCost = rental.rental.totalCost || 0;
-    const rentalDriver = rental.rental.haveDriver ? 'Có' : 'Không';
+  const nameVehicle = isCar 
+    ? `${rental.car.make} ${rental.car.model} ${rental.car.year}` 
+    : `${rental.motorbike.make} ${rental.motorbike.model} ${rental.motorbike.year}`;
+  
+    const colorrvehicleType = isCar 
+    ? rental.car.color 
+    : rental.motorbike.color || "Chưa có màu sắc";
 
-    // Kiểm tra và lấy ảnh xe (nếu có)
-    let rentalImage = 'default-car-image.jpg'; // Hình ảnh mặc định
-    if (rental.car && rental.car.imageUrl) {
-        rentalImage = rental.car.imageUrl; // Nếu có ảnh, dùng ảnh đó
-    }
+  const licenseplate = isCar 
+    ? rental.car.licensePlate 
+    : rental.motorbike.licensePlate || "Chưa có biển số";
 
-    // điền vào dom ở dươi
-    //            <div class="col-md-4">
-    // <img src="${rentalImage}" alt="Car Image" class="img-fluid rounded" />
-    // </div>
+  const gearbox = isCar 
+    ? rental.car.gearBox || "chưa liên kết đươc hộp số" 
+    : rental.motorbike.gearBox || "Chưa liên kết được hộp số";
 
+  const rentalID = rental.rentalVehicleId || "Chưa có id";
+  const rentalAddress = rental.rental.account?.address || "Chưa có địa chỉ";
+  const rentalFullName = rental.rental.account?.fullName || "Chưa có tên";
+  const rentalEmail = rental.rental.account?.email || "Chưa có email";
+  const rentalPhone =
+    rental.rental.account?.phoneNumber || "Chưa có số điện tho���i";
+  const rentalStatus = rental.rental.renStatus || "Chưa có trạng thái";
+  const rentalLocation =
+    rental.rental.rentalLocations || "Chưa có thông tin vị trí nhận xe";
+  const rentalNotes = rental.rental.notes || "Chưa có ghi chú";
+  const rentalDiscount =
+    rental.rental.discount?.discountCode || "Không có mã giảm giá";
+  const rentalTotalCost = rental.rental.totalCost || 0;
+  const rentalDriver = rental.rental.haveDriver ? "Có" : "Không";
 
-    // Điền nội dung vào modal
-    document.querySelector('#rentalDetailContent').innerHTML = `
-        <div class="row">
-        
-            <div class="col-md-8">
-                <p><strong>Tên khách hàng:</strong> ${rentalFullName}</p>
-                <p><strong>Email:</strong> ${rentalEmail}</p>
-                <p><strong>Địa chỉ:</strong> ${rentalAddress}</p>
-                <p><strong>Số điện thoại:</strong> ${rentalPhone}</p>
-                <p><strong>Trạng thái:</strong> ${rentalStatus}</p>
-                <p><strong>Vị trí nhận xe:</strong> ${rentalLocation}</p>
-                <p><strong>Giảm giá:</strong> ${rentalDiscount}</p>
-                <p><strong>Ghi chú:</strong> ${rentalNotes}</p>
-                <p><strong>Tổng chi phí:</strong> ${rentalTotalCost.toLocaleString()}</p>
-                <p><strong>Thuê xe có tài xế:</strong> ${rentalDriver}</p>
-            </div>
+  // Kiểm tra và tách ảnh xe (lấy ảnh đầu tiên nếu có)
+  let rentalImage = "default-car-image.jpg"; // Ảnh mặc định
+  if (rental.car && rental.car.imageUrl) {
+    const images = rental.car.imageUrl.split(","); // Tách chuỗi ảnh
+    rentalImage = images[0]; // Lấy ảnh đầu tiên
+  } else if (rental.motorbike && rental.motorbike.imageUrl) {
+    // Nếu không có ảnh ô tô, lấy ảnh của xe máy
+    const images = rental.motorbike.imageUrl.split(",");
+    rentalImage = images[0];
+  }
+
+  // Xác định đường dẫn ảnh dựa trên loại xe (car hoặc motorbike)
+  const imagePath = rental.car
+    ? `http://localhost:8080//assets/images/car/${rentalImage}`
+    : `http://localhost:8080//assets/images/motorbike/${rentalImage}`;
+
+  // Fetch thông tin thanh toán và cập nhật modal
+  fetch(`http://localhost:8080/api/payment/by-rental/${rentalID}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Payment data fetched:", data);
+
+      // Kiểm tra nếu dữ liệu thanh toán có tồn tại và hợp lệ
+      if (data && data.length > 0) {
+        const payment = data[0]; // Lấy thông tin thanh toán từ API
+        const paymentStatus = payment.status || "Chưa có trạng thái thanh toán";
+        const paymentMethod =
+          payment.paymentMethod || "Chưa có phương thức thanh toán";
+        const paymentAmount = payment.amount || 0;
+        const paymentDate = payment.paymentDate
+          ? new Date(payment.paymentDate).toLocaleDateString("vi-VN")
+          : "Chưa có ngày thanh toán";
+        const Statusbill = payment.status ;
+        const transactionId = payment.transId || "Chưa có mã giao dịch";
+        const paymentType = payment.paymentType || "Chưa có loại thanh toán";
+
+        console.log(
+          "Payment Info:",
+          paymentStatus,
+          paymentMethod,
+          paymentAmount,
+          paymentDate
+        ); // Log kiểm tra
+
+        // Render thông tin thuê xe vào modal
+        document.querySelector("#rentalDetailContent").innerHTML = `
+        <!-- Bảng 1: Thông tin xe -->
+        <div class="table-responsive mb-3">
+            <table class="table table-bordered" style="border: 2px solid black; border-radius: 10px; overflow: hidden;">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="text-center" style="font-size: 2.2rem; background-color: #cfcfcf;"><strong>Thông tin xe</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td style="display: flex; align-items: center; width: 25%; border: none;">
+                            <img src="${imagePath}" alt="Vehicle Image" class="img-fluid rounded" style="max-width: 250px; height: auto; margin-right: 10px; " />
+                           
+                        </td>
+                        <td style="font-size: 1.8rem; "> Tên xe:
+                        <strong><span style="font-size: 1.8rem;">${nameVehicle}</span></strong><br>
+                        Hộp Số:<strong><span style="font-size: 1.8rem;">${gearbox}</span></strong><br>
+                        Màu sắc:<strong><span style="font-size: 1.8rem;">${colorrvehicleType}</span></strong><br>
+                         Biển số:<strong><span style="font-size: 1.8rem;">${licenseplate}</span></strong><br>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Vị trí nhận xe</strong></td>
+                        <td style="font-size: 1.8rem;">${rentalLocation}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Trạng thái thuê</strong></td>
+                        <td style="font-size: 1.8rem;">${rentalStatus}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Giảm giá</strong></td>
+                        <td style="font-size: 1.8rem;">${rentalDiscount}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Thuê xe có tài xế</strong></td>
+                        <td style="font-size: 1.8rem;">${rentalDriver}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+    
+        <!-- Bảng 2: Thông tin khách hàng -->
+        <div class="table-responsive mb-3">
+           <table class="table table-bordered" style="border: 2px solid black; border-radius: 10px; overflow: hidden;">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="text-center" style="font-size: 2.2rem; background-color: #cfcfcf;"><strong>Thông tin khách hàng</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 22%;"><strong>Tên khách hàng</strong></td>
+                        <td style="font-size: 1.8rem;">${rentalFullName}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Email</strong></td>
+                        <td style="font-size: 1.8rem;">${rentalEmail}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Số điện thoại</strong></td>
+                        <td style="font-size: 1.8rem;">${rentalPhone}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Địa Chỉ</strong></td>
+                        <td style="font-size: 1.8rem;">${rentalAddress}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+        <!-- Bảng 3: Thông tin thanh toán -->
+        <div class="table-responsive mb-3" >
+            <table class="table table-bordered" style="border: 2px solid black; border-radius: 10px; overflow: hidden;">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="text-center" style="font-size: 2.2rem; background-color: #cfcfcf;"><strong>Thông tin thanh toán</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Tổng chi phí</strong></td>
+                        <td style="font-size: 1.8rem;">${rentalTotalCost.toLocaleString()} VND</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Ngày thanh toán</strong></td>
+                        <td style="font-size: 1.8rem;">${paymentDate}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Trạng thái</strong></td>
+                        <td style="font-size: 1.8rem; color: ${Statusbill == 'success' ? 'green' : 'red'};">
+                            ${Statusbill == 'success' ? 'Đã Thanh Toán' : 'Chưa Thanh Toán'}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Phương thức thanh toán</strong></td>
+                        <td style="font-size: 1.8rem;">${paymentType}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Mã giao dịch</strong></td>
+                        <td style="font-size: 1.8rem;">${transactionId}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1.8rem; width: 25%;"><strong>Ghi chú</strong></td>
+                        <td style="font-size: 1.8rem;">${rentalNotes}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+        
     `;
+      } else {
+        console.error("Không có dữ liệu thanh toán trả về");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching payment data:", error);
+    });
 
-    // Hiển thị modal
-    const modal = new bootstrap.Modal(document.getElementById('rentalDetailModal'));
-    modal.show();
+  // Hiển thị modal
+  const modal = new bootstrap.Modal(
+    document.getElementById("rentalDetailModal")
+  );
+  modal.show();
 }
+
+
+//đánh giá

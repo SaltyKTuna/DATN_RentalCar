@@ -113,10 +113,14 @@ public class homePageController {
         // Lấy thông tin người dùng đã đăng nhập từ session
         Account user = (Account) session.get("user");
 
+        List<Payment> payments = paymentRepo.findAll();
+
         if (user == null) {
             // Nếu không có người dùng trong session, chuyển hướng về trang đăng nhập
             return "redirect:/login";
         }
+
+        model.addAttribute("payments", payments);
 
         // Thêm thông tin người dùng vào model để hiển thị trên trang tài khoản
         model.addAttribute("user", user);

@@ -60,7 +60,7 @@ export function RentalDataTable() {
     accountPhone: '',
     accountEmail: '',
     sortField: 'rentalId',
-    sortDirection: 'asc',
+    sortDirection: 'desc',
   });
 
   const [debouncedFilters, setDebouncedFilters] = useState(filters);
