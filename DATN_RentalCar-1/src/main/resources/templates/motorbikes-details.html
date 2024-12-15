@@ -37,7 +37,9 @@
 				
 				<!-- Hiển thị ảnh phụ -->
 				<div class="sub-img">
-				    <div th:each="image : ${#strings.arraySplit(motorbike.imageUrl, ',')}" class="cover-car-item">
+				    <div th:each="image, iterStat : ${#strings.arraySplit(motorbike.imageUrl, ',')}"
+			  th:if="${iterStat.index > 0}"
+			  class="cover-car-item">
 				        <img th:src="@{'/assets/images/motorbike/' + ${image}}" alt="Ảnh Xe Phụ" loading="lazy" />
 				    </div>
 				</div>
