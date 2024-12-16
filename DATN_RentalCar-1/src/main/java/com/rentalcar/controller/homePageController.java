@@ -188,7 +188,8 @@ public class homePageController {
                                   @RequestParam String phoneNumber, 
                                   @RequestParam String address, 
                                   @RequestParam String dateOfBirth, 
-                                  @RequestParam String email, 
+                                  @RequestParam String email,
+                                  @RequestParam("licenseType") String licenseType,
                                   @RequestParam(required = false) String licenseNumber, // Thêm licenseNumber ở đây
                                   Model model) throws ParseException {
 
@@ -285,6 +286,7 @@ public class homePageController {
                 if (drivingLicense == null) {
                     // Nếu chưa có giấy phép lái xe, thêm mới
                     drivingLicense = new DrivingLicense();
+                    licenseNumber = licenseType+licenseNumber;
                     drivingLicense.setAccount(user); // Gán tài khoản người dùng hiện tại cho giấy phép lái xe
                     drivingLicense.setLicenseNumber(licenseNumber); // Cập nhật số giấy phép
                     drivingLicense.setDateOfBirth(user.getDateOfBirth()); // Gán ngày sinh của người dùng vào giấy phép
@@ -295,6 +297,7 @@ public class homePageController {
                     user.setDrivingLicense(drivingLicense);
                 } else {
                     // Nếu người dùng đã có giấy phép, chỉ cập nhật số giấy phép
+                    licenseNumber = licenseType+licenseNumber;
                     drivingLicense.setLicenseNumber(licenseNumber);
                 }
 
