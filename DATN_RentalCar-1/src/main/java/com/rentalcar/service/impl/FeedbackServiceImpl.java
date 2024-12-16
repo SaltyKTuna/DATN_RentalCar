@@ -16,16 +16,25 @@ import com.rentalcar.service.FeedbackService;
 public class FeedbackServiceImpl implements FeedbackService{
 	@Autowired FeedbackRepo fbRepo;
 	
-	@Override
-	public List<FeedbackInfo> getCompletedRentalsWithFeedbackMotorbike(Long motorbikeId) {
-	    return fbRepo.getCompletedRentalsWithFeedbackMotorbike(motorbikeId);  // Truyền motorbikeId vào
-	}
+	// @Override
+	// public List<FeedbackInfo> getCompletedRentalsWithFeedbackMotorbike(Long motorbikeId) {
+	//     return fbRepo.getCompletedRentalsWithFeedbackMotorbike(motorbikeId);  // Truyền motorbikeId vào
+	// }
+
+	// @Override
+	// public List<FeedbackInfo> getCompletedRentalsWithFeedbackCar(Long carId) {
+	//     return fbRepo.getCompletedRentalsWithFeedbackCar(carId);  // Truyền carId vào repository method
+	// }
 
 	@Override
-	public List<FeedbackInfo> getCompletedRentalsWithFeedbackCar(Long carId) {
-	    return fbRepo.getCompletedRentalsWithFeedbackCar(carId);  // Truyền carId vào repository method
-	}
+    public List<FeedbackInfo> getCompletedRentalsWithFeedbackCar(Long carId) {
+        return fbRepo.getCompletedRentalsWithFeedbackCar(carId, "Hoàn tất");
+    }
 
+    @Override
+    public List<FeedbackInfo> getCompletedRentalsWithFeedbackMotorbike(Long motorbikeId) {
+        return fbRepo.getCompletedRentalsWithFeedbackMotorbike(motorbikeId, "Hoàn tất");
+    }
 
 	public <S extends Feedback> S save(S entity) {
 		return fbRepo.save(entity);
