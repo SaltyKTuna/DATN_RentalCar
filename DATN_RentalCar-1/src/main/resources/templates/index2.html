@@ -239,20 +239,25 @@
 									Tự tay cầm lái chiếc xe bạn yêu thích <br /> cho hành trình
 									thêm hứng khởi.
 								</p>
-								<button>Thuê xe tự lái</button>
+								<a href="/pick-vehicle">
+									<button>Thuê xe</button>
+								</a>
+								
 							</div>
 						</div>
 					</div>
-					<div class="service-item right">
+					<div class="service-item right" >
 						<div class="service-img">
 							<img src="./assets/images/others/Xexinh.png" alt="" />
 							<div class="service-content">
-								<h3>Tài xế của bạn đã đến!</h3>
+								<h3>Lựa chọn xe yêu thích</h3>
 								<p>
-									Chuyến đi thêm thú vị <br /> cùng các bác tài 5* trên
+									Chuyến đi thêm thú vị <br /> cùng các mẫu xe yêu thích trên
 									RENTALCAR.
 								</p>
-								<button>Thuê xe có tài xế</button>
+								<a href="#product-car" onclick="smoothScroll(event)">
+									<button>Tìm Ngay</button>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -360,7 +365,7 @@
               </svg>
 						</div>
 						<h2 class="title-big">
-							Bạn muốn cho <br />thuê xe?
+							Bạn muốn làm <br />Tài Xế
 						</h2>
 						<p>
 							Hơn 5,000 chủ xe đang cho thuê hiệu quả trên RENTALCAR<br />Đăng
@@ -368,8 +373,7 @@
 							nhập hàng tháng.
 						</p>
 						<div class="btn-container">
-							<a class="btn-default" href="/howitwork#owner">Tìm hiểu ngay</a>
-							<a class="btn-blue" href="/owner/register">Đăng ký xe</a>
+							<a class="btn-default" href="#">Tìm hiểu ngay</a>
 						</div>
 					</div>
 					<div class="explorer-img">
@@ -471,6 +475,14 @@
 		</div>
 	</div>
 
+	<script>
+		function smoothScroll(event) {
+			event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+			const targetId = event.currentTarget.getAttribute("href");
+			const targetElement = document.querySelector(targetId);
+			targetElement.scrollIntoView({ behavior: 'smooth' });
+		}
+	</script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
 	<script

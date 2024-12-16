@@ -40,7 +40,7 @@ function createRentalRow(rental, index, vehicleType) {
 
 // Thêm nút đánh giá nếu trạng thái là "Hoàn tất"
 const reviewButton = renStatus === "Hoàn tất"
-  ? `<button class="btn btn-warning btn-sm" onclick="openRatingModal(${index}, '${vehicleType}')">Đánh giá</button>`
+  ? `<button class="btn btn-warning btn-sm" onclick="showFeedbackModal(${index}, '${vehicleType}')">Đánh giá</button>`
   : "";
   // Nút "Xem Chi Tiết"
   const detailButton = `<button class="btn btn-info btn-sm" onclick="viewRentalDetails(${index}, '${vehicleType}')">Xem Chi Tiết</button>`;
@@ -223,7 +223,7 @@ function viewRentalDetails(index, vehicleType) {
   const rentalFullName = rental.rental.account?.fullName || "Chưa có tên";
   const rentalEmail = rental.rental.account?.email || "Chưa có email";
   const rentalPhone =
-    rental.rental.account?.phoneNumber || "Chưa có số điện tho���i";
+    rental.rental.account?.phoneNumber || "Chưa có số điện thoại";
   const rentalStatus = rental.rental.renStatus || "Chưa có trạng thái";
   const rentalLocation =
     rental.rental.rentalLocations || "Chưa có thông tin vị trí nhận xe";
@@ -417,4 +417,140 @@ function viewRentalDetails(index, vehicleType) {
 }
 
 
-//đánh giá
+
+// Đánh giá
+function showFeedbackModal(index, vehicleType) {
+
+  const rentals =
+    vehicleType === "car"
+      ? getRentalsFromLocalStorage("carRentals")
+      : getRentalsFromLocalStorage("motorbikeRentals");
+
+  if (!rentals || rentals.length === 0) {
+    alert("Không tìm thấy danh sách xe!");
+    return;
+  }
+
+  const rental = rentals[index];
+  if (!rental) {
+    alert("Không tìm thấy thông tin xe tại vị trí này!");
+    return;
+  }
+
+  const isCar = vehicleType === "car";
+  const vehicleName = isCar
+    ? `${rental.car.make} ${rental.car.model} (${rental.car.year})`
+    : `${rental.motorbike.make} ${rental.motorbike.model} (${rental.motorbike.year})`;
+
+  let rentalImage = "default-car-image.jpg"; 
+  if (isCar && rental.car.imageUrl) {
+    const images = rental.car.imageUrl.split(","); 
+    rentalImage = images[0]; 
+  } else if (!isCar && rental.motorbike.imageUrl) {
+    const images = rental.motorbike.imageUrl.split(",");
+    rentalImage = images[0]; 
+  }
+
+  const imagePath = isCar
+    ? `http://localhost:8080/assets/images/car/${rentalImage}`
+    : `http://localhost:8080/assets/images/motorbike/${rentalImage}`;
+
+  const vehicleColor = isCar
+    ? rental.car.color || "Chưa có thông tin"
+    : rental.motorbike.color || "Chưa có thông tin";
+
+  const vehiclePlate = isCar
+    ? rental.car.licensePlate || "Chưa có thông tin"
+    : rental.motorbike.licensePlate || "Chưa có thông tin";
+
+  let existingModal = document.getElementById("feedbackModal");
+
+  if (!existingModal) {
+    const modalHTML = `
+      <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="feedbackModalLabel">Đánh giá thuê xe</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Hiển thị thông tin xe -->
+              <div class="mb-3" style="font-size: 1.4rem; border: 1px solid #ddd; padding: 10px; border-radius: 5px; background-color: #f9f9f9; display: flex; align-items: center;">
+                <img src="${imagePath}" alt="Vehicle Image" class="img-fluid rounded" style="max-width: 250px; height: auto; margin-right: 10px;" />
+                <div>
+                  <strong>Tên xe:</strong> <span id="vehicleName">${vehicleName}</span><br>
+                  <strong>Màu sắc:</strong> <span id="vehicleColor">${vehicleColor}</span><br>
+                  <strong>Biển số:</strong> <span id="vehiclePlate">${vehiclePlate}</span>
+                </div>
+              </div>
+
+              <form id="feedbackForm">
+                <div class="mb-3">
+                  <label for="feedbackStars" class="form-label">Đánh giá (1-5 sao)</label>
+                  <div id="feedbackStars" class="d-flex gap-2" style="font-size: 4rem;">
+                    <span class="star" data-value="1" style="color: gray;">☆</span>
+                    <span class="star" data-value="2" style="color: gray;">☆</span>
+                    <span class="star" data-value="3" style="color: gray;">☆</span>
+                    <span class="star" data-value="4" style="color: gray;">☆</span>
+                    <span class="star" data-value="5" style="color: gray;">☆</span>
+                  </div>
+                  <input type="hidden" id="feedbackRating" required>
+                </div>
+                <div class="mb-3">
+                  <label for="feedbackComment" class="form-label">Nhận xét</label>
+                  <textarea id="feedbackComment" class="form-control" rows="4" placeholder="Nhập nhận xét của bạn..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+    // su kien ngoi sao
+    document.querySelectorAll("#feedbackStars .star").forEach((star) => {
+      star.addEventListener("click", function () {
+        const value = this.getAttribute("data-value");
+        document.getElementById("feedbackRating").value = value;
+        document.querySelectorAll("#feedbackStars .star").forEach((s) => {
+          s.textContent = "☆";
+          s.style.color = "gray";
+        });
+        for (let i = 1; i <= value; i++) {
+          const selectedStar = document.querySelector(`.star[data-value="${i}"]`);
+          selectedStar.textContent = "★";
+          selectedStar.style.color = "gold";
+        }
+      });
+    });
+  }
+
+  // Reset modal
+  document.getElementById("vehicleName").textContent = "";
+  document.getElementById("vehicleColor").textContent = "";
+  document.getElementById("vehiclePlate").textContent = "";
+
+  document.getElementById("feedbackRating").value = "";
+  document.querySelectorAll("#feedbackStars .star").forEach((star) => {
+    star.textContent = "☆";
+    star.style.color = "gray"; 
+  });
+
+  document.getElementById("feedbackComment").value = ""; 
+
+  document.getElementById("vehicleName").textContent = vehicleName;
+  document.getElementById("vehicleColor").textContent = vehicleColor;
+  document.getElementById("vehiclePlate").textContent = vehiclePlate;
+
+  const feedbackModal = new bootstrap.Modal(document.getElementById("feedbackModal"));
+  feedbackModal.show();
+}
+
+document.body.addEventListener("hidden.bs.modal", (event) => {
+  if (event.target.id === "feedbackModal") {
+    event.target.remove();
+  }
+});
