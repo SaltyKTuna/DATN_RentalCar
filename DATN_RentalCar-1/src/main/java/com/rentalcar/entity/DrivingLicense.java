@@ -3,7 +3,9 @@ package com.rentalcar.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -22,8 +24,9 @@ public class DrivingLicense {
     private Long licenseId;
 
     @ManyToOne
-    @JoinColumn(name = "AccountID", nullable = false)
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonBackReference
+    @JoinColumn(name = "accountId", nullable = false)
     private Account account;
 
     @Column(nullable = false, length = 50)
@@ -36,6 +39,8 @@ public class DrivingLicense {
 
     @Column(nullable = false, length = 50, columnDefinition = "NVARCHAR(50)")
     private String licenseStatus;
+    
+   
 
     // Getters and Setters
 }

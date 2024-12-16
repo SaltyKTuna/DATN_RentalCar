@@ -37,7 +37,7 @@ export interface SideLink extends NavLink {
 export const sidelinks: SideLink[] = [
   {
     title: 'sidebar.dashboard',
-    label:  '',
+    label: '',
     href: '/',
     icon: <IconLayoutDashboard size={18} />,
   },
@@ -47,7 +47,7 @@ export const sidelinks: SideLink[] = [
     href: '/tasks',
     icon: <IconChecklist size={18} />,
     sub: [
-      { 
+      {
         title: 'Danh Sách Xe O-TO',
         label: '',
         href: '/carManagement',
@@ -164,6 +164,18 @@ export const sidelinks: SideLink[] = [
         label: '9',
         href: '/users',
         icon: <IconTruck size={18} />,
+      },
+      {
+        title: 'Danh Sách Tài Xế',
+        label: '',
+        href: '/driverManagement',
+        icon: <IconTruck size={18} />,
+      },
+      {
+        title: 'Bằng Lái',
+        label: '',
+        href: '/drivingLicense',
+        icon: <IconBoxSeam size={18} />,
       },
       {
         title: 'Phân Quyền',

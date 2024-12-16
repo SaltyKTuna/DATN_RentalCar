@@ -154,8 +154,7 @@ export default function RentalPage() {
   const fetchRentals = async () => {
     try {
       setLoading(true)
-      const response = await axios.get(
-        `${API_URL}?page=${page}&size=${PAGE_SIZE}&sort=${sortField},${sortDirection}`
+      const response = await axios.get(API_URL
       )
       setRentals(response.data.content || [])
       setTotalPages(response.data.totalPages)
@@ -377,7 +376,7 @@ export default function RentalPage() {
                                 {field.value ? (
                                   moment(field.value).format('DD/MM/YYYY')
                                 ) : (
-                                  <span>Ch���n ngày trả</span>
+                                  <span>Chọn ngày trả</span>
                                 )}
                                 <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                               </Button>
@@ -484,11 +483,14 @@ export default function RentalPage() {
                     <FormItem>
                       <FormLabel>Tổng tiền (VNĐ)</FormLabel>
                       <FormControl>
-                        <Input 
-                          type='number' 
-                          {...field} 
+                        <Input
+                          type='number'
                           placeholder='Nhập tổng tiền'
-                          onChange={(e) => field.onChange(Number(e.target.value))}
+                          value={field.value === 0 ? '' : field.value}
+                          onChange={(e) => {
+                            const value = e.target.value === '' ? 0 : Number(e.target.value);
+                            field.onChange(value);
+                          }}
                         />
                       </FormControl>
                     </FormItem>
@@ -508,7 +510,7 @@ export default function RentalPage() {
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder='Chọn tr���ng thái'>
+                            <SelectValue placeholder='Chọn trạng thái'>
                               {RENTAL_STATUS[field.value as keyof typeof RENTAL_STATUS]}
                             </SelectValue>
                           </SelectTrigger>
@@ -532,9 +534,9 @@ export default function RentalPage() {
                     <FormItem>
                       <FormLabel>Mã giảm giá</FormLabel>
                       <FormControl>
-                        <Input 
-                          type='number' 
-                          {...field} 
+                        <Input
+                          type='number'
+                          {...field}
                           placeholder='Nhập mã giảm giá'
                         />
                       </FormControl>
@@ -619,11 +621,11 @@ export default function RentalPage() {
 
         {/* Search Bar */}
         <div className="mb-4">
-          <Input 
-            type="text" 
-            placeholder="Tìm kiếm theo tên khách hàng" 
+          <Input
+            type="text"
+            placeholder="Tìm kiếm theo tên khách hàng"
             value={searchCustomerName}
-            onChange={(e) => setSearchCustomerName(e.target.value)} 
+            onChange={(e) => setSearchCustomerName(e.target.value)}
           />
         </div>
 
@@ -633,7 +635,7 @@ export default function RentalPage() {
               <TableRow>
                 <TableHead>ID</TableHead>
                 <TableHead>Khách hàng</TableHead>
-                <TableHead 
+                <TableHead
                   className="cursor-pointer hover:bg-gray-100"
                   onClick={() => handleSort('rentalDate')}
                 >
@@ -641,7 +643,7 @@ export default function RentalPage() {
                     <span>{sortDirection === 'asc' ? '↑' : '↓'}</span>
                   )}
                 </TableHead>
-                <TableHead 
+                <TableHead
                   className="cursor-pointer hover:bg-gray-100"
                   onClick={() => handleSort('returnDate')}
                 >
@@ -677,7 +679,7 @@ export default function RentalPage() {
                     <TableCell>{formatDate(rental.rentalDate)}</TableCell>
                     <TableCell>{formatDate(rental.returnDate)}</TableCell>
                     <TableCell>
-                      {rental.actualReturnDate 
+                      {rental.actualReturnDate
                         ? formatDate(rental.actualReturnDate)
                         : '-'}
                     </TableCell>

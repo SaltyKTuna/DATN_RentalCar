@@ -57,6 +57,9 @@ public class Account {
     
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     private DrivingLicense drivingLicense;
+    
+//    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<DrivingLicense> DrivingLicense;
 
 
     // Getters and Setters

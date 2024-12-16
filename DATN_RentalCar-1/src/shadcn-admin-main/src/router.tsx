@@ -46,20 +46,20 @@ const router = createBrowserRouter([
     errorElement: <GeneralError />,
     children: [
       {
-        
+
         index: true,
         lazy: async () => ({
           Component: (await import('./pages/dashboard')).default,
         }),
       },
       //Cài đặt tài khoản
-      { path: 'users', lazy: async () => ({Component: (await import('@/pages/accounts/accountSettings')).default,}),},
+      { path: 'users', lazy: async () => ({ Component: (await import('@/pages/accounts/accountSettings')).default, }), },
       //Quản Lí Xe Ô Tô
-      {path : 'carManagement', lazy: async() => ({Component :(await import ('@/pages/vehiclemanage/carManagement')).default,}),},
+      { path: 'carManagement', lazy: async () => ({ Component: (await import('@/pages/vehiclemanage/carManagement')).default, }), },
       //Quản Lú Xe Máy
-      {path :'motorbikeManagements', lazy: async() => ({Component : (await import('@/pages/vehiclemanage/motorbikeManagements')).default,}),},
+      { path: 'motorbikeManagements', lazy: async () => ({ Component: (await import('@/pages/vehiclemanage/motorbikeManagements')).default, }), },
       // Bảo quản và sửa chửa
-      {path :'MaintenanceManagement', lazy: async() => ({Component : (await import('@/pages/maintenance/MaintenanceManagement')).default,}),},
+      { path: 'MaintenanceManagement', lazy: async () => ({ Component: (await import('@/pages/maintenance/MaintenanceManagement')).default, }), },
       //rental
       {
         path: '/rental-page',
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
         }),
       },
       //history rental
-      {path : 'HistoryRental', lazy: async() => ({Component : (await import('@/pages/historyRental/historyRental')).default,}),},
+      { path: 'HistoryRental', lazy: async () => ({ Component: (await import('@/pages/historyRental/historyRental')).default, }), },
 
       //payment
       {
@@ -101,7 +101,20 @@ const router = createBrowserRouter([
           Component: (await import('@/pages/accounts/accountCustomerManagement')).default,
         }),
       },
-
+      //driver
+      {
+        path: '/driverManagement',
+        lazy: async () => ({
+          Component: (await import('@/pages/accounts/driverManagement')).default,
+        }),
+      },
+      //driving-license
+      {
+        path: '/drivingLicense',
+        lazy: async () => ({
+          Component: (await import('@/pages/accounts/drivingLicense')).default,
+        }),
+      },
       {
         path: 'tasks',
         lazy: async () => ({
@@ -181,7 +194,7 @@ const router = createBrowserRouter([
         ],
       },
       // LIST CAR
-      
+
 
     ],
   },

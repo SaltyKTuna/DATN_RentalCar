@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Edit, Trash2 } from "lucide-react";
 import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Car {
   carId: number;
@@ -31,7 +32,7 @@ const CarManagement: React.FC = () => {
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-
+  const { toast } = useToast();
 
   const [newCar, setNewCar] = useState<Car>({
     carId: 0,
@@ -76,9 +77,12 @@ const CarManagement: React.FC = () => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    // Kiểm tra xem số ảnh đã tải lên + ảnh mới chọn có vượt quá 5 ảnh không
     if (imagePreviews.length + files.length > 5) {
-      alert("Chỉ được phép tải lên tối đa 5 ảnh");
+      toast({
+        title: "Error",
+        description: "Chỉ được phép tải lên tối đa 5 ảnh",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -105,39 +109,35 @@ const CarManagement: React.FC = () => {
         uploadedFilesAndUrls.push({ file, url: relativeUrl });
       }
 
-      // Cập nhật danh sách ảnh tạm thời và thêm ảnh mới vào ảnh đã có
       const uploadedUrls = uploadedFilesAndUrls.map(item => item.url);
-      setUploadedImages(prev => [...prev, ...uploadedUrls]); // Thêm ảnh mới vào ảnh đã có
+      setUploadedImages(prev => [...prev, ...uploadedUrls]);
 
-      // Tạo preview ảnh và thêm ảnh mới vào ảnh đã có
       const newPreviews = uploadedFilesAndUrls.map(item => URL.createObjectURL(item.file));
-      setImagePreviews(prev => [...prev, ...newPreviews]); // Thêm preview ảnh mới
+      setImagePreviews(prev => [...prev, ...newPreviews]);
 
     } catch (error) {
       console.error("Error uploading images:", error);
-      alert("Lỗi khi tải ảnh lên");
+      toast({
+        title: "Error",
+        description: "Lỗi khi tải ảnh lên",
+        variant: "destructive",
+      });
     } finally {
       setIsUploading(false);
     }
   };
 
   const handleDeleteImage = (index: number) => {
-    // Xóa ảnh khỏi mảng imagePreviews
     const newImagePreviews = [...imagePreviews];
     newImagePreviews.splice(index, 1);
 
-    // Cập nhật lại mảng imagePreviews
     setImagePreviews(newImagePreviews);
 
-    // Nếu bạn cũng muốn xóa ảnh khỏi uploadedImages, làm tương tự
     const newUploadedImages = [...uploadedImages];
     newUploadedImages.splice(index, 1);
 
-    // Cập nhật lại mảng uploadedImages
     setUploadedImages(newUploadedImages);
   };
-
-
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -156,14 +156,12 @@ const CarManagement: React.FC = () => {
     }));
   };
 
-
   const filteredCars = cars.filter(
     (car) =>
       car.make.toLowerCase().includes(searchTerm.toLowerCase()) ||
       car.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
       car.color.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -184,7 +182,6 @@ const CarManagement: React.FC = () => {
     });
   };
 
-
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const addMaintenance = (car: Car) => {
@@ -203,59 +200,108 @@ const CarManagement: React.FC = () => {
       .catch((error) => console.error("Error adding maintenance:", error));
   };
 
-  const handleAddCar = () => {
-    // Cập nhật ảnh vào newCar chỉ khi người dùng nhấn "Add Car"
+  const validateCar = (): boolean => {
+    if (!newCar.make.trim()) {
+      toast({
+        title: "Error",
+        description: "Hãng xe không được để trống.",
+        variant: "destructive",
+      });
+      return false;
+    }
+    if (!newCar.model.trim()) {
+      toast({
+        title: "Error",
+        description: "Mẫu xe không được để trống.",
+        variant: "destructive",
+      });
+      return false;
+    }
+    if (!newCar.transmission) {
+      toast({
+        title: "Error",
+        description: "Vui lòng chọn loại hộp số.",
+        variant: "destructive",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const handleAddCar = async () => {
+    if (!validateCar()) return;
+
     const carDataToSend = {
       ...newCar,
-      imageUrl: uploadedImages.join(",") // Chỉ lưu ảnh đã được tải lên
+      imageUrl: uploadedImages.join(",")
     };
 
-    if (isEditing) {
-      // Cập nhật xe hiện tại
-      axios
-        .put(`http://localhost:8080/api/car/${newCar.carId}`, carDataToSend)
-        .then(() => {
-          if (newCar.status === "Bảo dưỡng") {
-            addMaintenance(newCar);
-          } else {
-            deleteMaintenanceByCarId(newCar.carId);
-          }
-          fetchCars();
-          resetForm();
-        })
-        .catch((error) => console.error("Lỗi khi cập nhật xe:", error));
-    } else {
-      // Thêm mới xe
-      axios
-        .post("http://localhost:8080/api/car", carDataToSend)
-        .then(() => {
-          if (newCar.status === "Bảo dưỡng") {
-            addMaintenance(newCar);
-          }
-          fetchCars();
-          resetForm();
-        })
-        .catch((error) => console.error("Lỗi khi thêm xe:", error));
+    try {
+      if (isEditing) {
+        await axios.put(`http://localhost:8080/api/car/${newCar.carId}`, carDataToSend);
+
+        if (newCar.status === "Bảo dưỡng") {
+          await addMaintenance(newCar);
+        } else {
+          await deleteMaintenanceByCarId(newCar.carId);
+        }
+
+        toast({
+          title: "Success",
+          description: "Cập nhật thông tin xe thành công",
+        });
+      } else {
+        await axios.post("http://localhost:8080/api/car", carDataToSend);
+
+        if (newCar.status === "Bảo dưỡng") {
+          await addMaintenance(newCar);
+        }
+
+        toast({
+          title: "Success",
+          description: "Thêm xe thành công",
+        });
+      }
+
+      fetchCars();
+      resetForm();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: isEditing ? "Cập nhật thông tin xe thất bại" : "Thêm xe thất bại",
+        variant: "destructive",
+      });
     }
   };
 
-  const handleDeleteCar = (id: number) => {
+  const handleDeleteCar = async (id: number) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa xe này?")) {
-      const carToDelete = cars.find(car => car.carId === id);
+      try {
+        const carToDelete = cars.find(car => car.carId === id);
 
-      if (carToDelete) {
-        carToDelete.imageUrl.split(',').forEach(url => {
-          const index = imagePreviews.findIndex(preview => preview.includes(url));
-          if (index > -1) {
-            URL.revokeObjectURL(imagePreviews[index]);
-          }
+        if (carToDelete) {
+          carToDelete.imageUrl.split(',').forEach(url => {
+            const index = imagePreviews.findIndex(preview => preview.includes(url));
+            if (index > -1) {
+              URL.revokeObjectURL(imagePreviews[index]);
+            }
+          });
+        }
+
+        await axios.delete(`http://localhost:8080/api/car/${id}`);
+        toast({
+          title: "Success",
+          description: "Xóa xe thành công",
+        });
+        fetchCars();
+        resetForm();
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Xóa xe thất bại",
+          variant: "destructive",
         });
       }
-      axios
-        .delete(`http://localhost:8080/api/car/${id}`)
-        .then(() => fetchCars())
-        .catch((error) => console.error("Error deleting car:", error));
-      resetForm();
     }
   };
 
@@ -268,6 +314,10 @@ const CarManagement: React.FC = () => {
 
     setImagePreviews(imageUrls.map(url => `http://localhost:8080/assets/images/car/${url}`));
 
+    toast({
+      title: "Info",
+      description: "Đang chỉnh sửa thông tin xe",
+    });
   };
 
   const deleteMaintenanceByCarId = (carId: number) => {
@@ -302,99 +352,91 @@ const CarManagement: React.FC = () => {
       vehicleLocation: "",
       percentDiscount: 0,
     });
-    setUploadedImages([]); // Xóa ảnh tạm thời
-    setImagePreviews([]); // Xóa preview ảnh
+    setUploadedImages([]);
+    setImagePreviews([]);
     setIsEditing(false);
   };
-
-  //----------------------------------------------------------------------------------------------
 
   return (
     <div className="h-screen overflow-auto">
       <div className="container mx-auto p-6">
         <h2 className="text-2xl font-bold mb-6 text-center">Quản Lí Xe Hơi</h2>
 
-        {/* Form Section */}
         <div className="p-6 border border-gray-300 shadow-md rounded-lg">
           <div className="grid grid-cols-3 gap-6">
 
-            {/* Upload Image Section */}
             <div className="col-span-1">
-  <h3 className="text-lg font-semibold mb-4">Tải lên ảnh của xe</h3>
+              <h3 className="text-lg font-semibold mb-4">Tải lên ảnh của xe</h3>
 
-  {/* Ảnh Toàn Xe */}
-  <div className="border-dashed border-2 border-gray-400 rounded-lg h-48 flex items-center justify-center text-gray-500 mb-4 relative group overflow-hidden">
-    <input
-      type="file"
-      accept="image/*"
-      onChange={handleImageUpload}
-      className="opacity-0 absolute h-full w-full cursor-pointer"
-      multiple // Cho phép chọn nhiều ảnh
-    />
+              <div className="border-dashed border-2 border-gray-400 rounded-lg h-48 flex items-center justify-center text-gray-500 mb-4 relative group overflow-hidden">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="opacity-0 absolute h-full w-full cursor-pointer"
+                  multiple
+                />
 
-    {isUploading && (
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
-      </div>
-    )}
+                {isUploading && (
+                  <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
+                  </div>
+                )}
 
-    {imagePreviews[0] ? (
-      <img
-        src={imagePreviews[0]}
-        alt="Ảnh Toàn Xe"
-        className="object-cover w-full h-full rounded-lg" // Đảm bảo ảnh chiếm toàn bộ ô mà không bị méo
-      />
-    ) : (
-      <>
-        <p className="font-medium text-center">Ảnh Toàn Xe</p>
-      </>
-    )}
+                {imagePreviews[0] ? (
+                  <img
+                    src={imagePreviews[0]}
+                    alt="Ảnh Toàn Xe"
+                    className="object-cover w-full h-full rounded-lg"
+                  />
+                ) : (
+                  <>
+                    <p className="font-medium text-center">Ảnh Toàn Xe</p>
+                  </>
+                )}
 
-    {/* Hover button for delete */}
-    {imagePreviews[0] && (
-      <button
-        onClick={() => handleDeleteImage(0)} // Xóa ảnh "Ảnh Toàn Xe"
-        className="absolute top-0 right-0 bg-black text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 focus:outline-none"
-      >
-        &times;
-      </button>
-    )}
-  </div>
+                {imagePreviews[0] && (
+                  <button
+                    onClick={() => handleDeleteImage(0)}
+                    className="absolute top-0 right-0 bg-black text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 focus:outline-none"
+                  >
+                    &times;
+                  </button>
+                )}
+              </div>
 
-  {/* Display uploaded images */}
-  <div className="grid grid-cols-2 gap-4">
-    {["Ảnh Đầu Xe", "Ảnh Đuôi Xe", "Ảnh Đồng Hồ", "Ảnh Phụ"].map((label, index) => (
-      <div
-        key={index}
-        className="border-dashed border-2 border-gray-400 rounded-lg h-24 flex items-center justify-center text-gray-500 relative group overflow-hidden" // Đảm bảo ảnh không tràn ra ngoài
-      >
-        {imagePreviews[index + 1] ? (
-          <div className="relative group-hover:block"> {/* Thêm group-hover vào div này */}
-            <img
-              src={imagePreviews[index + 1]}
-              alt={label}
-              className="object-cover h-full w-full rounded-lg" // Đảm bảo ảnh chiếm toàn bộ ô mà không bị méo
-            />
-            <button
-              onClick={() => handleDeleteImage(index + 1)} // Xóa ảnh theo index
-              className="absolute top-0 right-0 bg-black text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 focus:outline-none"
-            >
-              &times;
-            </button>
-          </div>
-        ) : (
-          <div className="flex items-center justify-center text-gray-400">
-            <p className="font-medium">{label}</p>
-          </div>
-        )}
-      </div>
-    ))}
-  </div>
-</div>
+              <div className="grid grid-cols-2 gap-4">
+                {["Ảnh Đầu Xe", "Ảnh Đuôi Xe", "Ảnh Đồng Hồ", "Ảnh Phụ"].map((label, index) => (
+                  <div
+                    key={index}
+                    className="border-dashed border-2 border-gray-400 rounded-lg h-24 flex items-center justify-center text-gray-500 relative group overflow-hidden"
+                  >
+                    {imagePreviews[index + 1] ? (
+                      <div className="relative group-hover:block">
+                        <img
+                          src={imagePreviews[index + 1]}
+                          alt={label}
+                          className="object-cover h-full w-full rounded-lg"
+                        />
+                        <button
+                          onClick={() => handleDeleteImage(index + 1)}
+                          className="absolute top-0 right-0 bg-black text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 focus:outline-none"
+                        >
+                          &times;
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center text-gray-400">
+                        <p className="font-medium">{label}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
 
 
 
-            {/* Car Information Form */}
             <div className="col-span-1">
               <h3 className="text-lg font-semibold mb-4">Thông Tin Xe</h3>
               <form className="space-y-4">
@@ -438,7 +480,6 @@ const CarManagement: React.FC = () => {
 
             </div>
 
-            {/* Additional Information Form */}
             <div className="col-span-1">
               <h3 className="text-lg font-semibold mb-4">Thông Tin Bổ Sung</h3>
               <form className="space-y-4">
@@ -519,7 +560,6 @@ const CarManagement: React.FC = () => {
 
               </form>
 
-              {/* CRUD Buttons */}
               <div className="flex justify-start space-x-4 mt-4">
                 <button
                   className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -541,7 +581,6 @@ const CarManagement: React.FC = () => {
           </div>
         </div>
 
-        {/* Search Section */}
         <div className="mt-6">
           <h3 className="text-lg font-semibold mb-4  text-center">Tìm Kiếm Xe</h3>
           <input
@@ -553,7 +592,6 @@ const CarManagement: React.FC = () => {
           />
         </div>
 
-        {/* Table Section */}
         <div className="mt-6">
           <h3 className="text-lg font-semibold mb-4  text-center">Danh sách xe</h3>
           <div className="overflow-x-auto">

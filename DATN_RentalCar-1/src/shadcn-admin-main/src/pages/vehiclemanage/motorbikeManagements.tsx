@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Edit, Trash2 } from "lucide-react";
 import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Motorbike {
   gearBox: string | null;
@@ -24,16 +25,14 @@ interface Motorbike {
   detailBike: string;
 }
 
-
 const MotorbikeManagement: React.FC = () => {
+  const { toast } = useToast();
   const [motorbikes, setMotorbikes] = useState<Motorbike[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-
-
 
   const [newMotorbike, setNewMotorbike] = useState<Motorbike>({
     gearBox: null,
@@ -59,17 +58,24 @@ const MotorbikeManagement: React.FC = () => {
 
   useEffect(() => {
     fetchMotorbikes();
+    return () => {
+      imagePreviews.forEach(URL.revokeObjectURL);
+    };
   }, []);
 
   const fetchMotorbikes = async () => {
     try {
       const response = await axios.get("http://localhost:8080/api/motorbikes");
       const data = response.data;
-      // Đảm bảo data là mảng, nếu không thì gán mảng rỗng
       setMotorbikes(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Error fetching motorbikes:", error);
-      setMotorbikes([]); // Gán mảng rỗng khi gặp lỗi
+      toast({
+        title: "Error",
+        description: "Lỗi khi tải danh sách xe",
+        variant: "destructive",
+      });
+      setMotorbikes([]);
     }
   };
 
@@ -77,9 +83,12 @@ const MotorbikeManagement: React.FC = () => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    // Kiểm tra xem số ảnh đã tải lên + ảnh mới chọn có vượt quá 5 ảnh không
     if (imagePreviews.length + files.length > 5) {
-      alert("Chỉ được phép tải lên tối đa 5 ảnh");
+      toast({
+        title: "Error",
+        description: "Chỉ được phép tải lên tối đa 5 ảnh",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -106,118 +115,160 @@ const MotorbikeManagement: React.FC = () => {
         uploadedFilesAndUrls.push({ file, url: relativeUrl });
       }
 
-      // Cập nhật danh sách ảnh tạm thời và thêm ảnh mới vào ảnh đã có
       const uploadedUrls = uploadedFilesAndUrls.map(item => item.url);
-      setUploadedImages(prev => [...prev, ...uploadedUrls]); // Thêm ảnh mới vào ảnh đã có
+      setUploadedImages(prev => [...prev, ...uploadedUrls]);
 
-      // Tạo preview ảnh và thêm ảnh mới vào ảnh đã có
       const newPreviews = uploadedFilesAndUrls.map(item => URL.createObjectURL(item.file));
-      setImagePreviews(prev => [...prev, ...newPreviews]); // Thêm preview ảnh mới
+      setImagePreviews(prev => [...prev, ...newPreviews]);
 
+      toast({
+        title: "Success",
+        description: "Tải ảnh lên thành công",
+      });
     } catch (error) {
       console.error("Error uploading images:", error);
-      alert("Lỗi khi tải ảnh lên");
+      toast({
+        title: "Error",
+        description: "Lỗi khi tải ảnh lên",
+        variant: "destructive",
+      });
     } finally {
       setIsUploading(false);
     }
   };
 
   const handleDeleteImage = (index: number) => {
-    // Xóa ảnh khỏi mảng imagePreviews
     const newImagePreviews = [...imagePreviews];
     newImagePreviews.splice(index, 1);
-
-    // Cập nhật lại mảng imagePreviews
     setImagePreviews(newImagePreviews);
 
-    // Nếu bạn cũng muốn xóa ảnh khỏi uploadedImages, làm tương tự
     const newUploadedImages = [...uploadedImages];
     newUploadedImages.splice(index, 1);
-
-    // Cập nhật lại mảng uploadedImages
     setUploadedImages(newUploadedImages);
-  };
 
+    toast({
+      title: "Success",
+      description: "Xóa ảnh thành công",
+    });
+  };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
-  const addMaintenance = (motorbike: Motorbike) => {
-    const maintenanceData = {
-      maintenanceDate: new Date().toISOString(),
-      description: `Bảo dưỡng cho xe ${motorbike.make} ${motorbike.model} (${motorbike.year})`,
-      cost: 0,
-      motorbikeId: motorbike.motorbikeId,
-    };
+  const addMaintenance = async (motorbike: Motorbike) => {
+    try {
+      const maintenanceData = {
+        maintenanceDate: new Date().toISOString(),
+        description: `Bảo dưỡng cho xe ${motorbike.make} ${motorbike.model} (${motorbike.year})`,
+        cost: 0,
+        motorbikeId: motorbike.motorbikeId,
+      };
 
-    axios
-      .post("http://localhost:8080/api/car-maintenance", maintenanceData)
-      .then(() => {
-        console.log("Maintenance record added successfully");
-      })
-      .catch((error) => console.error("Error adding maintenance:", error));
+      await axios.post("http://localhost:8080/api/car-maintenance", maintenanceData);
+      toast({
+        title: "Success",
+        description: "Đã thêm lịch bảo dưỡng",
+      });
+    } catch (error) {
+      console.error("Error adding maintenance:", error);
+      toast({
+        title: "Error",
+        description: "Lỗi khi thêm lịch bảo dưỡng",
+        variant: "destructive",
+      });
+    }
   };
 
-  const deleteMaintenanceByMotorbikeId = (motorbikeId: number) => {
-    axios
-      .delete(`http://localhost:8080/api/car-maintenance/${motorbikeId}`)
-      .then(() => {
-        console.log(`Đã xóa bảo dưỡng của xe có ID ${motorbikeId}`);
-      })
-      .catch((error) => console.error("Lỗi khi xóa bảo dưỡng:", error));
+  const deleteMaintenanceByMotorbikeId = async (motorbikeId: number) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/car-maintenance/${motorbikeId}`);
+      toast({
+        title: "Success",
+        description: "Đã xóa lịch bảo dưỡng",
+      });
+    } catch (error) {
+      console.error("Lỗi khi xóa bảo dưỡng:", error);
+      toast({
+        title: "Error",
+        description: "Lỗi khi xóa lịch bảo dưỡng",
+        variant: "destructive",
+      });
+    }
   };
 
   const validateMotorbike = (): boolean => {
     if (!newMotorbike.make.trim()) {
-      alert("Hãng xe không được để trống.");
+      toast({
+        title: "Error",
+        description: "Hãng xe không được để trống",
+        variant: "destructive",
+      });
       return false;
     }
     if (!newMotorbike.model.trim()) {
-      alert("Mẫu xe không được để trống.");
+      toast({
+        title: "Error",
+        description: "Mẫu xe không được để trống",
+        variant: "destructive",
+      });
       return false;
     }
     if (!newMotorbike.gearBox) {
-      alert("Vui lòng chọn loại hộp số.");
+      toast({
+        title: "Error",
+        description: "Vui lòng chọn loại hộp số",
+        variant: "destructive",
+      });
       return false;
     }
     return true;
   };
 
-  const handleAddMotorbike = () => {
+  const handleAddMotorbike = async () => {
     if (!validateMotorbike()) return;
 
     const motorbikeDataToSend = {
       ...newMotorbike,
-      imageUrl: uploadedImages.join(",") // Chỉ lưu ảnh đã được tải lên
+      imageUrl: uploadedImages.join(",")
     };
 
-    if (isEditing) {
-      // Cập nhật xe hiện tại
-      axios
-        .put(`http://localhost:8080/api/motorbikes/${newMotorbike.motorbikeId}`, motorbikeDataToSend)
-        .then(() => {
-          if (newMotorbike.status === "Bảo dưỡng") {
-            addMaintenance(newMotorbike);
-          } else {
-            deleteMaintenanceByMotorbikeId(newMotorbike.motorbikeId);
-          }
-          fetchMotorbikes();
-          resetForm();
-        })
-        .catch((error) => console.error("Lỗi khi cập nhật xe:", error));
-    } else {
-      // Thêm mới xe
-      axios
-        .post("http://localhost:8080/api/motorbikes", motorbikeDataToSend)
-        .then(() => {
-          if (newMotorbike.status === "Bảo dưỡng") {
-            addMaintenance(newMotorbike);
-          }
-          fetchMotorbikes();
-          resetForm();
-        })
-        .catch((error) => console.error("Lỗi khi thêm xe:", error));
+    try {
+      if (isEditing) {
+        await axios.put(`http://localhost:8080/api/motorbikes/${newMotorbike.motorbikeId}`, motorbikeDataToSend);
+
+        if (newMotorbike.status === "Bảo dưỡng") {
+          await addMaintenance(newMotorbike);
+        } else {
+          await deleteMaintenanceByMotorbikeId(newMotorbike.motorbikeId);
+        }
+
+        toast({
+          title: "Success",
+          description: "Cập nhật xe thành công",
+        });
+      } else {
+        await axios.post("http://localhost:8080/api/motorbikes", motorbikeDataToSend);
+
+        if (newMotorbike.status === "Bảo dưỡng") {
+          await addMaintenance(newMotorbike);
+        }
+
+        toast({
+          title: "Success",
+          description: "Thêm xe thành công",
+        });
+      }
+
+      fetchMotorbikes();
+      resetForm();
+    } catch (error) {
+      console.error(isEditing ? "Lỗi khi cập nhật xe:" : "Lỗi khi thêm xe:", error);
+      toast({
+        title: "Error",
+        description: isEditing ? "Lỗi khi cập nhật xe" : "Lỗi khi thêm xe",
+        variant: "destructive",
+      });
     }
   };
 
@@ -227,31 +278,46 @@ const MotorbikeManagement: React.FC = () => {
 
     const imageUrls = motorbike.imageUrl.split(',').filter(Boolean);
     setUploadedImages(imageUrls);
-
     setImagePreviews(imageUrls.map(url => `http://localhost:8080/assets/images/motorbike/${url}`));
 
+    toast({
+      title: "Info",
+      description: "Đang chỉnh sửa thông tin xe",
+    });
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: number) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa xe này?")) {
-      const motorbikeToDelete = motorbikes.find(motorbike => motorbike.motorbikeId === id);
+      try {
+        const motorbikeToDelete = motorbikes.find(motorbike => motorbike.motorbikeId === id);
 
-      if (motorbikeToDelete) {
-        motorbikeToDelete.imageUrl.split(',').forEach(url => {
-          const index = imagePreviews.findIndex(preview => preview.includes(url));
-          if (index > -1) {
-            URL.revokeObjectURL(imagePreviews[index]);
-          }
+        if (motorbikeToDelete) {
+          motorbikeToDelete.imageUrl.split(',').forEach(url => {
+            const index = imagePreviews.findIndex(preview => preview.includes(url));
+            if (index > -1) {
+              URL.revokeObjectURL(imagePreviews[index]);
+            }
+          });
+        }
+
+        await axios.delete(`http://localhost:8080/api/motorbikes/${id}`);
+        toast({
+          title: "Success",
+          description: "Xóa xe thành công",
+        });
+
+        fetchMotorbikes();
+        resetForm();
+      } catch (error) {
+        console.error("Error deleting motorbike:", error);
+        toast({
+          title: "Error",
+          description: "Lỗi khi xóa xe",
+          variant: "destructive",
         });
       }
-      axios
-        .delete(`http://localhost:8080/api/motorbikes/${id}`)
-        .then(() => fetchMotorbikes())
-        .catch((error) => console.error("Error deleting motorbike:", error));
-      resetForm();
     }
   };
-
 
   const resetForm = () => {
     setNewMotorbike({
@@ -279,7 +345,6 @@ const MotorbikeManagement: React.FC = () => {
     setImagePreviews([]);
     setIsEditing(false);
   };
-
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = event.target;
