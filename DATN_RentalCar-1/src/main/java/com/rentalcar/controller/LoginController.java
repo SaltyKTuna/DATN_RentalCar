@@ -63,39 +63,6 @@ public class LoginController {
         }
     }
 
-    
-
- // Phương thức xử lý login cho nextjs
-    @PostMapping(value = "/nextjs",consumes = "application/x-www-form-urlencoded", produces = "application/json")
-    @ResponseBody
-    public Map<String, Object> login(@RequestParam("email") String email,
-                                     @RequestParam("password") String password) {
-
-        Map<String, Object> response = new HashMap<>();
-        Account account = accountService.findByEmail(email);
-
-        if (account != null && account.getPasswordHash().equals(password)) {
-            session.set("user", account);
-            if (checkAdmin(account)) {
-                session.set("userAdmin", "admin");
-            } else {
-                session.set("userAdmin", "customer");
-            }
-
-            // Trả về thông báo đăng nhập thành công
-            response.put("status", "success");
-            response.put("message", "Login successful");
-            response.put("redirectUrl", "/home"); // URL để điều hướng
-        } else {
-            response.put("status", "error");
-            response.put("message", "Email hoặc mật khẩu không hợp lệ");
-        }
-
-        return response;  // Trả về Map dưới dạng JSON
-    }
-
-
-    
     public Boolean checkAdmin(Account account) { // Hàm để Check admin
         for (Role roleDetail : account.getRoles()) {
             if (roleDetail.getRoleName().equals("staff") || roleDetail.getRoleName().equals("admin")) {
