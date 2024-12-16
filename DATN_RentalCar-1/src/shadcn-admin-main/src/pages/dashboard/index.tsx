@@ -17,15 +17,51 @@ import { Overview } from './components/overview'
 import { useTranslations } from 'use-intl'
 import LanguageSwitch from '@/components/language-switch'
 import { RentalDataTable } from '@/pages/dashboard/components/rentalDataTable'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
-  
+interface Statistics {
+  id: number
+  statDate: string
+  totalMotorbikeRentals: number
+  totalCarRentals: number
+  totalRevenue: number
+  totalCustomers: number
+  totalNewCustomers: number
+  totalVehiclesRented: number
+  totalMotorbikesAvailable: number
+  totalCarsAvailable: number
+  totalDrivers: number
+  averageRentalDuration: number
+  averageRevenuePerRental: number
+  discountUsed: number
+}
+
 export default function Dashboard() {
   const t = useTranslations('dashboard')
+  const [statistics, setStatistics] = useState<Statistics | null>(null)
+
+  useEffect(() => {
+    const fetchStatistics = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/statistics')
+        console.log(response.data)
+        const sortedStatistics = response.data.sort((a: Statistics, b: Statistics) => 
+          new Date(b.statDate).getTime() - new Date(a.statDate).getTime()
+        );
+        setStatistics(sortedStatistics[0])
+      } catch (error) {
+        console.error('Error fetching statistics:', error)
+      }
+    }
+
+    fetchStatistics()
+  }, [])
+
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
       <Layout.Header>
-        <TopNav links={topNav} />
         <div className='ml-auto flex items-center space-x-4'>
           <Search />
           <ThemeSwitch />
@@ -64,7 +100,7 @@ export default function Dashboard() {
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
-                    {t('total_revenue')}
+                    Doanh thu trong ngày
                   </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -80,16 +116,18 @@ export default function Dashboard() {
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>$45,231.89</div>
+                  <div className='text-2xl font-bold'>
+                    {statistics?.totalRevenue.toLocaleString() || '0'}đ
+                  </div>
                   <p className='text-xs text-muted-foreground'>
-                    {t('from_last_month', { amount: '+20.1%' })}
+                    Ngày: {statistics?.statDate }
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
-                    {t('subscriptions')}
+                    Lượt đăng ký mới
                   </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -107,16 +145,16 @@ export default function Dashboard() {
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>+2350</div>
+                  <div className='text-2xl font-bold'>+{statistics?.totalNewCustomers || 0}</div>
                   <p className='text-xs text-muted-foreground'>
-                    {t('from_last_month', { amount: '+180.1%' })}
+                    +180.1% so với hôm qua
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
-                    {t('sales')}
+                    Số lượng xe cho thuê trong ngày
                   </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -132,17 +170,22 @@ export default function Dashboard() {
                     <path d='M2 10h20' />
                   </svg>
                 </CardHeader>
-                <CardContent>
-                  <div className='text-2xl font-bold'>+12,234</div>
-                  <p className='text-xs text-muted-foreground'>
-                    {t('from_last_month', { amount: '+19%' })}
+                <CardContent className='flex justify-between'> {/* Added flexbox for horizontal layout */}
+                  <div className='text-1xl font-bold'>Xe máy: </div>
+                  <p className='text-1xl text-muted-foreground'>
+                  {statistics?.totalMotorbikeRentals || 0}
+                  </p>
+                  <hr className='my-2 h-10 border-l-2 border-gray-300' /> {/* Vertical line */}
+                  <div className='text-1xl font-bold'>Xe ô tô: </div>
+                  <p className='text-1xl text-muted-foreground'>
+                  {statistics?.totalCarRentals || 0}
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
-                    {t('active_now')}
+                    Tài Khoản đang hoạt động
                   </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -158,10 +201,9 @@ export default function Dashboard() {
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>+573</div>
-                  <p className='text-xs text-muted-foreground'>
-                    {t('since_last_hour', { amount: '+201' })}
-                  </p>
+                  <div className='text-2xl font-bold'>
+                    {statistics?.totalCustomers || 0}
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -176,9 +218,9 @@ export default function Dashboard() {
               </Card>
               <Card className='col-span-1 lg:col-span-3'>
                 <CardHeader>
-                  <CardTitle>{t('recent_sales')}</CardTitle>
+                  <CardTitle>Lượt Thuê Trong Ngày</CardTitle>
                   <CardDescription>
-                    {t('recent_sales_desc', { amount: '265' })}
+                    Số lượt thuê: {statistics?.totalMotorbikeRentals + statistics?.totalCarRentals || 0}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -293,25 +335,3 @@ export default function Dashboard() {
   )
 }
 
-const topNav = [
-  {
-    title: 'dashboard.overview',
-    href: 'dashboard/overview',
-    isActive: true,
-  },
-  {
-    title: 'dashboard.customers',
-    href: 'dashboard/customers',
-    isActive: false,
-  },
-  {
-    title: 'dashboard.products',
-    href: 'dashboard/products',
-    isActive: false,
-  },
-  {
-    title: 'dashboard.settings',
-    href: 'dashboard/settings',
-    isActive: false,
-  },
-]

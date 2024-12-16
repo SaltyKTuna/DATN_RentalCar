@@ -40,8 +40,14 @@ public interface CarRepo extends JpaRepository<Car, Long>{
     
     @Query("SELECT c FROM Car c WHERE c.vehicleLocation = :location")
     List<Car> findAllVehicleLocation(@Param("location") String location);
-
-
     
+    @Query(value = "SELECT CASE " +
+            "WHEN CHARINDEX('TP', c.vehicle_location) > 0 THEN " +
+            "LTRIM(SUBSTRING(c.vehicle_location, CHARINDEX('TP', c.vehicle_location) + 2, LEN(c.vehicle_location))) " +
+            "ELSE c.vehicle_location END AS extractedLocation " +
+            "FROM Car c " +
+            "WHERE c.vehicle_location LIKE CONCAT(N'%', :location, '%')", 
+    nativeQuery = true)
+    List<Car> findVehicleLocation(@Param("location") String location);
 
 }
