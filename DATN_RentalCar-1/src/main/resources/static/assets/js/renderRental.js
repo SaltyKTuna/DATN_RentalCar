@@ -218,7 +218,7 @@ function viewRentalDetails(index, vehicleType) {
     ? rental.car.gearBox || "chưa liên kết đươc hộp số" 
     : rental.motorbike.gearBox || "Chưa liên kết được hộp số";
 
-  const rentalID = rental.rentalVehicleId || "Chưa có id";
+  const rentalID = rental.rental.rentalId || "Chưa có id";
   const rentalAddress = rental.rental.account?.address || "Chưa có địa chỉ";
   const rentalFullName = rental.rental.account?.fullName || "Chưa có tên";
   const rentalEmail = rental.rental.account?.email || "Chưa có email";
@@ -256,6 +256,8 @@ function viewRentalDetails(index, vehicleType) {
       "Content-Type": "application/json",
     },
   })
+
+  
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -278,6 +280,7 @@ function viewRentalDetails(index, vehicleType) {
         const Statusbill = payment.status ;
         const transactionId = payment.transId || "Chưa có mã giao dịch";
         const paymentType = payment.paymentType || "Chưa có loại thanh toán";
+        const totalAmount = payment.amount || "Chưa có tổng tiền";
 
         console.log(
           "Payment Info:",
@@ -286,6 +289,13 @@ function viewRentalDetails(index, vehicleType) {
           paymentAmount,
           paymentDate
         ); // Log kiểm tra
+    
+        // Hiển thị trong ô HTML
+        // Hàm định dạng tiền tệ VND
+        const formatCurrency = (amount) => {
+          return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }).replace('₫', ' VND');
+        };
+        console.log("1234567890: ",{rentalID})
 
         // Render thông tin thuê xe vào modal
         document.querySelector("#rentalDetailContent").innerHTML = `
@@ -371,7 +381,7 @@ function viewRentalDetails(index, vehicleType) {
                 <tbody>
                     <tr>
                         <td style="font-size: 1.8rem; width: 25%;"><strong>Tổng chi phí</strong></td>
-                        <td style="font-size: 1.8rem;">${rentalTotalCost.toLocaleString()} VND</td>
+                        <td style="font-size: 1.8rem;">${formatCurrency(totalAmount)}</td>
                     </tr>
                     <tr>
                         <td style="font-size: 1.8rem; width: 25%;"><strong>Ngày thanh toán</strong></td>
@@ -420,7 +430,6 @@ function viewRentalDetails(index, vehicleType) {
 
 // Đánh giá
 function showFeedbackModal(index, vehicleType) {
-
   const rentals =
     vehicleType === "car"
       ? getRentalsFromLocalStorage("carRentals")
@@ -437,18 +446,21 @@ function showFeedbackModal(index, vehicleType) {
     return;
   }
 
+  const rentalId = rental.rental.rentalId; // Lấy rentalId từ dữ liệu thuê xe
+  
+
   const isCar = vehicleType === "car";
   const vehicleName = isCar
     ? `${rental.car.make} ${rental.car.model} (${rental.car.year})`
     : `${rental.motorbike.make} ${rental.motorbike.model} (${rental.motorbike.year})`;
 
-  let rentalImage = "default-car-image.jpg"; 
+  let rentalImage = "default-car-image.jpg"; // Hình ảnh mặc định
   if (isCar && rental.car.imageUrl) {
-    const images = rental.car.imageUrl.split(","); 
-    rentalImage = images[0]; 
+    const images = rental.car.imageUrl.split(",");
+    rentalImage = images[0];
   } else if (!isCar && rental.motorbike.imageUrl) {
     const images = rental.motorbike.imageUrl.split(",");
-    rentalImage = images[0]; 
+    rentalImage = images[0];
   }
 
   const imagePath = isCar
@@ -463,8 +475,8 @@ function showFeedbackModal(index, vehicleType) {
     ? rental.car.licensePlate || "Chưa có thông tin"
     : rental.motorbike.licensePlate || "Chưa có thông tin";
 
+  // Tạo modal nếu chưa tồn tại
   let existingModal = document.getElementById("feedbackModal");
-
   if (!existingModal) {
     const modalHTML = `
       <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
@@ -485,6 +497,7 @@ function showFeedbackModal(index, vehicleType) {
                 </div>
               </div>
 
+              <!-- Form đánh giá -->
               <form id="feedbackForm">
                 <div class="mb-3">
                   <label for="feedbackStars" class="form-label">Đánh giá (1-5 sao)</label>
@@ -510,7 +523,7 @@ function showFeedbackModal(index, vehicleType) {
     `;
     document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-    // su kien ngoi sao
+    // Gắn sự kiện click cho các ngôi sao
     document.querySelectorAll("#feedbackStars .star").forEach((star) => {
       star.addEventListener("click", function () {
         const value = this.getAttribute("data-value");
@@ -526,31 +539,91 @@ function showFeedbackModal(index, vehicleType) {
         }
       });
     });
+
+    // Reset form khi đóng modal
+    document
+      .getElementById("feedbackModal")
+      .addEventListener("hidden.bs.modal", () => {
+        // Reset form
+        const feedbackForm = document.getElementById("feedbackForm");
+        feedbackForm.reset();
+
+        // Reset trạng thái ngôi sao đánh giá
+        document.querySelectorAll("#feedbackStars .star").forEach((star) => {
+          star.textContent = "☆";
+          star.style.color = "gray";
+        });
+
+        // Xóa nội dung các trường hiển thị thông tin xe
+        document.getElementById("vehicleName").textContent = "";
+        document.getElementById("vehicleColor").textContent = "";
+        document.getElementById("vehiclePlate").textContent = "";
+
+        // Reset hình ảnh xe về mặc định
+        const vehicleImage = document.querySelector("#feedbackModal img");
+        if (vehicleImage) {
+          vehicleImage.src = "default-car-image.jpg";
+        }
+      });
   }
 
-  // Reset modal
-  document.getElementById("vehicleName").textContent = "";
-  document.getElementById("vehicleColor").textContent = "";
-  document.getElementById("vehiclePlate").textContent = "";
+  // Lắng nghe sự kiện submit form
+  const feedbackForm = document.getElementById("feedbackForm");
+  feedbackForm.onsubmit = function (event) {
+    event.preventDefault();
 
-  document.getElementById("feedbackRating").value = "";
-  document.querySelectorAll("#feedbackStars .star").forEach((star) => {
-    star.textContent = "☆";
-    star.style.color = "gray"; 
-  });
+    const rating = parseInt(document.getElementById("feedbackRating").value, 10);
+    const comment = document.getElementById("feedbackComment").value;
+    const feedbackDate = new Date().toISOString().split("T")[0]; // Ngày hiện tại
 
-  document.getElementById("feedbackComment").value = ""; 
+    if (!rating || !comment) {
+      alert("Vui lòng hoàn thành tất cả các trường!");
+      return;
+    }
 
+    const feedbackData = {
+      rental: { rentalId },
+      rating,
+      comment,
+      feedbackDate,
+    };
+
+    console.log("Sending feedback:", feedbackData);
+
+    // Gửi POST yêu cầu đến API
+    fetch("http://localhost:8080/api/feedback", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(feedbackData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.text(); // Dùng text() thay vì json()
+      })
+      .then((data) => {
+        console.log("Response from server:", data);
+        alert("Cảm ơn bạn đã gửi đánh giá!");
+        const feedbackModal = bootstrap.Modal.getInstance(document.getElementById("feedbackModal"));
+        feedbackModal.hide(); // Ẩn modal sau khi gửi thành công
+      })
+      .catch((error) => {
+        console.error("Error submitting feedback:", error);
+        alert("Có lỗi xảy ra khi gửi đánh giá. Vui lòng thử lại.");
+      });
+  };
+
+  // Hiển thị modal
+  const feedbackModal = new bootstrap.Modal(document.getElementById("feedbackModal"));
   document.getElementById("vehicleName").textContent = vehicleName;
   document.getElementById("vehicleColor").textContent = vehicleColor;
   document.getElementById("vehiclePlate").textContent = vehiclePlate;
+  document.querySelector("#feedbackModal img").src = imagePath;
 
-  const feedbackModal = new bootstrap.Modal(document.getElementById("feedbackModal"));
   feedbackModal.show();
 }
 
-document.body.addEventListener("hidden.bs.modal", (event) => {
-  if (event.target.id === "feedbackModal") {
-    event.target.remove();
-  }
-});
+
