@@ -36,16 +36,12 @@ export function RecentSales() {
           axios.get('http://localhost:8080/api/payment'),
         ])
 
-        // Lọc dữ liệu theo ngày hiện tại và sắp xếp giảm dần theo thời gian
-        const today = new Date().toISOString().slice(0, 10) // YYYY-MM-DD
-        const filteredPayments = paymentResponse.data
-          .filter((payment: Payment) => payment.paymentDate.startsWith(today)) // Lọc ngày hiện tại
-          .sort(
-            (a: Payment, b: Payment) =>
-              new Date(b.paymentDate).getTime() - new Date(a.paymentDate).getTime()
-          ) // Sắp xếp giảm dần theo thời gian
+        // Sắp xếp giảm dần theo ID và lấy 10 giao dịch gần nhất
+        const sortedPayments = paymentResponse.data
+          .sort((a: Payment, b: Payment) => b.paymentId - a.paymentId)
+          .slice(0, 10)
 
-        setPayments(filteredPayments)
+        setPayments(sortedPayments)
       } catch (error) {
         console.error('Lỗi khi tải dữ liệu:', error)
       }
@@ -64,12 +60,15 @@ export function RecentSales() {
     return initials.slice(0, 2)
   }
 
-  // Hàm định dạng ngày giờ thành giờ:phút
-  const formatTime = (dateString: string) => {
+  // Hàm định dạng ngày giờ chi tiết
+  const formatDateTime = (dateString: string) => {
     const date = new Date(dateString)
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
     const hours = String(date.getHours()).padStart(2, '0')
     const minutes = String(date.getMinutes()).padStart(2, '0')
-    return `${hours}:${minutes}`
+    return `${hours}:${minutes} ${day}/${month}/${year}`
   }
 
   return (
@@ -94,10 +93,10 @@ export function RecentSales() {
                 {payment.rental.account.email}
               </p>
             </div>
-            <div className='font-medium'>
-              +{payment.amount.toLocaleString()}đ
+            <div className='font-medium text-right'>
+              <p>+{payment.amount.toLocaleString()}đ</p>
               <p className='text-xs text-muted-foreground'>
-                {formatTime(payment.paymentDate)} {/* Hiển thị giờ:phút */}
+                {formatDateTime(payment.paymentDate)}
               </p>
             </div>
           </div>

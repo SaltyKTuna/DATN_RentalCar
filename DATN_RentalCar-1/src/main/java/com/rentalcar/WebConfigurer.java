@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -13,11 +15,15 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.rentalcar.interceptor.AuthInterceptor;
+import com.rentalcar.service.SessionService;
 
 @Configuration
 public class WebConfigurer implements WebMvcConfigurer {
     @Autowired
     private AuthInterceptor authInterceptor;
+    
+    @Autowired
+    private SessionService session;
 
     /**
      * Cấu hình đường dẫn cho tài nguyên tĩnh.
@@ -32,6 +38,13 @@ public class WebConfigurer implements WebMvcConfigurer {
     /**
      * Cấu hình Interceptor cho các yêu cầu HTTP.
      */
+    		
+    @Bean
+     public RequestContextListener requestContextListener() {
+         return new RequestContextListener();
+     }
+    
+    
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)

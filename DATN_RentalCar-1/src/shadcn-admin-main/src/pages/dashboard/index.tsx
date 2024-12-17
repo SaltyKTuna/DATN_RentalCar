@@ -146,9 +146,6 @@ export default function Dashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className='text-2xl font-bold'>+{statistics?.totalNewCustomers || 0}</div>
-                  <p className='text-xs text-muted-foreground'>
-                    +180.1% so với hôm qua
-                  </p>
                 </CardContent>
               </Card>
               <Card>

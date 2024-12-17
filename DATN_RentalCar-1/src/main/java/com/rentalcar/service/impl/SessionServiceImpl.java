@@ -33,5 +33,11 @@ public class SessionServiceImpl implements SessionService{
 		// TODO Auto-generated method stub
 		session.removeAttribute(name);
 	}
+	
+	@Override
+	public boolean contains(String key) {
+        return session.getAttribute(key) != null;
+    }
+
 
 }

@@ -30,6 +30,7 @@ interface Car {
   color: string;
   condition: string;
   vehicleLocation: string;
+  imageUrl: string;
 }
 
 interface Motorbike {
@@ -41,6 +42,7 @@ interface Motorbike {
   color: string;
   condition: string;
   vehicleLocation: string;
+  imageUrl: string;
 }
 
 interface Payment {
@@ -208,12 +210,21 @@ export function RentalDetailsModal({
 
   const renderVehicleInfo = (vehicle: RentalVehicle) => {
     const info = vehicle.vehicleType === 'car' ? vehicle.car : vehicle.motorbike;
+    const imageUrls = info?.imageUrl ? info.imageUrl.split(',') : []; // Tách chuỗi hình ảnh
+    const imagePath = vehicle.vehicleType === 'car' 
+        ? 'http://localhost:8080/assets/images/car/' 
+        : 'http://localhost:8080/assets/images/motorbike/'; // Đường dẫn hình ảnh theo loại xe
+
     return (
       <div key={vehicle.rentalVehicleId} className="border-b pb-4 mb-4">
+        <p><strong>Hình ảnh:</strong></p>
+        <div className="overflow-x-auto whitespace-nowrap">
+          {imageUrls.map((url, index) => (
+            <img key={index} src={`${imagePath}${url.trim()}`} alt={`Vehicle Image ${index + 1}`} className="h-32 object-cover inline-block" />
+          ))}
+        </div>
         <p><strong>Loại:</strong> {vehicle.vehicleType === 'car' ? 'Ô Tô' : 'Xe Máy'}</p>
-        <p><strong>Hãng:</strong> {info?.make || 'N/A'}</p>
-        <p><strong>Mẫu:</strong> {info?.model || 'N/A'}</p>
-        <p><strong>Năm:</strong> {info?.year || 'N/A'}</p>
+        <p><strong>Tên xe:</strong> {info?.make || 'N/A'} {info?.model || 'N/A'} {info?.year || 'N/A'}</p>
         <p><strong>Biển Số:</strong> {info?.licensePlate || 'N/A'}</p>
         <p><strong>Màu:</strong> {info?.color || 'N/A'}</p>
         <p><strong>Vị Trí:</strong> {info?.vehicleLocation || 'N/A'}</p>

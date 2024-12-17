@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.rentalcar.apiController.StatisticsDataController;
 import com.rentalcar.dao.AccountRepo;
 import com.rentalcar.dao.RoleRepo;
 import com.rentalcar.dao.StatisticsDataRepo;
@@ -31,6 +32,8 @@ public class RegisterController {
     
     @Autowired
     private StatisticsService statisticsService;
+    @Autowired
+    private StatisticsDataController statisticsController;
     
     @GetMapping
     public String registerPage(Model model) {
@@ -102,6 +105,9 @@ public class RegisterController {
 
         // Lưu thông tin tài khoản mới
         accRepo.save(account);
+        
+        //thêm số lượng đăng ký mới vào thống kê
+        statisticsController.incrementField("totalNewCustomers");
 
      // Thêm thông báo thành công
         model.addAttribute("success", "Đăng ký thành công! Vui lòng đăng nhập.");

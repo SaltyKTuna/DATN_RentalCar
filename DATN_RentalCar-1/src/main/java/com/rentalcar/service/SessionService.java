@@ -8,4 +8,7 @@ public interface SessionService {
 	void set(String name, Object value);
 
 	void remove(String name);
+	
+	public boolean contains(String key);
+
 }

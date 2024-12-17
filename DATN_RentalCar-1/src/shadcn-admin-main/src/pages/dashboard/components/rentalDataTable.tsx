@@ -293,7 +293,7 @@ export function RentalDataTable() {
                     <TableCell>{new Date(rental.rentalDate).toLocaleDateString()}</TableCell>
                     <TableCell>{new Date(rental.returnDate).toLocaleDateString()}</TableCell>
                     <TableCell>
-                      {rental.actualReturnDate
+                      {rental.renStatus === 'Hoàn tất' && rental.actualReturnDate
                         ? new Date(rental.actualReturnDate).toLocaleDateString()
                         : 'Chưa trả'}
                     </TableCell>

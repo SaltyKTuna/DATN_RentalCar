@@ -56,6 +56,9 @@ public class PaymentController {
 
 	@Autowired
 	private PaymentRepo paymentRepo;
+	
+	@Autowired
+    private StatisticsDataController statisticsController;
 
 	private Mac HmacSHA256;
 
@@ -224,13 +227,17 @@ public class PaymentController {
 
 			if ("COD".equals(payment.getPaymentType()) || "prePayment".equals(payment.getPaymentMethod())) {
 				payment.setStatus("pending");
-
+				
+				//lưu vào thống kê
+				statisticsController.incrementFieldB("totalRevenue", payment.getAmount().doubleValue());
+				
 				Payment savedPayment = paymentRepo.save(payment);
 				return ResponseEntity.status(HttpStatus.CREATED)
 						.body(new PaymentResponse("Save payment successfully...", "success"));
 			}
 
 			payment.setStatus("unpaid");
+			
 			Payment savedPayment = paymentRepo.save(payment);
 			
 			String url = "";

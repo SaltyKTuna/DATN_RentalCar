@@ -1,6 +1,7 @@
 package com.rentalcar.apiController;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.hibernate.Hibernate;
@@ -33,6 +34,8 @@ public class RentalVehicleController {
 	@Autowired AccountRepo accountRepo;
 	@Autowired
     private SessionService session;
+	@Autowired
+    private StatisticsDataController statisticsController;
 
 	
 	
@@ -68,9 +71,16 @@ public class RentalVehicleController {
 		@PostMapping
 		public ResponseEntity<RentalVehicle> save(@RequestBody RentalVehicle rentalVehicle) {
 		    RentalVehicle savedRentalVehicle = rentalvehicleRepo.save(rentalVehicle);
+		    
+		    if (Objects.isNull(savedRentalVehicle.getCar())) {
+		        statisticsController.incrementField("totalMotorbikeRentals");
+		    } else if (Objects.isNull(savedRentalVehicle.getMotorbike())) {
+		        statisticsController.incrementField("totalCarRentals");
+		    }
+		    
 		    return ResponseEntity.ok(savedRentalVehicle);
 		}
-
+		
 		@PutMapping(value = "/{id}")
 		public String update(@PathVariable("id") Long id, @RequestBody RentalVehicle rentalVehicleDetail) {
 			// Tìm đối tượng cần cập nhật
