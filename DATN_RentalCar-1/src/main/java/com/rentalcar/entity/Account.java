@@ -43,7 +43,7 @@ public class Account {
         joinColumns = @JoinColumn(name = "account_id"), // Khóa ngoại của bảng Accounts
         inverseJoinColumns = @JoinColumn(name = "role_id") // Khóa ngoại của bảng Roles
     )
-    @JsonIgnore
+    //@JsonIgnore
     private List<Role> roles; // Danh sách các vai trò
 
     @Column(length = 255, columnDefinition = "NVARCHAR(255)")
