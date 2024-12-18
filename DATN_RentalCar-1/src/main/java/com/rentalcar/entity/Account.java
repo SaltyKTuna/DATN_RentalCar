@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,6 +43,7 @@ public class Account {
         joinColumns = @JoinColumn(name = "account_id"), // Khóa ngoại của bảng Accounts
         inverseJoinColumns = @JoinColumn(name = "role_id") // Khóa ngoại của bảng Roles
     )
+    @JsonIgnore
     private List<Role> roles; // Danh sách các vai trò
 
     @Column(length = 255, columnDefinition = "NVARCHAR(255)")
@@ -61,6 +63,14 @@ public class Account {
 //    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private Set<DrivingLicense> DrivingLicense;
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 
     // Getters and Setters
 }

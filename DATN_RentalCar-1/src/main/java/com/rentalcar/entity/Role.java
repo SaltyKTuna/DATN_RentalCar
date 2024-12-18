@@ -25,7 +25,16 @@ public class Role {
     @Column(length = 255, columnDefinition = "NVARCHAR(255)")
     private String description;
 
-    @ManyToMany(mappedBy = "roles")  // Đây là ánh xạ ngược lại từ bảng Account
+    @ManyToMany(mappedBy = "roles")
     @JsonIgnore
     private List<Account> accounts;
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "roleId=" + roleId +
+                ", roleName='" + roleName + '\'' +
+                '}';
+                
+    }
 }

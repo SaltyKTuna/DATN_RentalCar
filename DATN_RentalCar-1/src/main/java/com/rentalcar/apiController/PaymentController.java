@@ -274,6 +274,7 @@ public class PaymentController {
 
 		String redirectUrl = "http://localhost:8080/success?apptransid=" + txnRef;
 		response.sendRedirect(redirectUrl);
+		
 	}
 	
 	@PostMapping("/zalo-pay/callback")
