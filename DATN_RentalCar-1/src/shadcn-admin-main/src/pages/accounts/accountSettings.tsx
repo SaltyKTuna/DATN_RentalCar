@@ -46,6 +46,30 @@ const UPLOAD_URL = "http://localhost:8080/api/uploadImg";
 const BASE_URL = "http://localhost:8080";
 const BASE_IMAGE_URL = `${BASE_URL}/assets/images/account/`;
 
+const Pagination: React.FC<{ currentPage: number; totalPages: number; onPageChange: (page: number) => void }> = ({ currentPage, totalPages, onPageChange }) => {
+    const handlePageClick = (page: number) => {
+        if (page >= 0 && page < totalPages) {
+            onPageChange(page);
+        }
+    };
+
+    return (
+        <div className="flex justify-center space-x-2 mt-4">
+            <Button onClick={() => handlePageClick(currentPage - 1)} disabled={currentPage === 0}>
+                Previous
+            </Button>
+            {Array.from({ length: totalPages }, (_, index) => (
+                <Button key={index} onClick={() => handlePageClick(index)} variant={index === currentPage ? "solid" : "outline"}>
+                    {index + 1}
+                </Button>
+            ))}
+            <Button onClick={() => handlePageClick(currentPage + 1)} disabled={currentPage === totalPages - 1}>
+                Next
+            </Button>
+        </div>
+    );
+};
+
 const AccountSettings: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [formData, setFormData] = useState<Account>({
@@ -85,10 +109,10 @@ const AccountSettings: React.FC = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const fetchAccounts = async () => {
+  const fetchAccounts = async (page: number, size: number) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}?page=${currentPage}&size=${itemsPerPage}`);
+      const response = await axios.get(`${API_URL}?page=${page}&size=${size}`);
       setAccounts(response.data.content);
       setTotalPages(response.data.totalPages);
       setCurrentPage(response.data.number);
@@ -115,7 +139,7 @@ const AccountSettings: React.FC = () => {
         ...accountData,
         imageUrl: accountData.imageUrl ? accountData.imageUrl.split('/').pop() : "user.jpg"
       });
-      await fetchAccounts(); //refresh account list after creation.
+      await fetchAccounts(currentPage, itemsPerPage); //refresh account list after creation.
       showNotification("Thêm mới tài khoản thành công", "success");
       handleClearForm();
     } catch (error) {
@@ -132,7 +156,7 @@ const AccountSettings: React.FC = () => {
         ...accountData,
         imageUrl: accountData.imageUrl || "user.jpg"
       });
-      await fetchAccounts(); //refresh account list after update.
+      await fetchAccounts(currentPage, itemsPerPage); //refresh account list after update.
       showNotification("Cập nhật tài khoản thành công", "success");
       handleClearForm();
     } catch (error) {
@@ -146,7 +170,7 @@ const AccountSettings: React.FC = () => {
     setLoading(true);
     try {
       await axios.delete(`${API_URL}/${accountId}`);
-      await fetchAccounts(); //refresh account list after delete.
+      await fetchAccounts(currentPage, itemsPerPage); //refresh account list after delete.
       showNotification("Xóa tài khoản thành công", "success");
     } catch (error) {
       showNotification(`Lỗi khi xóa tài khoản: ${error.message}`, "error");
@@ -231,6 +255,7 @@ const AccountSettings: React.FC = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    fetchAccounts(page, itemsPerPage);
   };
 
   const showNotification = (message: string, type: "success" | "error") => {
@@ -241,7 +266,7 @@ const AccountSettings: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchAccounts();
+    fetchAccounts(currentPage, itemsPerPage);
     fetchRoles();
   }, [currentPage]);
 
@@ -480,7 +505,7 @@ const AccountSettings: React.FC = () => {
                 </tbody>
               </table>
             </div>
-            {/* Pagination (removed for brevity) */}
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
           </CardContent>
         </Card>
       </div>
