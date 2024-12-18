@@ -104,13 +104,7 @@ export const sidelinks: SideLink[] = [
         label: '',
         href: '/account-customer',
         icon: <IconHexagonNumber1 size={18} />,
-      },
-      {
-        title: 'Lịch Sử',
-        label: '',
-        href: '/sign-in-2',
-        icon: <IconHexagonNumber2 size={18} />,
-      },
+      }
     ],
   },
   {
@@ -124,19 +118,7 @@ export const sidelinks: SideLink[] = [
         label: '',
         href: '/payment',
         icon: <IconHexagonNumber1 size={18} />,
-      },
-      {
-        title: 'Doanh Thu',
-        label: '',
-        href: '/sign-in-2',
-        icon: <IconHexagonNumber2 size={18} />,
-      },
-      {
-        title: 'Báo Cáo',
-        label: '',
-        href: '/sign-up',
-        icon: <IconHexagonNumber3 size={18} />,
-      },
+      }
     ],
   },
   {
@@ -175,12 +157,6 @@ export const sidelinks: SideLink[] = [
         title: 'Bằng Lái',
         label: '',
         href: '/drivingLicense',
-        icon: <IconBoxSeam size={18} />,
-      },
-      {
-        title: 'Phân Quyền',
-        label: '',
-        href: '/extra-components',
         icon: <IconBoxSeam size={18} />,
       },
     ],
