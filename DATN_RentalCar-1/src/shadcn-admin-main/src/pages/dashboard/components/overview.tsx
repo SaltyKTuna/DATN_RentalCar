@@ -47,14 +47,17 @@ export function Overview() {
   }, []);
 
   return (
-    <div>
+    <div> 
       <h2>Tổng số tiền: {totalAmount.toLocaleString('vi-VN')} VND</h2>
       <ResponsiveContainer width='100%' height={450}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" /> {/* Đường phân cách */}
           <XAxis dataKey='name' stroke='#888888' fontSize={10} tickLine={false} axisLine={false} />
           <YAxis stroke='#888888' fontSize={10} tickLine={false} axisLine={false} tickFormatter={(value) => `${value.toLocaleString('vi-VN')} VND`} />
-          <Tooltip formatter={(value: number) => [`${value.toLocaleString('vi-VN')} VND`, 'Tổng doanh thu']} /> {/* Hiển thị tooltip */}
+          <Tooltip 
+            formatter={(value: number) => [`${value.toLocaleString('vi-VN')} VND`, 'Tổng doanh thu']} 
+            contentStyle={{ backgroundColor: '#333', color: '#fff' }}
+          /> {/* Hiển thị tooltip */}
           <Bar dataKey='total' fill='currentColor' radius={[4, 4, 0, 0]} className='fill-primary' />
         </BarChart>
       </ResponsiveContainer>
