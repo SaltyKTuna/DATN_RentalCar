@@ -20,34 +20,8 @@
 
 <body>
   <!-- header -->
-  <header>
-    <div class="container">
-      <div class="header-layout">
-        <a href="index.html" id="logo">
-          <img src="./assets/images/others/Logo.png" alt="" />
-        </a>
-        <ul class="menu-list">
-          <li><a href="#!">Về Chúng Tôi</a></li>
-          <li><a href="#!">Hổ Trợ</a></li>
-          <li><a href="#!">Khuyến Mãi</a></li>
-          <div class="menu-line"></div>
-          <li><a href="rigister.html">Đăng ký</a></li>
-          <li><a href="Login.html" class="border">Đăng nhập</a></li>
-        </ul>
-        <div class="menu-mobile">
-          <div class="wrap-svg tab-menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 6H19" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-              <path d="M5 18H19" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              </path>
-              <path d="M5 12H19" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              </path>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+  <header th:replace="~{module/header :: header}"></header>
+
     <div class="aboutus-head space sec">
       <div class="m-container two-columns">
         <div class="column left-column">

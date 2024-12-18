@@ -179,7 +179,7 @@
 					<p>No cars available</p>
 				</div>
 
-				<div th:each="motorbike, iterStat : ${motorbikes}" th:if="${iterStat.index < 8}" class="product-item">
+				<div th:each="motorbike, iterStat : ${motorbikes}" th:if="${iterStat.index < 8}" class="product-item"style=" height: 300px; margin-bottom: 200px;">
 					<a th:href="@{'/motorbike/detail/' + ${motorbike.motorbikeId}}" class="product-link">
 						<div class="product-img">
 							<img th:src="@{'/assets/images/motorbike/' + ${#strings.arraySplit(motorbike.imageUrl, ',')[0]}}" alt="" />
